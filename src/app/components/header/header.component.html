@@ -31,11 +31,9 @@
                             <a mat-button (click)="signOut()">Logout</a>
                         </button>
                     </mat-menu>
-                    
+                    <a mat-button [routerLink]="['wishlist']"><i class="fa fa-heart"></i><span>Wishlist</span></a>
+                    <a mat-button [routerLink]="['checkout']"><i class='fa fa-check-square-o'></i><span>Checkout</span></a>
                 </ng-container>
-                <a mat-button [routerLink]="['wishlist']"><i class="fa fa-heart"></i><span>Wishlist</span></a>
-                <a mat-button [routerLink]="['checkout']"><i
-                        class='fa fa-check-square-o'></i><span>Checkout</span></a>
             </div>
         </mat-toolbar-row>
 
@@ -90,13 +88,13 @@
                     <button mat-button [matMenuTriggerFor]="deals" #clickHoverMenuTrigger="matMenuTrigger">Deals</button>
                 <mat-menu #deals="matMenu">
                     <button mat-menu-item>
-                        <a mat-button > flash deals</a>
+                        <a mat-button [routerLink]="['/dealslist/f']"> flash deals</a>
                     </button>
                     <button mat-menu-item>
-                        <a mat-button >hot deals</a>
+                        <a mat-button [routerLink]="['/dealslist/h']">hot deals</a>
                     </button>
                     <button mat-menu-item>
-                        <a mat-button >Today Deals</a>
+                        <a mat-button [routerLink]="['/dealslist/t']">Today Deals</a>
                     </button>
                 </mat-menu>
                     <button mat-button>Coupons</button>

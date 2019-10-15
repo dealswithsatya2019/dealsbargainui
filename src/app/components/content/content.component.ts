@@ -140,8 +140,8 @@ openShare(event : any) {
   const dialogConfig = new MatDialogConfig();
   dialogConfig.closeOnNavigation = true;
   dialogConfig.autoFocus = true;
-  dialogConfig.width = '200px';
-  dialogConfig.height = '200px';
+  dialogConfig.width = '150px';
+  dialogConfig.height = '150px';
   let x = event.x-50;
   let y = event.y-50;
   dialogConfig.position = {left:x+'px',top:y+"px"};

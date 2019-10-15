@@ -23,12 +23,12 @@
         </mat-form-field>
 
         <mat-form-field floatLabel="never" class="w-100">
-            <input formControlName="" matInput placeholder="Password*" >
+            <input formControlName="password" matInput placeholder="Password*" >
             <mat-error>This field is mandatory</mat-error>
         </mat-form-field>
 
         <mat-form-field floatLabel="never" class="w-100">
-            <input formControlName="" matInput placeholder="Mobile No*" >
+            <input formControlName="mobileno" matInput placeholder="Mobile No*" >
             <mat-error>This field is mandatory</mat-error>
         </mat-form-field>
                 
@@ -36,7 +36,7 @@
 </form>
 
 <div class="login-links mt-4">
-    Already have an account?<a href="#">Log In</a>
+    Already have an account?<a mat-button (click)="funSignIn()">Log In</a>
 </div>
 <!-- <p style="color: green;">Need Help ?</p>
 <div class="policy"> By signing up or logging in, you aggree to the offerUp

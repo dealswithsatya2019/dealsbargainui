@@ -70,7 +70,7 @@ export function ProvideConfig() {
     SocialshareComponent,
     SignupComponent
   ],
-  entryComponents:[LoginComponent,SocialshareComponent],
+  entryComponents:[LoginComponent,SignupComponent,SocialshareComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

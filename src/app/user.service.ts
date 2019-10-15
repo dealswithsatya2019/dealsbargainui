@@ -13,6 +13,8 @@ export class UserService {
   form: FormGroup = new FormGroup({
     $key: new FormControl(null),
     name: new FormControl('', [Validators.required,Validators.email]),
+    password: new FormControl(null),
+    mobileno: new FormControl(null)
   });
 
   initializeFormGroup() {

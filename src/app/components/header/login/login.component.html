@@ -23,7 +23,7 @@
         </mat-form-field>
 
         <mat-form-field floatLabel="never" class="w-100">
-            <input formControlName="" matInput placeholder="Password*" >
+            <input formControlName="password" matInput placeholder="Password*" >
             <mat-error>This field is mandatory</mat-error>
         </mat-form-field>
                 
@@ -33,7 +33,7 @@
 <div class="login-links mt-4">
     <a href="#">Recover password</a>
     <div class="right-link float-right">
-        New to Deals?<a href="#!"> Sign Up</a>
+            New to Deals?<a mat-button (click)="funSignUp()">Sign Up</a>
     </div>
 </div>
 <!-- <p style="color: green;">Need Help ?</p>
