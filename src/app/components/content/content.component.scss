@@ -1,0 +1,239 @@
+.menu-toolbar{
+  background-color: #fff;
+  height: auto;
+  padding: 10px 30px 0px 30px;
+  align-items: end;
+  .sidenav{
+    flex: 1 1 100%;
+    box-sizing: border-box;
+  min-width: 220px;
+  max-width: 220px;
+  height: 326px;
+  overflow: auto;
+  border: 1px solid #ff9600;
+  }
+ 
+  .search{flex: 1 1 0%;
+    padding-top: 0.5rem;
+    max-width: calc(100% - 450px);
+    @media screen and (max-width:768px){
+      max-width: calc(100% - 230px);
+    }
+    @media screen and (max-width:768px){
+      max-width: 100%;
+    }
+    mat-form-field{
+      width: 100%;border: 1px solid #ccc;
+      max-height: 39px;
+    }
+  }
+  .ads{
+      flex: 1 1 100%;max-width:230px;
+      min-width:230px;
+      height: 326px;border: 1px solid #ccc;
+      position: relative;
+      p {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        text-align: center;
+        left: 50%;
+        font-size: 26px;
+      }
+  }
+  
+}
+.banner-container{
+  height: 320px;width: 100%;
+}
+p{margin: 0px;}
+
+.swiper-container, .swiper-wrapper{
+  background-color: transparent;
+}
+
+.banner-container,.product {
+  .item-card, .swiper-slide{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    min-width: 280px;
+    max-width: 300px !important;
+    .offer-badge{
+      position: absolute;
+      top: 20px;right: 20px;
+      border-radius: 50%;
+      width: 40px;height: 40px;
+      line-height: 34px;
+      background-color: #dd300d;
+      color: #fff;
+      text-align: center;
+    }
+    .product-img {
+      width: 150px;
+      height:150px;
+      display: block;
+      margin: auto;
+    }
+    .p-title{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin: 8px 0px;
+      font-size: 15px;
+    }
+    .p-cost{
+      // border-bottom: 2px solid #f7f7f7;
+      padding-bottom: 8px;
+    }
+    .cart-btn{
+      background-color: #ff9600;
+      color: #fff;
+      padding: 0px 7px;line-height: 30px;
+      display: block;
+      margin: auto;
+    }
+    mat-card-actions{
+      display: block;
+      border-top: 2px solid #f7f7f7;
+      margin-top: 10px;
+    }
+    .action-btns{
+      min-width: 32px;padding: 0px;
+      i{color: #7f7979;}
+    }
+  }
+}
+.product{
+  mat-card{
+    max-width: 280px;
+    position: relative;
+  }
+}
+
+.deal-timer{
+  position: absolute;
+  left: -5px;
+  top: -3px;
+}
+.timerbadge{
+  color: #FFF !important;
+  background: #dd300d;
+  height: 18px;
+  white-space: nowrap;
+  padding: 3px 5px;
+  overflow: hidden;
+  font-size: 13px;
+}
+.timerbadge::after{
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 10px solid #dd300d;
+  border-left: 10px solid transparent;
+  position: absolute;
+  left: 0px;
+  bottom: -9px;
+}
+.swiper-button-next:after, .swiper-button-prev:after{
+  font-size: 14px;
+  color: #000;
+}
+.swiper-button-next, .swiper-button-prev{
+  width: 30px;height: 30px;
+  border-radius: 50%;
+  background-color: #ff9600;
+}
+.swiper-button-next{
+  right: 10px;
+}
+
+.bg{background-color: #f5f5f5;}
+.product img{
+  height: 150px;
+  object-fit: contain;
+}
+
+.margin-top-20{
+  margin-top:20px;
+} 
+
+.old_cost{
+  font-size: 14px;
+  margin-right: 8px;
+  text-decoration: line-through;
+  color: #686565;
+}
+.new_cost{
+  font-size: 17px;
+  color: #ff9600;
+  font-weight: 700;
+}
+.product{
+  flex-wrap: wrap;
+  mat-card{
+    margin-top: 10px;
+  }
+}
+.bannerline{
+  min-width: 100%;
+  text-align: center;
+  margin-bottom: 20px; /* same as fxLayoutGap for even distribution */
+}
+
+.banner-img{
+  height: 150px;
+  object-fit: contain;
+}
+
+.img-cursor{
+  cursor: pointer;
+  height: 100%;
+}
+.subtitle{
+  border-bottom: 2px solid #ccc;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  a{
+    text-decoration: none;
+    font-size: 16px;
+  }
+}
+.subtitle::after{
+  content: '';
+  position: absolute;
+  left: 0px;
+  bottom: -2px;
+  width: 100px;
+  height: 2px;
+  background-color: #ff9600;
+}
+
+.product{
+  .p-title{
+    height: 45px;
+    white-space: pre-wrap !important;
+    overflow: hidden !important;
+  }
+}
+@media screen and (max-width:991px){
+  
+}
+@media screen and (max-width:768px){
+  .menu-toolbar{
+    padding: 10px 10px 0px 10px;
+    .sidenav{
+      display: none;
+    }
+  }
+}
+@media screen and (max-width:575px){
+ .menu-toolbar{
+   display: inline-block;
+   .ads{
+     max-width: 100%;
+     margin-top: 10px;
+   }
+ }
+}

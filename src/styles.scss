@@ -1,0 +1,113 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~bootstrap/dist/css/bootstrap.css";
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,900&display=swap');
+
+body{
+    // background-color: #f7f7f7;
+    font-family: 'Roboto', sans-serif !important;
+}
+a, a:hover{
+    text-decoration: none;
+}
+.content-container{
+    padding: 0px 30px;
+}
+.fill-remaining-space{
+
+    flex: 1 1 auto;
+}
+
+.controles-container{
+    width: 100%;
+    padding: 5%;
+}
+
+.controles-container > * {
+    width: 100%;
+}
+
+.add-bottom-padding{
+    padding-bottom: 10px;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline{
+    height: 0px !important;
+    display: none;
+}
+.search .mat-form-field-appearance-legacy .mat-form-field-wrapper{
+    padding-bottom: 0px !important;
+}
+.mat-form-field-appearance-legacy .mat-form-field-infix{
+    border: 0px !important;
+}
+.cdk-focused.cdk-mouse-focused{
+    outline: none;
+}
+.menu-toolbar mat-expansion-panel{
+    box-shadow: none !important;
+}
+.mat-expansion-indicator{
+    display: none;
+}
+.mat-expansion-panel-body{
+    a{
+      font-weight: 400;
+    }
+}
+.login-container .mat-form-field-flex{
+    margin-bottom: 5px;
+    border-bottom: 1px solid #666;
+}
+
+// ---------------- login-container  --------------------
+
+.login-container{
+    width: 320px;
+    margin: auto;
+    position: relative;
+}
+.login-title{
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+.login-container input{
+    font-size: 14px;
+}
+.login-info{
+    font-size: 14px;
+    font-weight: 300;
+}
+.fb-login{
+    margin-right: 10px;
+}
+.login-btn{
+    width: 48%;
+    padding: 6px 0px 6px 45px;
+    border: 1px solid #ccc;
+}
+.login-login-btn{
+    background-color: #ff9600 !important;
+    color: #fff !important;
+    letter-spacing: 1px;
+}
+.login-links{font-size: 13px;}
+.login-logo{position: absolute;left: 20px;top: 13px;width: 25px;}
+.policy{
+    font-size: 14px;
+    line-height: 25px;
+    margin-bottom: 20px;
+}
+.close-btn{
+    float: right;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    padding: 0px;
+}
+
+
+@media screen and (max-width:575px){
+    .content-container{padding: 0px 10px;}
+}

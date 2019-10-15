@@ -1,0 +1,71 @@
+.container{
+    overflow-y: hidden;
+    overflow-x: scroll;
+    margin: 20px;
+    padding: 0 ;
+  }
+  .productlistcontainer{
+    overflow-y: scroll;
+    overflow: hidden;
+    margin: 20px;
+    padding: 0 ;
+  }
+  
+  .product{
+    min-width: 100px;
+    text-align: center;
+    margin-bottom: 20px; /* same as fxLayoutGap for even distribution */
+  }
+  
+  .product img{
+    height: 150px;
+    object-fit: contain;
+  }
+  
+  .margin-top-20{
+    margin-top:20px;
+  } 
+  
+  .old_cost{
+    font-size: 14px;
+    margin-right: 8px;
+    text-decoration: line-through;
+    color: #686565;
+  }
+  .new_cost{
+    font-size: 17px;
+    color: #b90b1c;
+  }
+  
+  .banner_container{
+    overflow-y: hidden;
+    overflow-x: scroll;
+    margin: 30px;
+    padding: 0 ;
+  }
+  
+  .bannerline{
+    min-width: 100%;
+    text-align: center;
+    margin-bottom: 20px; /* same as fxLayoutGap for even distribution */
+  }
+  
+  .banner-img{
+    height: 150px;
+    object-fit: contain;
+  }
+  
+  .img-cursor{
+    cursor: pointer;
+  }
+
+  .example-viewport {
+    height: 400px;
+    width: 1530px;
+}
+  
+  .example-item {
+    height: 50px;
+    width: 1530px;
+    
+  }

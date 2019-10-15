@@ -1,0 +1,75 @@
+.payment-options{
+    width: 100%;
+    float: left;
+    color: #666;
+    border-top: 2px solid #c6c6c6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.get-in-touch{
+    line-height: 30px;
+    list-style-type: none;
+    color: #666;
+}
+.get-in-touch li{
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 24px;
+}
+.get-in-touch li::before{
+    position: absolute;
+    top: 2px;
+    left: 0px;
+    font-family: FontAwesome;
+    font-size: 16px;
+    color: #c6c6c6;
+}
+.location::before{
+    content: "\f041"; 
+}
+.mail::before{
+    content: "\f0e0"; 
+    font-size: 13px !important;
+}
+.phone::before{
+    content: "\f095"; 
+}
+.avail-payment img{
+    width: 65px;
+    height: 35px;
+    margin-right: 10px;
+}
+.foo-title{
+    position: relative;
+    margin-bottom: 27px;
+    color: #333;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.foo-title::after{
+    content: '';
+    position: absolute;
+    left: 0px;bottom: -8px;
+    width: 16%;
+    height: 2px;
+    background-color: #ff9600;
+}
+.foo-list li{
+    list-style-type: none;
+}
+.foo-list li::before{
+    content: "\f105"; /* FontAwesome Unicode */
+  font-family: FontAwesome;
+  display: inline-block;
+  margin-left: -1.3em; /* same as padding-left set on li */
+  width: 1em;
+  font-size: 14px;
+  color: #666;
+}
+.foo-list li a{
+    text-decoration: none;
+    color: #666;
+    line-height: 37px;
+    font-size: 14px;
+}

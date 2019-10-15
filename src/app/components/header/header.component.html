@@ -1,0 +1,112 @@
+
+    <mat-toolbar>
+        <mat-toolbar-row class="top-toolbar">
+            <div class="logo">
+                <img class="img-fluid img-cursor" mat-card-image src="../../assets/img/DealsBargain-Logo.png"
+                    alt="photo" (click)=gotoHomePage()>
+            </div>
+            <mat-form-field>
+                <input matInput value="search item here..." aria-label="State" [matAutocomplete]="auto" [formControl]="searchMoviesCtrl">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let hits of filteredMovies" [value]="hits._source.title">
+                        {{hits._source.title}}
+                    </mat-option>
+                </mat-autocomplete>
+                <button mat-button color="primary" class="search-btn" [routerLink]="['/productdetails/this.searchMoviesCtrl.value']"><i class="fa fa-search"></i></button>
+            </mat-form-field>
+            <button mat-button color="primary" class="search-btn d-block d-sm-none" [routerLink]="['/productdetails/this.searchMoviesCtrl.value']"><i class="fa fa-search"></i></button>
+            <div>
+                <a mat-button (click)="funSignIn()" *ngIf="!this.userservice.response"><i class="fa fa-unlock-alt"></i><span>Login & Signup</span></a>
+                <ng-container *ngIf="this.userservice.response">
+                    <button mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger"><i
+                            class="fa fa-user"></i><span>{{this.userservice.response.name}}</span></button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <a mat-button [routerLink]="['myprofile']"> Profile</a>
+                        </button>
+                        <button mat-menu-item>
+                            <a mat-button [routerLink]="['orders']">Orders</a>
+                        </button>
+                        <button mat-menu-item>
+                            <a mat-button (click)="signOut()">Logout</a>
+                        </button>
+                    </mat-menu>
+                    
+                </ng-container>
+                <a mat-button [routerLink]="['wishlist']"><i class="fa fa-heart"></i><span>Wishlist</span></a>
+                <a mat-button [routerLink]="['checkout']"><i
+                        class='fa fa-check-square-o'></i><span>Checkout</span></a>
+            </div>
+        </mat-toolbar-row>
+
+
+        <mat-toolbar-row class="info-toolbar">
+            <div class="info-bar w-100" fxlayout="row wrap"
+                style="flex-flow: row wrap; border:1px solid #ccc; display: flex;">
+                
+                <div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
+                    style="flex: 1 1 25%; box-sizing: border-box; max-width: 33.33%;">
+                    <mat-card _ngcontent-faj-c21="" class="light-block mat-card" fxlayout="row"
+                        fxlayoutalign="start center"
+                        style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
+                        <img src="../../assets/img/shipping.png">
+                        <div class="info-content">
+                            <p>FREE SHIPPING</p>
+                            <span class="text-muted m-0">Free shipping on all orders over $99</span>
+                        </div>
+                    </mat-card>
+                </div>
+                <div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
+                    style="flex: 1 1 25%; box-sizing: border-box; max-width: 33.33%;">
+                    <mat-card class="light-block mat-card" fxlayout="row" fxlayoutalign="start center"
+                        style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
+                        <img src="../../assets/img/time-left.png">
+                        <div class="info-content">
+                            <p>EASY RETURNS</p>
+                            <span class="text-muted m-0">30 Days money return guarantee</span>
+                        </div>
+                    </mat-card>
+                </div>
+                <div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
+                    style="flex: 1 1 25%; box-sizing: border-box; max-width: 33.33%;">
+                    <mat-card class="light-block mat-card" fxlayout="row" fxlayoutalign="start center"
+                        style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
+                        <img src="../../../assets/img/dollar-symbol.png">
+                        <div class="info-content">
+                            <p>SECURE PAYMENT</p>
+                            <span class="text-muted m-0">simple and secure payments</span>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </mat-toolbar-row>
+
+
+        <mat-toolbar-row class="search-toolbar">
+            <button mat-button class="menu-btn" (click)="toggleMenu()">
+                <i class="fa fa-align-left mr-2"></i> <span>All Categories</span>
+            </button>
+                <div class="search pl-3 position-relative">
+                    <button mat-button [matMenuTriggerFor]="deals" #clickHoverMenuTrigger="matMenuTrigger">Deals</button>
+                <mat-menu #deals="matMenu">
+                    <button mat-menu-item>
+                        <a mat-button > flash deals</a>
+                    </button>
+                    <button mat-menu-item>
+                        <a mat-button >hot deals</a>
+                    </button>
+                    <button mat-menu-item>
+                        <a mat-button >Today Deals</a>
+                    </button>
+                </mat-menu>
+                    <button mat-button>Coupons</button>
+                
+                
+            </div> 
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+<div class="sidemenu" *ngIf="menuFlag">
+    <!-- <button mat-raised-button color="warn" (click)="funClose()" class="close-btn"><i class="fa fa-close"></i></button> -->
+    <app-menu-bar></app-menu-bar>
+</div>

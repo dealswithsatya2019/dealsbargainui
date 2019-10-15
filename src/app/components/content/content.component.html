@@ -1,0 +1,111 @@
+
+<mat-toolbar-row class="menu-toolbar" >
+	<div class="sidenav">
+		<app-menu-bar></app-menu-bar>
+	</div>
+	<div class="search px-2 position-relative" style="background-color:#f5f5f5">
+
+		<div class="swiper-container banner-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide" *ngFor="let product of flashDeals; let i = index">
+					<mat-card>
+						<mat-card-subtitle>
+							<span class="badge offer-badge">{{product.discount}}</span>
+						</mat-card-subtitle>
+						<div class="product-img">
+							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails()">
+						</div>
+						<mat-card-content class="product-desc">
+							<p class="p-title">
+								{{product.item_name}}
+							</p>
+							<p class="p-cost">
+								<span class="old_cost">${{product.price}}</span>
+								<span class="new_cost">${{product.deal_price}}</span>
+							</p>
+							<button mat-button class="cart-btn">Add to Cart</button>
+						</mat-card-content>
+						<mat-card-actions>
+							<!-- <button mat-button class="action-btns"><i class="fa fa-thumbs-up"></i></button> -->
+							<button mat-button class="action-btns"><i class="fa fa-heart"></i></button>
+							<button mat-button class="action-btns" (click)="openShare($event)"><i class="fa fa-share-alt"></i></button>
+						</mat-card-actions>
+					</mat-card>
+				</div>
+			</div>
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+		</div>
+	</div>
+	<div class="ads">
+		<p>Google <br>ads</p>
+	</div> 
+</mat-toolbar-row>
+
+<div class="content-container">
+	<!-- hotdeals -->
+	<h5 class="subtitle position-relative">HOT DEALS <a [routerLink]="['/dealslist/h']" class="pl-3">VIEW ALL</a></h5>
+
+	<div *ngIf="hotDeals">
+		<div class="product" fxLayout="row" fxLayoutGap="20px">
+			<mat-card class="item-card" *ngFor="let product of hotDeals; let i = index">
+				<div class="deal-timer">
+					<span class="timerbadge">2 Days Left</span>
+				</div>
+				<mat-card-subtitle>
+					<span class="badge offer-badge">{{product.discount}}</span>
+				</mat-card-subtitle>
+				<div class="product-img">
+					<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails()">
+				</div>
+				<mat-card-content class="product-desc">
+					<p class="p-title">
+						{{product.item_name}}
+					</p>
+					<p class="p-cost">
+						<span class="old_cost">${{product.price}}</span>
+						<span class="new_cost">${{product.deal_price}}</span>
+					</p>
+					<button mat-button class="cart-btn">Add to Cart</button>
+				</mat-card-content>
+				<mat-card-actions>
+					<button mat-button><i class="fa fa-heart"></i></button>
+					<button mat-button (click)="openShare($event)"><i class="fa fa-share-alt"></i></button>
+				</mat-card-actions>
+			</mat-card>
+		</div>
+	</div>
+	<!-- hotdeals end-->
+
+	<!-- Today deals -->
+	<h5 class="subtitle position-relative">TODAY's DEALS <a [routerLink]="['/dealslist/t']" class="pl-3" >VIEW ALL</a></h5>
+	<div *ngIf="todayDeals">
+		<div class="product" fxLayout="row" fxLayoutGap="20px">
+			<mat-card class="item-card" *ngFor="let product of todayDeals; let i = index">
+				<mat-card-subtitle>
+					<span class="badge offer-badge">{{product.discount}}</span>
+				</mat-card-subtitle>
+				<div class="product-img">
+					<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails()">
+				</div>
+				<mat-card-content class="product-desc">
+					<p class="p-title">
+						{{product.item_name}}
+					</p>
+					<p class="p-cost">
+						<span class="old_cost">${{product.price}}</span>
+						<span class="new_cost">${{product.deal_price}}</span>
+					</p>
+					<button mat-button class="cart-btn">Add to Cart</button>
+				</mat-card-content>
+				<mat-card-actions>
+					<button mat-button class="action-btns"><i class="fa fa-thumbs-up"></i></button>
+					<button mat-button><i class="fa fa-heart"></i></button>
+					<button mat-button (click)="openShare($event)"><i class="fa fa-share-alt"></i></button>
+				</mat-card-actions>
+			</mat-card>
+		</div>
+	</div>
+	<!-- Today deals end -->
+	
+</div>

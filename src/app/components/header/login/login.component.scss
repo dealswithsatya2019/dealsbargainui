@@ -1,0 +1,44 @@
+.login-container{
+    width: 320px;
+    margin: auto;
+}
+.login-title{
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+input{
+    font-size: 14px;
+}
+.login-info{
+    font-size: 14px;
+    font-weight: 300;
+}
+.fb-login{
+    margin-right: 10px;
+}
+.login-btn{
+    width: 48%;
+    padding: 6px 0px 6px 45px;
+    border: 1px solid #ccc;
+}
+.login-login-btn{
+    background-color: #ff9600 !important;
+    color: #fff !important;
+    letter-spacing: 1px;
+}
+.login-links{font-size: 13px;}
+.login-logo{position: absolute;left: 20px;top: 13px;width: 25px;}
+.policy{
+    font-size: 14px;
+    line-height: 25px;
+    margin-bottom: 20px;
+}
+.close-btn{
+    float: right;
+    min-width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    text-align: center;
+    padding: 0px;
+    line-height: 25px;
+}

@@ -1,0 +1,20 @@
+<div *ngIf="hotDeals">
+    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+            <mat-card fxFlex="0 1 calc(100% - 20px)" *cdkVirtualFor="let product of hotDeals; let i = index"
+                class="product" fxLayout="column">
+                <mat-card-subtitle>
+                    <span class="badge badge-danger">{{product.discount}}</span>
+                </mat-card-subtitle>
+                <img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo">
+                <mat-card-content>
+                    <p>{{product.item_name}}</p>
+                    <span class="old_cost">${{product.price}}</span>
+                    <span class="new_cost">${{product.deal_price}}</span>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button>LIKE</button>
+                    <button mat-button (click)="openShare($event)">SHARE</button>
+                </mat-card-actions>
+            </mat-card>
+    </cdk-virtual-scroll-viewport>
+</div>

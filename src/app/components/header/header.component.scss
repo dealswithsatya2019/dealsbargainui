@@ -1,0 +1,213 @@
+:host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 8px 0;
+  }
+  
+  p {
+    margin: 0;
+  }
+  
+  .spacer {
+    flex: 1;
+  }
+  .top-toolbar{
+    justify-content: space-between;
+    background-color: #e5e5e5 !important;
+    height: auto;
+    padding: 5px 30px;
+    mat-form-field{
+      margin-left: 1rem;
+      width: 50%;border: 1px solid #ccc;
+      background-color: #fff;
+      max-height: 39px;font-size:16px;
+      .search-btn{
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        min-width: 35px;
+        background: #ff9600;
+        color: #fff;height: 37px;
+        @media screen and (max-width:575px){
+          display: inline-block;
+        }
+      }
+      @media screen and (max-width:575px){
+        display: none;
+      }
+    }
+    
+    a{
+      color: #333;
+    }
+    .mat-button{padding: 0px 10px;
+      vertical-align: middle;
+      line-height: 22px;
+      font-size: 13px;
+      i{display: block;}
+      .mat-button-ripple{display: none;}
+    }
+    .logo{
+      flex: 1 1 100%;max-width:120px; 
+    }
+  }
+  .info-toolbar{height: auto;
+    padding: 10px 30px 10px 30px;
+    background: #fff;
+
+    .mat-card{
+      padding: 15px 10px;
+      box-shadow: none;
+      position: relative;
+      &::after{
+        content: '';
+        position: absolute;
+        right: 0px;;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 40px;
+        width: 1px;
+        background-color: #dddbda;
+      }
+      img{
+        width: 35px;margin-right: 15px;
+      }
+      .info-content{
+        font-size: 13px;
+        line-height: 21px;
+      }
+    }
+  }
+  
+  app-menu-bar{
+    width: 250px;
+  }
+
+  .search-toolbar{
+    background-color: #fff;
+    height: auto;
+    padding: 10px 30px 0px 30px;
+    align-items: end;
+    .sidenav{
+      min-width: 200px;
+    }
+    .menu-btn{
+      min-width: 220px;
+      max-width: 220px;
+      padding: 0px;text-transform: uppercase;
+      border: 1px solid #ff9600;
+    } 
+    
+  
+    .search{flex: 1 1 0%;
+      display: flex;max-width:calc(100% - 380px);
+      justify-content: left;
+      
+      mat-form-field{
+        margin-left: 1rem;
+        width: 60%;border: 1px solid #ccc;
+        max-height: 39px;font-size:16px;
+        .search-btn{
+          position: absolute;
+          right: 0px;
+          top: 0px;
+          min-width: 35px;
+          background: #ff9600;
+          color: #fff;
+        }
+      }
+     
+    }
+  }
+  
+  .sidemenu{
+    width: 250px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    z-index: 999;
+    display: none;
+    background-color: #fff;
+  }
+  @media screen and (max-width: 991px) {
+    .search-toolbar{
+      .search{
+        max-width: 100%;
+      }
+    }
+    
+  }
+
+  @media screen and (max-width: 768px) {
+    .sidemenu{
+      display: block;
+    }
+    .top-toolbar{padding: 5px 10px;}
+    .info-toolbar{
+      padding: 10px;
+    }
+    .search-toolbar{
+      padding: 10px 10px 0px 10px;
+      .search{
+        width: 100%;
+      }
+   
+      .menu-btn {
+        span{display: none;}
+        max-width: 40px;
+        min-width: 40px;
+      }
+    }
+
+    .info-div{
+      // max-width: 50% !important;
+      mat-card{padding: 6px 10px;
+        img{width: 20px !important;}
+        .info-content{
+          p{font-size: 11px;}
+          span{display: none;}
+        &::after{display: none;}
+      }
+      
+    }
+    
+  }
+  
+  @media screen and (max-width: 575px) {
+    .top-toolbar{
+      .logo{max-width: 20%;}
+      .mat-button{
+        min-width: 30px;
+        span{display: none;}
+      }
+    }
+    .search-toolbar{
+      .search{
+        justify-content: space-between;
+        mat-form-field{width: 36px;}
+      }
+    }
+    .cart{
+      span{display: none;}
+    }
+    mat-card{
+      img{display: none;}
+    }
+    
+     
+  }
+}
+  
