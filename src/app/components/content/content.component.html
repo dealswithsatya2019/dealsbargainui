@@ -20,8 +20,8 @@
 								{{product.item_name}}
 							</p>
 							<p class="p-cost">
-								<span class="old_cost">${{product.price}}</span>
-								<span class="new_cost">${{product.deal_price}}</span>
+								<span class="old_cost">{{product.price}}</span>
+								<span class="new_cost">{{product.deal_price}}</span>
 							</p>
 							<button mat-button class="cart-btn">Add to Cart</button>
 						</mat-card-content>
@@ -44,9 +44,9 @@
 
 <div class="content-container">
 	<!-- hotdeals -->
-	<h5 class="subtitle position-relative">HOT DEALS <a [routerLink]="['/dealslist/h']" class="pl-3">VIEW ALL</a></h5>
-
+	
 	<div *ngIf="hotDeals">
+		<h5 class="subtitle position-relative">HOT DEALS <a [routerLink]="['/dealslist/h']" class="pl-3">VIEW ALL</a></h5>
 		<div class="product" fxLayout="row" fxLayoutGap="20px">
 			<mat-card class="item-card" *ngFor="let product of hotDeals; let i = index">
 				<div class="deal-timer">
@@ -63,8 +63,8 @@
 						{{product.item_name}}
 					</p>
 					<p class="p-cost">
-						<span class="old_cost">${{product.price}}</span>
-						<span class="new_cost">${{product.deal_price}}</span>
+						<span class="old_cost">{{product.price}}</span>
+						<span class="new_cost">{{product.deal_price}}</span>
 					</p>
 					<button mat-button class="cart-btn">Add to Cart</button>
 				</mat-card-content>
@@ -78,8 +78,8 @@
 	<!-- hotdeals end-->
 
 	<!-- Today deals -->
-	<h5 class="subtitle position-relative">TODAY's DEALS <a [routerLink]="['/dealslist/t']" class="pl-3" >VIEW ALL</a></h5>
 	<div *ngIf="todayDeals">
+		<h5 class="subtitle position-relative">TODAY's DEALS <a [routerLink]="['/dealslist/t']" class="pl-3" >VIEW ALL</a></h5>
 		<div class="product" fxLayout="row" fxLayoutGap="20px">
 			<mat-card class="item-card" *ngFor="let product of todayDeals; let i = index">
 				<mat-card-subtitle>
@@ -93,8 +93,8 @@
 						{{product.item_name}}
 					</p>
 					<p class="p-cost">
-						<span class="old_cost">${{product.price}}</span>
-						<span class="new_cost">${{product.deal_price}}</span>
+						<span class="old_cost">{{product.price}}</span>
+						<span class="new_cost">{{product.deal_price}}</span>
 					</p>
 					<button mat-button class="cart-btn">Add to Cart</button>
 				</mat-card-content>
