@@ -1,1 +1,30 @@
-<p>profile works!</p>
+<mat-grid-list cols="3" rowHeight="300px" gutterSize="50px">
+    <!--<mat-grid-tile *ngFor="let tile of tiles" 
+    [colspan]="tile.cols" [rowspan]="tile.rows" [style.border]="tile.border">
+        <img src="./assets/Dotnettricks.png">
+        <mat-grid-tile-header>
+            <h3></h3>
+            </mat-grid-tile-heade>[style.border]= '3px double gray'
+    </mat-grid-tile>-->
+    <mat-grid-title [colspan]="1" [rowspan]="1" >
+        <img src="http://img1a.flixcart.com/www/linchpin/fk-cp-zion/img/profile-pic-male_2fd3e8.svg">hello, 
+        {{this.userservice.response.name}}
+    </mat-grid-title>
+    <mat-grid-title [colspan]="1" [rowspan]="3" >
+        <form [formGroup]="userservice.form" class="normal-form" (submit)="funUpdate()">
+            
+                <mat-grid-tile>
+                    <input type="hidden" formControlName="$key">
+                    <div class="container">
+                        <mat-form-field>
+                            <input formControlName="name" matInput placeholder="Or use your email address *">
+                            <mat-error>This field is mandatory</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <button mat-raised-button type="submit" color="primary" [disabled]="userservice.form.invalid">Sign Up </button>
+                    </div>
+                </mat-grid-tile>
+            
+        </form>
+    </mat-grid-title>
+</mat-grid-list>

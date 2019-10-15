@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-landing',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppLandingComponent implements OnInit {
 
-  constructor() { }
+  constructor(public userservice : UserService) { }
 
   ngOnInit() {
+    let sessioninfo =  sessionStorage.getItem("f_login_form");
+    this.userservice.response = sessioninfo;
+        
   }
 
 }

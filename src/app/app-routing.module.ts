@@ -10,6 +10,7 @@ import { WishlistComponent } from 'src/app/components/user/wishlist/wishlist.com
 import { OrdersComponent } from 'src/app/components/user/orders/orders.component';
 import { CheckoutComponent } from 'src/app/components/user/checkout/checkout.component';
 import { DealslistComponent } from 'src/app/components/content/dealslist/dealslist.component';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 
 const routes: Routes = [
@@ -28,32 +29,42 @@ const routes: Routes = [
   },
   {
     path: AppRoutes.UserProfile,
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [AuthGuard] ,
+    data: { 
+      datepropsample: 'datavaluesample'
+    } 
   },
   {
     path: AppRoutes.UserWhishlist,
-    component: WishlistComponent
+    component: WishlistComponent,
+    canActivate: [AuthGuard] 
   },
   {
     path: AppRoutes.UserOrders,
-    component: OrdersComponent
+    component: OrdersComponent,
+    canActivate: [AuthGuard] 
   },
   {
     path: AppRoutes.UserCheckout,
-    component: CheckoutComponent
+    component: CheckoutComponent,
+    canActivate: [AuthGuard] 
   },
   {
     path: AppRoutes.ProductList,
-    component: ProductlistComponent
+    component: ProductlistComponent,
+    canActivate: [AuthGuard] 
   },
   
   {
     path: AppRoutes.ProductDetails,
-    component: ProductdetailsComponent
+    component: ProductdetailsComponent,
+    canActivate: [AuthGuard] 
   },
   {
     path: AppRoutes.DealsList,
-    component: DealslistComponent
+    component: DealslistComponent,
+    canActivate: [AuthGuard] 
   }
 ];
 

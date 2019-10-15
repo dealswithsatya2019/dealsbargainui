@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
       (response) => {
         this.funClose();
         this.userservice.response = response;
+        sessionStorage.setItem("f_login_form", JSON.stringify(response));
       }
     );
   }
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
       (response) => {
         this.funClose();
         this.userservice.response = response;
+        sessionStorage.setItem("f_login_form", JSON.stringify(response));
       }
     );
   } 
