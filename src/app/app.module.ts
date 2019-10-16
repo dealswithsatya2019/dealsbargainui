@@ -29,6 +29,20 @@ import { SocialshareComponent } from './components/content/socialshare/socialsha
 import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SignupComponent } from './components/header/signup/signup.component';
+import { AboutusComponent } from './components/footer/aboutus.component';
+import { MarketreviewsComponent } from './components/footer/marketreviews.component';
+import { TermsofuseComponent } from './components/footer/termsofuse.component';
+import { PrivacypolicyComponent } from './components/footer/privacypolicy.component';
+import { SitemapComponent } from './components/footer/sitemap.component';
+import { ShippingpolicyComponent } from './components/footer/shippingpolicy.component';
+import { CompensationComponent } from './components/footer/compensation.component';
+import { ReturnpolicyComponent } from './components/footer/returnpolicy.component';
+import { ContactusComponent } from './components/footer/contactus.component';
+import { PaymentmethodsComponent } from './components/footer/paymentmethods.component';
+import { ShippingguideComponent } from './components/footer/shippingguide.component';
+import { LocationweshiptoComponent } from './components/footer/locationweshipto.component';
+import { EstimateddeliverytimeComponent } from './components/footer/estimateddeliverytime.component';
+import { MyaccountComponent } from './components/footer/myaccount.component';
 
 
 
@@ -68,7 +82,21 @@ export function ProvideConfig() {
     CheckoutComponent,
     DealslistComponent,
     SocialshareComponent,
-    SignupComponent
+    SignupComponent,
+    AboutusComponent,
+    MarketreviewsComponent,
+    TermsofuseComponent,
+    PrivacypolicyComponent,
+    SitemapComponent,
+    ShippingpolicyComponent,
+    CompensationComponent,
+    ReturnpolicyComponent,
+    ContactusComponent,
+    PaymentmethodsComponent,
+    ShippingguideComponent,
+    LocationweshiptoComponent,
+    EstimateddeliverytimeComponent,
+    MyaccountComponent
   ],
   entryComponents:[LoginComponent,SignupComponent,SocialshareComponent],
   imports: [

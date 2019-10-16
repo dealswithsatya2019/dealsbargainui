@@ -11,6 +11,20 @@ import { OrdersComponent } from 'src/app/components/user/orders/orders.component
 import { CheckoutComponent } from 'src/app/components/user/checkout/checkout.component';
 import { DealslistComponent } from 'src/app/components/content/dealslist/dealslist.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { AboutusComponent } from './components/footer/aboutus.component';
+import { MarketreviewsComponent } from './components/footer/marketreviews.component';
+import { TermsofuseComponent } from './components/footer/termsofuse.component';
+import { PrivacypolicyComponent } from './components/footer/privacypolicy.component';
+import { SitemapComponent } from './components/footer/sitemap.component';
+import { ShippingpolicyComponent } from './components/footer/shippingpolicy.component';
+import { CompensationComponent } from './components/footer/compensation.component';
+import { ReturnpolicyComponent } from './components/footer/returnpolicy.component';
+import { ContactusComponent } from './components/footer/contactus.component';
+import { PaymentmethodsComponent } from './components/footer/paymentmethods.component';
+import { ShippingguideComponent } from './components/footer/shippingguide.component';
+import { LocationweshiptoComponent } from './components/footer/locationweshipto.component';
+import { EstimateddeliverytimeComponent } from './components/footer/estimateddeliverytime.component';
+import { MyaccountComponent } from './components/footer/myaccount.component';
 
 
 const routes: Routes = [
@@ -65,6 +79,63 @@ const routes: Routes = [
     path: AppRoutes.DealsList,
     component: DealslistComponent,
     canActivate: [AuthGuard] 
+  },
+  {
+    path: AppRoutes.Aboutus,
+    component: AboutusComponent,
+    
+  },{
+    path: AppRoutes.MarketReview,
+    component: MarketreviewsComponent,
+    
+  },{
+    path: AppRoutes.TermsOfUse,
+    component: TermsofuseComponent,
+    
+  },{
+    path: AppRoutes.PrivacyPolicy,
+    component: PrivacypolicyComponent,
+    
+  },{
+    path: AppRoutes.SiteMap,
+    component: SitemapComponent,
+    
+  },{
+    path: AppRoutes.ShippingPolicy,
+    component: ShippingpolicyComponent,
+    
+  },{
+    path: AppRoutes.Compensation,
+    component: CompensationComponent,
+    
+  },{
+    path: AppRoutes.MyAccount,
+    component: MyaccountComponent,
+    
+  },{
+    path: AppRoutes.ReturnPolicy,
+    component: ReturnpolicyComponent,
+    
+  },{
+    path: AppRoutes.Contactus,
+    component: ContactusComponent,
+    
+  },{
+    path: AppRoutes.PaymentMethods,
+    component: PaymentmethodsComponent,
+    
+  },{
+    path: AppRoutes.ShippingGuide,
+    component: ShippingguideComponent,
+    
+  },{
+    path: AppRoutes.LocationWeShip,
+    component: LocationweshiptoComponent,
+    
+  },{
+    path: AppRoutes.EstimatedDeliverytime,
+    component: EstimateddeliverytimeComponent,
+    
   }
 ];
 

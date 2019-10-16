@@ -10,4 +10,19 @@ export class AppRoutes{
     static readonly UserOrders ='orders';
     static readonly UserWhishlist ='wishlist';
     static readonly UserCheckout = 'checkout';
+    static readonly Aboutus = 'aboutus';
+    static readonly MarketReview = 'marketreview';
+    static readonly TermsOfUse = 'termsofuse';
+    static readonly PrivacyPolicy = 'privacypolicy';
+    static readonly SiteMap = 'sitemap';
+    static readonly ShippingPolicy = 'shippingpolicy';
+    static readonly Compensation = 'compensation';
+    static readonly MyAccount = 'myaccount';
+    static readonly ReturnPolicy = 'returnpolicy';
+    static readonly Contactus = 'contactus';
+    static readonly PaymentMethods = 'paymentmethods';
+    static readonly ShippingGuide = 'shippingguide';
+    static readonly LocationWeShip = 'locationweship';
+    static readonly EstimatedDeliverytime = 'estimateddeliverytime';
+    
 }
