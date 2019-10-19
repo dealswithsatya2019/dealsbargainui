@@ -42,9 +42,9 @@ export class ContentComponent implements AfterViewInit, OnInit  {
 
     setTimeout(() => {
       var swiper = new Swiper('.banner-container', {
-        // autoplay: {
-        //   delay: 3000,
-        // },
+        autoplay: {
+          delay: 3000,
+        },
         spaceBetween:20,
         speed: 500,
         slidesPerView:3,
@@ -56,17 +56,17 @@ export class ContentComponent implements AfterViewInit, OnInit  {
           0:{
             slidesPerView:1,
           },
-          768:{
+          600:{
             slidesPerView:2,
           },
           991:{
-            slidesPerView:2,
-          },
-          1366:{
             slidesPerView:3,
           },
-          1500:{
+          1366:{
             slidesPerView:4,
+          },
+          1500:{
+            slidesPerView:5,
           }
         }
       })

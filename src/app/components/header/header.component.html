@@ -1,6 +1,6 @@
 
     <mat-toolbar>
-        <mat-toolbar-row class="top-toolbar">
+         <mat-toolbar-row class="top-toolbar">
             <div class="logo">
                 <img class="img-fluid img-cursor" mat-card-image src="../../assets/img/DealsBargain-Logo.png"
                     alt="photo" (click)=gotoHomePage()>
@@ -35,7 +35,7 @@
                     <a mat-button [routerLink]="['checkout']"><i class='fa fa-check-square-o'></i><span>Checkout</span></a>
                 </ng-container>
             </div>
-        </mat-toolbar-row>
+        </mat-toolbar-row> 
 
 
         <mat-toolbar-row class="info-toolbar">
@@ -81,30 +81,30 @@
 
 
         <mat-toolbar-row class="search-toolbar">
-            <button mat-button class="menu-btn" (click)="toggleMenu()">
-                <i class="fa fa-align-left mr-2"></i> <span>All Categories</span>
-            </button>
-                <div class="search pl-3 position-relative">
-                    <button mat-button [matMenuTriggerFor]="deals" #clickHoverMenuTrigger="matMenuTrigger">Deals</button>
+            <div class="verticalCategories">
+                <button mat-button class="menu-btn" (click)="toggleMenu()">
+                    <i class="fa fa-align-left mr-2"></i> <span class="pl-3">Categories</span>
+                </button>
+                <div class="sidemenu" *ngIf="menuFlag">
+                    <app-menu-bar></app-menu-bar>
+                </div>
+            </div>
+            <div class="search pl-3 position-relative">
+                <button mat-button [matMenuTriggerFor]="deals">Deals</button>
                 <mat-menu #deals="matMenu">
                     <button mat-menu-item>
-                        <a mat-button [routerLink]="['/dealslist/f']"> flash deals</a>
+                        <a mat-button [routerLink]="['/dealslist/f']"> Flash deals</a>
                     </button>
                     <button mat-menu-item>
-                        <a mat-button [routerLink]="['/dealslist/h']">hot deals</a>
+                        <a mat-button [routerLink]="['/dealslist/h']">Hot deals</a>
                     </button>
                     <button mat-menu-item>
                         <a mat-button [routerLink]="['/dealslist/t']">Today Deals</a>
                     </button>
                 </mat-menu>
-                    <button mat-button>Coupons</button>
-                
-                
+                <button mat-button>Coupons</button>    
             </div> 
         </mat-toolbar-row>
     </mat-toolbar>
 
-<div class="sidemenu" *ngIf="menuFlag">
-    <!-- <button mat-raised-button color="warn" (click)="funClose()" class="close-btn"><i class="fa fa-close"></i></button> -->
-    <app-menu-bar></app-menu-bar>
-</div>
+

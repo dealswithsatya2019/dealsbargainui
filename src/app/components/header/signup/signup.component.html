@@ -3,7 +3,7 @@
 <p class="text-center login-title">Sign Up with Deals</p>
 
 <div class="login-container">
-    <div class="login-btn-container mb-5">
+    <!-- <div class="login-btn-container mb-5">
         <p class="text-center login-info">EASILY USING</p>
 
         <button mat-raised-button (click)="loginFacebook();" class="fb-login login-btn">
@@ -11,12 +11,18 @@
 
         <button mat-raised-button (click)="loginGmail();" class="gmail-login login-btn">
             <img src="../../.././../assets/img/search.png" class="login-logo">GOOGLE</button>
-    </div>
+    </div> -->
 
-    <p class="text-center login-info">-OR USING MAIL-</p>
-<form [formGroup]="userservice.form" class="normal-form w-100" (submit)="funSubmit()">
+    <!-- <p class="text-center login-info">-OR USING MAIL-</p> -->
+<form [formGroup]="userservice.form" class="normal-form w-100 mt-5" (submit)="funSubmit()">
     
             <!-- <input type="hidden" formControlName="$key"> -->
+
+        <mat-form-field floatLabel="never" class="w-100">
+            <input formControlName="name" matInput placeholder="Name *" >
+            <mat-error>This field is mandatory</mat-error>
+        </mat-form-field>
+
         <mat-form-field floatLabel="never" class="w-100">
             <input formControlName="name" matInput placeholder="Email address *" >
             <mat-error>This field is mandatory</mat-error>
@@ -36,7 +42,7 @@
 </form>
 
 <div class="login-links mt-4">
-    Already have an account?<a mat-button (click)="funSignIn()">Log In</a>
+    Already have an account?<a mat-button (click)="funSignIn()" style="line-height: 17px;">Log In</a>
 </div>
 <!-- <p style="color: green;">Need Help ?</p>
 <div class="policy"> By signing up or logging in, you aggree to the offerUp

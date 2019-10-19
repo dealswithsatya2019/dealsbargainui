@@ -1,13 +1,8 @@
-.container{
-    overflow-y: hidden;
-    overflow-x: scroll;
-    margin: 20px;
-    padding: 0 ;
-  }
+
   .productlistcontainer{
     overflow-y: scroll;
     overflow: hidden;
-    margin: 20px;
+    
     padding: 0 ;
   }
    
@@ -17,6 +12,17 @@
     margin-bottom: 20px; /* same as fxLayoutGap for even distribution */
   }
   
+.old_cost{
+  font-size: 14px;
+  margin-right: 8px;
+  text-decoration: line-through;
+  color: #686565;
+}
+.new_cost{
+  font-size: 17px;
+  color: #ff9600;
+  font-weight: 700;
+}
   .product img{
     height: 150px;
     object-fit: contain;
@@ -25,19 +31,45 @@
   .margin-top-20{
     margin-top:20px;
   } 
-  
-  .old_cost{
-    font-size: 14px;
-    margin-right: 8px;
-    text-decoration: line-through;
-    color: #686565;
-  }
-  .new_cost{
-    font-size: 17px;
-    color: #b90b1c;
-  }
 
+  .p-title{
+    white-space: pre-wrap;
+    margin: 8px 0px;
+    font-size: 14px;
+  }
+  .p-cost{
+    padding-bottom: 8px;
+  }
+  p{margin: 0px;}
+  .cart-btn{
+    background-color: #ff9600;
+    color: #fff;
+    padding: 0px 7px;line-height: 30px;
+    display: block;
+    margin: auto;
+  }
+  mat-card{padding:0px 10px;}
+  mat-card-actions{
+    display: block;
+    border-top: 2px solid #f7f7f7;
+    margin-top: 10px;
+  }
+  .action-btns{
+    min-width: 32px;padding: 0px;
+    i{color: #7f7979;}
+  }
   .img-cursor{
     cursor: pointer;
   }
   
+  .product-list-page{
+    padding: 0px 30px;
+    display: flex;
+    aside{flex: 1 1 100%;max-width: 220px;}
+    
+  }
+  .productlistcontainer{
+    mat-card{
+      background-color: #fff;
+    }
+  }

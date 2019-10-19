@@ -1,22 +1,18 @@
 
-<!-- <div>
+<div>
     <ng-container *ngFor="let category of menus">
-            <mat-expansion-panel>
-        <mat-expansion-panel-header>
-            <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{category.cname}}</a>
-        </mat-expansion-panel-header>
+        <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{category.cname}}</a>
         <mat-menu #menu="matMenu">
-            <ng-container >
+            <ng-container *ngFor="let subcategory of category.scnames" class="mainMenu">
                 <button mat-menu-item>
                     <a mat-button [routerLink]="['productlist',category.cname.toLowerCase(),subcategory.toLowerCase()]" routerLinkActive="active"> {{subcategory}} </a>
                 </button>
             </ng-container>
         </mat-menu>
-    </mat-expansion-panel>
     </ng-container>
 
-</div>  -->
-<mat-accordion>
+</div> 
+<!-- <mat-accordion>
 <mat-expansion-panel *ngFor="let category of menus">
     <mat-expansion-panel-header>
      {{category.cname}}
@@ -28,4 +24,4 @@
       <a mat-button [routerLink]="['productlist',category.cname.toLowerCase(),subcategory.toLowerCase()]" routerLinkActive="active"> {{subcategory}} </a>
     </div>
   </mat-expansion-panel>
-</mat-accordion>
+</mat-accordion> -->
