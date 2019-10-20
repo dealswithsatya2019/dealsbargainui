@@ -1,34 +1,38 @@
-<div *ngIf="products">
-    <div class="productlistcontainer margin-top-20"  fxLayout="row wrap"
-     fxLayoutAlign="space-evenly stretch" fxLayoutGap="20px">
-        <mat-card fxLayoutAlign="center " fxFlex="0 1 calc(100% - 20px)" *ngFor="let product of products; let i = index" 
-        class="product" fxLayout="column">
-			<mat-card-subtitle>
-				<span class="badge badge-danger">{{product.offer_per}}</span>
-			</mat-card-subtitle>
-			<img class="image" mat-card-image src="{{product.image_uri}}" alt="photo" (click)="showProductDetails()">
-			<mat-card-content>
-				<p>
-					{{product.name}}
+<div *ngIf="!paidFor">
+    <div class="productlistcontainer margin-top-20" fxLayout="row wrap" fxLayoutAlign="space-evenly stretch"
+        fxLayoutGap="20px">
+        <mat-card fxLayoutAlign="center " fxFlex="0 1 calc(100% - 20px)" 
+            class="product" fxLayout="column">
+            <mat-card-subtitle>
+                <span class="badge badge-danger">{{product.offer_per}}</span>
+            </mat-card-subtitle>
+            <img class="image" mat-card-image src="{{product.image_uri}}" alt="photo">
+            <mat-card-content>
+                <p>
+                    {{product.name}}
                 </p>
                 <p>
                     {{product.status}}
                 </p>
                 <p>
-                   Brand Name : {{product.brand_name}}
+                    Brand Name : {{product.brand_name}}
                 </p>
                 <p>
                     Supplier: {{product.master_suplier}}
-                 </p>
-				<span class="old_cost">{{product.actual_price}}</span>
+                </p>
+                <span class="old_cost">{{product.actual_price}}</span>
                 <span class="new_cost">{{product.offer_price}}</span>
                 <p><span class="new_cost">Shipping fee : ${{product.drop_ship_fee}}</span></p>
-			</mat-card-content>
-			<mat-card-actions>
-				<button mat-button>LIKE</button>
-				<button mat-button>SHARE</button>
-			</mat-card-actions>
-		</mat-card>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 
-	</div>
 </div>
+<div *ngIf="paidFor">
+    <h1>Your transaction is success</h1>
+</div>
+<div #paypal></div>
