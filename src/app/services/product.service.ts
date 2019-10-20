@@ -25,7 +25,6 @@ export class ProductService {
         "pageForm": from, 
         "noOfResults": limit
       };
-    console.log('getHttpProductList body :' + body);
     return this._httpCommonService.postReq(categoryName, JSON.stringify(body));
   }
 

@@ -42,6 +42,7 @@ export class HeaderComponent implements OnInit {
   options = { headers: this.headers };
   // url = 'http://34.233.128.163/api/v1/products/search/';
   url = 'http://34.233.128.163/api/v1/dashboard/fuzzysearch';
+
   public searchResponseObj: searchreponse;
   public products: Product[] = [];
   public hits: hits[] = [];
@@ -72,9 +73,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public search() {
-    this.http.post(this.url, { "countryCode": "us", "categoryName": "apparel", "searchquery": this.searchMoviesCtrl.value }, this.options).subscribe((results: searchreponse) => {
-      this.products = results.responseObjects;
-    });
+    this._router.navigate(['/productdetails/'+this.searchMoviesCtrl.value]);
   }
 
   funSignIn() {

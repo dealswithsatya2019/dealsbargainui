@@ -12,9 +12,9 @@
                         {{hits._source.title}}
                     </mat-option>
                 </mat-autocomplete>
-                <button mat-button color="primary" class="search-btn" [routerLink]="['/productdetails/this.searchMoviesCtrl.value']"><i class="fa fa-search"></i></button>
+                    <button mat-button color="primary" class="search-btn" (click)="search()"><i class="fa fa-search"></i></button>
             </mat-form-field>
-            <button mat-button color="primary" class="search-btn d-block d-sm-none" [routerLink]="['/productdetails/this.searchMoviesCtrl.value']"><i class="fa fa-search"></i></button>
+    
             <div>
                 <a mat-button (click)="funSignIn()" *ngIf="!this.userservice.response"><i class="fa fa-unlock-alt"></i><span>Login & Signup</span></a>
                 <ng-container *ngIf="this.userservice.response">

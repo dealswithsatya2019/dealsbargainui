@@ -18,7 +18,7 @@ export class ProductdetailsComponent implements OnInit {
   ngOnInit() {
     this.sub = this._Activatedroute.paramMap.subscribe(params => {
       this.productname = params.get('productname');
-      this._productservice.getProductlist("apparel", "", 'us', 0, 20).subscribe(
+      this._productservice.getProductlist(this.productname, "", 'us', 0, 20).subscribe(
         data => {
           const arr = [];
           data.responseObjects.forEach((productDet) => {

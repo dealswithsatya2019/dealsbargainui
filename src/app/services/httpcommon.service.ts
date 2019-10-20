@@ -45,7 +45,6 @@ export class HttCommonService {
     } else {
       url = this.apiURL;
     }
-    console.log('Url is : '+url);
     return this.http.post(
       url, body,
       { headers: { 'Content-Type': 'application/json' } }).pipe(map(this.extractData));
