@@ -43,7 +43,7 @@ import { ShippingguideComponent } from './components/footer/shippingguide.compon
 import { LocationweshiptoComponent } from './components/footer/locationweshipto.component';
 import { EstimateddeliverytimeComponent } from './components/footer/estimateddeliverytime.component';
 import { MyaccountComponent } from './components/footer/myaccount.component';
-
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -112,7 +112,8 @@ export function ProvideConfig() {
     FormsModule,
     ReactiveFormsModule,
     JwSocialButtonsModule,
-    ScrollingModule
+    ScrollingModule,
+    NgxImageZoomModule.forRoot()
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA , NO_ERRORS_SCHEMA],
   providers: [HttCommonService, ProductService, UserService,{ provide: AuthServiceConfig, useFactory: ProvideConfig}],

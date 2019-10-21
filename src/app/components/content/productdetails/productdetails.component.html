@@ -1,38 +1,68 @@
-<div *ngIf="!paidFor">
-    <div class="productlistcontainer margin-top-20" fxLayout="row wrap" fxLayoutAlign="space-evenly stretch"
-        fxLayoutGap="20px">
-        <mat-card fxLayoutAlign="center " fxFlex="0 1 calc(100% - 20px)" 
-            class="product" fxLayout="column">
-            <mat-card-subtitle>
-                <span class="badge badge-danger">{{product.offer_per}}</span>
-            </mat-card-subtitle>
-            <img class="image" mat-card-image src="{{product.image_uri}}" alt="photo">
-            <mat-card-content>
-                <p>
-                    {{product.name}}
-                </p>
-                <p>
-                    {{product.status}}
-                </p>
-                <p>
-                    Brand Name : {{product.brand_name}}
-                </p>
-                <p>
-                    Supplier: {{product.master_suplier}}
-                </p>
-                <span class="old_cost">{{product.actual_price}}</span>
-                <span class="new_cost">{{product.offer_price}}</span>
-                <p><span class="new_cost">Shipping fee : ${{product.drop_ship_fee}}</span></p>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-            </mat-card-actions>
-        </mat-card>
-    </div>
+<mat-toolbar-row>
+	<div *ngIf="!paidFor">
+	</div>
+	<div *ngIf="paidFor">
+		<h1>Your transaction is success</h1>
+	</div>
+	<div #paypal></div>
+</mat-toolbar-row>
+<mat-toolbar-row>
+	<div>
+		<img src="../../../assets/img/1.jpeg">
+		<img src="../../../assets/img/2.jpeg">
+		<img src="../../../assets/img/3.jpeg">
+		<img src="../../../assets/img/4.jpeg">
+		<img src="../../../assets/img/5.jpeg">
+		<img src="../../../assets/img/6.jpeg">
+		<img src="../../../assets/img/7.jpeg">
+	</div>
+</mat-toolbar-row>
+<mat-toolbar-row>
+	<ngx-image-zoom [thumbImage]=myThumbnail [fullImage]=myFullresImage [magnification]="1" [enableScrollZoom]="true" [enableLens]="true"
+	 [lensWidth]="500" [lensWidth]="500" [lensTop]="5" [lensLeft]="10" [isInsideStaticContainer]="true" [imgStyle]="'width:515px; height:515px; bottom:0;  left:0;  right:0;  top:0;  margin:0 auto; border:1px solid #dcdcdc;'"
+	 [resultStyle]="'width:824px; height:824px; background-repeat: no-repeat; z-index: 2; position:absolute;
+					   -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+						box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); top: 0;left: 100%;'" [lensStyle]="'width:155px; height:155px'"
+	 [enableZoom]="true" [containerStyle]="'width:400px; height:400px'"></ngx-image-zoom>
 
-</div>
-<div *ngIf="paidFor">
-    <h1>Your transaction is success</h1>
-</div>
-<div #paypal></div>
+</mat-toolbar-row>
+<mat-toolbar-row>
+	
+</mat-toolbar-row>
+<!-- Similar Products -->
+<mat-toolbar-row>
+	<h5 class="subtitle position-relative"> SIMILAR PRODUCTS
+		<a [routerLink]="['/dealslist/f']" class="pl-3">VIEW ALL</a>
+	</h5>
+	<div *ngIf="similarProducts">
+		<div class="swiper-slide" *ngFor="let product of similarProducts; let i = index">
+			<mat-card>
+				<mat-card-subtitle>
+					<span class="badge offer-badge">{{product.discount}}</span>
+				</mat-card-subtitle>
+				<div class="product-img">
+					<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails()">
+				</div>
+				<mat-card-content class="product-desc">
+					<p class="p-title">
+						{{product.item_name}}
+					</p>
+					<p class="p-cost">
+						<span class="old_cost">{{product.price}}</span>
+						<span class="new_cost">{{product.deal_price}}</span>
+					</p>
+					<button mat-button class="cart-btn">Add Cart</button>
+				</mat-card-content>
+				<mat-card-actions>
+					<button mat-button class="action-btns">
+						<i class="fa fa-heart"></i>
+					</button>
+					<button mat-button class="action-btns" (click)="openShare($event)">
+						<i class="fa fa-share-alt"></i>
+					</button>
+				</mat-card-actions>
+			</mat-card>
+		</div>
+	</div>
+</mat-toolbar-row>
+<!-- Similar Products ENd-->

@@ -26,18 +26,6 @@ export class ContentComponent implements AfterViewInit, OnInit  {
     this._router.navigate(['/productdetails']);
   }
 
-  public banners = [
-    {
-      image_uri: "../../assets/img/banner1.jpg"
-    },
-    {
-      image_uri: "../../assets/img/banner5.jpg"
-    },
-    {
-      image_uri: "../../assets/img/PLBJD50.jpg"
-    }
-  ];
-    
   ngAfterViewInit() {
 
     setTimeout(() => {
@@ -87,56 +75,8 @@ export class ContentComponent implements AfterViewInit, OnInit  {
         this.todayDeals=results.responseObjects;
       });    
   }
-  public products = [
-    {
-      name: "Bata, Reebok, Nike and popular brand shoes",
-      image_uri: '../../../assets/img/1.jpeg',
-      offer_per: '50%'
-    },
-    {
-      name: "Watch",
-      image_uri: '../../../assets/img/2.jpeg',
-      offer_per: '20%'
-    },
-    {
-      name: "T-Shirt",
-      image_uri: '../../../assets/img/9.jpeg'
-    },
-    {
-      name: "Bluetooth Headset",
-      image_uri: '../../../assets/img/4.jpeg'
-    },
-    {
-      name: "Speakers",
-      image_uri: '../../../assets/img/5.jpeg'
-    },
-    {
-      name: "Awesome deals on luggage bags",
-      image_uri: '../../../assets/img/3.jpeg'
-    },
-    {
-      name: "Huge discounts on mobiles",
-      image_uri: '../../../assets/img/6.jpeg'
-    },
-    {
-      name: "Huge discounts on mobiles",
-      image_uri: '../../../assets/img/8.jpeg'
-    },
-    {
-      name: "Huge discounts on mobiles",
-      image_uri: '../../../assets/img/10.jpeg'
-    },
-    {
-      name: "Speakers",
-      image_uri: '../../../assets/img/11.jpeg'
-    }
 
-  ];
-
-  public hotdeals = [];
-  public flashdeals = [];
-
-openShare(event : any) {
+  openShare(event : any) {
   const dialogConfig = new MatDialogConfig();
   dialogConfig.closeOnNavigation = true;
   dialogConfig.autoFocus = true;

@@ -4,7 +4,7 @@ export class AppRoutes{
     static readonly Login='login';
     static readonly Content='content';
     static readonly ProductList='productlist/:cname/:scname';
-    static readonly ProductDetails='productdetails/:productname';
+    static readonly ProductDetails='productdetails';
     static readonly DealsList='dealslist/:dealtype';
     static readonly UserProfile = 'myprofile';
     static readonly UserOrders ='orders';
