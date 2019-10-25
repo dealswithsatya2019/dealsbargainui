@@ -32,7 +32,10 @@
               "node_modules/swiper/css/swiper.min.css",
               "node_modules/font-awesome/css/font-awesome.min.css"
             ],
-            "scripts": ["node_modules/swiper/js/swiper.min.js"]
+            "scripts": ["node_modules/swiper/js/swiper.min.js",
+                        "node_modules/crypto-js/crypto-js.js"
+                       
+            ]
           },
           "configurations": {
             "production": {

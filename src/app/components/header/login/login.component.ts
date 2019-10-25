@@ -7,7 +7,10 @@ import { UserService } from 'src/app/user.service';
 import { MatDialogConfig } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { SignupComponent } from 'src/app/components/header/signup/signup.component';
-
+import * as CryptoJS from 'crypto-js';
+import { EncryptionService } from 'src/app/services/encryption.service';
+import { AuthService as UserAuth } from 'src/app/services/auth.service';
+import { AuthResopnse } from 'src/app/models/authResponse';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,7 +18,13 @@ import { SignupComponent } from 'src/app/components/header/signup/signup.compone
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public dialog: MatDialog,public userservice : UserService,public _socioAuthServ: AuthService,public matDialogRef: MatDialogRef<LoginComponent>,public router: Router) { }
+  constructor(public dialog: MatDialog, 
+              public userservice : UserService,
+              public _socioAuthServ: AuthService,
+              public userAuth: UserAuth,
+              public matDialogRef: MatDialogRef<LoginComponent>,
+              public router: Router,
+              public encryptionService: EncryptionService) { }
 
   ngOnInit() {
   }
@@ -54,7 +63,22 @@ export class LoginComponent implements OnInit {
     this.dialog.open(SignupComponent, dialogConfig);
   }
 
-  funSubmit() {
+  funLogin() {
+    let userInfo = JSON.parse(JSON.stringify(this.userservice.form.value));
+    var key1 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
+    var key2 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
+    var key3 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
+
+    var ciphertext = this.encryptionService.encrypt(key2, key3, key1, userInfo.password);
+    //this.userservice.form.setValue({ password: ciphertext });
+    this.userAuth.authenticateUser(userInfo.name, userInfo.password, 'us', key1, key2, key3).subscribe(
+      (authResponse: AuthResopnse) => {
+        if(authResponse.statusCode === 200){
+          console.log('Success' + JSON.stringify(authResponse));
+        }else{
+          console.log('Failed' + JSON.stringify(authResponse));
+        }
+      });
     sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
     this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
     this.funClose();

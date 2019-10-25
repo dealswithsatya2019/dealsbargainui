@@ -11,16 +11,16 @@ export class UserService {
   constructor() { }
 
   form: FormGroup = new FormGroup({
-    $key: new FormControl(null),
-    name: new FormControl('', [Validators.required,Validators.email]),
-    password: new FormControl(null),
-    mobileno: new FormControl(null)
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required,Validators.email]),
+    password: new FormControl('',[Validators.required]),
+    mobileno: new FormControl('',[Validators.required])
   });
-
+ 
   initializeFormGroup() {
     this.form.setValue({
       $key: null,
-      name: ''
+      name: 'sdjflsdjfklsdjfsdkl'
     });
   }
 

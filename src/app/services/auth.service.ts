@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttCommonService } from 'src/app/services/httpcommon.service';
 import { Observable } from 'rxjs';
-import { MatDialogConfig, MatDialog } from '@angular/material';
+import { MatDialogConfig, MatDialog, _countGroupLabelsBeforeOption } from '@angular/material';
 import { LoginComponent } from 'src/app/components/header/login/login.component';
+import { RegisterUser } from 'src/app/models/RegisterUser';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,26 @@ export class AuthService {
     dialogConfig.width = '400px';
     dialogConfig.height = '600px';
     this.dialog.open(LoginComponent, dialogConfig);
+  }
+
+  public registerUser(userName?,email?, mobile?, countryCode?, password?, key1?,key2?,key3?): Observable<any> {
+    let newUser = new RegisterUser();
+    newUser.username = userName;
+    newUser.email = email;
+    newUser.mobile = mobile;
+    newUser.password = password;
+    newUser.key= key1+'#'+key2+'#'+key3
+    newUser.countryCode = countryCode;
+    return this._httpCommonService.postReq('register', JSON.stringify(newUser));
+  }
+
+  public authenticateUser(userName?,password?,countryCode?, key1?,key2?,key3?): Observable<any> {
+    let authJson = {
+      "username":userName,
+      "password":password,
+      "countryCode": countryCode
+    }
+    return this._httpCommonService.postReq('authenticate', authJson);
   }
 
 }

@@ -25,7 +25,7 @@ export class ProductService {
         "pageForm": from, 
         "noOfResults": limit
       };
-    return this._httpCommonService.postReq(categoryName, JSON.stringify(body));
+    return this._httpCommonService.postReq('products'+categoryName, JSON.stringify(body));
   }
 
   /**
@@ -43,7 +43,7 @@ export class ProductService {
         "dealType": dealType,
         "pageForm": from, "noOfResults": limit
       };
-    return this._httpCommonService.postReq('deals', JSON.stringify(body));
+    return this._httpCommonService.postReq('products/deals', JSON.stringify(body));
   }
 
 }

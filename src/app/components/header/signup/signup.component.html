@@ -14,7 +14,7 @@
     </div> -->
 
     <!-- <p class="text-center login-info">-OR USING MAIL-</p> -->
-<form [formGroup]="userservice.form" class="normal-form w-100 mt-5" (submit)="funSubmit()">
+<form [formGroup]="userservice.form" class="normal-form w-100 mt-5" (submit)="funRegister()">
     
             <!-- <input type="hidden" formControlName="$key"> -->
 
@@ -24,7 +24,7 @@
         </mat-form-field>
 
         <mat-form-field floatLabel="never" class="w-100">
-            <input formControlName="name" matInput placeholder="Email address *" >
+            <input formControlName="email" matInput placeholder="Email address *" >
             <mat-error>This field is mandatory</mat-error>
         </mat-form-field>
 

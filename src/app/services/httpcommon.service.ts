@@ -21,12 +21,11 @@ export class HttCommonService {
      } else {
     return `${this.Origin}`;
     }*/
-    return "http://34.233.128.163/api/v1/products";
+    return "http://34.233.128.163/api/v1";
 
   }
 
   private extractData(res: Response) {
-    console.log('in extractdata', res);
     const body = res;
     return body || [];
   }
