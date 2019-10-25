@@ -1,12 +1,12 @@
-import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { MatDialog } from '@angular/material';
 import { async } from '@angular/core/testing';
 import { Product } from 'src/app/models/product';
 import { searchreponse } from 'src/app/models/searchResponse';
-import { Swiper, Navigation, Pagination, Scrollbar, Autoplay } from 'swiper/js/swiper.esm.js';
-Swiper.use([Navigation, Pagination, Scrollbar, Autoplay]);
+import { Swiper, Navigation, Pagination, Scrollbar, Autoplay, Thumbs } from 'swiper/js/swiper.esm.js';
+Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
 declare let paypal: any;
 
@@ -15,7 +15,8 @@ declare let paypal: any;
   templateUrl: './productdetails.component.html',
   styleUrls: ['./productdetails.component.scss']
 })
-export class ProductdetailsComponent implements OnInit {
+export class ProductdetailsComponent implements OnInit,AfterViewInit {
+
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
   paidFor: boolean = false;
@@ -101,36 +102,41 @@ export class ProductdetailsComponent implements OnInit {
   ngAfterViewInit() {
 
     setTimeout(() => {
-      var swiper = new Swiper('.banner-container', {
+      var swiper = new Swiper('.similar', {
         autoplay: {
           delay: 3000,
         },
         spaceBetween:20,
         speed: 500,
-        slidesPerView:3,
+        slidesPerView:5,
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
-        },
-        breakpoints:{
-          0:{
-            slidesPerView:1,
-          },
-          600:{
-            slidesPerView:2,
-          },
-          991:{
-            slidesPerView:3,
-          },
-          1366:{
-            slidesPerView:4,
-          },
-          1500:{
-            slidesPerView:5,
-          }
         }
       })
       }, 1000);
+
+      setTimeout(() => {
+      var galleryThumbs = new Swiper('.gallery-thumbs', {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesVisibility: true,
+        watchSlidesProgress: true,
+      });
+      var galleryTop = new Swiper('.gallery-top', {
+        spaceBetween: 10,
+        // navigation: {
+        //   nextEl: '.swiper-button-next',
+        //   prevEl: '.swiper-button-prev',
+        // },
+        thumbs: {
+          swiper: galleryThumbs
+        }
+      });
+    }, 1000);
   }
+
+  
 
 }

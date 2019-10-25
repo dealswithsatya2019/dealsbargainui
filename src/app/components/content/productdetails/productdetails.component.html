@@ -1,68 +1,186 @@
-<mat-toolbar-row>
-	<div *ngIf="!paidFor">
-	</div>
-	<div *ngIf="paidFor">
-		<h1>Your transaction is success</h1>
-	</div>
-	<div #paypal></div>
-</mat-toolbar-row>
-<mat-toolbar-row>
-	<div>
-		<img src="../../../assets/img/1.jpeg">
-		<img src="../../../assets/img/2.jpeg">
-		<img src="../../../assets/img/3.jpeg">
-		<img src="../../../assets/img/4.jpeg">
-		<img src="../../../assets/img/5.jpeg">
-		<img src="../../../assets/img/6.jpeg">
-		<img src="../../../assets/img/7.jpeg">
-	</div>
-</mat-toolbar-row>
-<mat-toolbar-row>
-	<ngx-image-zoom [thumbImage]=myThumbnail [fullImage]=myFullresImage [magnification]="1" [enableScrollZoom]="true" [enableLens]="true"
-	 [lensWidth]="500" [lensWidth]="500" [lensTop]="5" [lensLeft]="10" [isInsideStaticContainer]="true" [imgStyle]="'width:515px; height:515px; bottom:0;  left:0;  right:0;  top:0;  margin:0 auto; border:1px solid #dcdcdc;'"
-	 [resultStyle]="'width:824px; height:824px; background-repeat: no-repeat; z-index: 2; position:absolute;
-					   -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-						box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); top: 0;left: 100%;'" [lensStyle]="'width:155px; height:155px'"
-	 [enableZoom]="true" [containerStyle]="'width:400px; height:400px'"></ngx-image-zoom>
+<div class="content-container">
+	<mat-toolbar-row>
+		<div *ngIf="!paidFor">
+		</div>
+		<div *ngIf="paidFor">
+			<h1>Your transaction is success</h1>
+		</div>
+		<div #paypal></div>
+	</mat-toolbar-row>
 
-</mat-toolbar-row>
-<mat-toolbar-row>
-	
-</mat-toolbar-row>
-<!-- Similar Products -->
-<mat-toolbar-row>
-	<h5 class="subtitle position-relative"> SIMILAR PRODUCTS
-		<a [routerLink]="['/dealslist/f']" class="pl-3">VIEW ALL</a>
-	</h5>
-	<div *ngIf="similarProducts">
-		<div class="swiper-slide" *ngFor="let product of similarProducts; let i = index">
-			<mat-card>
-				<mat-card-subtitle>
-					<span class="badge offer-badge">{{product.discount}}</span>
-				</mat-card-subtitle>
-				<div class="product-img">
-					<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails()">
+	<div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+		
+		<div fxflex="100" fxflex.gt-md="35" fxflex.md="45" style="flex: 1 1 55%; box-sizing: border-box; max-width: 45%;display: flex">
+				
+			<div class="swiper-container gallery-thumbs" style="height:450px">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" *ngFor="let product of similarProducts; let i = index">
+						<img src="{{product.image}}" style="max-height:100%">
+					</div>
 				</div>
-				<mat-card-content class="product-desc">
-					<p class="p-title">
-						{{product.item_name}}
-					</p>
-					<p class="p-cost">
-						<span class="old_cost">{{product.price}}</span>
-						<span class="new_cost">{{product.deal_price}}</span>
-					</p>
-					<button mat-button class="cart-btn">Add Cart</button>
-				</mat-card-content>
-				<mat-card-actions>
-					<button mat-button class="action-btns">
-						<i class="fa fa-heart"></i>
-					</button>
-					<button mat-button class="action-btns" (click)="openShare($event)">
-						<i class="fa fa-share-alt"></i>
-					</button>
-				</mat-card-actions>
-			</mat-card>
+			</div>
+			<div class="swiper-container gallery-top" style="height:450px">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" *ngFor="let product of similarProducts; let i = index">
+						<img src="{{product.image}}" style="max-height:100%">
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div fxflex="100" fxflex.gt-md="45" fxflex.md="55" ngclass.gt-sm="px-3 m-0" ngclass.sm="mt-2" ngclass.xs="mt-2" class="px-4 m-0" style="flex: 1 1 55%; box-sizing: border-box; max-width: 55%;">
+			<div fxshow="false" fxshow.gt-md="">
+				<mat-card class="zoom-viewer mat-elevation-z18 mat-card ng-star-inserted" style="background-image: url(&quot;assets/images/products/keyboard/1-big.png&quot;); background-position: 87.4477% 97.493%; display: none; height: 359px; width: 478px;"></mat-card>
+			</div>
+			
+			<h5>Product Name</h5>
+			<p style="color: #747474;font-weight: 300;">Women Notched Collor Subb Kurta</p>
+			<small class="py-1"><i class="fa fa-thumbs-up"></i> 8 Recommendations</small>
+			
+			<p class="py-3">1000 People have viewed this product</p>
+
+			<h4>Rs 741<span class="px-3 stike-off">Rs 1499</span> <span class="px-3 discount">(50% off)</span></h4>
+			<div class="p-3 my-3" style="border:1px dashed #ccc;">
+				<p>offers: <span class="pl-4">Flat 50% off</span></p>
+			</div>
+			<p>Select Color</p>
+			<div class="py-1">
+				<img src="" class="">
+			</div>
+			<div class="size" ngclass.xs="mt-1">
+				<p class="fw-500">Select Size:</p>
+				<button mat-raised-button>S</button>
+				<button mat-raised-button>M</button>
+				<button mat-raised-button>L</button>
+				<button mat-raised-button>XL</button>
+			</div>
+			<div class="py-3 mt-4 lh">
+				<a mat-button class="quick-buy">Quick Buy</a><a mat-button class="add-bag">ADD TO BAG</a>
+			</div>
+			<p class="py-3">
+				<span>Hassle Free Delivery</span><span class="pl-5">Free Shipping</span>
+			</p>
+			<div class="py-1">
+				<P>DELIVERY</P>
+				<p class="m-2" style="font-size: 14px;color: #747474;">Enter your pincode to check the delivery time.</p>
+				
+				<input matInput> <a mat-button>Check</a>
+			</div>
+			<div class="py-1 mt-3 del-details" style="border:1px solid #ccc;">
+				<ul>
+					<li>Delivery</li>
+					<li>Typically Delivered in 11-12 days.</li>
+					<li>Standard delivery.</li>
+					<li>Cash On Delivery</li>
+				</ul>
+			</div>	
 		</div>
 	</div>
-</mat-toolbar-row>
-<!-- Similar Products ENd-->
+
+	<mat-accordion class="w-100">
+		<mat-expansion-panel [expanded]="true">
+			<mat-expansion-panel-header>
+				<p class="text-center">PRODUCT DETAILS & CARE</p>
+			</mat-expansion-panel-header>
+				
+			<p>PRODUCT DESCRIPTION</p>
+			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim earum fuga repudiandae commodi laborum exercitationem excepturi culpa alias, numquam quia nobis error similique tempore quibusdam, corrupti explicabo quasi. Voluptatum, dolor.</p>
+			<div class="py-1">
+				<p>
+					<span>Product Code: 1234567890</span><br>
+					<span>Need Help? Contact Us</span>
+				</p>
+			</div>
+				
+		</mat-expansion-panel>
+
+		<mat-expansion-panel>
+			<mat-expansion-panel-header>
+				<p class="text-center">STYLE INFO</p>
+			</mat-expansion-panel-header>
+			<mat-grid>
+				<p>Revamp your ethnic wear by draping the pretty kurta. Get the perfect look for the casual occasion by wearing it with a pair of leggings and peep toe shoes.</p>
+			</mat-grid>
+		</mat-expansion-panel>
+
+		<mat-expansion-panel>
+			<mat-expansion-panel-header>
+				<p class="text-center">BRAND INFO</p>
+			</mat-expansion-panel-header>
+			<mat-grid>
+			<p class="mb-2">VARANGA:</p>
+
+			Varanga is about handpicking the most unconventional yet extremely exciting designs from artisans and craftsmen from all over India and to deliver them at exceptional value to customers. Our motive is to make you stand out, deviate from the mundane style of dressing and embrace cutting-edge fashion while not burning a hole in your pockets. Adding authentic Indian artwork and fusing it with contemporary design, we are an exclusive destination for ‘The Indian Modern’. The brand focusses on quality material, design, fit and sizing.
+
+			</mat-grid>
+		</mat-expansion-panel>
+	</mat-accordion>
+
+
+	<mat-toolbar-row>
+		<ngx-image-zoom [thumbImage]=myThumbnail [fullImage]=myFullresImage [magnification]="1" [enableScrollZoom]="true" [enableLens]="true"
+		[lensWidth]="500" [lensWidth]="500" [lensTop]="5" [lensLeft]="10" [isInsideStaticContainer]="true" [imgStyle]="'width:515px; height:515px; bottom:0;  left:0;  right:0;  top:0;  margin:0 auto; border:1px solid #dcdcdc;'"
+		[resultStyle]="'width:824px; height:824px; background-repeat: no-repeat; z-index: 2; position:absolute;
+						-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+							box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); top: 0;left: 100%;'" [lensStyle]="'width:155px; height:155px'"
+		[enableZoom]="true" [containerStyle]="'width:400px; height:400px'"></ngx-image-zoom>
+
+	</mat-toolbar-row>
+
+
+	<!-- Similar Products -->
+	<h5 class="subtitle position-relative"> SIMILAR PRODUCTS <a [routerLink]="['/dealslist/f']" class="pl-3">VIEW ALL</a></h5>
+		
+	<div *ngIf="similarProducts">
+		<div class="swiper-container similar">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide" *ngFor="let product of similarProducts; let i = index">
+					<mat-card>
+						<mat-card-subtitle>
+							<span class="badge offer-badge">{{product.discount}}</span>
+						</mat-card-subtitle>
+						<div class="product-img">
+							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails()">
+						</div>
+						<mat-card-content class="product-desc">
+							<p class="p-title">{{product.item_name}}</p>
+							<p class="p-cost">
+								<span class="old_cost">{{product.price}}</span>
+								<span class="new_cost">{{product.deal_price}}</span>
+							</p>
+							<button mat-button class="cart-btn">Add Cart</button>
+						</mat-card-content>
+						<mat-card-actions>
+							<button mat-button class="action-btns">
+								<i class="fa fa-heart"></i>
+							</button>
+							<button mat-button class="action-btns" (click)="openShare($event)">
+								<i class="fa fa-share-alt"></i>
+							</button>
+						</mat-card-actions>
+					</mat-card>
+				</div>
+			</div>
+			<!-- Add Arrows -->
+			<div class="swiper-button-next swiper-button-white"></div>
+			<div class="swiper-button-prev swiper-button-white"></div>
+		</div>
+	</div>
+
+	<!-- Similar Products ENd-->
+
+	<div class="suggestions">
+		<a mat-button>More Kurtas by brands</a> <a mat-button>More Kurtas by Color</a> <a mat-button>More Kurtas</a>
+	</div>
+	
+	<div class="reviews">
+		<h4>Reviews & Ratings</h4>
+		<div class="divider" style="border-top:1px solid #ccc;"></div>
+		<div class="py-1" style="display: flex;">
+			<p><span>0</span>/<span>5</span></p>
+			<p>Do you recommend this product? <a mat-button><i class="fa fa-thumbs-up"></i></a> <a mat-button><i class="fa fa-thumbs-down"></i></a></p><a mat-button>Rate this product</a>
+		</div>	 
+	</div>
+
+</div>
