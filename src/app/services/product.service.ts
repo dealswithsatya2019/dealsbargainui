@@ -25,7 +25,7 @@ export class ProductService {
         "pageForm": from, 
         "noOfResults": limit
       };
-    return this._httpCommonService.postReq('products'+categoryName, JSON.stringify(body));
+    return this._httpCommonService.postReq('products/'+categoryName, JSON.stringify(body));
   }
 
   /**

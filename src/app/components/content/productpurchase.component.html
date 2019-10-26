@@ -1,0 +1,10 @@
+    <div>
+        <mat-toolbar-row>
+            <div *ngIf="!paypalFor">
+            </div>
+            <div *ngIf="paypalFor">
+                <h1>Your transaction is success</h1>
+            </div>
+            <div #paypal></div>
+        </mat-toolbar-row>
+    </div>

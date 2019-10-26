@@ -22,6 +22,7 @@ export class AppRoutes{
     static readonly Contactus = 'contactus';
     static readonly PaymentMethods = 'paymentmethods';
     static readonly ShippingGuide = 'shippingguide';
+    static readonly productpurchase = 'productpurchase';
     static readonly LocationWeShip = 'locationweship';
     static readonly EstimatedDeliverytime = 'estimateddeliverytime';
     

@@ -1,17 +1,6 @@
 <div class="content-container">
-	<mat-toolbar-row>
-		<div *ngIf="!paidFor">
-		</div>
-		<div *ngIf="paidFor">
-			<h1>Your transaction is success</h1>
-		</div>
-		<div #paypal></div>
-	</mat-toolbar-row>
-
 	<div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
-		
 		<div fxflex="100" fxflex.gt-md="35" fxflex.md="45" style="flex: 1 1 55%; box-sizing: border-box; max-width: 45%;display: flex">
-				
 			<div class="swiper-container gallery-thumbs" style="height:450px">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" *ngFor="let product of similarProducts; let i = index">
@@ -56,7 +45,7 @@
 				<button mat-raised-button>XL</button>
 			</div>
 			<div class="py-3 mt-4 lh">
-				<a mat-button class="quick-buy">Quick Buy</a><a mat-button class="add-bag">ADD TO BAG</a>
+				<a mat-button class="quick-buy" [routerLink]="['/productpurchase']">Quick Buy</a><a mat-button class="add-bag" [routerLink]="['/productpurchase']">ADD TO BAG</a>
 			</div>
 			<p class="py-3">
 				<span>Hassle Free Delivery</span><span class="pl-5">Free Shipping</span>
@@ -141,7 +130,7 @@
 							<span class="badge offer-badge">{{product.discount}}</span>
 						</mat-card-subtitle>
 						<div class="product-img">
-							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails()">
+							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" >
 						</div>
 						<mat-card-content class="product-desc">
 							<p class="p-title">{{product.item_name}}</p>
@@ -155,7 +144,7 @@
 							<button mat-button class="action-btns">
 								<i class="fa fa-heart"></i>
 							</button>
-							<button mat-button class="action-btns" (click)="openShare($event)">
+							<button mat-button class="action-btns" >
 								<i class="fa fa-share-alt"></i>
 							</button>
 						</mat-card-actions>
