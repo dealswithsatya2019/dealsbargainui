@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { MatDialog } from '@angular/material';
 import { async } from '@angular/core/testing';
@@ -20,10 +20,13 @@ export class ProductdetailsComponent implements OnInit,AfterViewInit {
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
   paidFor: boolean = false;
+  public productDetails : any;
   public similarProducts : Product[];
   public myThumbnail="https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
   public myFullresImage="https://wittlock.github.io/ngx-image-zoom/assets/fullres.jpg";
-
+  public cname: string;
+  public scname: string;
+  public pid: string;
   product = {
     price: 0.01,
     description: "Kappa",
@@ -97,6 +100,17 @@ export class ProductdetailsComponent implements OnInit,AfterViewInit {
       (results: searchreponse) => {
         this.similarProducts = results.responseObjects;
       });
+    
+    this._Activatedroute.paramMap.subscribe((params : ParamMap)=> {  
+      this.cname=params.get('cname');  
+      this.scname=params.get('scname');  
+      this.pid=params.get('pid');  
+    }); 
+    
+    this._productservice.getHttpProductDetailsById(this.cname, this.scname, this.pid, 'us').subscribe(
+      (results: searchreponse) => {
+        this.productDetails = results.responseObjects;
+      });
   }
 
   ngAfterViewInit() {
@@ -137,6 +151,8 @@ export class ProductdetailsComponent implements OnInit,AfterViewInit {
     }, 1000);
   }
 
-  
+  showProductDetails(){
+    
+  }
 
 }

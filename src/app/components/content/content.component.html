@@ -12,8 +12,8 @@
 						<mat-card-subtitle>
 							<span class="badge offer-badge">{{product.discount}}</span>
 						</mat-card-subtitle>
-						<div class="product-img">
-							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails()">
+						<div class="product-img"> 
+							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails({cname:product.category,scname:product.subcategory,pid:product.product_id})">
 						</div>
 						<mat-card-content class="product-desc">
 							<p class="p-title">
@@ -56,7 +56,7 @@
 					<span class="badge offer-badge">{{product.discount}}</span>
 				</mat-card-subtitle>
 				<div class="product-img">
-					<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails()">
+					<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails('{cname:product.category,scname:product.subcategory,pid:product.product_id}')">
 				</div>
 				<mat-card-content class="product-desc">
 					<p class="p-title">
@@ -86,7 +86,7 @@
 					<span class="badge offer-badge">{{product.discount}}</span>
 				</mat-card-subtitle>
 				<div class="product-img">
-					<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails()">
+					<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails('{cname:product.category,scname:product.subcategory,pid:product.product_id}')">
 				</div>
 				<mat-card-content class="product-desc">
 					<p class="p-title">

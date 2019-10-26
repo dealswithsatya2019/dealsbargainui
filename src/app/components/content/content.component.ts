@@ -22,8 +22,8 @@ export class ContentComponent implements AfterViewInit, OnInit  {
    }
   
 
-  showProductDetails() {
-    this._router.navigate(['/productdetails']);
+  showProductDetails(params) {
+    this._productservice.routeProductDetails(params);
   }
 
   ngAfterViewInit() {
@@ -86,6 +86,10 @@ export class ContentComponent implements AfterViewInit, OnInit  {
   let y = event.y-50;
   dialogConfig.position = {left:x+'px',top:y+"px"};
   this.dialog.open(SocialshareComponent, dialogConfig);
+}
+
+ngOnDestroy() {
+ // this.sub.unsubscribe();
 }
 
 }

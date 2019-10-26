@@ -63,14 +63,14 @@
 			<mat-card style="flex: 1 1 100%; box-sizing: border-box; max-width: 25%;" *ngFor="let product of products; let i = index" 
 			class="product" fxLayout="column">
 				<mat-card-subtitle>
-					<span class="badge badge-danger">{{product.offer_per}}</span>
+					<span class="badge badge-danger">{{product.discount}}</span>
 				</mat-card-subtitle>
-				<img class="image img-cursor" mat-card-image src="{{product.image_uri}}" alt="photo" (click)="showProductDetails()">
+				<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails({cname:cname,scname:scname,pid:product.product_id})">
 
 				<mat-card-content>
-					<p class="p-title">{{product.name}}</p>
-					<p class="p-cost"><span class="old_cost">{{product.actual_price}}</span>
-					<span class="new_cost">{{product.offer_price}}</span></p>
+					<p class="p-title">{{product.item_name}}</p>
+					<p class="p-cost"><span class="old_cost">{{product.custom_price}}</span>
+					<span class="new_cost">{{product.prepay_price}}</span></p>
 					<button mat-button class="cart-btn">Add Cart</button>
 				</mat-card-content>
 				<mat-card-actions>

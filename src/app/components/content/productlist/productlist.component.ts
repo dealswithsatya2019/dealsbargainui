@@ -3,6 +3,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SocialshareComponent } from '../socialshare/socialshare.component';
 import { MatDialogConfig, MatDialog } from '@angular/material';
+import { searchreponse } from 'src/app/models/searchResponse';
 
 @Component({
   selector: 'app-productlist',
@@ -22,7 +23,7 @@ export class ProductlistComponent implements OnInit {
       this.cname = params.get('cname');
       this.scname = params.get('scname');
       this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
-        data => {
+        /*data => {
           const arr = [];
           data.responseObjects.forEach((productDet) => {
             const obj = {};
@@ -34,14 +35,16 @@ export class ProductlistComponent implements OnInit {
             arr.push(obj);
 
           });
-          this.products = arr;
+          this.products = arr;*/
+          (results: searchreponse) => {
+            this.products=results.responseObjects;
         });
     });
 
   }
 
-  showProductDetails() {
-    this._router.navigate(['/productdetails']);
+  showProductDetails(params) {
+    this._productservice.routeProductDetails(params);
   }
 
   /*public products = [
