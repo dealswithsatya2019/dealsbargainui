@@ -25,6 +25,7 @@ import { ShippingguideComponent } from './components/footer/shippingguide.compon
 import { LocationweshiptoComponent } from './components/footer/locationweshipto.component';
 import { EstimateddeliverytimeComponent } from './components/footer/estimateddeliverytime.component';
 import { MyaccountComponent } from './components/footer/myaccount.component';
+import { ProductpurchaseComponent } from './components/content/productpurchase.component';
 
 
 const routes: Routes = [
@@ -135,6 +136,10 @@ const routes: Routes = [
   },{
     path: AppRoutes.EstimatedDeliverytime,
     component: EstimateddeliverytimeComponent,
+    
+  },{
+    path: AppRoutes.productpurchase,
+    component: ProductpurchaseComponent,
     
   }
 ];

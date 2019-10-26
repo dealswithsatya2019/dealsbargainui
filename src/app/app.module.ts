@@ -44,6 +44,7 @@ import { LocationweshiptoComponent } from './components/footer/locationweshipto.
 import { EstimateddeliverytimeComponent } from './components/footer/estimateddeliverytime.component';
 import { MyaccountComponent } from './components/footer/myaccount.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { ProductpurchaseComponent } from './components/content/productpurchase.component';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -96,7 +97,8 @@ export function ProvideConfig() {
     ShippingguideComponent,
     LocationweshiptoComponent,
     EstimateddeliverytimeComponent,
-    MyaccountComponent
+    MyaccountComponent,
+    ProductpurchaseComponent
   ],
   entryComponents:[LoginComponent,SignupComponent,SocialshareComponent],
   imports: [

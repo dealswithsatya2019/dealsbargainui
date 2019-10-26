@@ -2,7 +2,6 @@ import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, AfterViewIn
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { MatDialog } from '@angular/material';
-import { async } from '@angular/core/testing';
 import { Product } from 'src/app/models/product';
 import { searchreponse } from 'src/app/models/searchResponse';
 import { Swiper, Navigation, Pagination, Scrollbar, Autoplay, Thumbs } from 'swiper/js/swiper.esm.js';
@@ -15,7 +14,7 @@ declare let paypal: any;
   templateUrl: './productdetails.component.html',
   styleUrls: ['./productdetails.component.scss']
 })
-export class ProductdetailsComponent implements OnInit,AfterViewInit {
+export class ProductdetailsComponent implements OnInit {
 
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
@@ -45,57 +44,6 @@ export class ProductdetailsComponent implements OnInit,AfterViewInit {
   constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
-    paypal
-      .Buttons({
-        createOrder: (data, actions) => {
-          return actions.order.create({
-            purchase_units: [
-              {
-                description: this.product.description,
-                amount: {
-                  currency_code: "USD",
-                  value: this.product.price
-                }
-              }
-            ]
-          });
-        },
-        onApprove: async (data, actions) => {
-          const order = await actions.order.capture();
-          this.paidFor = true;
-          console.log("order :", order);
-        },
-        onError: err => {
-          console.log("Error :", err);
-        }
-
-      })
-      .render(this.paypalElement.nativeElement);
-    /**
-     productname: any;
-      scname: any;
-      sub;
-      products: any[];
-      public similarProducts : Product[];
-      ngOnInit() {
-        this.sub = this._Activatedroute.paramMap.subscribe(params => {
-          this.productname = params.get('productname');
-          this._productservice.getProductlist("apparel", "", 'us', 0, 20).subscribe(
-            data => {
-              const arr = [];
-              data.responseObjects.forEach((productDet) => {
-                const obj = {};
-                obj['name'] = productDet.item_name;
-                obj['image_uri'] = "https://d1k0ppjronk6up.cloudfront.net/products/1529/images_b75_image2_844.jpg";
-                obj['actual_price'] = productDet.custom_price;
-                obj['offer_price'] = productDet.prepay_price;
-                arr.push(obj);
-              });
-              this.products = arr;
-            });
-        });
-    
-     */
     this._productservice.getHttpProductDealsByType('f', 'us', 0, 50).subscribe(
       (results: searchreponse) => {
         this.similarProducts = results.responseObjects;
