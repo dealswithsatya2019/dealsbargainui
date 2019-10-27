@@ -1,46 +1,26 @@
-<div class="product-list-page ">	
+<div class="product-list-page ">
 	<aside class="margin-top-20">
 		<mat-accordion [multi]="true">
-			<!-- <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
-				<mat-expansion-panel-header>
-					All Categories
-				</mat-expansion-panel-header>
-					<app-menu-bar></app-menu-bar>
-			</mat-expansion-panel> -->
-
 			<mat-expansion-panel [expanded]="true">
 				<mat-expansion-panel-header>
 					Brands
 				</mat-expansion-panel-header>
 				<div fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex;">
-					<mat-checkbox>Tommy Hilfiger</mat-checkbox>
-					<mat-checkbox>Nike</mat-checkbox>
-					<mat-checkbox>Adidas</mat-checkbox>
-					<mat-checkbox>Puma</mat-checkbox>
+					<mat-checkbox *ngFor='let brand_name of distinctbrandsArray' value="brand_name"
+						(change)="refreshBrands($event,brand_name)">{{brand_name}}</mat-checkbox>
 				</div>
 			</mat-expansion-panel>
-
 			<mat-expansion-panel [expanded]="true">
 				<mat-expansion-panel-header>
 					Price
 				</mat-expansion-panel-header>
 				<div fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex;">
-					From
-					<mat-slider tickInterval="1000" min="1" max="100000"></mat-slider>
-					To
-					<mat-slider min="1" max="5"></mat-slider>
-				</div>
-			</mat-expansion-panel>
-
-			<mat-expansion-panel [expanded]="true">
-				<mat-expansion-panel-header>
-					color
-				</mat-expansion-panel-header>
-				<div fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex;">
-					<mat-checkbox>white</mat-checkbox>
-					<mat-checkbox>Black</mat-checkbox>
-					<mat-checkbox>Purple</mat-checkbox>
-					<mat-checkbox>Blue</mat-checkbox>
+					From {{fromPrice.value}}
+					<mat-slider #fromPrice (change)="updateFromPrice($event)" steps="1" min="0" max="1000"
+						[value]="fromPrice"></mat-slider>
+					To {{toPrice.value}}
+					<mat-slider #toPrice (change)="updateToPrice($event)" steps="1" min="0" max="1000"
+						[value]="toPrice"></mat-slider>
 				</div>
 			</mat-expansion-panel>
 			<mat-expansion-panel [expanded]="true">
@@ -54,30 +34,39 @@
 					<mat-checkbox>More than 70%</mat-checkbox>
 				</div>
 			</mat-expansion-panel>
-			
 		</mat-accordion>
 	</aside>
-									
 	<div *ngIf="products" class="product-list">
-		<div class="productlistcontainer margin-top-20 pl-2"  fxLayout="row wrap">
-			<mat-card style="flex: 1 1 100%; box-sizing: border-box; max-width: 25%;" *ngFor="let product of products; let i = index" 
-			class="product" fxLayout="column">
-				<mat-card-subtitle>
-					<span class="badge badge-danger">{{product.discount}}</span>
-				</mat-card-subtitle>
-				<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails({cname:cname,scname:scname,pid:product.product_id})">
+		<div class="productlistcontainer margin-top-20 pl-2" fxLayout="row wrap">
+			<ng-container *ngFor="let product of products; let i = index">
+				<ng-container
+					*ngIf="fromPrice.value > 0 ?  (product.prepay_price >= fromPrice.value ? true : false): true">
+					<ng-container *ngIf="toPrice.value > 0 ? (product.prepay_price <= toPrice.value): true">
+						<mat-card
+							*ngIf="selectedBrandsArray.length == 0 ? true: selectedBrandsArray.includes(product.brand_name)"
+							style="flex: 1 1 100%; box-sizing: border-box; max-width: 25%;" class="product"
+							fxLayout="column">
+							<mat-card-subtitle>
+								<span class="badge badge-danger">{{product.discount}}</span>
+							</mat-card-subtitle>
+							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo"
+								(click)="showProductDetails({cname:cname,scname:scname,pid:product.product_id})">
 
-				<mat-card-content>
-					<p class="p-title">{{product.item_name}}</p>
-					<p class="p-cost"><span class="old_cost">{{product.custom_price}}</span>
-					<span class="new_cost">{{product.prepay_price}}</span></p>
-					<button mat-button class="cart-btn">Add Cart</button>
-				</mat-card-content>
-				<mat-card-actions>
-					<button mat-button><i class="fa fa-heart"></i></button>
-					<button mat-button (click)="openShare($event)"><i class="fa fa-share-alt"></i></button>
-				</mat-card-actions>
-			</mat-card>
+							<mat-card-content>
+								<p class="p-title">{{product.item_name}}</p>
+								<p class="p-cost"><span class="old_cost">{{product.custom_price}}</span>
+									<span class="new_cost">{{product.prepay_price}}</span></p>
+								<button mat-button class="cart-btn">Add Cart</button>
+							</mat-card-content>
+							<mat-card-actions>
+								<button mat-button><i class="fa fa-heart"></i></button>
+								<button mat-button (click)="openShare($event)"><i class="fa fa-share-alt"></i></button>
+							</mat-card-actions>
+						</mat-card>
+					</ng-container>
+				</ng-container>
+			</ng-container>
+
 
 		</div>
 	</div>
