@@ -10,7 +10,7 @@ import { SignupComponent } from 'src/app/components/header/signup/signup.compone
 import * as CryptoJS from 'crypto-js';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { AuthService as UserAuth } from 'src/app/services/auth.service';
-import { AuthResopnse } from 'src/app/models/authResponse';
+import { AuthResopnse } from 'src/app/models/AuthResponse';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

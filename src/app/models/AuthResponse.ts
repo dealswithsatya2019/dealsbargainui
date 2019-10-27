@@ -1,4 +1,4 @@
-import { AuthTokenInfo } from 'src/app/models/authTokenInfo';
+import { AuthTokenInfo } from 'src/app/models/AuthTokenInfo';
 
 export class AuthResopnse {
     statusCode: number;
