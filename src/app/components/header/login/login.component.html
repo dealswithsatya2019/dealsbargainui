@@ -14,7 +14,7 @@
     </div>
 
     <p class="text-center login-info">-OR USING MAIL-</p>
-<form [formGroup]="userservice.form" class="normal-form w-100" (submit)="funLogin()">
+<form [formGroup]="loginformService.form" class="normal-form w-100" (submit)="funLogin()">
     
             <!-- <input type="hidden" formControlName="$key"> -->
         <mat-form-field floatLabel="never" class="w-100">
@@ -27,7 +27,7 @@
             <mat-error>This field is mandatory</mat-error>
         </mat-form-field>
                 
-    <button mat-raised-button type="submit" [disabled]="userservice.form.invalid" class=" my-2 w-100 login-login-btn">LOGIN</button>
+    <button mat-raised-button type="submit" [disabled]="loginformService.form.invalid" class=" my-2 w-100 login-login-btn">LOGIN</button>
 </form>
 
 <div class="login-links mt-4">

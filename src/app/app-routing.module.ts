@@ -67,19 +67,16 @@ const routes: Routes = [
   },
   {
     path: AppRoutes.ProductList,
-    component: ProductlistComponent,
-    canActivate: [AuthGuard] 
+    component: ProductlistComponent
   },
   
   {
     path: AppRoutes.ProductDetails,
-    component: ProductdetailsComponent,
-    canActivate: [AuthGuard] 
+    component: ProductdetailsComponent
   },
   {
     path: AppRoutes.DealsList,
-    component: DealslistComponent,
-    canActivate: [AuthGuard] 
+    component: DealslistComponent
   },
   {
     path: AppRoutes.Aboutus,

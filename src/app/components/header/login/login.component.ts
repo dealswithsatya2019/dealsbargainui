@@ -11,6 +11,7 @@ import * as CryptoJS from 'crypto-js';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { AuthService as UserAuth } from 'src/app/services/auth.service';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
+import { LoginformService } from 'src/app/services/forms/loginform.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(public dialog: MatDialog, 
               public userservice : UserService,
+              public loginformService : LoginformService,
               public _socioAuthServ: AuthService,
               public userAuth: UserAuth,
               public matDialogRef: MatDialogRef<LoginComponent>,
@@ -33,7 +35,7 @@ export class LoginComponent implements OnInit {
     this._socioAuthServ.signIn(FacebookLoginProvider.PROVIDER_ID).then(
       (response) => {
         this.funClose();
-        this.userservice.response = response;
+        this.loginformService.response = response;
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
       }
     );
@@ -47,7 +49,7 @@ export class LoginComponent implements OnInit {
     this._socioAuthServ.signIn(GoogleLoginProvider.PROVIDER_ID).then(
       (response) => {
         this.funClose();
-        this.userservice.response = response;
+        this.loginformService.response = response;
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
       }
     );
@@ -64,7 +66,7 @@ export class LoginComponent implements OnInit {
   }
 
   funLogin() {
-    let userInfo = JSON.parse(JSON.stringify(this.userservice.form.value));
+    let userInfo = JSON.parse(JSON.stringify(this.loginformService.form.value));
     var key1 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
     var key2 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
     var key3 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
@@ -74,13 +76,21 @@ export class LoginComponent implements OnInit {
     this.userAuth.authenticateUser(userInfo.name, userInfo.password, 'us', key1, key2, key3).subscribe(
       (authResponse: AuthResopnse) => {
         if(authResponse.statusCode === 200){
+          this.userservice.form.setValue({
+            name: userInfo.name,
+            email: null,
+            password:null,
+            mobileno:null
+          });
           console.log('Success' + JSON.stringify(authResponse));
         }else{
           console.log('Failed' + JSON.stringify(authResponse));
         }
+        sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
+        this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
+        this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
       });
-    sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
-    this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
+    
     this.funClose();
   }
 }
