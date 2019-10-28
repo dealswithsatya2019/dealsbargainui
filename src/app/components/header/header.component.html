@@ -82,12 +82,26 @@
 
         <mat-toolbar-row class="search-toolbar">
             <div class="verticalCategories">
+                    
                 <button mat-button class="menu-btn" (click)="toggleMenu()">
                     <i class="fa fa-align-left mr-2"></i> <span class="pl-3">Categories</span>
                 </button>
-                <div class="sidemenu" *ngIf="menuFlag">
+                <mat-menu #menu="matMenu">
+                    <ng-container *ngFor="let category of menus">
+                        <a mat-menu-item [matMenuTriggerFor]="submenu" #clickHoverMenuTrigger="matMenuTrigger">{{category.cname}}</a>
+                    </ng-container>
+                </mat-menu>
+                
+                <mat-menu #submenu="matMenu">
+                    <ng-container *ngFor="let subcategory of category.scnames" class="mainMenu">
+                        <button mat-menu-item>
+                            <a mat-button [routerLink]="['productlist',category.cname.toLowerCase(),subcategory.toLowerCase()]" routerLinkActive="active"> {{subcategory}} </a>
+                        </button>
+                    </ng-container>
+                </mat-menu>
+                <!-- <div class="sidemenu" *ngIf="menuFlag">
                     <app-menu-bar></app-menu-bar>
-                </div>
+                </div> -->
             </div>
             <div class="search pl-3 position-relative">
                 <button mat-button [matMenuTriggerFor]="deals">Deals</button>

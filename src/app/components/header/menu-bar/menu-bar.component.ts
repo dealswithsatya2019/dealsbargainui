@@ -18,9 +18,7 @@ export class MenuBarComponent implements OnInit {
   openOnMouseOver() {
     this.HoverMenuTrigger.toggleMenu();
   }
-  // funClose() {
-  //   this.matDialogRef.close();
-  // }
+  
   menus = [
     {
       cname: "Apparel",
