@@ -5,6 +5,7 @@ export class searchreponse{
 
     status : string;
     statusCode : number;
-    responseObjects : Product[];
+    responseObjects : any[];
+    responseObject : any[];
 
 }

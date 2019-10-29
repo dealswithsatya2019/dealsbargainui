@@ -38,7 +38,7 @@ const routes: Routes = [
     path: AppRoutes.AppLanding,
     component: AppLandingComponent
   },
-  {
+  { 
     path: AppRoutes.Content,
     component: ContentComponent
   },

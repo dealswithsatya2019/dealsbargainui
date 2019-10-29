@@ -3,34 +3,57 @@
 		<div fxflex="100" fxflex.gt-md="35" fxflex.md="45" style="flex: 1 1 55%; box-sizing: border-box; max-width: 45%;display: flex">
 			<div class="swiper-container gallery-thumbs" style="height:450px">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide" *ngFor="let product of similarProducts; let i = index">
-						<img src="{{product.image}}" style="max-height:100%">
+					<div *ngIf="productDetails.thumbnail_image; else  listImgElseBlock">
+						<div class="swiper-slide" *ngFor="let listImage of productDetails.thumbnail_image; let i = index">
+							<img src="{{listImage}}" style="max-height:100%">
+						</div>
 					</div>
+					<ng-template #listImgElseBlock>
+						<div class="swiper-slide">
+							<img src="{{productDetails.image}}" style="max-height:100%">
+						</div>
+					</ng-template>
 				</div>
-			</div>
+			</div> 
 			<div class="swiper-container gallery-top" style="height:450px">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide" *ngFor="let product of similarProducts; let i = index">
-						<img src="{{product.image}}" style="max-height:100%">
+					<div *ngIf="productDetails.thumbnail_image; else simpleImgElseBlock">
+						<div class="swiper-slide" *ngFor="let listImage of productDetails.thumbnail_image; let i = index">
+							<img src="{{listImage}}" style="max-height:100%">
+						</div>
 					</div>
+					<ng-template #simpleImgElseBlock>
+						<div class="swiper-slide">
+							<img src="{{productDetails.image}}" style="max-height:100%">
+						</div>
+					</ng-template>
 				</div>
 			</div>
 
 		</div>
 
-		<div fxflex="100" fxflex.gt-md="45" fxflex.md="55" ngclass.gt-sm="px-3 m-0" ngclass.sm="mt-2" ngclass.xs="mt-2" class="px-4 m-0" style="flex: 1 1 55%; box-sizing: border-box; max-width: 55%;">
+		<div fxflex="100" fxflex.gt-md="45" fxflex.md="55" ngclass.gt-sm="px-3 m-0" ngclass.sm="mt-2" ngclass.xs="mt-2" class="px-4 m-0"
+		 style="flex: 1 1 55%; box-sizing: border-box; max-width: 55%;">
 			<div fxshow="false" fxshow.gt-md="">
 				<mat-card class="zoom-viewer mat-elevation-z18 mat-card ng-star-inserted" style="background-image: url(&quot;assets/images/products/keyboard/1-big.png&quot;); background-position: 87.4477% 97.493%; display: none; height: 359px; width: 478px;"></mat-card>
 			</div>
+			<button mat-button class="action-btns">
+					<i class="fa fa-heart"></i>
+				</button>
+				<button mat-button class="action-btns">
+					<i class="fa fa-share-alt"></i>
+			</button>
+			<h5>{{productDetails.title}}</h5>
+			<p style="color: #747474;font-weight: 300;">BRAND : {{productDetails.brand_name}}</p>
+			<!-- <small class="py-1"><i class="fa fa-thumbs-up"></i> 8 Recommendations</small>
 			
-			<h5>Product Name</h5>
-			<p style="color: #747474;font-weight: 300;">Women Notched Collor Subb Kurta</p>
-			<small class="py-1"><i class="fa fa-thumbs-up"></i> 8 Recommendations</small>
-			
-			<p class="py-3">1000 People have viewed this product</p>
+			<p class="py-3">1000 People have viewed this product</p> -->
 
-			<h4>Rs 741<span class="px-3 stike-off">Rs 1499</span> <span class="px-3 discount">(50% off)</span></h4>
-			<div class="p-3 my-3" style="border:1px dashed #ccc;">
+			<h4>$ {{productDetails.custom_price}}
+				<span class="px-3 stike-off">$ {{productDetails.prepay_price}}</span>
+				<span class="px-3 discount">(50% off)</span>
+			</h4>
+			<!-- <div class="p-3 my-3" style="border:1px dashed #ccc;">
 				<p>offers: <span class="pl-4">Flat 50% off</span></p>
 			</div>
 			<p>Select Color</p>
@@ -43,18 +66,23 @@
 				<button mat-raised-button>M</button>
 				<button mat-raised-button>L</button>
 				<button mat-raised-button>XL</button>
-			</div>
+			</div> -->
+			<h6>{{productDetails.attributes}}</h6>
+			<h6>Warranty : {{productDetails.warranty}}</h6>
 			<div class="py-3 mt-4 lh">
-				<a mat-button class="quick-buy" [routerLink]="['/productpurchase']">Quick Buy</a><a mat-button class="add-bag" [routerLink]="['/productpurchase']">ADD TO BAG</a>
+				<a mat-button class="quick-buy" [routerLink]="['/productpurchase']">Quick Buy</a>
+				<a mat-button class="add-bag" [routerLink]="['/productpurchase']">ADD TO BAG</a>
 			</div>
 			<p class="py-3">
-				<span>Hassle Free Delivery</span><span class="pl-5">Free Shipping</span>
+				<span>Hassle Free Delivery</span>
+				<span class="pl-5">Free Shipping</span>
 			</p>
 			<div class="py-1">
 				<P>DELIVERY</P>
 				<p class="m-2" style="font-size: 14px;color: #747474;">Enter your pincode to check the delivery time.</p>
-				
-				<input matInput> <a mat-button>Check</a>
+
+				<input matInput>
+				<a mat-button>Check</a>
 			</div>
 			<div class="py-1 mt-3 del-details" style="border:1px solid #ccc;">
 				<ul>
@@ -63,64 +91,66 @@
 					<li>Standard delivery.</li>
 					<li>Cash On Delivery</li>
 				</ul>
-			</div>	
+			</div>
 		</div>
 	</div>
 
 	<mat-accordion class="w-100">
 		<mat-expansion-panel [expanded]="true">
 			<mat-expansion-panel-header>
-				<p class="text-center">PRODUCT DETAILS & CARE</p>
+				<p class="text-center">PRODUCT DETAILS</p>
 			</mat-expansion-panel-header>
-				
+
 			<p>PRODUCT DESCRIPTION</p>
-			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim earum fuga repudiandae commodi laborum exercitationem excepturi culpa alias, numquam quia nobis error similique tempore quibusdam, corrupti explicabo quasi. Voluptatum, dolor.</p>
+			<p>{{productDetails.description}}</p>
 			<div class="py-1">
 				<p>
-					<span>Product Code: 1234567890</span><br>
+					<span>Product Code: 1234567890</span>
+					<br>
 					<span>Need Help? Contact Us</span>
 				</p>
 			</div>
-				
+
 		</mat-expansion-panel>
 
 		<mat-expansion-panel>
 			<mat-expansion-panel-header>
-				<p class="text-center">STYLE INFO</p>
+				<p class="text-center">ADDITIONAL INFO</p>
 			</mat-expansion-panel-header>
 			<mat-grid>
-				<p>Revamp your ethnic wear by draping the pretty kurta. Get the perfect look for the casual occasion by wearing it with a pair of leggings and peep toe shoes.</p>
+				<p>{{productDetails.attributes}}</p>
 			</mat-grid>
 		</mat-expansion-panel>
 
 		<mat-expansion-panel>
 			<mat-expansion-panel-header>
-				<p class="text-center">BRAND INFO</p>
+				<p class="text-center">DISCRIMINATOR</p>
 			</mat-expansion-panel-header>
 			<mat-grid>
-			<p class="mb-2">VARANGA:</p>
+				<!-- <p class="mb-2">VARANGA:</p>
 
 			Varanga is about handpicking the most unconventional yet extremely exciting designs from artisans and craftsmen from all over India and to deliver them at exceptional value to customers. Our motive is to make you stand out, deviate from the mundane style of dressing and embrace cutting-edge fashion while not burning a hole in your pockets. Adding authentic Indian artwork and fusing it with contemporary design, we are an exclusive destination for ‘The Indian Modern’. The brand focusses on quality material, design, fit and sizing.
-
+			-->
 			</mat-grid>
 		</mat-expansion-panel>
 	</mat-accordion>
 
 
-	<mat-toolbar-row>
+	<!-- <mat-toolbar-row>
 		<ngx-image-zoom [thumbImage]=myThumbnail [fullImage]=myFullresImage [magnification]="1" [enableScrollZoom]="true" [enableLens]="true"
-		[lensWidth]="500" [lensWidth]="500" [lensTop]="5" [lensLeft]="10" [isInsideStaticContainer]="true" [imgStyle]="'width:515px; height:515px; bottom:0;  left:0;  right:0;  top:0;  margin:0 auto; border:1px solid #dcdcdc;'"
-		[resultStyle]="'width:824px; height:824px; background-repeat: no-repeat; z-index: 2; position:absolute;
+		 [lensWidth]="500" [lensWidth]="500" [lensTop]="5" [lensLeft]="10" [isInsideStaticContainer]="true" [imgStyle]="'width:515px; height:515px; bottom:0;  left:0;  right:0;  top:0;  margin:0 auto; border:1px solid #dcdcdc;'"
+		 [resultStyle]="'width:824px; height:824px; background-repeat: no-repeat; z-index: 2; position:absolute;
 						-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 							box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); top: 0;left: 100%;'" [lensStyle]="'width:155px; height:155px'"
-		[enableZoom]="true" [containerStyle]="'width:400px; height:400px'"></ngx-image-zoom>
+		 [enableZoom]="true" [containerStyle]="'width:400px; height:400px'"></ngx-image-zoom>
 
 	</mat-toolbar-row>
-
+-->
 
 	<!-- Similar Products -->
-	<h5 class="subtitle position-relative"> SIMILAR PRODUCTS <a [routerLink]="['/dealslist/f']" class="pl-3">VIEW ALL</a></h5>
-		
+	<h5 class="subtitle position-relative"> SIMILAR PRODUCTS 
+		<a [routerLink]="['productlist',cname.toLowerCase(),scname.toLowerCase()]"  routerLinkActive="active" class="pl-3">VIEW ALL</a>
+	</h5>
 	<div *ngIf="similarProducts">
 		<div class="swiper-container similar">
 			<div class="swiper-wrapper">
@@ -130,7 +160,7 @@
 							<span class="badge offer-badge">{{product.discount}}</span>
 						</mat-card-subtitle>
 						<div class="product-img">
-							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails()">
+							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails('{cname:product.category,scname:product.subcategory,pid:product.item_id}')">
 						</div>
 						<mat-card-content class="product-desc">
 							<p class="p-title">{{product.item_name}}</p>
@@ -144,7 +174,7 @@
 							<button mat-button class="action-btns">
 								<i class="fa fa-heart"></i>
 							</button>
-							<button mat-button class="action-btns" >
+							<button mat-button class="action-btns">
 								<i class="fa fa-share-alt"></i>
 							</button>
 						</mat-card-actions>
@@ -158,18 +188,31 @@
 	</div>
 
 	<!-- Similar Products ENd-->
-
+<!--
 	<div class="suggestions">
-		<a mat-button>More Kurtas by brands</a> <a mat-button>More Kurtas by Color</a> <a mat-button>More Kurtas</a>
+		<a mat-button>More Kurtas by brands</a>
+		<a mat-button>More Kurtas by Color</a>
+		<a mat-button>More Kurtas</a>
 	</div>
-	
+-->
 	<div class="reviews">
 		<h4>Reviews & Ratings</h4>
 		<div class="divider" style="border-top:1px solid #ccc;"></div>
 		<div class="py-1" style="display: flex;">
-			<p><span>0</span>/<span>5</span></p>
-			<p>Do you recommend this product? <a mat-button><i class="fa fa-thumbs-up"></i></a> <a mat-button><i class="fa fa-thumbs-down"></i></a></p><a mat-button>Rate this product</a>
-		</div>	 
+			<p>
+				<span>0</span>/
+				<span>5</span>
+			</p>
+			<p>Do you recommend this product?
+				<a mat-button>
+					<i class="fa fa-thumbs-up"></i>
+				</a>
+				<a mat-button>
+					<i class="fa fa-thumbs-down"></i>
+				</a>
+			</p>
+			<a mat-button>Rate this product</a>
+		</div>
 	</div>
 
 </div>
