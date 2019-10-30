@@ -1,12 +1,5 @@
 <div>
-    <mat-toolbar-row>
-        <div *ngIf="!paypalFor">
-        </div>
-        <div *ngIf="paypalFor">
-            <h1>Your transaction is success</h1>
-        </div>
-        <div #paypal></div>
-    </mat-toolbar-row>
+    
 </div>
 
 <div class="content-container mt-3">
@@ -82,7 +75,7 @@
                     <div class="existed-login mt-3" style="display: flex;line-height: 30px;">
                         <div class="" style="flex: 1 1 50%;max-width: 50%;padding: 0 5%;">
                             <p>Phone <span class="pl-2">{{userName}}</span></p>
-                            <a mat-button class="p-0">Logout and signin with another account</a>
+                            <a mat-button class="p-0" (click)="signOut()">Logout and signin with another account</a>
                             <button mat-button (click) = "setStep(2)" class="my-2 w-100 login-login-btn">Continue Checkout</button>
                         </div>
                         <div class="" style="flex: 1 1 50%;max-width: 50%;padding: 0 5%;">
@@ -211,10 +204,16 @@
                         Payment
                     </mat-expansion-panel-header>
                     <mat-radio-group aria-label="Select an option" class="py-3 d-block">
-                        <mat-radio-button value="1">Paypal</mat-radio-button>
-
+                        <mat-radio-button value="1" [checked]="true">Paypal</mat-radio-button>
+                        <mat-toolbar-row>
+                            <div *ngIf="!paypalFor">
+                            </div>
+                            <div *ngIf="paypalFor">
+                                <h1>Your transaction is success</h1>
+                            </div>
+                            <div #paypal></div>
+                        </mat-toolbar-row>
                     </mat-radio-group>
-
                 </mat-expansion-panel>
             </mat-accordion>
         </div>

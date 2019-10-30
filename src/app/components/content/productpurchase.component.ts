@@ -23,7 +23,7 @@ export class ProductpurchaseComponent implements OnInit {
   exp5: boolean = false
   userName: string = "";
   public productDetails: any[];
-  public product  : Product;
+  public product: Product;
   public cname: string;
   public scname: string;
   public pid: string;
@@ -50,6 +50,9 @@ export class ProductpurchaseComponent implements OnInit {
     //   });
     paypal
       .Buttons({
+        style: {
+          layout: 'horizontal'
+        },
         createOrder: (data, actions) => {
           return actions.order.create({
             purchase_units: [
@@ -122,4 +125,12 @@ export class ProductpurchaseComponent implements OnInit {
       this.exp2 = this.exp3 = this.exp4 = this.exp1 = false;
     }
   }
+
+  signOut(): void {
+    this._socioAuthServ.signOut();
+    this.loginformService.response = null;
+    sessionStorage.removeItem("f_login_form");
+    this.setStep(1);
+  }
+
 }
