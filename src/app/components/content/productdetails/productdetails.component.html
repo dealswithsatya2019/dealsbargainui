@@ -71,7 +71,7 @@
 			<h6>Warranty : {{productDetails.warranty}}</h6>
 			<div class="py-3 mt-4 lh">
 				<a mat-button class="quick-buy" [routerLink]="['/productpurchase']">Quick Buy</a>
-				<a mat-button class="add-bag" [routerLink]="['/productpurchase']">ADD TO BAG</a>
+				<a mat-button class="add-bag" [routerLink]="['/mycart']">ADD TO BAG</a>
 			</div>
 			<p class="py-3">
 				<span>Hassle Free Delivery</span>
@@ -168,7 +168,7 @@
 								<span class="old_cost">{{product.price}}</span>
 								<span class="new_cost">{{product.deal_price}}</span>
 							</p>
-							<button mat-button class="cart-btn">Add Cart</button>
+							<button mat-button class="cart-btn" [routerLink]="['/mycart']">Add Cart</button>
 						</mat-card-content>
 						<mat-card-actions>
 							<button mat-button class="action-btns">

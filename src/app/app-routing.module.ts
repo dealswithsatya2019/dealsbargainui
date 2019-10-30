@@ -26,6 +26,7 @@ import { LocationweshiptoComponent } from './components/footer/locationweshipto.
 import { EstimateddeliverytimeComponent } from './components/footer/estimateddeliverytime.component';
 import { MyaccountComponent } from './components/footer/myaccount.component';
 import { ProductpurchaseComponent } from './components/content/productpurchase.component';
+import { CartdetailsComponent } from './components/content/cartdetails.component';
 
 
 const routes: Routes = [
@@ -138,6 +139,9 @@ const routes: Routes = [
     path: AppRoutes.productpurchase,
     component: ProductpurchaseComponent,
     
+  },{
+    path: AppRoutes.mycart,
+    component: CartdetailsComponent,
   }
 ];
 
