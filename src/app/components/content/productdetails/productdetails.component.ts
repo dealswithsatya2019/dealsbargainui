@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { Product } from 'src/app/models/product';
 import { searchreponse } from 'src/app/models/searchResponse';
 import { Swiper, Navigation, Pagination, Scrollbar, Autoplay, Thumbs } from 'swiper/js/swiper.esm.js';
+import { ProductDetails } from 'src/app/models/ProductDetails';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
 declare let paypal: any;
@@ -19,7 +20,7 @@ export class ProductdetailsComponent implements OnInit {
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
   paidFor: boolean = false;
-  public productDetails : any[];
+  public productDetails : ProductDetails;
   public similarProducts : Product[];
   public myThumbnail="https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
   public myFullresImage="https://wittlock.github.io/ngx-image-zoom/assets/fullres.jpg";
