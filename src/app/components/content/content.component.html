@@ -23,7 +23,7 @@
 								<span class="old_cost">{{product.price}}</span>
 								<span class="new_cost">{{product.deal_price}}</span>
 							</p>
-							<button mat-button class="cart-btn">Add Cart</button>
+							<button mat-button class="cart-btn" [routerLink]="['/mycart']">Add Cart</button>
 						</mat-card-content>
 						<mat-card-actions>
 							<!-- <button mat-button class="action-btns"><i class="fa fa-thumbs-up"></i></button> -->
@@ -66,7 +66,7 @@
 						<span class="old_cost">{{product.price}}</span>
 						<span class="new_cost">{{product.deal_price}}</span>
 					</p>
-					<button mat-button class="cart-btn">Add Cart</button>
+					<button mat-button class="cart-btn" [routerLink]="['/mycart']">Add Cart</button>
 				</mat-card-content>
 				<mat-card-actions>
 					<button mat-button><i class="fa fa-heart"></i></button>
@@ -96,7 +96,7 @@
 						<span class="old_cost">{{product.price}}</span>
 						<span class="new_cost">{{product.deal_price}}</span>
 					</p>
-					<button mat-button class="cart-btn">Add Cart</button>
+					<button mat-button class="cart-btn" [routerLink]="['/mycart']">Add Cart</button>
 				</mat-card-content>
 				<mat-card-actions>
 					<button mat-button class="action-btns"><i class="fa fa-thumbs-up"></i></button>
