@@ -20,7 +20,7 @@ export class ProductpurchaseComponent implements OnInit {
   exp2: boolean = false;
   exp3: boolean = false;
   exp4: boolean = false;
-  exp5: boolean = false
+  exp5: boolean = false;
   userName: string = "";
   public productDetails: any[];
   public product: Product;
@@ -57,10 +57,10 @@ export class ProductpurchaseComponent implements OnInit {
           return actions.order.create({
             purchase_units: [
               {
-                description: this.productDetails[0].description,
+                description: "",
                 amount: {
                   currency_code: "USD",
-                  value: this.productDetails[0].price,
+                  value: "0.01",
                 }
               }
             ]
