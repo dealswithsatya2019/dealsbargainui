@@ -9,7 +9,8 @@ import {
   MatListModule, 
   MatSliderModule,
   MatSlideToggleModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatTooltipModule
 } from  '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -32,6 +33,7 @@ const MaterialComponents = [
   MatSidenavModule,
   MatListModule, 
   MatSliderModule,
+  MatTooltipModule,
   MatSlideToggleModule,MatButtonModule,MatDialogModule,MatFormFieldModule,
   MatInputModule,MatGridListModule,MatRadioModule,MatSelectModule,MatDatepickerModule,
   MatNativeDateModule,MatCheckboxModule,MatExpansionModule,MatBadgeModule

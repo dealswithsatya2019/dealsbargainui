@@ -1,7 +1,10 @@
 mat-toolbar-row{
   height: auto;
+  padding: 0px;
 }
-
+h5{
+  .action-btns{float:right;}
+}
   .productlistcontainer{
     overflow-y: scroll;
     overflow: hidden;
@@ -212,7 +215,13 @@ mat-toolbar-row{
     }
   }
  
-
+  .rate-product{
+    background-color:green;
+    color:#fff;
+    font-size: 13px;
+    padding: 2px 4px;
+    border-radius: 2px;
+  }
   .gallery-top {
     height: 100%;
     width: 80%;
@@ -236,15 +245,20 @@ mat-toolbar-row{
   }
 
   .stike-off{
-    font-size: 20px;
+    font-size: 16px;
     color: #747474;
+    font-weight: 400;
     text-decoration: line-through;
   }
   .discount{
-    font-size: 18px;
+    font-size: 16px;
     color: #b90b1c;
+    font-weight: 400;
   }
-
+  .offer-box{
+    border: 1px dashed #ccc;
+    span{border-left: 1px dashed #ccc}
+  }
   .size button{
     margin-right: 15px;
   }
@@ -259,14 +273,20 @@ mat-toolbar-row{
     background-color: #ff9600;
     color: #fff;
   }
-
+.select-color{
+  width: 64px;padding: 0px;
+}
   input.mat-input-element {
     background: #fff;
-    padding: 5px 0px;
-    width: 300px;
+    padding: 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    width: 250px;
   }
-
+  .check-pin{width: 250px}
   .del-details{
+    border: 1px solid #ccc;
+    border-radius: 3px;
     ul{
       list-style: none;
     }
@@ -290,29 +310,48 @@ mat-toolbar-row{
   .mat-expansion-panel-header{
     text-align: center;
   }
+  .product-name{
+    color: #747474;font-weight: 300;
+  }
   .suggestions{
-    margin: 16px 0px;
+    width: 90%;
+    margin: 16px auto;
     background:#fff;
     padding: 24px;
+    box-shadow: 0px 0px 7px 3px rgba(0,0,0,0.1);
     a{
       width: 32%;
       margin-right: 10px;
       border: 1px solid #ccc;
+      box-shadow: none;
+      color: #ff9600;
+      font-weight: 400;
+      padding: 5px 0px;
     }
   }
   .reviews{
     margin: 16px 0px;
     background:#fff;
-    padding: 24px;
     p{
-      min-width: 33% ;
-      span{
+      .rating-top{
         font-weight:500;
-        font-size: 24px;
+        font-size: 40px;
+      }
+      .rating-btm{
+        font-weight:500;
+        font-size: 28px;
       }
     }
   }
-  
+  .divider{
+    border-top: 1px solid #ccc;
+  }
+  .dialog-btn{
+    box-shadow: none;
+    color: #ff9600;
+    border: 1px solid #ff9600;
+    font-weight: 400;height: 36px;
+  }
   @media screen and (max-width:768px){
     .menu-toolbar{
       padding: 10px 10px 0px 10px;
