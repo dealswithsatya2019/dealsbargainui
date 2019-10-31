@@ -114,7 +114,7 @@ export class ProductdetailsComponent implements OnInit {
     }, 1000);
   }
 
-  showProductDetails(){
+  showProductDetails(params){
     
   }
 
