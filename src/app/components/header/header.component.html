@@ -5,16 +5,16 @@
                 <img class="img-fluid img-cursor" mat-card-image src="../../assets/img/DealsBargain-Logo.png"
                     alt="photo" (click)=gotoHomePage()>
             </div>
-            <mat-form-field>
+            <mat-form-field floatLabel="never">
                 <input matInput value="search item here..." aria-label="State" [matAutocomplete]="auto" [formControl]="searchMoviesCtrl">
                 <mat-autocomplete #auto="matAutocomplete">
                     <mat-option *ngFor="let hits of filteredMovies" [value]="hits._source.title">
                         {{hits._source.title}}
                     </mat-option>
                 </mat-autocomplete>
-                    <button mat-button color="primary" class="search-btn" (click)="search()"><i class="fa fa-search"></i></button>
+                <button mat-button color="primary" class="search-btn" (click)="search()"><i class="fa fa-search"></i></button>
             </mat-form-field>
-    
+        
             <div>
                 <a mat-button (click)="funSignIn()" *ngIf="!this.userservice.response"><i class="fa fa-unlock-alt"></i><span>Login & Signup</span></a>
                 <ng-container *ngIf="this.userservice.response">
@@ -83,9 +83,9 @@
         <mat-toolbar-row class="search-toolbar">
             <div class="verticalCategories">
                     
-                <button mat-button class="menu-btn" (click)="toggleMenu()">
+                <!-- <button mat-button class="menu-btn" (click)="toggleMenu()">
                     <i class="fa fa-align-left mr-2"></i> <span class="pl-3">Categories</span>
-                </button>
+                </button> -->
                 <!-- <mat-menu #menu="matMenu">
                     <ng-container *ngFor="let category of menus">
                         <a mat-menu-item [matMenuTriggerFor]="submenu" #clickHoverMenuTrigger="matMenuTrigger">{{category.cname}}</a>
@@ -99,7 +99,7 @@
                         </button>
                     </ng-container>
                 </mat-menu> -->
-                <div class="sidemenu" *ngIf="menuFlag">
+                <div class="sidemenu">
                     <app-menu-bar></app-menu-bar>
                 </div>
             </div>

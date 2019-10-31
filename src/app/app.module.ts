@@ -46,6 +46,7 @@ import { MyaccountComponent } from './components/footer/myaccount.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { ProductpurchaseComponent } from './components/content/productpurchase.component';
 import { CartdetailsComponent } from './components/content/cartdetails.component';
+import { RateproductComponent } from './components/content/rateproduct/rateproduct.component';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -100,9 +101,10 @@ export function ProvideConfig() {
     EstimateddeliverytimeComponent,
     MyaccountComponent,
     ProductpurchaseComponent,
-    CartdetailsComponent
+    CartdetailsComponent,
+    RateproductComponent
   ],
-  entryComponents:[LoginComponent,SignupComponent,SocialshareComponent],
+  entryComponents:[LoginComponent,SignupComponent,SocialshareComponent,RateproductComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

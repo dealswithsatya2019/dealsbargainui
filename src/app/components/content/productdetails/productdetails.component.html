@@ -1,4 +1,4 @@
-<div class="content-container">
+<div class="content-container pt-4">
 	<div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
 		<div fxflex="100" fxflex.gt-md="35" fxflex.md="45" style="flex: 1 1 55%; box-sizing: border-box; max-width: 45%;display: flex">
 			<div class="swiper-container gallery-thumbs" style="height:450px">
@@ -37,13 +37,18 @@
 			<div fxshow="false" fxshow.gt-md="">
 				<mat-card class="zoom-viewer mat-elevation-z18 mat-card ng-star-inserted" style="background-image: url(&quot;assets/images/products/keyboard/1-big.png&quot;); background-position: 87.4477% 97.493%; display: none; height: 359px; width: 478px;"></mat-card>
 			</div>
-			<button mat-button class="action-btns">
-					<i class="fa fa-heart"></i>
-				</button>
-				<button mat-button class="action-btns">
-					<i class="fa fa-share-alt"></i>
-			</button>
-			<h5>{{productDetails.title}}</h5>
+			
+			<h5>
+				<span class="mr-1 rate-product">4.6 <i class="fa fa-star"></i></span>{{productDetails.title}} 
+				<span>
+						<button mat-button class="action-btns">
+								<i class="fa fa-heart"></i>
+							</button>
+							<button mat-button class="action-btns">
+								<i class="fa fa-share-alt"></i>
+						</button>
+				</span>
+			</h5>
 			<p style="color: #747474;font-weight: 300;">BRAND : {{productDetails.brand_name}}</p>
 			<!-- <small class="py-1"><i class="fa fa-thumbs-up"></i> 8 Recommendations</small>
 			
@@ -81,7 +86,7 @@
 				<P>DELIVERY</P>
 				<p class="m-2" style="font-size: 14px;color: #747474;">Enter your pincode to check the delivery time.</p>
 
-				<input matInput>
+				<input matInput placeholder="pincode">
 				<a mat-button>Check</a>
 			</div>
 			<div class="py-1 mt-3 del-details" style="border:1px solid #ccc;">
@@ -196,23 +201,14 @@
 	</div>
 -->
 	<div class="reviews">
-		<h4>Reviews & Ratings</h4>
-		<div class="divider" style="border-top:1px solid #ccc;"></div>
-		<div class="py-1" style="display: flex;">
-			<p>
-				<span>0</span>/
-				<span>5</span>
-			</p>
-			<p>Do you recommend this product?
-				<a mat-button>
-					<i class="fa fa-thumbs-up"></i>
-				</a>
-				<a mat-button>
-					<i class="fa fa-thumbs-down"></i>
-				</a>
-			</p>
-			<a mat-button>Rate this product</a>
-		</div>
+		<p class="p-3">Reviews & Ratings</p>
+		<div class="divider"></div>
+		<div class="p-4 rev-content" style="display: flex;justify-content: space-between">
+			<p><span class="rating-top px-1">0</span>/<span class="rating-btm px-1">5</span></p>
+			<p>Do you recommend this product? <a mat-raised-button class="ml-4"><i class="fa fa-thumbs-up"></i></a> 
+				<a mat-raised-button class="ml-3"><i class="fa fa-thumbs-down"></i></a></p>
+			<a mat-raised-button class="dialog-btn" (click)="openDialog()">Rate this product</a>
+		</div>	 
 	</div>
 
 </div>
