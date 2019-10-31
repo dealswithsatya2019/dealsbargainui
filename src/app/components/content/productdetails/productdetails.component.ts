@@ -6,6 +6,7 @@ import { Product } from 'src/app/models/product';
 import { searchreponse } from 'src/app/models/searchResponse';
 import { RateproductComponent } from '../rateproduct/rateproduct.component';
 import { Swiper, Navigation, Pagination, Scrollbar, Autoplay, Thumbs } from 'swiper/js/swiper.esm.js';
+import { ProductDetails } from 'src/app/models/ProductDetails';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
 declare let paypal: any;
@@ -20,7 +21,7 @@ export class ProductdetailsComponent implements OnInit {
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
   paidFor: boolean = false;
-  public productDetails : any;
+  public productDetails : ProductDetails;
   public similarProducts : Product[];
   public myThumbnail="https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
   public myFullresImage="https://wittlock.github.io/ngx-image-zoom/assets/fullres.jpg";
@@ -45,11 +46,6 @@ export class ProductdetailsComponent implements OnInit {
   constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this._productservice.getHttpProductDealsByType('f', 'us', 0, 50).subscribe(
-      (results: searchreponse) => {
-        this.similarProducts = results.responseObjects;
-      });
-    
     this._Activatedroute.paramMap.subscribe((params : ParamMap)=> {  
       this.cname=params.get('cname');  
       this.scname=params.get('scname');  
@@ -58,7 +54,12 @@ export class ProductdetailsComponent implements OnInit {
     
     this._productservice.getHttpProductDetailsById(this.cname, this.scname, this.pid, 'us').subscribe(
       (results: searchreponse) => {
-        this.productDetails = results.responseObjects;
+        this.productDetails = results.responseObject[0];
+        //this.productDetails.thumbnail_image=['https://d1k0ppjronk6up.cloudfront.net/products/1529/images_b75_image2_844.jpg',this.productDetails.image];
+      });
+    this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
+        (results: searchreponse) => {
+          this.similarProducts = results.responseObjects;
       });
   }
   openDialog() {
@@ -115,7 +116,7 @@ export class ProductdetailsComponent implements OnInit {
   }
 
   showProductDetails(params){
-    
+    this._productservice.routeProductDetails(params);
   }
 
 }
