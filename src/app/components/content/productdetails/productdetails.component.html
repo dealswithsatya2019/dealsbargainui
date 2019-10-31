@@ -3,30 +3,16 @@
 		<div fxflex="100" fxflex.gt-md="35" fxflex.md="45" style="flex: 1 1 55%; box-sizing: border-box; max-width: 45%;display: flex">
 			<div class="swiper-container gallery-thumbs" style="height:450px">
 				<div class="swiper-wrapper">
-					<div *ngIf="productDetails.thumbnail_image; else  listImgElseBlock">
-						<div class="swiper-slide" *ngFor="let listImage of productDetails.thumbnail_image; let i = index">
-							<img src="{{listImage}}" style="max-height:100%">
-						</div>
+					<div class="swiper-slide" *ngFor="let listitem of items; index as j">
+						<img src="{{listitem.data.thumb}}" style="max-height:100%">
 					</div>
-					<ng-template #listImgElseBlock>
-						<div class="swiper-slide">
-							<img src="{{productDetails.image}}" style="max-height:100%">
-						</div>
-					</ng-template>
 				</div>
-			</div> 
+			</div>
 			<div class="swiper-container gallery-top" style="height:450px">
 				<div class="swiper-wrapper">
-					<div *ngIf="productDetails.thumbnail_image; else simpleImgElseBlock">
-						<div class="swiper-slide" *ngFor="let listImage of productDetails.thumbnail_image; let i = index">
-							<img src="{{listImage}}" style="max-height:100%">
-						</div>
+					<div class="swiper-slide" *ngFor="let item of items; index as i">
+						<img [lightbox]="i" [src]="item.data.thumb" style="max-height:100%">
 					</div>
-					<ng-template #simpleImgElseBlock>
-						<div class="swiper-slide">
-							<img src="{{productDetails.image}}" style="max-height:100%">
-						</div>
-					</ng-template>
 				</div>
 			</div>
 
@@ -37,16 +23,18 @@
 			<div fxshow="false" fxshow.gt-md="">
 				<mat-card class="zoom-viewer mat-elevation-z18 mat-card ng-star-inserted" style="background-image: url(&quot;assets/images/products/keyboard/1-big.png&quot;); background-position: 87.4477% 97.493%; display: none; height: 359px; width: 478px;"></mat-card>
 			</div>
-			
+
 			<h5>
-				<span class="mr-1 rate-product">4.6 <i class="fa fa-star"></i></span>{{productDetails.title}} 
+				<span class="mr-1 rate-product">4.6
+					<i class="fa fa-star"></i>
+				</span>{{productDetails.title}}
 				<span>
-						<button mat-button class="action-btns">
-								<i class="fa fa-heart"></i>
-							</button>
-							<button mat-button class="action-btns">
-								<i class="fa fa-share-alt"></i>
-						</button>
+					<button mat-button class="action-btns">
+						<i class="fa fa-heart"></i>
+					</button>
+					<button mat-button class="action-btns">
+						<i class="fa fa-share-alt"></i>
+					</button>
 				</span>
 			</h5>
 			<p style="color: #747474;font-weight: 300;">BRAND : {{productDetails.brand_name}}</p>
@@ -153,8 +141,8 @@
 -->
 
 	<!-- Similar Products -->
-	<h5 class="subtitle position-relative"> SIMILAR PRODUCTS 
-		<a [routerLink]="['productlist',cname.toLowerCase(),scname.toLowerCase()]"  routerLinkActive="active" class="pl-3">VIEW ALL</a>
+	<h5 class="subtitle position-relative"> SIMILAR PRODUCTS
+		<a [routerLink]="['productlist',cname.toLowerCase(),scname.toLowerCase()]" routerLinkActive="active" class="pl-3">VIEW ALL</a>
 	</h5>
 	<div *ngIf="similarProducts">
 		<div class="swiper-container similar">
@@ -193,7 +181,7 @@
 	</div>
 
 	<!-- Similar Products ENd-->
-<!--
+	<!--
 	<div class="suggestions">
 		<a mat-button>More Kurtas by brands</a>
 		<a mat-button>More Kurtas by Color</a>
@@ -204,11 +192,20 @@
 		<p class="p-3">Reviews & Ratings</p>
 		<div class="divider"></div>
 		<div class="p-4 rev-content" style="display: flex;justify-content: space-between">
-			<p><span class="rating-top px-1">0</span>/<span class="rating-btm px-1">5</span></p>
-			<p>Do you recommend this product? <a mat-raised-button class="ml-4"><i class="fa fa-thumbs-up"></i></a> 
-				<a mat-raised-button class="ml-3"><i class="fa fa-thumbs-down"></i></a></p>
+			<p>
+				<span class="rating-top px-1">0</span>/
+				<span class="rating-btm px-1">5</span>
+			</p>
+			<p>Do you recommend this product?
+				<a mat-raised-button class="ml-4">
+					<i class="fa fa-thumbs-up"></i>
+				</a>
+				<a mat-raised-button class="ml-3">
+					<i class="fa fa-thumbs-down"></i>
+				</a>
+			</p>
 			<a mat-raised-button class="dialog-btn" (click)="openDialog()">Rate this product</a>
-		</div>	 
+		</div>
 	</div>
 
 </div>

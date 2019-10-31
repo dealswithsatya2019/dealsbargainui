@@ -47,6 +47,8 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { ProductpurchaseComponent } from './components/content/productpurchase.component';
 import { CartdetailsComponent } from './components/content/cartdetails.component';
 import { RateproductComponent } from './components/content/rateproduct/rateproduct.component';
+import { GalleryModule } from '@ngx-gallery/core';
+import { LightboxModule } from '@ngx-gallery/lightbox';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -115,11 +117,13 @@ export function ProvideConfig() {
     AppRoutingModule,
     MaterialModule,
     FlexLayoutModule,
-    FormsModule,
+    FormsModule, 
     ReactiveFormsModule,
     JwSocialButtonsModule,
     ScrollingModule,
-    NgxImageZoomModule.forRoot()
+    NgxImageZoomModule.forRoot(),
+    GalleryModule,
+    LightboxModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA , NO_ERRORS_SCHEMA],
   providers: [HttCommonService, ProductService, UserService,{ provide: AuthServiceConfig, useFactory: ProvideConfig}],

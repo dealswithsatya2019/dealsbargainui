@@ -18,7 +18,7 @@ export class ProductDetails {
     category: string; //"Electronics & computer",
     subcategory: string; //"General",
     image: string; //"https://d1k0ppjronk6up.cloudfront.net/products/2155/images_4x3_large_m_t_MT623.jpg",
-    thumbnail_image: string; //"",
+    thumbnail_image: string[]; //"",
     brand_name: string; //"bulk buys",
     suplier_id: string; //2155,
     suplier_name: string; //"2155",
