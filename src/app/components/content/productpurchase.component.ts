@@ -1,9 +1,15 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
-import { LoginformService } from 'src/app/services/forms/loginform.service';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
+import { LoginformService } from 'src/app/services/forms/loginform.service';
+import { HttCommonService } from 'src/app/services/httpcommon.service';
+import { ProductService } from 'src/app/services/product.service';
+import { searchreponse } from 'src/app/models/searchResponse';
+import { Observable } from 'rxjs';
+import { addressResponse } from 'src/app/models/addressResponse';
 declare let paypal: any;
 @Component({
   selector: 'app-productpurchase',
@@ -27,8 +33,21 @@ export class ProductpurchaseComponent implements OnInit {
   public cname: string;
   public scname: string;
   public pid: string;
+  addressform: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    mobile_number: new FormControl('', [Validators.required]),
+    zipcode: new FormControl('', [Validators.required]),
+    street: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    state: new FormControl('', [Validators.required]),
+    landmark: new FormControl('', [Validators.required]),
+    altphone: new FormControl('', [Validators.required]),
+    countrycode: new FormControl('us'),
 
-  constructor(public loginformService: LoginformService, public _socioAuthServ: AuthService, private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router) { }
+  });
+
+  constructor(public loginformService: LoginformService, public _socioAuthServ: AuthService, private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public httpService: HttCommonService, public http: HttpClient) { }
 
   ngOnInit() {
     this.setStep(1);
@@ -37,17 +56,7 @@ export class ProductpurchaseComponent implements OnInit {
     if (sessioninfo != null) {
       this.setStep(2);
     }
-    // this._Activatedroute.paramMap.subscribe((params: ParamMap) => {
-    //   this.cname = params.get('cname');
-    //   this.scname = params.get('scname');
-    //   this.pid = params.get('pid');
-    // });
 
-    // this._productservice.getHttpProductDetailsById(this.cname, this.scname, this.pid, 'us').subscribe(
-    //   (results: searchreponse) => {
-    //     this.productDetails = results.responseObject[0];
-    //     this.product = this.productDetails[0];
-    //   });
     paypal
       .Buttons({
         style: {
@@ -131,6 +140,44 @@ export class ProductpurchaseComponent implements OnInit {
     this.loginformService.response = null;
     sessionStorage.removeItem("f_login_form");
     this.setStep(1);
+  }
+
+  funSave() {
+    let addressInfo = JSON.parse(JSON.stringify(this.addressform.value));
+    console.log("addressInfo :", addressInfo);
+    this.saveAddress(addressInfo);
+
+  }
+
+  public getAddresslist(): Observable<addressResponse> {
+    let autherization: string = "Bearer 81c319a4-bcf1-4f19-9bba-2d311d8c293f";
+    return this.http.get<addressResponse>("http://34.233.128.163/api/v1/user/contacts/us",
+      { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
+  }
+
+  public addressInfo: addressResponse;
+
+  public getAddresses() {
+    this.getAddresslist().subscribe(data => this.addressInfo = data);
+  }
+
+  public showAddressInfo(addressId) {
+    console.log("address Id :", addressId);
+  }
+
+
+  public saveAddress(addressInfoJson: string) {
+    let autherization: string = "Bearer 81c319a4-bcf1-4f19-9bba-2d311d8c293f";
+    this.http.post("http://34.233.128.163/api/v1/user/contact", addressInfoJson,
+      { headers: { 'Content-Type': 'application/json', 'authorization': autherization } }).subscribe(data => {
+        console.log("Address :", data);
+        let jsonobj = JSON.parse(JSON.stringify(data));
+        console.log("Status", jsonobj.statusCode);
+        if (jsonobj.statusCode == 200 || 1 == 1) {
+          this.getAddresses();
+          this.setStep(2);
+        }
+      })
   }
 
 }
