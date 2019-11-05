@@ -25,6 +25,10 @@
 			</div>
 
 			<h5>
+				
+				<div class="stars">
+					<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating>
+				</div>
 				<span class="mr-1 rate-product">4.6
 					<i class="fa fa-star"></i>
 				</span>{{productDetails.title}}
@@ -36,11 +40,12 @@
 						<i class="fa fa-share-alt"></i>
 					</button>
 				</span>
+				<small class="py-1"><i class="fa fa-thumbs-up"></i> 8 Recommendations</small>
 			</h5>
 			<p style="color: #747474;font-weight: 300;">BRAND : {{productDetails.brand_name}}</p>
-			<!-- <small class="py-1"><i class="fa fa-thumbs-up"></i> 8 Recommendations</small>
 			
-			<p class="py-3">1000 People have viewed this product</p> -->
+			
+			<p class="py-3">1000 People have viewed this product</p>
 
 			<h4>$ {{productDetails.custom_price}}
 				<span class="px-3 stike-off">$ {{productDetails.prepay_price}}</span>

@@ -49,6 +49,7 @@ import { CartdetailsComponent } from './components/content/cartdetails.component
 import { RateproductComponent } from './components/content/rateproduct/rateproduct.component';
 import { GalleryModule } from '@ngx-gallery/core';
 import { LightboxModule } from '@ngx-gallery/lightbox';
+import { NgxStarRatingModule } from 'ngx-star-rating';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -123,7 +124,8 @@ export function ProvideConfig() {
     ScrollingModule,
     NgxImageZoomModule.forRoot(),
     GalleryModule,
-    LightboxModule
+    LightboxModule,
+    NgxStarRatingModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA , NO_ERRORS_SCHEMA],
   providers: [HttCommonService, ProductService, UserService,{ provide: AuthServiceConfig, useFactory: ProvideConfig}],

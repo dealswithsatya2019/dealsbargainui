@@ -37,6 +37,7 @@
     "font-awesome": "^4.7.0",
     "jw-angular-social-buttons": "^1.0.0",
     "ngx-image-zoom": "^0.4.1",
+    "ngx-star-rating": "0.0.1",
     "rxjs": "~6.4.0",
     "swiper": "^5.0.1",
     "tslib": "^1.10.0",

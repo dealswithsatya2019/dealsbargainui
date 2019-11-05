@@ -20,10 +20,13 @@ declare let paypal: any;
 })
 export class ProductdetailsComponent implements OnInit {
 
+  //https://ngx-gallery-cors-error.stackblitz.io
+   //Using loadingMode: 'indeterminate' on the GalleryModule's config worked.
+
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
   paidFor: boolean = false;
-  public productDetails : ProductDetails;
+  public productDetails : ProductDetails = new ProductDetails();
   public similarProducts : Product[];
   public myThumbnail="https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
   public myFullresImage="https://wittlock.github.io/ngx-image-zoom/assets/fullres.jpg";
@@ -31,6 +34,7 @@ export class ProductdetailsComponent implements OnInit {
   public scname: string;
   public pid: string;
   items: Array<GalleryItem> = [];
+  productRating : number = 5;
   // product = {
   //   price: 0.01,
   //   description: "Kappa",
@@ -67,13 +71,17 @@ export class ProductdetailsComponent implements OnInit {
             }
           } else {
             this.items.push(new ImageItem({ src:this.productDetails.image , thumb:this.productDetails.image  }));
-            this.items.push(new ImageItem({ src:'http://localhost:4200/assets/img/DealsBargain-Logo.png' , thumb:'http://localhost:4200/assets/img/DealsBargain-Logo.png'  }));
+            this.items.push(new ImageItem({ src:'http://localhost:4200/assets/img/DealsBargain-Logo.png' , thumb:'http://localhost:4200/assets/img/DealsBargain-Logo.png'}));
             
           }
           this.loadZoomImagesList();
         }
         //this.productDetails.thumbnail_image=['https://d1k0ppjronk6up.cloudfront.net/products/1529/images_b75_image2_844.jpg',this.productDetails.image];
-      });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
     this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
         (results: searchreponse) => {
           this.similarProducts = results.responseObjects;
