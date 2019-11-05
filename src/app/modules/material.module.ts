@@ -24,6 +24,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatStepperModule} from '@angular/material/stepper'; 
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -36,7 +37,7 @@ const MaterialComponents = [
   MatTooltipModule,
   MatSlideToggleModule,MatButtonModule,MatDialogModule,MatFormFieldModule,
   MatInputModule,MatGridListModule,MatRadioModule,MatSelectModule,MatDatepickerModule,
-  MatNativeDateModule,MatCheckboxModule,MatExpansionModule,MatBadgeModule
+  MatNativeDateModule,MatCheckboxModule,MatExpansionModule,MatBadgeModule,MatStepperModule
 ];
 
 @NgModule({

@@ -58,6 +58,7 @@ p{margin: 0px;}
       white-space: pre-wrap;
       margin: 2px 0px;
       font-size: 14px;
+      height: 42px;
     }
     .p-cost{
       // border-bottom: 2px solid #f7f7f7;
@@ -78,7 +79,7 @@ p{margin: 0px;}
     }
     .action-btns{
       min-width: 40px;padding: 0px;
-      i{font-size: 17px;color: rgba(0,0,0,0.7);}
+      i{font-size: 14px;color: rgba(0,0,0,0.7);}
     }
     .share{
       position: relative;
@@ -231,4 +232,8 @@ p{margin: 0px;}
      margin-top: 10px;
    }
  }
+}
+.fa-shopping-cart{
+  font-size: 18px !important ;
+  color: #ff9600 !important;
 }

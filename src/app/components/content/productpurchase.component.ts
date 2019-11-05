@@ -50,6 +50,7 @@ export class ProductpurchaseComponent implements OnInit {
   constructor(public loginformService: LoginformService, public _socioAuthServ: AuthService, private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public httpService: HttCommonService, public http: HttpClient) { }
 
   ngOnInit() {
+  
     this.setStep(1);
     let sessioninfo = sessionStorage.getItem("f_login_form");
     this.loginformService.response = sessioninfo;

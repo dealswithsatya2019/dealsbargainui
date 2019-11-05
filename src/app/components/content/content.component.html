@@ -54,8 +54,8 @@
 	
 	<div *ngIf="hotDeals">
 		<h5 class="subtitle position-relative">HOT DEALS <a [routerLink]="['/dealslist/h']" class="pl-3">VIEW ALL</a></h5>
-		<div class="product" fxLayout="row" fxLayoutGap="20px">
-			<mat-card class="item-card" *ngFor="let product of hotDeals; let i = index">
+		<div class="product" fxLayout="row" fxLayoutGap="10px">
+			<mat-card class="item-card" *ngFor="let product of hotDeals; let i = index" style="max-width: 19%;">
 				<div class="deal-timer">
 					<span class="timerbadge">2 Days Left</span>
 				</div>
@@ -94,8 +94,8 @@
 	<!-- Today deals -->
 	<div *ngIf="todayDeals">
 		<h5 class="subtitle position-relative">TODAY's DEALS <a [routerLink]="['/dealslist/t']" class="pl-3" >VIEW ALL</a></h5>
-		<div class="product" fxLayout="row" fxLayoutGap="20px">
-			<mat-card class="item-card" *ngFor="let product of todayDeals; let i = index">
+		<div class="product" fxLayout="row" fxLayoutGap="10px">
+			<mat-card class="item-card" *ngFor="let product of todayDeals; let i = index" style="max-width: 19%;">
 				<mat-card-subtitle>
 					<span class="badge offer-badge">{{product.discount}}</span>
 				</mat-card-subtitle>

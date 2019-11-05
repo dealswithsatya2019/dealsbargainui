@@ -2,12 +2,13 @@
 
 </div>
 
-<div class="content-container mt-3">
+<div class="content-container pt-3">
+        
     <div class="" style="display: flex;">
         <div class="" style="flex: 1 1 70%;max-width: 70%;">
             <mat-accordion class="checkout-panel">
                 <mat-expansion-panel class="mb-3" [(expanded)]="exp1" (opened)="setStep(1)">
-                    <mat-expansion-panel-header>
+                    <mat-expansion-panel-header class="active">
                         <mat-panel-title>
                             Login <ng-container *ngIf="loginformService.response">Success</ng-container>
                         </mat-panel-title>
@@ -221,7 +222,13 @@
         </div>
         <div class="pl-4" style="flex: 1 1 30%;max-width: 30%;">
             <div class="checkout-card">
-                <h6 class="p-3">Place Order</h6>
+                <h6 class="px-3 pt-3 text-center">ORDER SUMMARY</h6>
+                <div class="promocode-section">
+                    <form class="w-100 p-3">
+                        <input matInput class="cpnid" placeholder="Enter promo/coupon code">
+                        <button mat-raised-button class="applycpn-btn">APPLY</button>
+                    </form>
+                </div>
                 <div class="divider"></div>
                 <div class="price-details px-3">
                     <div class="" style="display: flex;justify-content: space-between;">
@@ -232,6 +239,10 @@
                         <div>Delivery</div>
                         <span class="offer">Free</span>
                     </div>
+                    <div class="" style="display: flex;justify-content: space-between;">
+                            <div>Coupon Discount</div>
+                            <span>150</span>
+                        </div>
                     <div class="total">
                         <b>Total Payable</b>
                         <b>2099</b>

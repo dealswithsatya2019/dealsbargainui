@@ -37,18 +37,16 @@
 		</mat-accordion>
 	</aside>
 	<div *ngIf="products" class="product-list">
-		<div class="productlistcontainer margin-top-20 pl-2" fxLayout="row wrap">
+		<div class="productlistcontainer margin-top-20 pl-3" fxLayout="row wrap">
 			<ng-container *ngFor="let product of products; let i = index">
 				<ng-container
 					*ngIf="fromPrice.value > 0 ?  (product.prepay_price >= fromPrice.value ? true : false): true">
 					<ng-container *ngIf="toPrice.value > 0 ? (product.prepay_price <= toPrice.value): true">
 						<mat-card
-							*ngIf="selectedBrandsArray.length == 0 ? true: selectedBrandsArray.includes(product.brand_name)"
-							style="flex: 1 1 100%; box-sizing: border-box; max-width: 25%;" class="product"
-							fxLayout="column">
-							<mat-card-subtitle>
+							*ngIf="selectedBrandsArray.length == 0 ? true: selectedBrandsArray.includes(product.brand_name)" class="product" fxLayout="column">
+							<!-- <mat-card-subtitle>
 								<span class="badge badge-danger">{{product.discount}}</span>
-							</mat-card-subtitle>
+							</mat-card-subtitle> -->
 							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo"
 								(click)="showProductDetails({cname:cname,scname:scname,pid:product.item_id})">
 
