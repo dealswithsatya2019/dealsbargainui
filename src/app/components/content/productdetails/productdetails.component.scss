@@ -376,3 +376,23 @@ h5{
     border-radius: 2px;
     display: inline-block;
   }
+
+  .product-rating-bar{
+    display: none;
+    width: 70px;
+    position: absolute;
+    top: -55px;
+    left: 25px;
+    a{
+      display: block;
+      line-height: 30px;
+    }
+  }
+  .product-rating{
+    position: relative;
+    &:hover{
+      .product-rating-bar{display: inline-block;
+        i{font-size: 19px;}
+      }
+    }
+  }

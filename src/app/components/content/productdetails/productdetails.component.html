@@ -25,13 +25,25 @@
 			</div>
 
 			<h5>
-				
+
 				<div class="stars">
 					<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating>
 				</div>
+				<button mat-button class="product-rating"><i class="fa fa-sort-desc" aria-hidden="true"></i>
+					<div class="product-rating-bar">
+						13 customers ratings
+						5star <mat-progress-bar mode="determinate" value="{FiveStar}}"></mat-progress-bar>
+						4star <mat-progress-bar mode="determinate" value="{{FourStar}}"></mat-progress-bar>
+						3star <mat-progress-bar mode="determinate" value="{{ThreeStar}}"></mat-progress-bar>
+						2star <mat-progress-bar mode="determinate" value="{{TwoStar}}"></mat-progress-bar>
+						1star <mat-progress-bar mode="determinate" value="{{OneStar}}"></mat-progress-bar>
+					</div>
+				</button>
 				<span class="mr-1 rate-product">4.6
 					<i class="fa fa-star"></i>
-				</span>{{productDetails.title}}
+				</span>
+	
+				{{productDetails.title}}
 				<span>
 					<button mat-button class="action-btns">
 						<i class="fa fa-heart"></i>
@@ -40,11 +52,12 @@
 						<i class="fa fa-share-alt"></i>
 					</button>
 				</span>
-				<small class="py-1"><i class="fa fa-thumbs-up"></i> 8 Recommendations</small>
+				<small class="py-1">
+					<i class="fa fa-thumbs-up"></i> 8 Recommendations</small>
 			</h5>
 			<p style="color: #747474;font-weight: 300;">BRAND : {{productDetails.brand_name}}</p>
-			
-			
+
+
 			<p class="py-3">1000 People have viewed this product</p>
 
 			<h4>$ {{productDetails.custom_price}}
