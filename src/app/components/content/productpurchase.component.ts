@@ -10,6 +10,11 @@ import { ProductService } from 'src/app/services/product.service';
 import { searchreponse } from 'src/app/models/searchResponse';
 import { Observable } from 'rxjs';
 import { addressResponse } from 'src/app/models/addressResponse';
+import { UserService } from 'src/app/user.service';
+import { AuthService as UserAuth } from 'src/app/services/auth.service';
+import { EncryptionService } from 'src/app/services/encryption.service';
+import { AuthResopnse } from 'src/app/models/AuthResponse';
+import * as CryptoJS from 'crypto-js';
 declare let paypal: any;
 @Component({
   selector: 'app-productpurchase',
@@ -33,6 +38,7 @@ export class ProductpurchaseComponent implements OnInit {
   public cname: string;
   public scname: string;
   public pid: string;
+  private loginErrorMsg: string;
   addressform: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     mobile_number: new FormControl('', [Validators.required]),
@@ -47,7 +53,21 @@ export class ProductpurchaseComponent implements OnInit {
 
   });
 
-  constructor(public loginformService: LoginformService, public _socioAuthServ: AuthService, private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public httpService: HttCommonService, public http: HttpClient) { }
+  constructor(public loginformService: LoginformService, 
+              public userservice : UserService,
+              public _socioAuthServ: AuthService, 
+              public userAuth: UserAuth,
+              public encryptionService: EncryptionService,
+              private _Activatedroute: ActivatedRoute, 
+              public _productservice: ProductService, 
+              public _router: Router, 
+              public httpService: HttCommonService, 
+              public http: HttpClient,
+              ) { }
+
+
+
+
 
   ngOnInit() {
   
@@ -114,6 +134,40 @@ export class ProductpurchaseComponent implements OnInit {
         this.exp2 = true;
       }
     );
+  }
+
+  funLogin() {
+    let userInfo = JSON.parse(JSON.stringify(this.loginformService.form.value));
+    var key1 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
+    var key2 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
+    var key3 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
+
+    var ciphertext = this.encryptionService.encrypt(key2, key3, key1, userInfo.password);
+    //this.userservice.form.setValue({ password: ciphertext });
+    try{
+    this.userAuth.authenticateUser(userInfo.name, userInfo.password, 'us', key1, key2, key3).subscribe(
+      (authResponse: AuthResopnse) => {
+        if(authResponse.statusCode === 200){
+          this.userservice.form.setValue({
+            name: userInfo.name,
+            email: null,
+            password:null,
+            mobileno:null
+          });
+          sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
+          this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
+          this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
+          console.log('Success' + JSON.stringify(authResponse));
+        }else{
+          this.loginErrorMsg = authResponse.statusDesc;
+          console.log('Failed' + JSON.stringify(authResponse));
+        }
+        
+      });
+    } catch (error) {
+      this.loginErrorMsg = 'Got issue check in console';
+      console.log(error);
+    }
   }
 
   setStep(stepNo) {

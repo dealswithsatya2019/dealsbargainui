@@ -19,6 +19,7 @@ import { LoginformService } from 'src/app/services/forms/loginform.service';
 })
 export class LoginComponent implements OnInit {
 
+  private loginErrorMsg: string;
   constructor(public dialog: MatDialog, 
               public userservice : UserService,
               public loginformService : LoginformService,
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit {
       (response) => {
         this.funClose();
         this.loginformService.response = response;
+        this.userservice.response = JSON.parse(JSON.stringify(response));
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
       }
     );
@@ -50,6 +52,7 @@ export class LoginComponent implements OnInit {
       (response) => {
         this.funClose();
         this.loginformService.response = response;
+        this.userservice.response = JSON.parse(JSON.stringify(response));
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
       }
     );
@@ -83,14 +86,17 @@ export class LoginComponent implements OnInit {
             mobileno:null
           });
           console.log('Success' + JSON.stringify(authResponse));
+          sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
+          this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
+          this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
+          this.funClose();
         }else{
+          this.loginErrorMsg = authResponse.statusDesc;
           console.log('Failed' + JSON.stringify(authResponse));
         }
-        sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
-        this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
-        this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
+        
       });
     
-    this.funClose();
+    
   }
 }

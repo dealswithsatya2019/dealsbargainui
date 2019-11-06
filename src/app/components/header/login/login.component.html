@@ -23,12 +23,13 @@
         </mat-form-field>
 
         <mat-form-field floatLabel="never" class="w-100">
-            <input formControlName="password" matInput placeholder="Password*" >
+            <input formControlName="password" type="password" matInput placeholder="Password*" >
             <mat-error>This field is mandatory</mat-error>
         </mat-form-field>
-                
+        {{this.loginErrorMsg}}                
     <button mat-raised-button type="submit" [disabled]="loginformService.form.invalid" class=" my-2 w-100 login-login-btn">LOGIN</button>
 </form>
+
 
 <div class="login-links mt-4">
     <a href="#">Recover password</a>

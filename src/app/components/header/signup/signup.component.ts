@@ -15,6 +15,7 @@ import { AuthResopnse } from 'src/app/models/AuthResponse';
 })
 export class SignupComponent implements OnInit {
 
+  signUpErrorMsg : string = '';
   constructor(public _socioAuthServ: AuthService,
     public userAuth: UserAuth,
     public dialog: MatDialog,
@@ -77,14 +78,16 @@ export class SignupComponent implements OnInit {
           if (authResponse.statusCode === 200) {
             sessionStorage.setItem("success", JSON.stringify(authResponse));
             console.log('Success' + JSON.stringify(authResponse));
+            sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
+            this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
+            this.signUpErrorMsg = '';
+            this.funClose();
           } else {
+            this.signUpErrorMsg = authResponse.statusDesc;
             sessionStorage.setItem("Failure", JSON.stringify(authResponse));
             console.log('Failed' + JSON.stringify(authResponse));
           }
         });
-      sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
-      this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
-      this.funClose();
     } catch (error) {
       console.log(error);
     }
