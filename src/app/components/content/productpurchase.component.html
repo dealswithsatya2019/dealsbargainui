@@ -167,21 +167,21 @@
                     </form>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel class="mb-3" [(expanded)]="exp4" (opened)="setStep(4)">
+                <mat-expansion-panel class="mb-3" [(expanded)]="exp4" (opened)="setStep(4);getCarts();">
                     <mat-expansion-panel-header>
                         Order Summary
                     </mat-expansion-panel-header>
-                    <div class="order-1 py-3 mt-3">
+                    <div class="order-1 py-3 mt-3" *ngFor='let cart of cartInfo.responseObject'>
                         <div class="order-item" style="display: flex;">
                             <div class="text-center" style="flex: 1 1 20%;max-width: 120px;">
-                                <img src="../../../assets/img/11.jpeg" class="img-cursor">
+                                <img src="cart.image" class="img-cursor">
                             </div>
                             <div class="order-details pl-3" style="flex: 1 1 60%;max-width: 60%;">
-                                <h6>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</h6>
-                                <div class="small-cap">sdfghjyujj</div>
-                                <div class="mt-2 small-cap">Seller: KB sedfgtghyujj</div>
-                                <p class="price-line mt-3"> &#8377; 19990
-                                    <span class="px-2">&#8377; 22000</span>
+                                <h6>{{cart.item_name}}</h6>
+                                <div class="small-cap">{{cart.brand_name}}</div>
+                                <div class="mt-2 small-cap">Seller: {{cart.master_suplier}}</div>
+                                <p class="price-line mt-3"> &#8377; {{cart.prepay_price}}
+                                    <span class="px-2">&#8377; {{cart.custom_price}}</span>
                                     <span class="offer">14% off 6 offers available</span>
                                 </p>
                             </div>
@@ -193,7 +193,7 @@
                         <div class="options" style="display: flex;">
                             <div class="option-btns mt-2" style="flex: 1 1 20%;max-width: 120px;">
                                 <button>-</button>
-                                <input matInput class="text-center" value="1">
+                                <input matInput class="text-center" value="{{cart.quantity}}">
                                 <button>+</button>
                             </div>
                             <div class="" style="flex: 1 1 30%;max-width: 30%;">
