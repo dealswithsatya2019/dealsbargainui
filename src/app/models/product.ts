@@ -14,5 +14,6 @@ export class Product {
     date: string;
     others: string;
     dealtype: string;
+    master_suplier: string;
 
 }

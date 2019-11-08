@@ -23,7 +23,7 @@ declare let paypal: any;
   styleUrls: ['./productpurchase.component.scss']
 })
 export class ProductpurchaseComponent implements OnInit {
-  public autherization: string = "Bearer 9d2f28c4-da25-4b96-9dbc-0b6ddb08fc1a";
+  public autherization: string = "Bearer 930b59e4-db7d-4101-85f5-79aec419577d";
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
   paypalFor: boolean = false;
