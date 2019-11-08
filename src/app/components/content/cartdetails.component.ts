@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { cartInfo } from 'src/app/models/cartInfo';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Product } from 'src/app/models/product';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class CartdetailsComponent implements OnInit {
   public catName: string;
   public subCatName: string;
   public supplierName: string;
+  public userToken: string;
 
   constructor(public http: HttpClient, private _Activatedroute: ActivatedRoute) {
 
@@ -30,15 +32,23 @@ export class CartdetailsComponent implements OnInit {
       this.subCatName = decodeURI(params.get('scname'));
       this.supplierName = decodeURI(params.get('mastersupplier'));
     });
-    this.addCart();
-    this.getCarts();
+    let registerInfo = sessionStorage.getItem("success");
+    console.log("sessionInfo :",registerInfo);
+    if (registerInfo == null) {
+      let cartInfo = sessionStorage.getItem("success");
+    } else {
+      let userInfo = JSON.parse(registerInfo);
+      this.autherization = "Bearer " + userInfo.responseObjects.access_token;
+      this.addCart();
+      this.getCarts();
+    }
   }
 
   public getCarts() {
     this.getCartlist().subscribe(data => this.cartInfo = data);
   }
 
-  public addCartData : any;
+  public addCartData: any;
 
   public addCart() {
     this.addProduToCart().subscribe(data => this.addCartData = data);

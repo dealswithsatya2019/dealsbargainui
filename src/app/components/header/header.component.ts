@@ -128,6 +128,7 @@ export class HeaderComponent implements OnInit {
     this._socioAuthServ.signOut();
     this.userservice.response = null;
     sessionStorage.removeItem("f_login_form");
+    sessionStorage.removeItem("success");
   }
   gotoHomePage() {
     this._router.navigate(['/']);
