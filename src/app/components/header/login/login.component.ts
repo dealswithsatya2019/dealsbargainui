@@ -19,7 +19,7 @@ import { LoginformService } from 'src/app/services/forms/loginform.service';
 })
 export class LoginComponent implements OnInit {
 
-  private loginErrorMsg: string;
+  public loginErrorMsg: string;
   constructor(public dialog: MatDialog, 
               public userservice : UserService,
               public loginformService : LoginformService,
@@ -94,9 +94,6 @@ export class LoginComponent implements OnInit {
           this.loginErrorMsg = authResponse.statusDesc;
           console.log('Failed' + JSON.stringify(authResponse));
         }
-        
       });
-    
-    
   }
 }

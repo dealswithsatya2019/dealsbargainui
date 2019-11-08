@@ -35,11 +35,11 @@ export class ProductdetailsComponent implements OnInit {
   public pid: string;
   items: Array<GalleryItem> = [];
   productRating : number = 5;
-  private FiveStar: number = 80;
-  private FourStar: number = 40;
-  private ThreeStar: number = 30;
-  private TwoStar: number = 20;
-  private OneStar: number = 10;
+  public FiveStar: number = 80;
+  public FourStar: number = 40;
+  public ThreeStar: number = 30;
+  public TwoStar: number = 20;
+  public OneStar: number = 10;
   // product = {
   //   price: 0.01,
   //   description: "Kappa",
