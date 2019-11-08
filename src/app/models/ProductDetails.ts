@@ -40,4 +40,11 @@ export class ProductDetails {
     attributes: string; //"Case Pack:=Y||Case Quantity:=60||Colors:=yellow||Materials:=metal",
     other: string; //"",
     date: string; //"2019-10-29 03:08:43"
+    qty_avail : string;
+    cart_id :string;
+    map :string;
+    quantity :string;
+    message:string;
+    created_on :string;
+    fuzzy_title :string;
 }

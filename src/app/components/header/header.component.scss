@@ -23,11 +23,22 @@
   .spacer {
     flex: 1;
   }
+  .megaMenu + * .cdk-overlay-pane {
+    right: 30px;
+    left: 30px !important;
+    max-height: none !important;
+    // top: 220px !important;
+  }
+ 
+  .megaMenu + * .cdk-overlay-pane .mat-menu-panel{
+    max-width: none;
+    width: calc(100% - 15px) ;
+  }
   .top-toolbar{
     justify-content: space-between;
     background-color: #e5e5e5 !important;
-    height: auto;
-    padding: 5px 30px;
+    height: auto !important;
+    padding: 5px 30px !important;
     mat-form-field{
       margin-left: 1rem;
       width: 50%;border: 1px solid #ccc;
@@ -66,8 +77,8 @@
       cursor: pointer;
     }
   }
-  .info-toolbar{height: auto;
-    padding: 6px 30px 6px 30px;
+  .info-toolbar{height: auto !important;
+    padding: 6px 30px 6px 30px !important;
     background: #fff;
 
     .mat-card{

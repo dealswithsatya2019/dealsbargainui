@@ -1,229 +1,258 @@
-<div>
-
-</div>
 
 <div class="content-container pt-3">
-
-    <div class="" style="display: flex;">
-        <div class="" style="flex: 1 1 70%;max-width: 70%;">
-            <mat-accordion class="checkout-panel">
-                <mat-expansion-panel class="mb-3" [(expanded)]="exp1" (opened)="setStep(1)">
-                    <mat-expansion-panel-header class="active">
-                        <mat-panel-title>
-                            Login
-                            <ng-container *ngIf="loginformService.response">Success</ng-container>
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            <button mat-button>Change</button>
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <!-- new customer login -->
-                    <ng-container *ngIf="!loginformService.response">
-                        <div class="new-login mt-3" style="display: flex;">
-                            <!-- login with mail -->
-                            <div class="" style="flex: 1 1 43%;max-width: 45%;padding: 0 5%;">
-                                <h6 class="text-center">I have an account</h6>
-                                <form [formGroup]="loginformService.form" class="normal-form w-100" (submit)="funLogin()">
-                                    <mat-form-field floatLabel="never" class="w-100">
-                                        <input formControlName="name" matInput placeholder="Email address *">
-                                        <mat-error>This field is mandatory</mat-error>
-                                    </mat-form-field>
-
-                                    <mat-form-field floatLabel="never" class="w-100">
-                                        <input formControlName="password" type="password" matInput placeholder="Password*">
-                                        <mat-error>This field is mandatory</mat-error>
-                                    </mat-form-field>
-                                    {{this.loginErrorMsg}}   
-                                    <button mat-raised-button type="submit" [disabled]="loginformService.form.invalid" class=" my-2 w-100 login-login-btn">LOGIN</button>
-                                </form>
-                                <div class="login-links mt-3">
-                                    <a href="#">Forgot password?</a>
-                                    <!-- <div class="right-link float-right">
-                                    <a mat-button style="line-height: 17px;">Continue as Guest</a>
-                                </div> -->
+    <div class="" style="display: flex;padding-top: 100px;">
+        <div class="left-panel">
+            <mat-horizontal-stepper>
+                <mat-step label="LOGIN" state="phone">
+        
+                        <div class="mb-3" [(expanded)]="exp1" (opened)="setStep(1)" class="active">
+                           
+                                <div>
+                                    <!-- Login -->
+                                    <ng-container *ngIf="loginformService.response">Success</ng-container>
                                 </div>
-                            </div>
-                            <!-- /# login with mail -->
-
-
-                            <!-- social login -->
-                            <div class="social-login" style="flex: 1 1 53%;max-width: 55%;padding: 0 5%;">
-                                <h6 class="text-center mb-2">Sign In With Social Account</h6>
-
-                                <button mat-raised-button class="fb-login login-btn" (click)="loginFacebook()">
-                                    <img src="../../.././../assets/img/facebook.png" class="social-logo">
-                                </button>
-
-                                <button mat-raised-button class="gmail-login login-btn" (click)="loginGmail()">
-                                    <img src="../../.././../assets/img/search.png" class="social-logo">
-                                </button>
-
-                                <p class="mt-3 m-0 text-center">Don't have an account?</p>
-                                <p class="mt-2 m-0 text-center">Join Deals Today</p>
-
-                                <button mat-raised-button type="submit" class=" my-2 w-100 checkout-login-btn">LOGIN</button>
-                                <p>By Signin you are agree to our Terms & Conditions and Privacy Policy</p>
-                            </div>
-                            <!-- /# social login -->
-
-                        </div>
-                    </ng-container>
-
-                    <!-- /#new customer login ends-->
-
-                    <!-- Already login user -->
-                    <ng-container *ngIf="loginformService.response">
-                        <div class="existed-login mt-3" style="display: flex;line-height: 30px;">
-                            <div class="" style="flex: 1 1 50%;max-width: 50%;padding: 0 5%;">
-                                <p>Phone
-                                    <span class="pl-2">{{userName}}</span>
-                                </p>
-                                <a mat-button class="p-0" (click)="signOut()">Logout and signin with another account</a>
-                                <button mat-button (click)="setStep(2)" class="my-2 w-100 login-login-btn">Continue Checkout
-                                </button>
-                            </div>
-                            <div class="" style="flex: 1 1 50%;max-width: 50%;padding: 0 5%;">
-                                Advantages of secure login
-                                <ul>
-                                    <li>Easily Track orders</li>
-                                    <li>Get relavant alerts and notifications</li>
-                                    <li>Wishlist, Reviews, Ratings and more</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <!--/# Already login user ends-->
-                </mat-expansion-panel>
-
-                <mat-expansion-panel class="mb-3" [(expanded)]="exp2" (opened)="setStep(2)">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>Address</mat-panel-title>
-                        <mat-panel-description>
-                            <button mat-button>Change</button>
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <mat-radio-group aria-label="Select an option">
-                        <ng-container *ngIf="addressInfo != null">
-                            <ng-container *ngFor="let address of addressInfo.responseObjects">
-                                <div class="add1 my-3">
-                                    <mat-radio-button value="address.address_id">{{address.name}}
-                                        <span class="px-1">HOME</span> {{address.mobile_number}}
-                                    </mat-radio-button>
-                                    <div class="pl-3">{{address.street}} ,{{address.city}}, {{address.other}}</div>
-                                    <button mat-button class="edit-address" (click)="showAddressInfo(address.address_id)">Edit</button>
+                                <!-- <mat-panel-description>
+                                    <button mat-button>Change</button>
+                                </mat-panel-description> -->
+                         
+                            <!-- new customer login -->
+                            <ng-container *ngIf="!loginformService.response">
+                                <div class="new-login mt-3" style="display: flex;">
+                                    <!-- login with mail -->
+                                    <div class="" style="flex: 1 1 43%;max-width: 45%;padding: 0 5%;">
+                                        <h6 class="text-center">I have an account</h6>
+                                        <form [formGroup]="loginformService.form" class="normal-form w-100" (submit)="funLogin()">
+                                            <mat-form-field floatLabel="never" class="w-100">
+                                                <input formControlName="name" matInput placeholder="Email address *">
+                                                <mat-error>This field is mandatory</mat-error>
+                                            </mat-form-field>
+            
+                                            <mat-form-field floatLabel="never" class="w-100">
+                                                <input formControlName="password" type="password" matInput placeholder="Password*">
+                                                <mat-error>This field is mandatory</mat-error>
+                                            </mat-form-field>
+                                            {{this.loginErrorMsg}}   
+                                            <button mat-raised-button type="submit" [disabled]="loginformService.form.invalid" class=" my-2 w-100 login-login-btn">LOGIN</button>
+                                        </form>
+                                        <div class="login-links mt-3">
+                                            <a href="#">Forgot password?</a>
+                                            <!-- <div class="right-link float-right">
+                                            <a mat-button style="line-height: 17px;">Continue as Guest</a>
+                                        </div> -->
+                                        </div>
+                                    </div>
+                                    <!-- /# login with mail -->
+            
+            
+                                    <!-- social login -->
+                                    <div class="social-login" style="flex: 1 1 53%;max-width: 55%;padding: 0 5%;">
+                                        <h6 class="text-center mb-2">Sign In With Social Account</h6>
+            
+                                        <button mat-raised-button class="fb-login login-btn" (click)="loginFacebook()">
+                                            <img src="../../.././../assets/img/facebook.png" class="social-logo">
+                                        </button>
+            
+                                        <button mat-raised-button class="gmail-login login-btn" (click)="loginGmail()">
+                                            <img src="../../.././../assets/img/search.png" class="social-logo">
+                                        </button>
+            
+                                        <p class="mt-3 m-0 text-center">Don't have an account?</p>
+                                        <p class="mt-2 m-0 text-center">Join Deals Today</p>
+            
+                                        <button mat-raised-button type="submit" class=" my-2 w-100 checkout-login-btn">LOGIN</button>
+                                        <p>By Signin you are agree to our Terms & Conditions and Privacy Policy</p>
+                                    </div>
+                                    <!-- /# social login -->
+            
                                 </div>
                             </ng-container>
-                        </ng-container>
-                    </mat-radio-group>
-                </mat-expansion-panel>
-
-                <mat-expansion-panel class="mb-3" [(expanded)]="exp3" (opened)="setStep(3)">
-                    <mat-expansion-panel-header>
-                        Add New Address
-                    </mat-expansion-panel-header>
-                    <form [formGroup]="addressform" (submit)="funSave()">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Name</mat-label>
-                            <input formControlName="name" matInput placeholder="Name">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Mobile Number</mat-label>
-                            <input formControlName="mobile_number" matInput placeholder="Placeholder">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Pincode</mat-label>
-                            <input formControlName="zipcode" matInput placeholder="Placeholder">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Locality</mat-label>
-                            <input formControlName="street" matInput placeholder="Placeholder">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline" style="width:98%">
-                            <mat-label>Address</mat-label>
-                            <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>City/District</mat-label>
-                            <input formControlName="city" matInput placeholder="Placeholder">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>State</mat-label>
-                            <input formControlName="state" matInput placeholder="Placeholder">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Landmark</mat-label>
-                            <input formControlName="landmark" matInput placeholder="Placeholder">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Alternate Phone</mat-label>
-                            <input formControlName="altphone" matInput placeholder="Placeholder">
-                        </mat-form-field>
-
-                        <mat-radio-group aria-label="Select an option">
-                            <mat-radio-button value="1" class="mr-2">Home ( All Day Delivery )</mat-radio-button>
-                            <mat-radio-button value="2">Work (Delivery between 10AM - 5PM)</mat-radio-button>
-                        </mat-radio-group>
-                        <button mat-raised-button type="submit" [disabled]="addressform.invalid" class=" my-2 w-100 login-login-btn">Save</button>
-                    </form>
-                </mat-expansion-panel>
-
-                <mat-expansion-panel class="mb-3" [(expanded)]="exp4" (opened)="setStep(4)">
-                    <mat-expansion-panel-header>
-                        Order Summary
-                    </mat-expansion-panel-header>
-                    <div class="order-1 py-3 mt-3">
-                        <div class="order-item" style="display: flex;">
-                            <div class="text-center" style="flex: 1 1 20%;max-width: 120px;">
-                                <img src="../../../assets/img/11.jpeg" class="img-cursor">
-                            </div>
-                            <div class="order-details pl-3" style="flex: 1 1 60%;max-width: 60%;">
-                                <h6>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</h6>
-                                <div class="small-cap">sdfghjyujj</div>
-                                <div class="mt-2 small-cap">Seller: KB sedfgtghyujj</div>
-                                <p class="price-line mt-3"> &#8377; 19990
-                                    <span class="px-2">&#8377; 22000</span>
-                                    <span class="offer">14% off 6 offers available</span>
-                                </p>
-                            </div>
-                            <div class="" style="flex: 1 1 25%;max-width: 25%;">
-                                <div>Delivery by Oct 31 | Free</div>
-                            </div>
-                        </div>
-
-                        <div class="options" style="display: flex;">
-                            <div class="option-btns mt-2" style="flex: 1 1 20%;max-width: 120px;">
-                                <button>-</button>
-                                <input matInput class="text-center" value="1">
-                                <button>+</button>
-                            </div>
-                            <div class="" style="flex: 1 1 30%;max-width: 30%;">
-                                <button mat-button>Remove</button>
-                            </div>
-                        </div>
+            
+                            <!-- /#new customer login ends-->
+            
+                            <!-- Already login user -->
+                            <ng-container *ngIf="loginformService.response">
+                                <div class="existed-login mt-3" style="display: flex;line-height: 30px;">
+                                    <div class="" style="flex: 1 1 50%;max-width: 50%;padding: 0 5%;">
+                                        <p>Phone
+                                            <span class="pl-2">{{userName}}</span>
+                                        </p>
+                                        <a mat-button class="p-0" (click)="signOut()">Logout and signin with another account</a>
+                                        <button mat-button (click)="setStep(2)" class="my-2 w-100 login-login-btn">Continue Checkout
+                                        </button>
+                                    </div>
+                                    <div class="" style="flex: 1 1 50%;max-width: 50%;padding: 0 5%;">
+                                        Advantages of secure login
+                                        <ul>
+                                            <li>Easily Track orders</li>
+                                            <li>Get relavant alerts and notifications</li>
+                                            <li>Wishlist, Reviews, Ratings and more</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <!--/# Already login user ends-->
+                        
                     </div>
-                    <p class="mt-3">Order Confirmation will be sent to
-                        <b>dealsbargain@gmail.com</b>
-                        <button mat-button class="float-right login-login-btn">CONTINUE</button>
-                    </p>
-                </mat-expansion-panel>
+                <div class="pt-5 text-center">
+                    <button mat-button matStepperNext><i class="fa fa-chevron-right"></i></button>
+                </div>
+                </mat-step>
 
-                <mat-expansion-panel [(expanded)]="exp5" (opened)="setStep(5)">
-                    <mat-expansion-panel-header>
-                        Payment
-                    </mat-expansion-panel-header>
-                    <mat-radio-group aria-label="Select an option" class="py-3 d-block">
-                        <mat-radio-button value="1" [checked]="true">Paypal</mat-radio-button>
-                        <mat-toolbar-row>
-                            <div *ngIf="!paypalFor">
-                            </div>
-                            <div *ngIf="paypalFor">
-                                <h1>Your transaction is success</h1>
-                            </div>
-                            <div #paypal></div>
-                        </mat-toolbar-row>
-                    </mat-radio-group>
-                </mat-expansion-panel>
-            </mat-accordion>
+                <mat-step label="ADDRESS" state="chat">
+
+                        <div class="mb-3" [(expanded)]="exp2" (opened)="setStep(2)" [expanded]="true">
+                            
+                           
+                            <mat-radio-group aria-label="Select an option">
+                                <ng-container *ngIf="addressInfo != null">
+                                    <ng-container *ngFor="let address of addressInfo.responseObjects">
+                                        <div class="add1 my-3">
+                                            <mat-radio-button value="address.address_id">{{address.name}}
+                                                <span class="px-1">HOME</span> {{address.mobile_number}}
+                                            </mat-radio-button>
+                                            <div class="pl-3">{{address.street}} ,{{address.city}}, {{address.other}}</div>
+                                            <button mat-button class="edit-address" (click)="showAddressInfo(address.address_id)">Edit</button>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </mat-radio-group>
+                       
+                        </div>
+                        <mat-expansion-panel class="mb-3" [(expanded)]="exp3" (opened)="setStep(3)">
+                            <mat-expansion-panel-header>
+                                Add New Address
+                            </mat-expansion-panel-header>
+                            <form [formGroup]="addressform" (submit)="funSave()">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Name</mat-label>
+                                    <input formControlName="name" matInput placeholder="Name">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Mobile Number</mat-label>
+                                    <input formControlName="mobile_number" matInput placeholder="Placeholder">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Pincode</mat-label>
+                                    <input formControlName="zipcode" matInput placeholder="Placeholder">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Locality</mat-label>
+                                    <input formControlName="street" matInput placeholder="Placeholder">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" style="width:98%">
+                                    <mat-label>Address</mat-label>
+                                    <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>City/District</mat-label>
+                                    <input formControlName="city" matInput placeholder="Placeholder">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>State</mat-label>
+                                    <input formControlName="state" matInput placeholder="Placeholder">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Landmark</mat-label>
+                                    <input formControlName="landmark" matInput placeholder="Placeholder">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Alternate Phone</mat-label>
+                                    <input formControlName="altphone" matInput placeholder="Placeholder">
+                                </mat-form-field>
+            
+                                <mat-radio-group aria-label="Select an option">
+                                    <mat-radio-button value="1" class="mr-2">Home ( All Day Delivery )</mat-radio-button>
+                                    <mat-radio-button value="2">Work (Delivery between 10AM - 5PM)</mat-radio-button>
+                                </mat-radio-group>
+                                <button mat-raised-button type="submit" [disabled]="addressform.invalid" class=" my-2 w-100 login-login-btn">Save</button>
+                            </form>
+                        </mat-expansion-panel>
+                   
+                    <div class="pt-5 text-center">
+                        <button mat-button matStepperPrevious><i class="fa fa-chevron-left"></i></button>
+                        <button mat-button matStepperNext><i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </mat-step>
+
+                <mat-step label="ORDER SUMMARY">
+            
+                        <div class="mb-3" [(expanded)]="exp4" (opened)="setStep(4);getCarts();" [expanded]="true">
+                           
+                            <!-- <div class="order-1 py-3 mt-3" *ngFor='let cart of cartInfo.responseObject'>
+                                <div class="order-item" style="display: flex;">
+                                    <div class="text-center" style="flex: 1 1 20%;max-width: 120px;">
+                                        <img src="cart.image" class="img-cursor">
+                                    </div>
+                                    <div class="order-details pl-3" style="flex: 1 1 60%;max-width: 60%;">
+                                        <h6>{{cart.item_name}}</h6>
+                                        <div class="small-cap">{{cart.brand_name}}</div>
+                                        <div class="mt-2 small-cap">Seller: {{cart.master_suplier}}</div>
+                                        <p class="price-line mt-3"> &#8377; {{cart.prepay_price}}
+                                            <span class="px-2">&#8377; {{cart.custom_price}}</span>
+                                            <span class="offer">14% off 6 offers available</span>
+                                        </p>
+                                    </div>
+                                    <div class="" style="flex: 1 1 25%;max-width: 25%;">
+                                        <div>Delivery by Oct 31 | Free</div>
+                                    </div>
+                                </div>
+
+                                <div class="options" style="display: flex;">
+                                    <div class="option-btns mt-2" style="flex: 1 1 20%;max-width: 120px;">
+                                        <button>-</button>
+                                        <input matInput class="text-center" value="{{cart.quantity}}">
+                                        <button>+</button>
+                                    </div>
+                                    <div class="" style="flex: 1 1 30%;max-width: 30%;">
+                                        <button mat-button>Remove</button>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <p class="mt-3">Order Confirmation will be sent to
+                                <b>dealsbargain@gmail.com</b>
+                                <button mat-button class="float-right login-login-btn">CONTINUE</button>
+                            </p>
+                        </div>
+
+                        <div class="pt-5 text-center">
+                            <button mat-button matStepperPrevious><i class="fa fa-chevron-left"></i></button>
+                            <button mat-button matStepperNext><i class="fa fa-chevron-right"></i></button>
+                        </div>
+                </mat-step>
+
+                <mat-step label="PAYMENT">
+                   
+                    <div [(expanded)]="exp5" (opened)="setStep(5)" [expanded]="true">
+                        
+                        <mat-radio-group aria-label="Select an option" class="py-3 d-block">
+                            <mat-radio-button value="1" [checked]="true">Paypal</mat-radio-button>
+                            <mat-toolbar-row>
+                                <div *ngIf="!paypalFor">
+                                </div>
+                                <div *ngIf="paypalFor">
+                                    <h1>Your transaction is success</h1>
+                                </div>
+                                <div #paypal></div>
+                            </mat-toolbar-row>
+                        </mat-radio-group>
+                    </div>
+                    <div class="pt-5 text-center">
+                        <button mat-button matStepperPrevious><i class="fa fa-chevron-left"></i></button>
+                    </div>
+                   
+                </mat-step>
+            
+                <!-- Icon overrides. -->
+                <ng-template matStepperIcon="phone">
+                    <span>1</span>
+                </ng-template>
+                <ng-template matStepperIcon="chat">
+                    <span>2</span>
+                </ng-template>
+                <ng-template matStepperIcon="chat">
+                    <span>3</span>
+                </ng-template>
+            </mat-horizontal-stepper>
         </div>
         <div class="pl-4" style="flex: 1 1 30%;max-width: 30%;">
             <div class="checkout-card">

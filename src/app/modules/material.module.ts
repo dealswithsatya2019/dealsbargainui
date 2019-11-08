@@ -10,7 +10,8 @@ import {
   MatSliderModule,
   MatSlideToggleModule,
   MatNativeDateModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatProgressBarModule
 } from  '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -37,7 +38,7 @@ const MaterialComponents = [
   MatTooltipModule,
   MatSlideToggleModule,MatButtonModule,MatDialogModule,MatFormFieldModule,
   MatInputModule,MatGridListModule,MatRadioModule,MatSelectModule,MatDatepickerModule,
-  MatNativeDateModule,MatCheckboxModule,MatExpansionModule,MatBadgeModule,MatStepperModule
+  MatNativeDateModule,MatCheckboxModule,MatExpansionModule,MatBadgeModule,MatStepperModule,MatProgressBarModule
 ];
 
 @NgModule({

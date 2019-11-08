@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer2, Input, ViewEncapsulation } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatMenuTrigger } from '@angular/material';
 import { AuthService } from 'angularx-social-login';
 import { LoginComponent } from './login/login.component';
@@ -20,7 +20,8 @@ import { hitsmain } from 'src/app/models/hitsmain';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit {
   public menuFlag: boolean = false;
@@ -31,8 +32,9 @@ export class HeaderComponent implements OnInit {
   filteredMovies: hits[];
   isLoading = false;
   errorMsg: string;
-
+  classes: string;
   @ViewChild(MatMenuTrigger, { static: false }) clickHoverMenuTrigger: MatMenuTrigger;
+  @Input('class') panelClass: string  = "megaMenu";
   openOnMouseOver() {
     this.clickHoverMenuTrigger.toggleMenu();
   }

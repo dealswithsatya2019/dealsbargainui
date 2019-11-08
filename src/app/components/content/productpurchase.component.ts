@@ -15,6 +15,7 @@ import { AuthService as UserAuth } from 'src/app/services/auth.service';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
 import * as CryptoJS from 'crypto-js';
+import { cartInfo } from 'src/app/models/cartInfo';
 declare let paypal: any;
 @Component({
   selector: 'app-productpurchase',
@@ -22,7 +23,7 @@ declare let paypal: any;
   styleUrls: ['./productpurchase.component.scss']
 })
 export class ProductpurchaseComponent implements OnInit {
-
+  public autherization: string = "Bearer 9d2f28c4-da25-4b96-9dbc-0b6ddb08fc1a";
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
   paypalFor: boolean = false;
@@ -38,7 +39,9 @@ export class ProductpurchaseComponent implements OnInit {
   public cname: string;
   public scname: string;
   public pid: string;
-  private loginErrorMsg: string;
+  public loginErrorMsg: string;
+  public addressInfo: addressResponse;
+  public cartInfo: cartInfo;
   addressform: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     mobile_number: new FormControl('', [Validators.required]),
@@ -53,24 +56,21 @@ export class ProductpurchaseComponent implements OnInit {
 
   });
 
-  constructor(public loginformService: LoginformService, 
-              public userservice : UserService,
-              public _socioAuthServ: AuthService, 
-              public userAuth: UserAuth,
-              public encryptionService: EncryptionService,
-              private _Activatedroute: ActivatedRoute, 
-              public _productservice: ProductService, 
-              public _router: Router, 
-              public httpService: HttCommonService, 
-              public http: HttpClient,
-              ) { }
-
-
-
+  constructor(public loginformService: LoginformService,
+    public userservice: UserService,
+    public _socioAuthServ: AuthService,
+    public userAuth: UserAuth,
+    public encryptionService: EncryptionService,
+    private _Activatedroute: ActivatedRoute,
+    public _productservice: ProductService,
+    public _router: Router,
+    public httpService: HttCommonService,
+    public http: HttpClient,
+  ) { }
 
 
   ngOnInit() {
-  
+
     this.setStep(1);
     let sessioninfo = sessionStorage.getItem("f_login_form");
     this.loginformService.response = sessioninfo;
@@ -144,26 +144,26 @@ export class ProductpurchaseComponent implements OnInit {
 
     var ciphertext = this.encryptionService.encrypt(key2, key3, key1, userInfo.password);
     //this.userservice.form.setValue({ password: ciphertext });
-    try{
-    this.userAuth.authenticateUser(userInfo.name, userInfo.password, 'us', key1, key2, key3).subscribe(
-      (authResponse: AuthResopnse) => {
-        if(authResponse.statusCode === 200){
-          this.userservice.form.setValue({
-            name: userInfo.name,
-            email: null,
-            password:null,
-            mobileno:null
-          });
-          sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
-          this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
-          this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
-          console.log('Success' + JSON.stringify(authResponse));
-        }else{
-          this.loginErrorMsg = authResponse.statusDesc;
-          console.log('Failed' + JSON.stringify(authResponse));
-        }
-        
-      });
+    try {
+      this.userAuth.authenticateUser(userInfo.name, userInfo.password, 'us', key1, key2, key3).subscribe(
+        (authResponse: AuthResopnse) => {
+          if (authResponse.statusCode === 200) {
+            this.userservice.form.setValue({
+              name: userInfo.name,
+              email: null,
+              password: null,
+              mobileno: null
+            });
+            sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
+            this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
+            this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
+            console.log('Success' + JSON.stringify(authResponse));
+          } else {
+            this.loginErrorMsg = authResponse.statusDesc;
+            console.log('Failed' + JSON.stringify(authResponse));
+          }
+
+        });
     } catch (error) {
       this.loginErrorMsg = 'Got issue check in console';
       console.log(error);
@@ -205,12 +205,22 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public getAddresslist(): Observable<addressResponse> {
-    let autherization: string = "Bearer 81c319a4-bcf1-4f19-9bba-2d311d8c293f";
     return this.http.get<addressResponse>("http://34.233.128.163/api/v1/user/contacts/us",
-      { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
+      { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
-  public addressInfo: addressResponse;
+  public getCartlist(): Observable<cartInfo> {
+    return this.http.post<cartInfo>("http://34.233.128.163/api/v1/user/cart/operation/getCartInfo",
+    {"countryCode":"us"},{ headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+  }
+
+  
+
+
+  public getCarts() {
+    this.getCartlist().subscribe(data => this.cartInfo = data);
+  }
+
 
   public getAddresses() {
     this.getAddresslist().subscribe(data => this.addressInfo = data);
@@ -222,9 +232,8 @@ export class ProductpurchaseComponent implements OnInit {
 
 
   public saveAddress(addressInfoJson: string) {
-    let autherization: string = "Bearer 81c319a4-bcf1-4f19-9bba-2d311d8c293f";
     this.http.post("http://34.233.128.163/api/v1/user/contact", addressInfoJson,
-      { headers: { 'Content-Type': 'application/json', 'authorization': autherization } }).subscribe(data => {
+      { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } }).subscribe(data => {
         console.log("Address :", data);
         let jsonobj = JSON.parse(JSON.stringify(data));
         console.log("Status", jsonobj.statusCode);
