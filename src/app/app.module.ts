@@ -50,6 +50,7 @@ import { RateproductComponent } from './components/content/rateproduct/rateprodu
 import { GalleryModule } from '@ngx-gallery/core';
 import { LightboxModule } from '@ngx-gallery/lightbox';
 import { NgxStarRatingModule } from 'ngx-star-rating';
+import { MyprofileComponent } from './components/content/myprofile/myprofile.component';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -105,7 +106,8 @@ export function ProvideConfig() {
     MyaccountComponent,
     ProductpurchaseComponent,
     CartdetailsComponent,
-    RateproductComponent
+    RateproductComponent,
+    MyprofileComponent
   ],
   entryComponents:[LoginComponent,SignupComponent,SocialshareComponent,RateproductComponent],
   imports: [
