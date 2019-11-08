@@ -1,9 +1,9 @@
 <div>
-    <ng-container *ngIf = 'cartInfo'>
-        <div class="order-1 py-3 mt-3" *ngFor='let cart of cartInfo.responseObject'>
+    <ng-container *ngIf="shoppingCartItems">
+        <div class="order-1 py-3 mt-3" *ngFor='let cart of shoppingCartItems'>
             <div class="order-item" style="display: flex;">
                 <div class="text-center" style="flex: 1 1 20%;max-width: 120px;">
-                    <img src="cart.image" class="img-cursor">
+                    <img [src]="cart.image" class="img-cursor">
                 </div>
                 <div class="order-details pl-3" style="flex: 1 1 60%;max-width: 60%;">
                     <h6>{{cart.item_name}}</h6>
@@ -18,11 +18,10 @@
                     <div>Delivery by Oct 31 | Free</div>
                 </div>
             </div>
-
             <div class="options" style="display: flex;">
                 <div class="option-btns mt-2" style="flex: 1 1 20%;max-width: 120px;">
                     <button>-</button>
-                    <input matInput class="text-center" value="{{cart.quantity}}">
+                    <input matInput class="text-center" value="{{cart.quantity == 0 ? 1 : 0}}">
                     <button>+</button>
                 </div>
                 <div class="" style="flex: 1 1 30%;max-width: 30%;">
@@ -32,7 +31,7 @@
         </div>
         <p class="mt-3">Order Confirmation will be sent to
             <b>dealsbargain@gmail.com</b>
-            <button mat-button class="float-right login-login-btn">Place ORDER</button>
+            <button mat-button class="float-right login-login-btn" [routerLink]="['/productpurchase']">Place ORDER</button>
         </p>
     </ng-container>
 </div>

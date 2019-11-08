@@ -8,6 +8,7 @@ import { SocialshareComponent } from './socialshare/socialshare.component';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { Swiper, Navigation, Pagination, Scrollbar, Autoplay } from 'swiper/js/swiper.esm.js';
 import { encode } from 'punycode';
+import { CartService } from 'src/app/services/cart.service';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay]);
 
 @Component({
@@ -19,7 +20,7 @@ export class ContentComponent implements AfterViewInit, OnInit {
   public flashDeals: Product[];
   public hotDeals: Product[];
   public todayDeals: Product[];
-  constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog) {
+  constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,public cart: CartService) {
   }
 
 
@@ -100,6 +101,11 @@ export class ContentComponent implements AfterViewInit, OnInit {
     } else {
       return value;
     }
+  }
+
+  public addToCart(product: Product) {
+    this.cart.addToCart(product);
+    this._router.navigateByUrl('/mycart');
   }
 
 }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { cartInfo } from 'src/app/models/cartInfo';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Product } from 'src/app/models/product';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -20,23 +21,27 @@ export class CartdetailsComponent implements OnInit {
   public subCatName: string;
   public supplierName: string;
   public userToken: string;
+  public shoppingCartItems$: Observable<Product[]> = of([]);
+  public shoppingCartItems: Product[] = [];
+  public product: Product;
 
-  constructor(public http: HttpClient, private _Activatedroute: ActivatedRoute) {
+  constructor(public http: HttpClient, private _Activatedroute: ActivatedRoute, private cartService: CartService) {
+    this.shoppingCartItems$ = this.cartService.getItems();
+    this.shoppingCartItems$.subscribe(_ => this.shoppingCartItems = _);
+  }
 
+  public removeItem(item: Product) {
+    this.cartService.removeFromCart(item)
   }
 
   ngOnInit() {
-    this._Activatedroute.paramMap.subscribe((params: ParamMap) => {
-      this.productid = decodeURI(params.get('pid'));
-      this.catName = decodeURI(params.get('cname'));
-      this.subCatName = decodeURI(params.get('scname'));
-      this.supplierName = decodeURI(params.get('mastersupplier'));
-    });
     let registerInfo = sessionStorage.getItem("success");
-    console.log("sessionInfo :",registerInfo);
-    if (registerInfo == null) {
-      let cartInfo = sessionStorage.getItem("success");
-    } else {
+    if (registerInfo != null) {
+      this.product = this.cartService.recentProduct();
+      this.productid = this.product.product_id;
+      this.catName = this.product.category    //   this.subCatName = decodeURI(params.get('scname'));
+      this.subCatName = this.product.subcategory;
+      this.supplierName = this.product.master_suplier;
       let userInfo = JSON.parse(registerInfo);
       this.autherization = "Bearer " + userInfo.responseObjects.access_token;
       this.addCart();
@@ -45,7 +50,9 @@ export class CartdetailsComponent implements OnInit {
   }
 
   public getCarts() {
-    this.getCartlist().subscribe(data => this.cartInfo = data);
+    this.getCartlist().subscribe(data =>
+      this.cartInfo = data);
+    this.shoppingCartItems = this.cartInfo.responseObject;
   }
 
   public addCartData: any;

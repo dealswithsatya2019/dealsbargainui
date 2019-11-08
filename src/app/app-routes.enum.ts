@@ -23,7 +23,7 @@ export class AppRoutes{
     static readonly PaymentMethods = 'paymentmethods';
     static readonly ShippingGuide = 'shippingguide';
     static readonly productpurchase = 'productpurchase';
-    static readonly mycart = 'mycart/:pid/:cname/:scname/:mastersupplier';
+    static readonly mycart = 'mycart';
     static readonly LocationWeShip = 'locationweship';
     static readonly EstimatedDeliverytime = 'estimateddeliverytime';
     
