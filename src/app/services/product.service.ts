@@ -63,4 +63,13 @@ export class ProductService {
     return this._httpCommonService.postReq('products/fetchproduct', JSON.stringify(body));
   }
 
+  public getCategoryMenuInfo(categoryName, countryCode?): Observable<any> {
+    const body =
+      {
+        "countryCode": countryCode,
+        "category": categoryName
+      };
+    return this._httpCommonService.postReq('products/subcategory/all', JSON.stringify(body));
+  }
+
 }

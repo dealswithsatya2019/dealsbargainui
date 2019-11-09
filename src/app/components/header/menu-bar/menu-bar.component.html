@@ -1,4 +1,3 @@
-
 <!-- <div>
     <ng-container *ngFor="let category of menus">
         <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{category.cname}}</a>
@@ -12,7 +11,35 @@
     </ng-container>
 
 </div>  -->
-<button mat-button [matMenuTriggerFor]="menu">Menu</button>
+<ng-container *ngFor="let mainMenuCategory of menuCategories">
+    <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{mainMenuCategory.category}}</a>
+    <mat-menu #menu="matMenu" panelClass="magaMenu" backdropClass="megaMenu">
+        <div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+            <div class="p-2" fxflex="25" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 25%; max-width: 25%;">
+                <div class="rel-img">
+                    <img src="../../../../assets/img/banner5.jpg" class="img-fluid">
+                </div>
+            </div>
+
+            <ng-container *ngFor="let subcategoryMenu of mainMenuCategory.subcategories | keyvalue" class="mainMenu">
+                <div class="p-3 plp-5" fxflex="25" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 25%; max-width: 25%;">
+                    <a mat-menu-item class="menu-title">
+                        <b>{{subcategoryMenu.key}}</b>
+                    </a>
+                    <!-- <div class="divider"></div> -->
+                    <ng-container *ngFor="let subMenu of subcategoryMenu.value">
+                        <button mat-menu-item>
+                            <a mat-button [routerLink]="['productlist',mainMenuCategory.category.toLowerCase(),subcategoryMenu.key.toLowerCase()]" routerLinkActive="active">
+                                {{subMenu}} </a>
+                        </button>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+    </mat-menu>
+</ng-container>
+
+<!-- <button mat-button [matMenuTriggerFor]="menu">Menu</button>
 <mat-menu #menu="matMenu" panelClass="magaMenu" backdropClass="megaMenu">
     <div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
         <div class="p-2" fxflex="25" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 25%; max-width: 25%;">
@@ -21,8 +48,9 @@
             </div>
         </div>
         <div class="p-3 plp-5" fxflex="25" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 25%; max-width: 25%;">
-            <a mat-menu-item class="menu-title"><b>WOMEN</b></a>
-            <!-- <div class="divider"></div> -->
+            <a mat-menu-item class="menu-title">
+                <b>WOMEN</b>
+            </a>
             <ng-container>
                 <button mat-menu-item>Clothing</button>
                 <button mat-menu-item>Footwear</button>
@@ -33,8 +61,9 @@
             </ng-container>
         </div>
         <div class="p-3 plp-5" fxflex="25" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 25%; max-width: 25%;">
-            <a mat-menu-item class="menu-title"><b>WOMEN</b></a>
-            <!-- <div class="divider"></div> -->
+            <a mat-menu-item class="menu-title">
+                <b>WOMEN</b>
+            </a>
             <ng-container>
                 <button mat-menu-item>Clothing</button>
                 <button mat-menu-item>Footwear</button>
@@ -45,8 +74,9 @@
             </ng-container>
         </div>
         <div class="p-3 plp-5" fxflex="25" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 25%; max-width: 25%;">
-            <a mat-menu-item class="menu-title"><b>WOMEN</b></a>
-            <!-- <div class="divider"></div> -->
+            <a mat-menu-item class="menu-title">
+                <b>WOMEN</b>
+            </a>
             <ng-container>
                 <button mat-menu-item>Clothing</button>
                 <button mat-menu-item>Footwear</button>
@@ -56,11 +86,7 @@
                 <button mat-menu-item>Accessories</button>
             </ng-container>
         </div>
-        
+
     </div>
 </mat-menu>
-
-
-        
-
-    
+-->

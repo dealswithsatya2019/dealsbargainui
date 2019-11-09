@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { catchError } from 'rxjs/internal/operators/catchError';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class HttCommonService {
     }
     return this.http.post(
       url, body,
-      { headers: { 'Content-Type': 'application/json' } }).pipe(map(this.extractData));
+      { headers: { 'Content-Type': 'application/json' } }).pipe(map(this.extractData),catchError(this.handleError));
     //}).pipe(map(this.extractData).catch(this.handleError));
   }
 

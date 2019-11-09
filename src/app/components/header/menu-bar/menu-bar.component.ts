@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material';
+import { ProductService } from 'src/app/services/product.service';
+import { AuthResopnse } from 'src/app/models/AuthResponse';
+import { MenuCategories } from 'src/app/models/MenuCategories';
+import { searchreponse } from 'src/app/models/searchResponse';
 // import { MatDialogRef } from '@angular/material';
 
 @Component({
@@ -9,16 +13,31 @@ import { MatMenuTrigger } from '@angular/material';
 })
 export class MenuBarComponent implements OnInit {
 
-  constructor() { }
+  public menuCategories : MenuCategories[];
+
+  constructor(public _productservice: ProductService) { }
 
   ngOnInit() {
+    this.getAllCategoriesMenuInfo();
   }
 
   @ViewChild(MatMenuTrigger, { static: false }) HoverMenuTrigger: MatMenuTrigger;
   openOnMouseOver() {
     this.HoverMenuTrigger.toggleMenu();
   }
-  
+
+  mainMenus=[
+    "Apparel",
+    "Automotive",
+    "Books",
+    "Electronics",
+    "Games & Movies & Music",
+    "Health",
+    "Home & Garden",
+    "Toys",
+    "Sports"
+  ];
+
   menus = [
     {
       cname: "Apparel",
@@ -58,4 +77,16 @@ export class MenuBarComponent implements OnInit {
       scnames: ["Camping & hiking", "Cycling & wheel sports", "Lawn games", "Fencing", "Tennis & racquet sports", "Badminton", "Electronics", "Water polo", "Game room", "Wrestling", "Sports medicine", "Cricket", "Martial arts", "Archery", "Swimming", "Motor sports", "General sports", "Cheerleading", "Skating", "Golf", "Boxing", "Volleyball", "Bowling", "Snowshoeing", "Pilates", "Kayaking", "Surfing", "Baseball", "Running", "Yoga", "Row", "Softball", "Water sports", "Equestrian sports", "Climbing", "Airsoft", "Fishing", "Sports electronics & gadgets", "Basketball", "Boating", "Accessories", "Paintball", "Diving", "Disc sports", "Gymnastics", "Hunting", "Hockey", "Soccer", "Snow skiing", "Fan gear", "Snowmobiling", "Football", "Rv equipment", "Track & field", "Skateboarding", "Exercise & fitness", "Ballet & dance"]
     }
   ];
+
+  getAllCategoriesMenuInfo(){
+    this._productservice.getCategoryMenuInfo('','us').subscribe(
+      (authResponse: searchreponse) => {
+        this.menuCategories = authResponse.responseObjects;
+      }
+      /*,
+      error =>{
+        console.error('============================='+error);
+      }*/ 
+    );
+  }
 }
