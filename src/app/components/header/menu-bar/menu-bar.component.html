@@ -15,12 +15,12 @@
     <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{mainMenuCategory.category}}</a>
     <mat-menu #menu="matMenu" panelClass="magaMenu" backdropClass="megaMenu">
         <div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
-            <div class="p-2" fxflex="25" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 25%; max-width: 25%;">
+           <!-- <div class="p-2" fxflex="25" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 25%; max-width: 25%;">
                 <div class="rel-img">
                     <img src="../../../../assets/img/banner5.jpg" class="img-fluid">
                 </div>
             </div>
-
+        -->
             <ng-container *ngFor="let subcategoryMenu of mainMenuCategory.subcategories | keyvalue" class="mainMenu">
                 <div class="p-3 plp-5" fxflex="25" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 25%; max-width: 25%;">
                     <a mat-menu-item class="menu-title">
