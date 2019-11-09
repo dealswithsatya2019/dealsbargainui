@@ -23,7 +23,7 @@ declare let paypal: any;
   styleUrls: ['./productpurchase.component.scss']
 })
 export class ProductpurchaseComponent implements OnInit {
-  public autherization: string = "Bearer 930b59e4-db7d-4101-85f5-79aec419577d";
+  public autherization: string;
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
   paypalFor: boolean = false;
@@ -70,14 +70,14 @@ export class ProductpurchaseComponent implements OnInit {
 
 
   ngOnInit() {
-
-    this.setStep(1);
-    let sessioninfo = sessionStorage.getItem("f_login_form");
-    this.loginformService.response = sessioninfo;
-    if (sessioninfo != null) {
-      this.setStep(2);
+    let registerInfo = sessionStorage.getItem("success");
+    if (registerInfo != null) {
+      let userInfo = JSON.parse(registerInfo);
+      this.autherization = "Bearer " + userInfo.responseObjects.access_token;
+      let sessioninfo = sessionStorage.getItem("f_login_form");
+      this.loginformService.response = sessioninfo;
+      console.log("response ",this.loginformService.response);
     }
-
     paypal
       .Buttons({
         style: {
@@ -157,12 +157,11 @@ export class ProductpurchaseComponent implements OnInit {
             sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
             this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
-            console.log('Success' + JSON.stringify(authResponse));
+            sessionStorage.setItem("success", JSON.stringify(authResponse));
+            this.autherization = "Bearer "+authResponse.responseObjects.access_token;
           } else {
             this.loginErrorMsg = authResponse.statusDesc;
-            console.log('Failed' + JSON.stringify(authResponse));
           }
-
         });
     } catch (error) {
       this.loginErrorMsg = 'Got issue check in console';
@@ -193,8 +192,9 @@ export class ProductpurchaseComponent implements OnInit {
   signOut(): void {
     this._socioAuthServ.signOut();
     this.loginformService.response = null;
+    this.autherization = null;
     sessionStorage.removeItem("f_login_form");
-    this.setStep(1);
+    sessionStorage.removeItem("success");
   }
 
   funSave() {
@@ -211,10 +211,10 @@ export class ProductpurchaseComponent implements OnInit {
 
   public getCartlist(): Observable<cartInfo> {
     return this.http.post<cartInfo>("http://34.233.128.163/api/v1/user/cart/operation/getCartInfo",
-    {"countryCode":"us"},{ headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+      { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
-  
+
 
 
   public getCarts() {
