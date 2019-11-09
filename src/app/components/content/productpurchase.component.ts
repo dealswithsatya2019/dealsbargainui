@@ -7,7 +7,6 @@ import { Product } from 'src/app/models/product';
 import { LoginformService } from 'src/app/services/forms/loginform.service';
 import { HttCommonService } from 'src/app/services/httpcommon.service';
 import { ProductService } from 'src/app/services/product.service';
-import { searchreponse } from 'src/app/models/searchResponse';
 import { Observable } from 'rxjs';
 import { addressResponse } from 'src/app/models/addressResponse';
 import { UserService } from 'src/app/user.service';
@@ -193,6 +192,8 @@ export class ProductpurchaseComponent implements OnInit {
     this._socioAuthServ.signOut();
     this.loginformService.response = null;
     this.autherization = null;
+    this.cartInfo = null;
+    this.addressInfo = null;
     sessionStorage.removeItem("f_login_form");
     sessionStorage.removeItem("success");
   }
@@ -201,7 +202,6 @@ export class ProductpurchaseComponent implements OnInit {
     let addressInfo = JSON.parse(JSON.stringify(this.addressform.value));
     console.log("addressInfo :", addressInfo);
     this.saveAddress(addressInfo);
-
   }
 
   public getAddresslist(): Observable<addressResponse> {
@@ -214,13 +214,9 @@ export class ProductpurchaseComponent implements OnInit {
       { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
-
-
-
   public getCarts() {
     this.getCartlist().subscribe(data => this.cartInfo = data);
   }
-
 
   public getAddresses() {
     this.getAddresslist().subscribe(data => this.addressInfo = data);
@@ -229,7 +225,6 @@ export class ProductpurchaseComponent implements OnInit {
   public showAddressInfo(addressId) {
     console.log("address Id :", addressId);
   }
-
 
   public saveAddress(addressInfoJson: string) {
     this.http.post("http://34.233.128.163/api/v1/user/contact", addressInfoJson,
