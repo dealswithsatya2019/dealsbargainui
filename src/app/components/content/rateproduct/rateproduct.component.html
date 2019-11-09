@@ -1,38 +1,43 @@
 <h2 mat-dialog-title>Write A Review</h2>
 
-<mat-dialog-content>
+<mat-dialog-content [formGroup]="form" class="normal-form w-100">
 
-<p> Rate this Product </p>
+    <p> Rate this Product </p>
 
-<div class="rate">
-    <input type="radio" id="star5" name="rate" value="5" />
-    <label for="star5" title="text">5 stars</label>
-    <input type="radio" id="star4" name="rate" value="4" />
-    <label for="star4" title="text">4 stars</label>
-    <input type="radio" id="star3" name="rate" value="3" />
-    <label for="star3" title="text">3 stars</label>
-    <input type="radio" id="star2" name="rate" value="2" />
-    <label for="star2" title="text">2 stars</label>
-    <input type="radio" id="star1" name="rate" value="1" />
-    <label for="star1" title="text">1 star</label>
-</div>
-
-
-<mat-form-field appearance="outline" class="d-block mt-2">
+       <mat-radio-group formControlName="productRating">
+            <mat-radio-button  class="rate" *ngFor="let rating of ratings" [value]="rating">
+                {{rating}}
+           </mat-radio-button>
+        </mat-radio-group>
+       <!-- <input type="radio" id="star5" name="rate" value="5" />
+        <label for="star5" title="text">5 stars</label>
+        <input type="radio" id="star4" name="rate" value="4" />
+        <label for="star4" title="text">4 stars</label>
+        <input type="radio" id="star3" name="rate" value="3" />
+        <label for="star3" title="text">3 stars</label>
+        <input type="radio" id="star2" name="rate" value="2" />
+        <label for="star2" title="text">2 stars</label>
+        <input type="radio" id="star1" name="rate" value="1" />
+        <label for="star1" title="text">1 star</label>
+       -->
     <mat-label>Review Title</mat-label>
-    <input matInput placeholder="">
-</mat-form-field>
-<mat-form-field appearance="outline" class="d-block">
+    <mat-form-field appearance="outline" class="d-block mt-2">
+        <input matInput formControlName="reviewTitle" placeholder="Review Title">
+        <mat-error>This field is mandatory</mat-error>
+    </mat-form-field>
     <mat-label>Write your review here</mat-label>
-    <textarea matInput placeholder="Textarea"></textarea>
-</mat-form-field>
+    <mat-form-field appearance="outline" class="d-block">
+        <textarea matInput formControlName="comment" placeholder="review"></textarea>
+        <mat-error>This field is mandatory</mat-error>
+    </mat-form-field>
 
-<mat-checkbox>Yes, I recommend this product</mat-checkbox>
+    <mat-checkbox formControlName="isRecomended">Yes, I recommend this product</mat-checkbox>
 </mat-dialog-content>
 
 
 
 <mat-dialog-actions>
     <button mat-raised-button class="mr-2" (click)="close()">Close</button>
-    <button mat-raised-button [mat-dialog-close]="" cdkFocusInitial>Submit</button>
+    <!-- <button mat-raised-button [mat-dialog-close]="" cdkFocusInitial>Submit</button>-->
+    <button mat-raised-button (click)="funSubmitReview()">Submit</button>
 </mat-dialog-actions>

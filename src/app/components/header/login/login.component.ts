@@ -86,6 +86,7 @@ export class LoginComponent implements OnInit {
             mobileno:null
           });
           console.log('Success' + JSON.stringify(authResponse));
+          sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
           sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
           this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
           this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));

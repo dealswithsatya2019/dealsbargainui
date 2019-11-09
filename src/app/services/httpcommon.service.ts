@@ -51,5 +51,18 @@ export class HttCommonService {
     //}).pipe(map(this.extractData).catch(this.handleError));
   }
 
+  postRequest(urlAppendParam, body?, authToken?): Observable<any> {
+    let url: string ="";
+    if (urlAppendParam) {
+      url = this.apiURL + '/' + urlAppendParam;
+    } else {
+      url = this.apiURL;
+    }
+    return this.http.post(
+      url, body,
+      { headers: { 'Content-Type': 'application/json','authorization': 'Bearer '+authToken} }).pipe(map(this.extractData),catchError(this.handleError));
+    //}).pipe(map(this.extractData).catch(this.handleError));
+  }
+
 
 }

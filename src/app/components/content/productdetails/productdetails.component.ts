@@ -8,6 +8,7 @@ import { RateproductComponent } from '../rateproduct/rateproduct.component';
 import { Swiper, Navigation, Pagination, Scrollbar, Autoplay, Thumbs } from 'swiper/js/swiper.esm.js';
 import { ProductDetails } from 'src/app/models/ProductDetails';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
+import { UserService } from 'src/app/user.service';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
 declare let paypal: any;
@@ -22,7 +23,7 @@ export class ProductdetailsComponent implements OnInit {
 
   //https://ngx-gallery-cors-error.stackblitz.io
    //Using loadingMode: 'indeterminate' on the GalleryModule's config worked.
-
+  public authToken: string = "";
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
   paidFor: boolean = false;
@@ -55,7 +56,9 @@ export class ProductdetailsComponent implements OnInit {
   //   title: "Kappa Variety Puzzles & Games Book Case Pack 48"
   // }
 
-  constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public gallery: Gallery) { }
+  constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public gallery: Gallery, public userservice: UserService) { 
+    this.authToken =  sessionStorage.getItem("access_token");
+  }
 
   ngOnInit() {
     this._Activatedroute.paramMap.subscribe((params : ParamMap)=> {  
@@ -66,6 +69,7 @@ export class ProductdetailsComponent implements OnInit {
     
     this._productservice.getHttpProductDetailsById(this.cname, this.scname, this.pid, 'us').subscribe(
       (results: searchreponse) => {
+       if(results.statusCode ===200){
         this.productDetails = results.responseObject[0];
         if(this.productDetails){
           let arr=this.productDetails.thumbnail_image;
@@ -82,6 +86,9 @@ export class ProductdetailsComponent implements OnInit {
           this.loadZoomImagesList();
         }
         //this.productDetails.thumbnail_image=['https://d1k0ppjronk6up.cloudfront.net/products/1529/images_b75_image2_844.jpg',this.productDetails.image];
+       }else{
+         console.log('Product is unavailable'+results);
+       }
       },
       (error) => {
         console.log(error);
@@ -108,7 +115,11 @@ export class ProductdetailsComponent implements OnInit {
     dialogConfig.panelClass = 'review-popup';
     dialogConfig.data = {
         id: 1,
-        title: 'dialog box'
+        title: 'dialog box',
+        cname: this.cname,
+        scname: this.scname,
+        itemid: this.pid,
+        masterSuppler: this.productDetails.master_suplier
     };
     this.dialog.open(RateproductComponent, dialogConfig);
   }

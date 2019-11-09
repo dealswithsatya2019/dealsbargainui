@@ -222,7 +222,9 @@
 					<i class="fa fa-thumbs-down"></i>
 				</a>
 			</p>
-			<a mat-raised-button class="dialog-btn" (click)="openDialog()">Rate this product</a>
+			<ng-container *ngIf="this.authToken">
+				<a mat-raised-button class="dialog-btn" (click)="openDialog()">Rate this product</a>
+			</ng-container>
 		</div>
 	</div>
 

@@ -49,7 +49,7 @@ export class SignupComponent implements OnInit {
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
       }
     );
-  }
+  }8
 
   loginGmail() {
     this._socioAuthServ.signIn(GoogleLoginProvider.PROVIDER_ID).then(
@@ -76,13 +76,14 @@ export class SignupComponent implements OnInit {
         (authResponse: AuthResopnse) => {
           sessionStorage.setItem("authResponse", JSON.stringify(authResponse));
           if (authResponse.statusCode === 200) {
-            sessionStorage.setItem("success", JSON.stringify(authResponse));
+            sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
             console.log('Success' + JSON.stringify(authResponse));
             sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
             this.signUpErrorMsg = '';
             this.funClose();
           } else {
+            //this.userservice.form.setValue({ name: userInfo.name, email: userInfo.email, password: userInfo.password, mobileno: userInfo.mobileno });
             this.signUpErrorMsg = authResponse.statusDesc;
             sessionStorage.setItem("Failure", JSON.stringify(authResponse));
             console.log('Failed' + JSON.stringify(authResponse));

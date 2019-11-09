@@ -72,4 +72,20 @@ export class ProductService {
     return this._httpCommonService.postReq('products/subcategory/all', JSON.stringify(body));
   }
 
+  public submitReview(authToken?,cname?, scname?, itemId?, countryCode?,rating?, reviewTitle?,comment?,masterSuppler?,productRecommended?): Observable<any>
+    {
+      const body ={
+      "countryCode": countryCode,
+      "category": cname,
+      "subcategory": scname,
+      "item_id": itemId,
+      "rating": rating,
+      "review_title": reviewTitle,
+      "comment": comment,
+      "master_suppler": masterSuppler,
+      "product_recommended": productRecommended
+    };
+      return this._httpCommonService.postRequest('reviews/create-review', JSON.stringify(body), authToken);
+    }
+
 }
