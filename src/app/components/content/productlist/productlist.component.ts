@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SocialshareComponent } from '../socialshare/socialshare.component';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { searchreponse } from 'src/app/models/searchResponse';
+import { CartService } from 'src/app/services/cart.service';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-productlist',
@@ -12,7 +14,7 @@ import { searchreponse } from 'src/app/models/searchResponse';
 })
 export class ProductlistComponent implements OnInit {
 
-  constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog) { }
+  constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,private cartService: CartService) { }
   cname: any;
   scname: any;
   sub;
@@ -72,5 +74,10 @@ export class ProductlistComponent implements OnInit {
     let y = event.y - 50;
     dialogConfig.position = { left: x + 'px', top: y + "px" };
     this.dialog.open(SocialshareComponent, dialogConfig);
+  }
+
+  public addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    this._router.navigateByUrl('/mycart');
   }
 }

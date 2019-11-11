@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
-import { UserService } from 'src/app/user.service';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import * as CryptoJS from 'crypto-js';
-import { EncryptionService } from 'src/app/services/encryption.service';
-import { AuthService as UserAuth } from 'src/app/services/auth.service';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
+import { AuthService as UserAuth } from 'src/app/services/auth.service';
+import { EncryptionService } from 'src/app/services/encryption.service';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-signup',

@@ -179,7 +179,7 @@
 								<span class="old_cost">{{product.price}}</span>
 								<span class="new_cost">{{product.deal_price}}</span>
 							</p>
-							<button mat-button class="cart-btn" [routerLink]="['/mycart']">Add Cart</button>
+							<button mat-button class="cart-btn" (click)="addToCart(product)">Add Cart</button>
 						</mat-card-content>
 						<mat-card-actions>
 							<button mat-button class="action-btns">

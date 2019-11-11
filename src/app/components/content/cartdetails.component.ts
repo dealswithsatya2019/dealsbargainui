@@ -35,15 +35,15 @@ export class CartdetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    let registerInfo = sessionStorage.getItem("success");
-    if (registerInfo != null) {
+    let access_token = sessionStorage.getItem("access_token");
+    if (access_token != null) {
       this.product = this.cartService.recentProduct();
-      this.productid = this.product.product_id;
-      this.catName = this.product.category    //   this.subCatName = decodeURI(params.get('scname'));
+      this.productid = this.product.item_id;
+      this.catName = this.product.category   
       this.subCatName = this.product.subcategory;
       this.supplierName = this.product.master_suplier;
-      let userInfo = JSON.parse(registerInfo);
-      this.autherization = "Bearer " + userInfo.responseObjects.access_token;
+      this.autherization = "Bearer " + access_token;
+      console.log("Product Details :",this.product);
       this.addCart();
       this.getCarts();
     }
@@ -70,11 +70,10 @@ export class CartdetailsComponent implements OnInit {
     let body = [
       {
         "countryCode": "us",
-        "category": "books",
-        "subcategory": "Crafts  &  hobbies",
-        // "item_id": this.productid,
-        "item_id": "aAFOL42L4fDj9ev6lDzjlQ==",
-        "master_supplier": "doba",
+        "category": this.catName,
+        "subcategory": this.subCatName,
+        "item_id": this.productid,
+        "master_supplier": this.supplierName,
         "count": "1"
       },
     ]

@@ -9,6 +9,7 @@ import { Swiper, Navigation, Pagination, Scrollbar, Autoplay, Thumbs } from 'swi
 import { ProductDetails } from 'src/app/models/ProductDetails';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
 import { UserService } from 'src/app/user.service';
+import { CartService } from 'src/app/services/cart.service';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
 declare let paypal: any;
@@ -56,7 +57,7 @@ export class ProductdetailsComponent implements OnInit {
   //   title: "Kappa Variety Puzzles & Games Book Case Pack 48"
   // }
 
-  constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public gallery: Gallery, public userservice: UserService) { 
+  constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public gallery: Gallery, public userservice: UserService,private cartService: CartService) { 
     this.authToken =  sessionStorage.getItem("access_token");
   }
 
@@ -164,6 +165,11 @@ export class ProductdetailsComponent implements OnInit {
 
   showProductDetails(params){
     this._productservice.routeProductDetails(params);
+  }
+
+  public addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    this._router.navigateByUrl('/mycart');
   }
 
 }

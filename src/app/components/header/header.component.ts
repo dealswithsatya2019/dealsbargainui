@@ -129,6 +129,7 @@ export class HeaderComponent implements OnInit {
     this.userservice.response = null;
     sessionStorage.removeItem("f_login_form");
     sessionStorage.removeItem("success");
+    sessionStorage.removeItem("access_token");
   }
   gotoHomePage() {
     this._router.navigate(['/']);

@@ -54,7 +54,7 @@
 								<p class="p-title">{{product.item_name}}</p>
 								<p class="p-cost"><span class="old_cost">{{product.custom_price}}</span>
 									<span class="new_cost">{{product.prepay_price}}</span></p>
-								<button mat-button class="cart-btn" [routerLink]="['/mycart']">Add Cart</button>
+								<button mat-button class="cart-btn" (click)="addToCart(product)">Add Cart</button>
 							</mat-card-content>
 							<mat-card-actions>
 								<button mat-button><i class="fa fa-heart"></i></button>

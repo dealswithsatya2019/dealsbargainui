@@ -69,10 +69,9 @@ export class ProductpurchaseComponent implements OnInit {
 
 
   ngOnInit() {
-    let registerInfo = sessionStorage.getItem("success");
-    if (registerInfo != null) {
-      let userInfo = JSON.parse(registerInfo);
-      this.autherization = "Bearer " + userInfo.responseObjects.access_token;
+    let access_token = sessionStorage.getItem("access_token");
+    if (access_token != null) {
+      this.autherization = "Bearer " + access_token;
       let sessioninfo = sessionStorage.getItem("f_login_form");
       this.loginformService.response = sessioninfo;
       console.log("response ",this.loginformService.response);
@@ -157,6 +156,7 @@ export class ProductpurchaseComponent implements OnInit {
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
             this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
             sessionStorage.setItem("success", JSON.stringify(authResponse));
+            sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
             this.autherization = "Bearer "+authResponse.responseObjects.access_token;
           } else {
             this.loginErrorMsg = authResponse.statusDesc;
@@ -196,6 +196,7 @@ export class ProductpurchaseComponent implements OnInit {
     this.addressInfo = null;
     sessionStorage.removeItem("f_login_form");
     sessionStorage.removeItem("success");
+    sessionStorage.removeItem("access_token");
   }
 
   funSave() {
