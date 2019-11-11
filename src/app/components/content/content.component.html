@@ -1,5 +1,4 @@
-
-<div class="menu-toolbar" >
+<div class="menu-toolbar">
 	<!-- <div class="sidenav">
 		<app-menu-bar></app-menu-bar>
 	</div> -->
@@ -9,34 +8,7 @@
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" *ngFor="let product of flashDeals; let i = index">
 					<mat-card>
-						<mat-card-subtitle>
-							<span class="badge offer-badge">{{product.discount}}</span>
-						</mat-card-subtitle>
-						<div class="product-img"> 
-							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails({cname:product.category,scname:product.subcategory,pid:product.item_id})">
-						</div>
-						<mat-card-content class="product-desc">
-							<p class="p-title">
-								{{product.item_name}}
-							</p>
-							<p class="p-cost">
-								<span class="old_cost">{{product.price}}</span>
-								<span class="new_cost">{{product.deal_price}}</span>
-							</p>
-						<button mat-button class="cart-btn d-none" (click)="addToCart(product)">Add Cart</button>
-						</mat-card-content>
-						<mat-card-actions>
-							<!-- <button mat-button class="action-btns"><i class="fa fa-thumbs-up"></i></button> -->
-							<button mat-button class="action-btns" matTooltip="Add To Wishlist"><i class="fa fa-heart"></i></button>
-							<button mat-button class="action-btns" matTooltip="Add To Cart" (click)="addToCart(product)" ><i class="fa fa-shopping-cart"></i></button>
-							<button mat-button class="action-btns share"><i class="fa fa-share-alt"></i>
-								<div class="social-share">
-									<a href="www.facebook.com"><i class="fa fa-facebook-official"></i></a>
-									<a><i class="fa fa-twitter-square"></i></a>
-									<a><i class="fa fa-linkedin-square"></i></a>
-								</div>
-							</button>
-						</mat-card-actions>
+						<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
 					</mat-card>
 				</div>
 			</div>
@@ -51,41 +23,16 @@
 
 <div class="content-container">
 	<!-- hotdeals -->
-	
 	<div *ngIf="hotDeals">
-		<h5 class="subtitle position-relative">HOT DEALS <a [routerLink]="['/dealslist/h']" class="pl-3">VIEW ALL</a></h5>
+		<h5 class="subtitle position-relative">HOT DEALS
+			<a [routerLink]="['/dealslist/h']" class="pl-3">VIEW ALL</a>
+		</h5>
 		<div class="product" fxLayout="row" fxLayoutGap="10px">
 			<mat-card class="item-card" *ngFor="let product of hotDeals; let i = index" style="max-width: 19%;">
 				<div class="deal-timer">
 					<span class="timerbadge">2 Days Left</span>
 				</div>
-				<mat-card-subtitle>
-					<span class="badge offer-badge">{{product.discount}}</span>
-				</mat-card-subtitle>
-				<div class="product-img">
-					<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails('{cname:product.category,scname:product.subcategory,pid:product.item_id}')">
-				</div>
-				<mat-card-content class="product-desc">
-					<p class="p-title">
-						{{product.item_name}}
-					</p>
-					<p class="p-cost">
-						<span class="old_cost">{{product.price}}</span>
-						<span class="new_cost">{{product.deal_price}}</span>
-					</p>
-					<button mat-button class="cart-btn" (click)="addToCart(product)">Add Cart</button>
-				</mat-card-content>
-				<mat-card-actions>
-					<button mat-button class="action-btns" matTooltip="Add To Wishlist"><i class="fa fa-heart"></i></button>
-					<button mat-button class="action-btns" matTooltip="Add To Cart"><i class="fa fa-shopping-cart"></i></button>
-					<button mat-button class="action-btns share"><i class="fa fa-share-alt"></i>
-						<div class="social-share">
-							<a href=""><i class="fa fa-facebook-official"></i></a>
-							<a href=""><i class="fa fa-twitter-square"></i></a>
-							<a href=""><i class="fa fa-linkedin-square"></i></a>
-						</div>
-					</button>
-				</mat-card-actions>
+				<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
 			</mat-card>
 		</div>
 	</div>
@@ -93,39 +40,69 @@
 
 	<!-- Today deals -->
 	<div *ngIf="todayDeals">
-		<h5 class="subtitle position-relative">TODAY's DEALS <a [routerLink]="['/dealslist/t']" class="pl-3" >VIEW ALL</a></h5>
+		<h5 class="subtitle position-relative">TODAY's DEALS
+			<a [routerLink]="['/dealslist/t']" class="pl-3">VIEW ALL</a>
+		</h5>
 		<div class="product" fxLayout="row" fxLayoutGap="10px">
 			<mat-card class="item-card" *ngFor="let product of todayDeals; let i = index" style="max-width: 19%;">
-				<mat-card-subtitle>
-					<span class="badge offer-badge">{{product.discount}}</span>
-				</mat-card-subtitle>
-				<div class="product-img">
-					<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails('{cname:product.category,scname:product.subcategory,pid:product.item_id}')">
-				</div>
-				<mat-card-content class="product-desc">
-					<p class="p-title">
-						{{product.item_name}}
-					</p>
-					<p class="p-cost">
-						<span class="old_cost">{{product.price}}</span>
-						<span class="new_cost">{{product.deal_price}}</span>
-					</p>
-					<button mat-button class="cart-btn" (click)="addToCart(product)">Add Cart</button>
-				</mat-card-content>
-				<mat-card-actions>
-					<button mat-button class="action-btns" matTooltip="Add To wishlist"><i class="fa fa-heart"></i></button>
-					<button mat-button class="action-btns" matTooltip="Add To Cart"><i class="fa fa-shopping-cart"></i></button>
-					<button mat-button class="action-btns share"><i class="fa fa-share-alt"></i>
-						<div class="social-share">
-							<a href=""><i class="fa fa-facebook-official"></i></a>
-							<a href=""><i class="fa fa-twitter-square"></i></a>
-							<a href=""><i class="fa fa-linkedin-square"></i></a>
-						</div>
-					</button>
-				</mat-card-actions>
+				<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
 			</mat-card>
 		</div>
 	</div>
 	<!-- Today deals end -->
-	
+
 </div>
+<ng-template #dealsContentTemplate let-product="productinfo">
+	<ng-container *ngIf="product.discount && product.discount!='0'">
+		<mat-card-subtitle>
+			<span class="badge offer-badge">{{product.discount}}</span>
+		</mat-card-subtitle>
+	</ng-container>
+
+	<div class="product-img">
+		<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails('{cname:product.category,scname:product.subcategory,pid:product.item_id}')">
+	</div>
+	<mat-card-content class="product-desc">
+		<p class="p-title">
+			{{product.item_name}}
+		</p>
+		<p class="p-cost">
+			<ng-container *ngIf="product.deal_type==''">
+				<span class="old_cost">{{product.supplier_deal_price}}</span>
+				<span class="new_cost">{{product.deal_price}}</span>
+			</ng-container>
+			<ng-container *ngIf="product.deal_type=='0'">
+				<span class="new_cost">{{product.price}}</span>
+			</ng-container>
+			<ng-container *ngIf="product.deal_type!='0'">
+				<span class="old_cost">{{product.price}}</span>
+				<span class="new_cost">{{product.discount_amount}}</span>
+			</ng-container>
+		</p>
+
+		<button mat-button class="cart-btn" (click)="addToCart(product)">Add Cart</button>
+	</mat-card-content>
+	<mat-card-actions>
+		<button mat-button class="action-btns" matTooltip="Add To Wishlist">
+			<i class="fa fa-heart"></i>
+		</button>
+		<button mat-button class="action-btns" matTooltip="Add To Cart">
+			<i class="fa fa-shopping-cart"></i>
+		</button>
+		<button mat-button class="action-btns share">
+			<i class="fa fa-share-alt"></i>
+			<div class="social-share">
+				<a href="">
+					<i class="fa fa-facebook-official"></i>
+				</a>
+				<a href="">
+					<i class="fa fa-twitter-square"></i>
+				</a>
+				<a href="">
+					<i class="fa fa-linkedin-square"></i>
+				</a>
+			</div>
+		</button>
+	</mat-card-actions>
+
+</ng-template>

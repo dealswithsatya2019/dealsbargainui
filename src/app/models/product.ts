@@ -15,5 +15,7 @@ export class Product {
     others: string;
     dealtype: string;
     master_suplier: string;
-
-}
+    deal_type: string ="0";
+    supplier_deal_price : string ="";
+    discount_amount: string ="";
+ }
