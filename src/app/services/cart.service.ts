@@ -40,6 +40,9 @@ export class CartService {
       this.itemsInCart.forEach(element => {
         if (element.item_id == item.item_id) {
           element.quantity = (element.quantity - 1);
+          if(element.quantity < 0){
+            element.quantity = 0;
+          }
         }
         this.itemsInCartTemp.push(element)
       });

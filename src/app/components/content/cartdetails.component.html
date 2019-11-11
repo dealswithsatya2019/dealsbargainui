@@ -9,13 +9,22 @@
                     <h6>{{cart.item_name}}</h6>
                     <div class="small-cap">{{cart.brand_name}}</div>
                     <div class="mt-2 small-cap">Seller: {{cart.master_suplier}}</div>
-                    <p class="price-line mt-3"> &#8377; {{cart.prepay_price}}
-                        <span class="px-2">&#8377; {{cart.custom_price}}</span>
-                        <span class="offer">14% off 6 offers available</span>
+                    <p class="p-cost">
+                        <ng-container *ngIf="cart.deal_type==''">
+                            <span class="old_cost">{{cart.supplier_deal_price}}</span>
+                            <span class="new_cost">{{cart.deal_price}}</span>
+                        </ng-container>
+                        <ng-container *ngIf="cart.deal_type=='0'">
+                            <span class="new_cost">{{cart.price}}</span>
+                        </ng-container>
+                        <ng-container *ngIf="cart.deal_type!='0'">
+                            <span class="old_cost">{{cart.price}}</span>
+                            <span class="new_cost">{{cart.discount_amount}}</span>
+                        </ng-container>
                     </p>
                 </div>
                 <div class="" style="flex: 1 1 25%;max-width: 25%;">
-                    <div>Delivery by Oct 31 | Free</div>
+                    <div>Delivery by Nov 20 | Free</div>
                 </div>
             </div>
             <div class="options" style="display: flex;">

@@ -47,7 +47,10 @@ export class CartdetailsComponent implements OnInit {
   public getCarts() {
     this.getCartlist().subscribe(data =>
       this.cartInfo = data);
-    this.shoppingCartItems = this.cartInfo.responseObject;
+    if (this.cartInfo != null && this.cartInfo.responseObject != null) {
+      this.shoppingCartItems = this.cartInfo.responseObject;
+    }
+
   }
 
   public addCartData: any;

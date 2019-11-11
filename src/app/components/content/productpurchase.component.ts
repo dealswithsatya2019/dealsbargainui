@@ -44,6 +44,7 @@ export class ProductpurchaseComponent implements OnInit {
   public loginErrorMsg: string;
   public addressInfo: addressResponse;
   public cartInfo: cartInfo;
+
   addressform: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     mobile_number: new FormControl('', [Validators.required]),
@@ -80,35 +81,6 @@ export class ProductpurchaseComponent implements OnInit {
       this.loginformService.response = sessioninfo;
       console.log("response ", this.loginformService.response);
     }
-    paypal
-      .Buttons({
-        style: {
-          layout: 'horizontal'
-        },
-        createOrder: (data, actions) => {
-          return actions.order.create({
-            purchase_units: [
-              {
-                description: "",
-                amount: {
-                  currency_code: "USD",
-                  value: "0.01",
-                }
-              }
-            ]
-          });
-        },
-        onApprove: async (data, actions) => {
-          const order = await actions.order.capture();
-          this.paypalFor = true;
-          console.log("order :", order);
-        },
-        onError: err => {
-          console.log("Error :", err);
-        }
-
-      })
-      .render(this.paypalElement.nativeElement);
 
   }
 
@@ -221,7 +193,10 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public getCarts() {
-    this.getCartlist().subscribe(data => this.cartInfo = data);
+    this.getCartlist().subscribe(data => {
+      this.cartInfo = data;
+      this.calculatePrices();
+    });
   }
 
   public getAddresses() {
@@ -267,6 +242,113 @@ export class ProductpurchaseComponent implements OnInit {
 
   public addCart() {
     this.addProduToCart().subscribe(data => this.addCartData = data);
+  }
+
+  public addCartFromSummary(product: Product) {
+    this.addProduToCartFromSummary(product).subscribe(data => this.addCartData = data);
+  }
+
+  public addProduToCartFromSummary(product: Product): Observable<any> {
+    let body = [
+      {
+        "countryCode": "us",
+        "category": product.category,
+        "subcategory": product.subcategory,
+        "item_id": product.product_id,
+        "master_supplier": product.master_suplier,
+        "count": "1"
+      },
+    ]
+    return this.http.post<any>("http://34.233.128.163/api/v1/user/cart/operation/addItemToCart",
+      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+  }
+
+  public addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    if (this.autherization != null) {
+      this.addCartFromSummary(product);
+    }
+    this.getCarts();
+  }
+
+  public totalCost: number = 0;
+  public deliveryCost: number = 0;
+  public couponDiscountCost: number = 0;
+  public totalPaybaleCost: number = 0;
+  public totalCartSize: number = 0;
+
+  public calculatePrices() {
+    this.initializeValues();
+    this.cartInfo.responseObject.forEach(element => {
+      this.totalCost = this.totalCost + element.prepay_price;
+      this.deliveryCost = element.ship_cost;
+      this.couponDiscountCost = 0;
+    });
+    this.totalPaybaleCost = ((this.totalCost + this.deliveryCost) - this.couponDiscountCost)
+    this.totalCartSize = this.cartInfo.responseObject.length;
+    console.log(this.totalCost + ":" + this.deliveryCost + ":" + this.couponDiscountCost + ":" + this.totalPaybaleCost + ":" + this.totalCartSize);
+  }
+
+  public initializeValues() {
+    this.totalCost = 0;
+    this.deliveryCost = 0;
+    this.couponDiscountCost = 0;
+    this.totalPaybaleCost = 0;
+    this.totalCartSize = 0;
+  }
+
+  public removeFromCart(product: Product) {
+    this.cartService.removeFromCart(product);
+
+  }
+
+  public removeProduct(product: Product) {
+    this.cartService.removeCart(product);
+  }
+
+  public selectedIndex: number = 0;
+  public selectionChange(event) {
+    if (event.selectedIndex == 0) {
+    } else if (event.selectedIndex == 1) {
+      this.getAddresses();
+    } else if (event.selectedIndex == 2) {
+      this.getCarts();
+    } else if (event.selectedIndex == 3) {
+      this.configurePaypal();
+    }
+    return false;
+  }
+
+  public configurePaypal() {
+    paypal
+      .Buttons({
+        style: {
+          layout: 'horizontal'
+        },
+        createOrder: (data, actions) => {
+          return actions.order.create({
+            purchase_units: [
+              {
+                description: "",
+                amount: {
+                  currency_code: "USD",
+                  value: this.totalPaybaleCost,
+                }
+              }
+            ]
+          });
+        },
+        onApprove: async (data, actions) => {
+          const order = await actions.order.capture();
+          this.paypalFor = true;
+          console.log("order :", order);
+        },
+        onError: err => {
+          console.log("Error :", err);
+        }
+
+      })
+      .render(this.paypalElement.nativeElement);
   }
 
 

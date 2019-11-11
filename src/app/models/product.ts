@@ -19,4 +19,7 @@ export class Product {
     supplier_deal_price : string ="";
     discount_amount: string ="";
     quantity : number = 0;
+    ship_cost : number  = 0;
+    custom_price : number  = 0;
+    prepay_price : number = 0;
  }

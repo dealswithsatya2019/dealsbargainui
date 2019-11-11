@@ -1,8 +1,8 @@
 <div class="content-container pt-3">
     <div class="" style="display: flex;padding-top: 100px;">
         <div class="left-panel">
-            <mat-horizontal-stepper>
-                <mat-step label="LOGIN">
+            <mat-horizontal-stepper [linear]="false" (selectionChange)="selectionChange($event)" [selectedIndex]="selectedIndex" >
+                <mat-step label="LOGIN" [completed]="false">
                     <div class="mb-3" [(expanded)]="exp1" (opened)="setStep(1)" class="active">
                         <!-- /#new customer login starts-->
                         <ng-container *ngIf="!autherization">
@@ -89,7 +89,7 @@
                     </div>
                 </mat-step>
 
-                <mat-step label="ADDRESS">
+                <mat-step label="ADDRESS" [completed]="false">
                     <div class="mb-3">
                         <mat-radio-group aria-label="Select an option">
                             <ng-container *ngIf="addressInfo">
@@ -106,7 +106,7 @@
                             </ng-container>
                         </mat-radio-group>
                     </div>
-                    <mat-expansion-panel class="mb-3" [(expanded)]="exp3" (opened)="setStep(3)">
+                    <mat-expansion-panel class="mb-3" [(expanded)]="exp3" (opened)="setStep(3)" [completed]="false">
                         <mat-expansion-panel-header>
                             Add New Address
                         </mat-expansion-panel-header>
@@ -162,13 +162,13 @@
                                 class="fa fa-chevron-right"></i></button>
                     </div>
                 </mat-step>
-                <mat-step label="ORDER SUMMARY">
+                <mat-step label="ORDER SUMMARY" (click)="getCarts()" [completed]="false">
                     <div class="mb-3">
                         <ng-container *ngIf="cartInfo">
                             <div class="order-1 py-3 mt-3" *ngFor='let cart of cartInfo.responseObject'>
                                 <div class="order-item" style="display: flex;">
                                     <div class="text-center" style="flex: 1 1 20%;max-width: 120px;">
-                                        <img src="cart.image" class="img-cursor">
+                                        <img [src]="cart.image" class="img-cursor">
                                     </div>
                                     <div class="order-details pl-3" style="flex: 1 1 60%;max-width: 60%;">
                                         <h6>{{cart.item_name}}</h6>
@@ -185,12 +185,12 @@
                                 </div>
                                 <div class="options" style="display: flex;">
                                     <div class="option-btns mt-2" style="flex: 1 1 20%;max-width: 120px;">
-                                        <button>-</button>
-                                        <input matInput class="text-center" value="{{cart.quantity}}">
-                                        <button>+</button>
+                                        <button (click)="removeFromCart(cart)">-</button>
+                                        <input matInput class="text-center" value="{{!cart.quantity ? 1 : cart.quantity}}">
+                                        <button (click) = "addToCart(cart)">+</button>
                                     </div>
                                     <div class="" style="flex: 1 1 30%;max-width: 30%;">
-                                        <button mat-button>Remove</button>
+                                        <button mat-button (click) = "removeProduct(cart)">Remove</button>
                                     </div>
                                 </div>
                             </div>
@@ -206,7 +206,7 @@
                     </div>
                 </mat-step>
 
-                <mat-step label="PAYMENT">
+                <mat-step label="PAYMENT" [completed]="false">
 
                     <div [(expanded)]="exp5" (opened)="setStep(5)" [expanded]="true">
 
@@ -242,24 +242,24 @@
                 <div class="divider"></div>
                 <div class="price-details px-3">
                     <div class="" style="display: flex;justify-content: space-between;">
-                        <div>Price(1 item)</div>
-                        <span>2099</span>
+                        <div>Price({{totalCartSize}} item)</div>
+                        <span>{{totalCost}}</span>
                     </div>
                     <div class="" style="display: flex;justify-content: space-between;">
                         <div>Delivery</div>
-                        <span class="offer">Free</span>
+                        <span class="offer">{{(deliveryCost ==0 ? 'FREE' : deliveryCost)}}</span>
                     </div>
                     <div class="" style="display: flex;justify-content: space-between;">
                         <div>Coupon Discount</div>
-                        <span>150</span>
+                        <span>{{couponDiscountCost}}</span>
                     </div>
                     <div class="total">
                         <b>Total Payable</b>
-                        <b>2099</b>
+                        <b>{{totalPaybaleCost}}</b>
                     </div>
                 </div>
                 <div class="divider"></div>
-                <span class="offer p-3 d-block">You will save 700 on this Order</span>
+                <span class="offer p-3 d-block">You will save {{couponDiscountCost}} on this Order</span>
             </div>
         </div>
     </div>
