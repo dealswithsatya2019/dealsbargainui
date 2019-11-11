@@ -1,21 +1,33 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../models/product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private itemsInCartSubject: BehaviorSubject<Product[]> = new BehaviorSubject([]);
   private itemsInCart: Product[] = [];
+  private itemsInCartTemp: Product[] = [];
   private addedProduct: Product;
-  constructor() {
-    this.itemsInCartSubject.subscribe(_ => this.itemsInCart = _);
-  }
 
   public addToCart(item: Product) {
-    this.itemsInCartSubject.next([...this.itemsInCart, item]);
+    console.log("Exist ", (this.itemsInCart.some(e => e.item_id === item.item_id)))
+    this.itemsInCartTemp = [];
+    if (this.itemsInCart.some(e => e.item_id === item.item_id)) {
+      this.itemsInCart.forEach(element => {
+        if (element.item_id == item.item_id) {
+          element.quantity = (element.quantity + 1);
+        }
+        this.itemsInCartTemp.push(element)
+      });
+      this.itemsInCart = [];
+      this.itemsInCart = this.itemsInCartTemp;
+      console.log("Items :", this.itemsInCart);
+    } else {
+      item.quantity = 1;
+      this.itemsInCart.push(item);
+    }
     this.addedProduct = item;
+    console.log("SIZE", this.itemsInCart.length);
   }
 
   public recentProduct(): Product {
@@ -23,23 +35,25 @@ export class CartService {
   }
 
   public removeFromCart(item: Product) {
-    const currentItems = [...this.itemsInCart];
-    const itemsWithoutRemoved = currentItems.filter(_ => _.item_id !== item.item_id);
-    this.itemsInCartSubject.next(itemsWithoutRemoved);
+    this.itemsInCartTemp = [];
+    if (this.itemsInCart.some(e => e.item_id === item.item_id)) {
+      this.itemsInCart.forEach(element => {
+        if (element.item_id == item.item_id) {
+          element.quantity = (element.quantity - 1);
+        }
+        this.itemsInCartTemp.push(element)
+      });
+      this.itemsInCart = [];
+      this.itemsInCart = this.itemsInCartTemp;
+    }
   }
 
-  public getItems(): Observable<Product[]> {
-    return this.itemsInCartSubject.asObservable();
+  public removeCart(item: Product) {
+    this.itemsInCart = this.itemsInCart.filter(itemLoop => itemLoop.item_id != item.item_id);
   }
 
-  // public getTotalAmount(): Observable<number> {
-  //   return this.itemsInCartSubject.map((items: Product[]) => {
-  //     return items.reduce((prev, curr: Product) => {
-  //       return prev + curr.price;
-  //     }, 0);
-  //   });
-  // }
-
-
+  public getItems(): Product[] {
+    return this.itemsInCart;
+  }
 
 }

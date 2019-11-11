@@ -18,4 +18,5 @@ export class Product {
     deal_type: string ="0";
     supplier_deal_price : string ="";
     discount_amount: string ="";
+    quantity : number = 0;
  }

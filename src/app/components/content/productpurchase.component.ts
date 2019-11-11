@@ -15,7 +15,10 @@ import { EncryptionService } from 'src/app/services/encryption.service';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
 import * as CryptoJS from 'crypto-js';
 import { cartInfo } from 'src/app/models/cartInfo';
+import { CartService } from 'src/app/services/cart.service';
+import { AddProductReq } from './addproductreq';
 declare let paypal: any;
+
 @Component({
   selector: 'app-productpurchase',
   templateUrl: './productpurchase.component.html',
@@ -65,6 +68,7 @@ export class ProductpurchaseComponent implements OnInit {
     public _router: Router,
     public httpService: HttCommonService,
     public http: HttpClient,
+    private cartService: CartService
   ) { }
 
 
@@ -74,7 +78,7 @@ export class ProductpurchaseComponent implements OnInit {
       this.autherization = "Bearer " + access_token;
       let sessioninfo = sessionStorage.getItem("f_login_form");
       this.loginformService.response = sessioninfo;
-      console.log("response ",this.loginformService.response);
+      console.log("response ", this.loginformService.response);
     }
     paypal
       .Buttons({
@@ -141,7 +145,6 @@ export class ProductpurchaseComponent implements OnInit {
     var key3 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
 
     var ciphertext = this.encryptionService.encrypt(key2, key3, key1, userInfo.password);
-    //this.userservice.form.setValue({ password: ciphertext });
     try {
       this.userAuth.authenticateUser(userInfo.name, userInfo.password, 'us', key1, key2, key3).subscribe(
         (authResponse: AuthResopnse) => {
@@ -155,9 +158,9 @@ export class ProductpurchaseComponent implements OnInit {
             sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
             this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
-            sessionStorage.setItem("success", JSON.stringify(authResponse));
             sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
-            this.autherization = "Bearer "+authResponse.responseObjects.access_token;
+            this.autherization = "Bearer " + authResponse.responseObjects.access_token;
+            this.addCart();
           } else {
             this.loginErrorMsg = authResponse.statusDesc;
           }
@@ -166,6 +169,7 @@ export class ProductpurchaseComponent implements OnInit {
       this.loginErrorMsg = 'Got issue check in console';
       console.log(error);
     }
+    this._router.navigateByUrl("/productpurchase");
   }
 
   setStep(stepNo) {
@@ -176,9 +180,11 @@ export class ProductpurchaseComponent implements OnInit {
     } else if (this.stepNo == 2) {
       this.exp2 = true;
       this.exp1 = this.exp3 = this.exp4 = this.exp5 = false;
+      this.getAddresses();
     } else if (this.stepNo == 3) {
       this.exp3 = true;
       this.exp2 = this.exp1 = this.exp4 = this.exp5 = false;
+      this.getCarts();
     } else if (this.stepNo == 4) {
       this.exp4 = true;
       this.exp2 = this.exp3 = this.exp1 = this.exp5 = false;
@@ -195,7 +201,6 @@ export class ProductpurchaseComponent implements OnInit {
     this.cartInfo = null;
     this.addressInfo = null;
     sessionStorage.removeItem("f_login_form");
-    sessionStorage.removeItem("success");
     sessionStorage.removeItem("access_token");
   }
 
@@ -239,5 +244,31 @@ export class ProductpurchaseComponent implements OnInit {
         }
       })
   }
+
+  public addProductsArray: AddProductReq[] = [];
+  public productReq: AddProductReq;
+  public addProduToCart(): Observable<any> {
+    this.cartService.getItems().forEach(element => {
+      this.productReq = new AddProductReq();
+      this.productReq.category = element.category;
+      this.productReq.countryCode = "us";
+      this.productReq.count = element.quantity + "";
+      this.productReq.item_id = element.item_id;
+      this.productReq.master_supplier = element.master_suplier;
+      this.productReq.subcategory = element.subcategory;
+      this.addProductsArray.push(this.productReq);
+    });
+    let body = JSON.stringify(this.addProductsArray);
+    console.log("BODY", body);
+    return this.http.post<any>("http://34.233.128.163/api/v1/user/cart/operation/addItemToCart",
+      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+  }
+  public addCartData: any;
+
+  public addCart() {
+    this.addProduToCart().subscribe(data => this.addCartData = data);
+  }
+
+
 
 }

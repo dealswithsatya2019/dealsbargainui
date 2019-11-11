@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { cartInfo } from 'src/app/models/cartInfo';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -15,36 +15,31 @@ import { CartService } from 'src/app/services/cart.service';
 export class CartdetailsComponent implements OnInit {
 
   public cartInfo: cartInfo;
-  public autherization: string = "Bearer 3ca9391f-fc0d-4291-983a-7a3f3e78349b";
+  public autherization: string;
   public productid: string;
   public catName: string;
   public subCatName: string;
   public supplierName: string;
   public userToken: string;
-  public shoppingCartItems$: Observable<Product[]> = of([]);
   public shoppingCartItems: Product[] = [];
   public product: Product;
 
-  constructor(public http: HttpClient, private _Activatedroute: ActivatedRoute, private cartService: CartService) {
-    this.shoppingCartItems$ = this.cartService.getItems();
-    this.shoppingCartItems$.subscribe(_ => this.shoppingCartItems = _);
-  }
-
-  public removeItem(item: Product) {
-    this.cartService.removeFromCart(item)
+  constructor(public http: HttpClient, private _Activatedroute: ActivatedRoute, private cartService: CartService, public _router: Router) {
   }
 
   ngOnInit() {
+    this.shoppingCartItems = [];
+    this.shoppingCartItems = this.cartService.getItems();
+    console.log("Items in cart page ", this.shoppingCartItems);
     let access_token = sessionStorage.getItem("access_token");
     if (access_token != null) {
       this.product = this.cartService.recentProduct();
       this.productid = this.product.item_id;
-      this.catName = this.product.category   
-      this.subCatName = this.product.subcategory;
-      this.supplierName = this.product.master_suplier;
+      this.catName = "Automotive, tool & industrial";
+      this.subCatName = "Accessories";
+      this.supplierName = 'doba';
       this.autherization = "Bearer " + access_token;
-      console.log("Product Details :",this.product);
-      this.addCart();
+      this.addCart(this.product);
       this.getCarts();
     }
   }
@@ -57,8 +52,8 @@ export class CartdetailsComponent implements OnInit {
 
   public addCartData: any;
 
-  public addCart() {
-    this.addProduToCart().subscribe(data => this.addCartData = data);
+  public addCart(product: Product) {
+    this.addProduToCart(product).subscribe(data => this.addCartData = data);
   }
 
   public getCartlist(): Observable<cartInfo> {
@@ -66,19 +61,40 @@ export class CartdetailsComponent implements OnInit {
       { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
-  public addProduToCart(): Observable<any> {
+  public addProduToCart(product: Product): Observable<any> {
     let body = [
       {
         "countryCode": "us",
-        "category": this.catName,
-        "subcategory": this.subCatName,
-        "item_id": this.productid,
-        "master_supplier": this.supplierName,
+        "category": product.category,
+        "subcategory": product.subcategory,
+        "item_id": product.product_id,
+        "master_supplier": product.master_suplier,
         "count": "1"
       },
     ]
     return this.http.post<any>("http://34.233.128.163/api/v1/user/cart/operation/addItemToCart",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+  }
+
+  public addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    this.shoppingCartItems = this.cartService.getItems();
+    if (this.autherization != null) {
+      this.addCart(product);
+    }
+    this._router.navigateByUrl('/mycart');
+  }
+
+  public removeFromCart(product: Product) {
+    this.cartService.removeFromCart(product);
+    this.shoppingCartItems = this.cartService.getItems();
+    this._router.navigateByUrl('/mycart');
+  }
+
+  public removeProduct(product: Product) {
+    this.cartService.removeCart(product);
+    this.shoppingCartItems = this.cartService.getItems();
+    this._router.navigateByUrl('/mycart');
   }
 
 }

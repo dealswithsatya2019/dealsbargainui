@@ -66,7 +66,7 @@
                                         </p>
                                         <a mat-button class="p-0" (click)="signOut()">Logout and signin with another
                                             account</a>
-                                        <button mat-button matStepperNext class="my-2 w-100 login-login-btn">Continue
+                                        <button mat-button matStepperNext (click) = "getAddresses()" class="my-2 w-100 login-login-btn">Continue
                                             Checkout
                                         </button>
                                     </div>
