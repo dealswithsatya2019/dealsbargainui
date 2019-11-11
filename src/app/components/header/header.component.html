@@ -43,36 +43,44 @@
                 style="flex-flow: row wrap; border:1px solid #ccc; display: flex;">
                 
                 <div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
-                    style="flex: 1 1 25%; box-sizing: border-box; max-width: 33.33%;">
+                    style="flex: 1 1 25%; box-sizing: border-box; max-width: 25%;">
                     <mat-card _ngcontent-faj-c21="" class="light-block mat-card" fxlayout="row"
                         fxlayoutalign="start center"
                         style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
-                        <img src="../../assets/img/shipping.png">
+                        <img src="../../../assets/img/FREE_SHIPPING.jpg">
                         <div class="info-content">
                             <p>FREE SHIPPING</p>
-                            <span class="text-muted m-0">Free shipping on all orders over $99</span>
                         </div>
                     </mat-card>
                 </div>
                 <div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
-                    style="flex: 1 1 25%; box-sizing: border-box; max-width: 33.33%;">
+                    style="flex: 1 1 25%; box-sizing: border-box; max-width: 25%;">
                     <mat-card class="light-block mat-card" fxlayout="row" fxlayoutalign="start center"
                         style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
-                        <img src="../../assets/img/time-left.png">
+                        <!-- <img src="../../assets/img/time-left.png"> -->
+                        <img src="../../../assets/img/easy returns.jpg">
                         <div class="info-content">
                             <p>EASY RETURNS</p>
-                            <span class="text-muted m-0">30 Days money return guarantee</span>
                         </div>
                     </mat-card>
                 </div>
                 <div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
-                    style="flex: 1 1 25%; box-sizing: border-box; max-width: 33.33%;">
+                    style="flex: 1 1 25%; box-sizing: border-box; max-width: 25%;">
                     <mat-card class="light-block mat-card" fxlayout="row" fxlayoutalign="start center"
                         style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
-                        <img src="../../../assets/img/dollar-symbol.png">
+                        <img src="../../../assets/img/Secure-Payment-21.png">
                         <div class="info-content">
                             <p>SECURE PAYMENT</p>
-                            <span class="text-muted m-0">simple and secure payments</span>
+                        </div>
+                    </mat-card>
+                </div>
+                <div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
+                    style="flex: 1 1 25%; box-sizing: border-box; max-width: 25%;">
+                    <mat-card class="light-block mat-card" fxlayout="row" fxlayoutalign="start center"
+                        style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
+                        <img src="../../../assets/img/best-deals.png">
+                        <div class="info-content">
+                            <p>BEST DEALS</p>
                         </div>
                     </mat-card>
                 </div>
@@ -89,10 +97,10 @@
             <div class="search pl-3 position-relative">
                 <button mat-button [matMenuTriggerFor]="deals">Deals</button>
                 <mat-menu #deals="matMenu">
-                    <button mat-menu-item>
+                    <button mat-menu-item style="border-bottom: 1px solid #ccc;">
                         <a mat-button [routerLink]="['/dealslist/f']"> Flash deals</a>
                     </button>
-                    <button mat-menu-item>
+                    <button mat-menu-item style="border-bottom: 1px solid #ccc;">
                         <a mat-button [routerLink]="['/dealslist/h']">Hot deals</a>
                     </button>
                     <button mat-menu-item>

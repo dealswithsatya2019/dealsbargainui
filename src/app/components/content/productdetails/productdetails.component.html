@@ -25,22 +25,24 @@
 			</div>
 
 			<h5>
+			
 
-				<div class="stars">
-					<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating>
-				</div>
-				<button mat-button class="product-rating"><i class="fa fa-sort-desc" aria-hidden="true"></i>
-					<div class="product-rating-bar">
-						13 customers ratings
-						5star <mat-progress-bar mode="determinate" value="{FiveStar}}"></mat-progress-bar>
-						4star <mat-progress-bar mode="determinate" value="{{FourStar}}"></mat-progress-bar>
-						3star <mat-progress-bar mode="determinate" value="{{ThreeStar}}"></mat-progress-bar>
-						2star <mat-progress-bar mode="determinate" value="{{TwoStar}}"></mat-progress-bar>
-						1star <mat-progress-bar mode="determinate" value="{{OneStar}}"></mat-progress-bar>
-					</div>
-				</button>
 				<span class="mr-1 rate-product">4.6
 					<i class="fa fa-star"></i>
+					<div class="product-rating">
+						<div class="stars">
+							<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating><i class="fa fa-sort-desc" aria-hidden="true"></i>
+						</div>
+						
+						<div class="product-rating-bar">
+							13 customers ratings
+							5star <mat-progress-bar mode="determinate" value="{FiveStar}}"></mat-progress-bar>
+							4star <mat-progress-bar mode="determinate" value="{{FourStar}}"></mat-progress-bar>
+							3star <mat-progress-bar mode="determinate" value="{{ThreeStar}}"></mat-progress-bar>
+							2star <mat-progress-bar mode="determinate" value="{{TwoStar}}"></mat-progress-bar>
+							1star <mat-progress-bar mode="determinate" value="{{OneStar}}"></mat-progress-bar>
+						</div>
+					</div>
 				</span>
 	
 				{{productDetails.title}}

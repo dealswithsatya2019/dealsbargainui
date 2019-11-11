@@ -52,7 +52,7 @@ export class ContentComponent implements AfterViewInit, OnInit {
           991: {
             slidesPerView: 3,
           },
-          1366: {
+          1200: {
             slidesPerView: 4,
           },
           1500: {

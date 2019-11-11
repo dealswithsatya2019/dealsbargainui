@@ -221,6 +221,17 @@ h5{
     font-size: 13px;
     padding: 2px 4px;
     border-radius: 2px;
+    position: relative;
+    &:hover{
+      .product-rating{
+        display: inline-block;
+        position: absolute;
+        top: 20px;
+        left: 0px;
+        z-index: 999;
+        box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);
+      }
+    }
   }
   .gallery-top {
     height: 100%;
@@ -264,7 +275,7 @@ h5{
   }
   .quick-buy{
     min-width:300px;
-    background-color: #747373;
+    background-color: #06083b;
     margin-right: 10px;
     color: #fff;
   }
@@ -375,21 +386,27 @@ h5{
     padding: 2px 4px;
     border-radius: 2px;
     display: inline-block;
+    position: relative;
+    i{position: absolute;
+      right: 0px;
+      top: 50%;
+      transform: translateY(-50%);}
   }
 
   .product-rating-bar{
-    display: none;
-    width: 70px;
-    position: absolute;
-    top: -55px;
-    left: 25px;
+    padding: 0px 20px 10px 20px;
+    font-size: 15px;
+    color: #333;
     a{
       display: block;
       line-height: 30px;
     }
   }
   .product-rating{
-    position: relative;
+    display: none;
+    width: 290px;
+    border-radius: 5px;
+    background-color: #fff;
     &:hover{
       .product-rating-bar{display: inline-block;
         i{font-size: 19px;}

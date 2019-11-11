@@ -1,9 +1,4 @@
-.container{
-    overflow-y: hidden;
-    overflow-x: scroll;
-    margin: 20px;
-    padding: 0 ;
-  }
+
   .productlistcontainer{
     overflow-y: scroll;
     overflow: hidden;
@@ -12,13 +7,139 @@
   }
   
   .product{
-    min-width: 100px;
-    text-align: center;
-    margin-bottom: 20px; /* same as fxLayoutGap for even distribution */
+    flex: 1 1 19%;
+    width: 19%;
+    padding: 10px;
+    margin-bottom: 1%;
+    margin-right: 1%;
+    background-color: #FFF;
+  }
+ 
+  p{margin: 0px;}
+  .swiper-container, .swiper-wrapper{
+    background-color: transparent;
   }
   
+  .product {
+    
+      .offer-badge{
+        position: absolute;
+        top: 0px;
+        right: 45px;
+        width: 47px;
+        height: 50px;
+        background-color: #dd300d;
+        color:#fff;
+        line-height: 33px;
+        text-align: center;
+        // background: url('../../../assets/img/badge.png') no-repeat;
+      }
+      .product-img {
+        width: 130px;
+        height:130px;
+        display: block;
+        margin: auto;
+      }
+      .p-title{
+        white-space: pre-wrap;
+        margin: 2px 0px;
+        font-size: 14px;
+        height: 42px;
+      }
+      .p-cost{
+        // border-bottom: 2px solid #f7f7f7;
+        padding-bottom: 5px;
+      }
+      .cart-btn{
+        background-color: #ff9600;
+        color: #fff;
+        padding: 0px 7px;line-height: 25px;
+        display: block;
+        margin: auto;
+        font-size: 13px;
+      }
+      mat-card-actions{
+        display: block;
+        border-top: 2px solid #f7f7f7;
+        margin-top: 10px;
+        text-align: center;
+        // margin-left: -10px;
+        // margin-right: -10px;
+        border: 1px solid #ccc;
+      }
+      .action-btns{
+        min-width: 40px;padding: 0px;
+        // height: 30px;line-height:25px;
+        // margin: 5px;border: 1px solid #ccc;
+        i{font-size: 14px;color: rgba(0,0,0,0.7);}
+      }
+      .share{
+        position: relative;
+        &:hover{
+          .social-share{display: inline-block;
+            i{font-size: 19px;}
+          }
+        }
+      }
+    }
+  
+  .product{
+    mat-card{
+      max-width: 280px;
+      position: relative;
+    }
+  }
+  .social-share{
+    display: none;
+    width: 70px;
+    position: absolute;
+    top: -55px;
+    left: 25px;
+    a{
+      display: block;
+      line-height: 30px;
+    }
+  }
+  .deal-timer{
+    position: absolute;
+    left: -5px;
+    top: -3px;
+  }
+  .timerbadge{
+    color: #FFF !important;
+    background: #dd300d;
+    height: 18px;
+    white-space: nowrap;
+    padding: 3px 5px;
+    overflow: hidden;
+    font-size: 13px;
+  }
+  .timerbadge::after{
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 10px solid #dd300d;
+    border-left: 10px solid transparent;
+    position: absolute;
+    left: 0px;
+    bottom: -9px;
+  }
+  .swiper-button-next:after, .swiper-button-prev:after{
+    font-size: 14px;
+    color: #000;
+  }
+  .swiper-button-next, .swiper-button-prev{
+    width: 30px;height: 30px;
+    border-radius: 50%;
+    background-color: #ff9600;
+  }
+  .swiper-button-next{
+    right: 10px;
+  }
+  
+  .bg{background-color: #f5f5f5;}
   .product img{
-    height: 150px;
+    height: 130px;
     object-fit: contain;
   }
   
@@ -33,39 +154,31 @@
     color: #686565;
   }
   .new_cost{
-    font-size: 17px;
-    color: #b90b1c;
+    font-size: 16px;
+    color: #ff9600;
+    font-weight: 700;
   }
-  
-  .banner_container{
-    overflow-y: hidden;
-    overflow-x: scroll;
-    margin: 30px;
-    padding: 0 ;
+  .product{
+    flex-wrap: wrap;
+    mat-card{
+      margin-top: 10px;
+    }
   }
-  
-  .bannerline{
-    min-width: 100%;
-    text-align: center;
-    margin-bottom: 20px; /* same as fxLayoutGap for even distribution */
-  }
-  
-  .banner-img{
-    height: 150px;
-    object-fit: contain;
-  }
-  
+ 
   .img-cursor{
     cursor: pointer;
+    height: 100%;
   }
 
-  .example-viewport {
-    height: 400px;
-    width: 1530px;
-}
-  
-  .example-item {
-    height: 50px;
-    width: 1530px;
-    
+  .product{
+    .p-title{
+      height: 45px;
+      white-space: pre-wrap !important;
+      overflow: hidden !important;
+    }
+  }
+ 
+  .fa-shopping-cart{
+    font-size: 18px !important ;
+    color: #ff9600 !important;
   }

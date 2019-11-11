@@ -27,8 +27,6 @@ import { EstimateddeliverytimeComponent } from './components/footer/estimateddel
 import { MyaccountComponent } from './components/footer/myaccount.component';
 import { ProductpurchaseComponent } from './components/content/productpurchase.component';
 import { CartdetailsComponent } from './components/content/cartdetails.component';
-import { MyprofileComponent } from './components/content/myprofile/myprofile.component';
-
 
 const routes: Routes = [
   {
@@ -46,7 +44,7 @@ const routes: Routes = [
   },
   {
     path: AppRoutes.UserProfile,
-    component: MyprofileComponent,
+    component: ProfileComponent,
     canActivate: [AuthGuard] ,
     data: { 
       datepropsample: 'datavaluesample'
@@ -142,7 +140,7 @@ const routes: Routes = [
     
   },{
     path: AppRoutes.mycart,
-    component: CartdetailsComponent,
+    component: CartdetailsComponent
   }
 ];
 

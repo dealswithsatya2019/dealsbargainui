@@ -13,10 +13,13 @@
 button.mat-menu-item{
     height: 34px;
     line-height: 30px;
+    .mat-button{
+        font-size: 13px;font-weight: 400;
+    }
 }
 .menu-title{
     text-transform: uppercase;
-    font-size: 20px;
+    font-size: 14px;
     opacity: 0.8;
 }
 .mat-menu-item:hover{color: #ff9600;background: #fff;}

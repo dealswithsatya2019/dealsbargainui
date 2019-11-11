@@ -4,7 +4,7 @@
 
 <div class="login-container">
     <div class="login-btn-container mb-5">
-        <p class="text-center login-info mt-3">EASILY USING</p>
+        <p class="text-center login-info my-3">EASILY USING</p>
 
         <button mat-raised-button (click)="loginFacebook();" class="fb-login login-btn">
             <img src="../../.././../assets/img/facebook.png" class="login-logo">FACEBOOK</button>
@@ -13,7 +13,7 @@
             <img src="../../.././../assets/img/search.png" class="login-logo">GOOGLE</button>
     </div>
 
-    <p class="text-center login-info">-OR USING MAIL-</p>
+    <p class="text-center login-info mb-3">-OR USING MAIL-</p>
 <form [formGroup]="loginformService.form" class="normal-form w-100" (submit)="funLogin()">
     
             <!-- <input type="hidden" formControlName="$key"> -->

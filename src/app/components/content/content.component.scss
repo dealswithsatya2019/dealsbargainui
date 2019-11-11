@@ -20,6 +20,7 @@
   }
   
 }
+.cart{border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-radius: 0px;}
 .banner-container{
   width: 100%;
 }
@@ -76,6 +77,9 @@ p{margin: 0px;}
       display: block;
       border-top: 2px solid #f7f7f7;
       margin-top: 10px;
+      // margin-left: -10px;
+      // margin-right: -10px;
+      border: 2px solid #ccc;
     }
     .action-btns{
       min-width: 40px;padding: 0px;

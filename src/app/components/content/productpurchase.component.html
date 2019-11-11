@@ -2,7 +2,7 @@
     <div class="" style="display: flex;padding-top: 100px;">
         <div class="left-panel">
             <mat-horizontal-stepper>
-                <mat-step label="LOGIN" state="phone">
+                <mat-step label="LOGIN">
                     <div class="mb-3" [(expanded)]="exp1" (opened)="setStep(1)" class="active">
                         <!-- /#new customer login starts-->
                         <ng-container *ngIf="!autherization">
@@ -89,7 +89,7 @@
                     </div>
                 </mat-step>
 
-                <mat-step label="ADDRESS" state="chat">
+                <mat-step label="ADDRESS">
                     <div class="mb-3">
                         <mat-radio-group aria-label="Select an option">
                             <ng-container *ngIf="addressInfo">
@@ -228,16 +228,6 @@
 
                 </mat-step>
 
-                <!-- Icon overrides. -->
-                <ng-template matStepperIcon="phone">
-                    <span>1</span>
-                </ng-template>
-                <ng-template matStepperIcon="chat">
-                    <span>2</span>
-                </ng-template>
-                <ng-template matStepperIcon="chat">
-                    <span>3</span>
-                </ng-template>
             </mat-horizontal-stepper>
         </div>
         <div class="pl-4" style="flex: 1 1 30%;max-width: 30%;">
