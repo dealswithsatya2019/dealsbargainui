@@ -1,3 +1,5 @@
+import { KeyValuePair } from 'src/app/models/KeyValuePair';
+
 export class ProductDetails {
     product_id:number =-1;
     item_id: number =-1;
@@ -47,5 +49,6 @@ export class ProductDetails {
     message:string ='';
     created_on :string ='';
     fuzzy_title :string ='';
-    product_attributes : string[] =[];
+    product_attributes: Array<KeyValuePair> =[];
+    dealtype: string ='';
 }

@@ -10,6 +10,7 @@ import { ProductDetails } from 'src/app/models/ProductDetails';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
 import { UserService } from 'src/app/user.service';
 import { CartService } from 'src/app/services/cart.service';
+import { KeyValuePair } from 'src/app/models/KeyValuePair';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
 declare let paypal: any;
@@ -36,6 +37,7 @@ export class ProductdetailsComponent implements OnInit {
   public scname: string;
   public pid: string;
   items: Array<GalleryItem> = [];
+  product_attributes: Array<KeyValuePair> =[];
   productRating : number = 5;
   public FiveStar: number = 80;
   public FourStar: number = 40;
@@ -86,11 +88,20 @@ export class ProductdetailsComponent implements OnInit {
           }
           this.loadZoomImagesList();
         }
-        /*let attributes: string = this.productDetails.attributes; 
+        let attributes: string = this.productDetails.attributes; 
         if(attributes){
           let arrAtr = attributes.split("\|\|", -1);
-          this.productDetails.product_attributes = arrAtr;
-        }*/
+          if(arrAtr){
+            for(let attributeInfo of arrAtr){
+              let attrPair=attributeInfo.split(":=",-1);
+              this.product_attributes.push(new KeyValuePair(attrPair[0],attrPair[1]));
+            }
+          }
+        }
+        if(!this.productDetails.dealtype){
+          this.productDetails.dealtype ='';
+        }
+        console.log(this.productDetails);
         //this.productDetails.thumbnail_image=['https://d1k0ppjronk6up.cloudfront.net/products/1529/images_b75_image2_844.jpg',this.productDetails.image];
        /*}else{
          console.log('Product is unavailable'+results);

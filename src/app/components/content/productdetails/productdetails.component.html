@@ -60,11 +60,21 @@
 			<p style="color: #747474;font-weight: 300;">BRAND : {{productDetails.brand_name}}</p>
 
 
-			<p class="py-3">1000 People have viewed this product</p>
-
-			<h4>$ {{productDetails.custom_price}}
-				<span class="px-3 stike-off">$ {{productDetails.prepay_price}}</span>
-				<span class="px-3 discount">(50% off)</span>
+		<!-- 	<p class="py-3">1000 People have viewed this product</p> -->
+			<h4>
+				<ng-container *ngIf="productDetails.dealtype==''">
+					{{productDetails.deal_price}}<span class="px-3 stike-off">{{productDetails.supplier_deal_price}}</span>
+				</ng-container>
+				<ng-container *ngIf="productDetails.dealtype!='' && productDetails.discount=='0'">
+					<span class="new_cost">{{productDetails.price}}</span>
+				</ng-container>
+				<ng-container *ngIf="productDetails.dealtype!='' && productDetails.discount!='0'">
+					{{productDetails.discount_amount}}<span class="px-3 stike-off">{{productDetails.price}}</span>				
+				</ng-container>
+				<ng-container *ngIf="productDetails.discount && productDetails.discount!='0'">
+						<span class="px-3 discount">({{productDetails.discount}}% off)</span> 
+				</ng-container>
+				
 			</h4>
 			<!-- <div class="p-3 my-3" style="border:1px dashed #ccc;">
 				<p>offers: <span class="pl-4">Flat 50% off</span></p>
@@ -80,13 +90,16 @@
 				<button mat-raised-button>L</button>
 				<button mat-raised-button>XL</button>
 			</div> -->
-			<h6 >{{productDetails.attributes}}</h6>
-			<h6>Warranty : {{productDetails.warranty}}</h6>
+			
+			<h6 *ngFor="let keyValPair of product_attributes">
+				{{keyValPair.key}} : {{keyValPair.value}}
+			</h6>
+			<h6>Warranty : {{productDetails.warranty ===''? 'NA' : productDetails.warranty}}</h6>
 			<div class="py-3 mt-4 lh">
 				<a mat-button class="quick-buy" [routerLink]="['/productpurchase']">Quick Buy</a>
 				<a mat-button class="add-bag" [routerLink]="['/mycart']">ADD TO BAG</a>
 			</div>
-			<p class="py-3">
+			<!-- <p class="py-3">
 				<span>Hassle Free Delivery</span>
 				<span class="pl-5">Free Shipping</span>
 			</p>
@@ -104,7 +117,7 @@
 					<li>Standard delivery.</li>
 					<li>Cash On Delivery</li>
 				</ul>
-			</div>
+			</div> -->
 		</div>
 	</div>
 
@@ -131,7 +144,9 @@
 				<p class="text-center">ADDITIONAL INFO</p>
 			</mat-expansion-panel-header>
 			<mat-grid>
-				<p>{{productDetails.attributes}}</p>
+				<p *ngFor="let keyValPair of product_attributes">
+						{{keyValPair.key}} : {{keyValPair.value}}
+				</p>
 			</mat-grid>
 		</mat-expansion-panel>
 
@@ -180,8 +195,17 @@
 						<mat-card-content class="product-desc">
 							<p class="p-title">{{product.item_name}}</p>
 							<p class="p-cost">
-								<span class="old_cost">{{product.price}}</span>
-								<span class="new_cost">{{product.deal_price}}</span>
+								<ng-container *ngIf="product.dealtype==''">
+									<span class="old_cost">{{product.supplier_deal_price}}</span>
+									<span class="new_cost">{{product.deal_price}}</span>
+								</ng-container>
+								<ng-container *ngIf="product.dealtype!='' && product.discount=='0'">
+									<span class="new_cost">{{product.price}}</span>
+								</ng-container>
+								<ng-container *ngIf="product.dealtype!='' && product.discount!='0'">
+									<span class="old_cost">{{product.price}}</span>
+									<span class="new_cost">{{product.discount_amount}}</span>
+								</ng-container>
 							</p>
 							<button mat-button class="cart-btn" (click)="addToCart(product)">Add Cart</button>
 						</mat-card-content>

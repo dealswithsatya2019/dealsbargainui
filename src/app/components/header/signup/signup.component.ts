@@ -7,6 +7,7 @@ import { AuthResopnse } from 'src/app/models/AuthResponse';
 import { AuthService as UserAuth } from 'src/app/services/auth.service';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { UserService } from 'src/app/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -88,6 +89,9 @@ export class SignupComponent implements OnInit {
             sessionStorage.setItem("Failure", JSON.stringify(authResponse));
             console.log('Failed' + JSON.stringify(authResponse));
           }
+        },
+        (error : HttpErrorResponse) =>{
+          this.signUpErrorMsg = error.error.statusDesc;
         });
     } catch (error) {
       console.log(error);

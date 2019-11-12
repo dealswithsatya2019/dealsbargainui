@@ -68,14 +68,14 @@
 			{{product.item_name}}
 		</p>
 		<p class="p-cost">
-			<ng-container *ngIf="product.deal_type==''">
+			<ng-container *ngIf="product.dealtype==''">
 				<span class="old_cost">{{product.supplier_deal_price}}</span>
 				<span class="new_cost">{{product.deal_price}}</span>
 			</ng-container>
-			<ng-container *ngIf="product.deal_type=='0'">
+			<ng-container *ngIf="product.dealtype!='' && product.discount=='0'">
 				<span class="new_cost">{{product.price}}</span>
 			</ng-container>
-			<ng-container *ngIf="product.deal_type!='0'">
+			<ng-container *ngIf="product.dealtype!='' && product.discount!='0'">
 				<span class="old_cost">{{product.price}}</span>
 				<span class="new_cost">{{product.discount_amount}}</span>
 			</ng-container>

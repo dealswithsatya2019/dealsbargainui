@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/user.service';
@@ -95,6 +95,10 @@ export class LoginComponent implements OnInit {
           this.loginErrorMsg = authResponse.statusDesc;
           console.log('Failed' + JSON.stringify(authResponse));
         }
-      });
+      },
+      (error : HttpErrorResponse) =>{
+        this.loginErrorMsg = error.error.statusDesc;
+      }
+    );
   }
 }
