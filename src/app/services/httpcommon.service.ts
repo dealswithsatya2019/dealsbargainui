@@ -22,7 +22,8 @@ export class HttCommonService {
      } else {
     return `${this.Origin}`;
     }*/
-    return "http://34.233.128.163/api/v1";
+    //return "http://34.233.128.163/api/v1";
+    return "http://50.17.29.77/api/v1";
 
   }
 

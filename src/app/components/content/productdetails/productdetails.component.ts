@@ -70,7 +70,7 @@ export class ProductdetailsComponent implements OnInit {
     
     this._productservice.getHttpProductDetailsById(this.cname, this.scname, this.pid, 'us').subscribe(
       (results: searchreponse) => {
-       if(results.statusCode ===200){
+       //if(results.statusCode ===200){
         this.productDetails = results.responseObject[0];
         if(this.productDetails){
           let arr=this.productDetails.thumbnail_image;
@@ -86,10 +86,15 @@ export class ProductdetailsComponent implements OnInit {
           }
           this.loadZoomImagesList();
         }
+        /*let attributes: string = this.productDetails.attributes; 
+        if(attributes){
+          let arrAtr = attributes.split("\|\|", -1);
+          this.productDetails.product_attributes = arrAtr;
+        }*/
         //this.productDetails.thumbnail_image=['https://d1k0ppjronk6up.cloudfront.net/products/1529/images_b75_image2_844.jpg',this.productDetails.image];
-       }else{
+       /*}else{
          console.log('Product is unavailable'+results);
-       }
+       }*/
       },
       (error) => {
         console.log(error);

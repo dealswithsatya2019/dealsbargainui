@@ -80,7 +80,7 @@
 				<button mat-raised-button>L</button>
 				<button mat-raised-button>XL</button>
 			</div> -->
-			<h6>{{productDetails.attributes}}</h6>
+			<h6 >{{productDetails.attributes}}</h6>
 			<h6>Warranty : {{productDetails.warranty}}</h6>
 			<div class="py-3 mt-4 lh">
 				<a mat-button class="quick-buy" [routerLink]="['/productpurchase']">Quick Buy</a>
@@ -137,7 +137,7 @@
 
 		<mat-expansion-panel>
 			<mat-expansion-panel-header>
-				<p class="text-center">DISCRIMINATOR</p>
+				<p class="text-center">DISCLAIMER</p>
 			</mat-expansion-panel-header>
 			<mat-grid>
 				<!-- <p class="mb-2">VARANGA:</p>
@@ -162,16 +162,18 @@
 
 	<!-- Similar Products -->
 	<h5 class="subtitle position-relative"> SIMILAR PRODUCTS
-		<a [routerLink]="['productlist',cname.toLowerCase(),scname.toLowerCase()]" routerLinkActive="active" class="pl-3">VIEW ALL</a>
+		<a [routerLink]="['productlist',cname.toLowerCase(),scname]" routerLinkActive="active" class="pl-3">VIEW ALL</a>
 	</h5>
 	<div *ngIf="similarProducts">
 		<div class="swiper-container similar">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" *ngFor="let product of similarProducts; let i = index">
 					<mat-card>
-						<mat-card-subtitle>
-							<span class="badge offer-badge">{{product.discount}}</span>
-						</mat-card-subtitle>
+						<ng-container *ngIf="product.discount && product.discount!='0'">
+							<mat-card-subtitle>
+								<span class="badge offer-badge">{{product.discount}}</span>
+							</mat-card-subtitle>
+						</ng-container>
 						<div class="product-img">
 							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails('{cname:product.category,scname:product.subcategory,pid:product.item_id}')">
 						</div>
@@ -212,10 +214,10 @@
 		<p class="p-3">Reviews & Ratings</p>
 		<div class="divider"></div>
 		<div class="p-4 rev-content" style="display: flex;justify-content: space-between">
-			<p>
+			<!-- <p>
 				<span class="rating-top px-1">0</span>/
 				<span class="rating-btm px-1">5</span>
-			</p>
+			</p>-->
 			<p>Do you recommend this product?
 				<a mat-raised-button class="ml-4">
 					<i class="fa fa-thumbs-up"></i>

@@ -47,4 +47,5 @@ export class ProductDetails {
     message:string ='';
     created_on :string ='';
     fuzzy_title :string ='';
+    product_attributes : string[] =[];
 }
