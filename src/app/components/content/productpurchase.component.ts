@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
@@ -25,7 +25,7 @@ declare let paypal: any;
   templateUrl: './productpurchase.component.html',
   styleUrls: ['./productpurchase.component.scss']
 })
-export class ProductpurchaseComponent implements OnInit {
+export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   public autherization: string;
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
@@ -45,20 +45,19 @@ export class ProductpurchaseComponent implements OnInit {
   public loginErrorMsg: string;
   public addressInfo: addressResponse;
   public cartInfo: cartInfo;
-  private APIEndpoint : string  = environment.APIEndpoint;
+  private APIEndpoint: string = environment.APIEndpoint;
 
   addressform: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    mobile_number: new FormControl('', [Validators.required]),
-    zipcode: new FormControl('', [Validators.required]),
-    street: new FormControl('', [Validators.required]),
-    address: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
-    state: new FormControl('', [Validators.required]),
-    landmark: new FormControl('', [Validators.required]),
-    altphone: new FormControl('', [Validators.required]),
     countrycode: new FormControl('us'),
-
+    name: new FormControl(''),
+    mobile_number: new FormControl(''),
+    zipcode: new FormControl(''),
+    street: new FormControl(''),
+    address: new FormControl(''),
+    city: new FormControl(''),
+    state: new FormControl(''),
+    landmark: new FormControl(''),
+    altphone: new FormControl(''),
   });
 
   constructor(public loginformService: LoginformService,
@@ -79,12 +78,13 @@ export class ProductpurchaseComponent implements OnInit {
     let access_token = sessionStorage.getItem("access_token");
     if (access_token != null) {
       this.autherization = "Bearer " + access_token;
-      let sessioninfo = sessionStorage.getItem("f_login_form");
-      this.loginformService.response = sessioninfo;
+      this.loginformService.response = JSON.parse(sessionStorage.getItem("f_login_form"));
       console.log("response ", this.loginformService.response);
-      this.configurePaypal();
     }
+  }
 
+  ngAfterViewInit() {
+    this.configurePaypal();
   }
 
   loginFacebook() {
@@ -186,12 +186,12 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public getAddresslist(): Observable<addressResponse> {
-    return this.http.get<addressResponse>(this.APIEndpoint+"/user/contacts/us",
+    return this.http.get<addressResponse>(this.APIEndpoint + "/user/contacts/us",
       { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
   public getCartlist(): Observable<cartInfo> {
-    return this.http.post<cartInfo>(this.APIEndpoint+"/user/cart/operation/getCartInfo",
+    return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartInfo",
       { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
@@ -203,7 +203,14 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public getAddresses() {
-    this.getAddresslist().subscribe(data => this.addressInfo = data);
+    this.getAddresslist().subscribe(data => 
+      {
+        this.addressInfo = data;
+        console.log("staus code ",this.addressInfo.statusCode);
+        if(this.addressInfo.statusCode ==  404){
+          this.exp3 = true;
+        }
+      });
   }
 
   public showAddressInfo(addressId) {
@@ -211,7 +218,7 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public saveAddress(addressInfoJson: string) {
-    this.http.post(this.APIEndpoint+"/user/contact", addressInfoJson,
+    this.http.post(this.APIEndpoint + "/user/contact", addressInfoJson,
       { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } }).subscribe(data => {
         console.log("Address :", data);
         let jsonobj = JSON.parse(JSON.stringify(data));
@@ -238,7 +245,7 @@ export class ProductpurchaseComponent implements OnInit {
     });
     let body = JSON.stringify(this.addProductsArray);
     console.log("BODY", body);
-    return this.http.post<any>(this.APIEndpoint+"/user/cart/operation/addItemToCart",
+    return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
   public addCartData: any;
@@ -262,7 +269,7 @@ export class ProductpurchaseComponent implements OnInit {
         "count": "1"
       },
     ]
-    return this.http.post<any>(this.APIEndpoint+"/user/cart/operation/addItemToCart",
+    return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
@@ -317,7 +324,7 @@ export class ProductpurchaseComponent implements OnInit {
     } else if (event.selectedIndex == 2) {
       this.getCarts();
     } else if (event.selectedIndex == 3) {
-      
+
     }
     return false;
   }

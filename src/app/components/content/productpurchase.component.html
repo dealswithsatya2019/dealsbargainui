@@ -48,8 +48,7 @@
                                     <p class="mt-2 m-0 text-center">Join Deals Today</p>
 
                                     <button mat-raised-button type="submit"
-                                        class=" my-2 w-100 checkout-login-btn">LOGIN</button>
-                                    <p>By Signin you are agree to our Terms & Conditions and Privacy Policy</p>
+                                        class=" my-2 w-100 checkout-login-btn">Sign Up</button>
                                 </div>
                                 <!-- /# social login -->
 
@@ -61,8 +60,8 @@
                             <ng-container *ngIf="loginformService.response">
                                 <div class="existed-login mt-3" style="display: flex;line-height: 30px;">
                                     <div class="" style="flex: 1 1 50%;max-width: 50%;padding: 0 5%;">
-                                        <p>Phone
-                                            <span class="pl-2">{{loginformService.response.mobileno}}</span>
+                                        <p>Email
+                                            <span class="pl-2">{{loginformService.response.name}}</span>
                                         </p>
                                         <a mat-button class="p-0" (click)="signOut()">Logout and signin with another
                                             account</a>
@@ -259,7 +258,6 @@
                     </div>
                 </div>
                 <div class="divider"></div>
-                <span class="offer p-3 d-block">You will save {{couponDiscountCost}} on this Order</span>
             </div>
         </div>
     </div>
