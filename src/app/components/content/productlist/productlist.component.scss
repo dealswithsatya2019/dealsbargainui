@@ -1,18 +1,11 @@
 
-  .productlistcontainer{
-    overflow-y: scroll;
-    overflow: hidden;
-    
-    padding: 0 ;
-  }
-   
-  .product{
-    min-width: 100px;
-    text-align: center;
-    margin-bottom: 20px; /* same as fxLayoutGap for even distribution */
-    flex: 1 1 100%; box-sizing: border-box; max-width: 23.5%;
-    margin-right: 1.5%;
-  }
+.product{
+  min-width: 100px;
+  text-align: center;
+  margin-bottom: 20px; /* same as fxLayoutGap for even distribution */
+  flex: 1 1 100%; box-sizing: border-box; max-width: 23.5%;
+  margin-right: 1.5%;
+}
   
 .old_cost{
   font-size: 14px;
@@ -45,21 +38,16 @@
     padding-bottom: 8px;
   }
   p{margin: 0px;}
-  .cart-btn{
-    background-color: #ff9600;
-    color: #fff;
-    padding: 0px 7px;line-height: 30px;
-    display: block;
-    margin: auto;
-  }
+
   mat-card{padding:0px 10px;}
   mat-card-actions{
     display: block;
     border-top: 2px solid #f7f7f7;
     margin-top: 10px;
+    border: 2px solid #ccc;
   }
   .action-btns{
-    min-width: 32px;padding: 0px;
+    min-width: 40px;padding: 0px;
     i{color: #7f7979;}
   }
   .img-cursor{
@@ -77,3 +65,27 @@
       background-color: #fff;
     }
   }
+  .fa-shopping-cart{
+    font-size: 18px !important ;
+    color: #ff9600 !important;
+  }
+  .share{
+    position: relative;
+    &:hover{
+      .social-share{display: inline-block;
+        i{font-size: 19px;}
+      }
+    }
+  }
+  .social-share{
+    display: none;
+    width: 70px;
+    position: absolute;
+    top: -55px;
+    left: 25px;
+    a{
+      display: block;
+      line-height: 30px;
+    }
+  }
+  .cart{border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-radius: 0px;}

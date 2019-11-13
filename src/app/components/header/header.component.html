@@ -21,10 +21,10 @@
                     <button mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger"><i
                             class="fa fa-user"></i><span>{{this.userservice.response.name}}</span></button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
+                        <button mat-menu-item style="border-bottom: 1px solid #ccc;">
                             <a mat-button [routerLink]="['myprofile']"> Profile</a>
                         </button>
-                        <button mat-menu-item>
+                        <button mat-menu-item style="border-bottom: 1px solid #ccc;">
                             <a mat-button [routerLink]="['orders']">Orders</a>
                         </button>
                         <button mat-menu-item>
@@ -33,7 +33,7 @@
                     </mat-menu>
                     <a mat-button [routerLink]="['wishlist']"><i class="fa fa-heart"></i><span>Wishlist</span></a>
                 </ng-container>
-                <a mat-button [routerLink]="['mycart']"><i class='fa fa-check-square-o'></i><span>Checkout<i>{{cartService.getItems().length}}</i></span></a>
+                <a mat-button [routerLink]="['mycart']"><i class='fa fa-check-square-o'></i><span>Checkout ({{cartService.getItems().length}})</span></a>
             </div>
         </mat-toolbar-row> 
 
@@ -47,7 +47,7 @@
                     <mat-card _ngcontent-faj-c21="" class="light-block mat-card" fxlayout="row"
                         fxlayoutalign="start center"
                         style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
-                        <img src="../../../assets/img/FREE_SHIPPING.jpg">
+                        <img src="../../../assets/img/shipping.png">
                         <div class="info-content">
                             <p>FREE SHIPPING</p>
                         </div>

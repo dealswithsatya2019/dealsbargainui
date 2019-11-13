@@ -86,19 +86,19 @@ export class ProductdetailsComponent implements OnInit {
       if(results.responseObject){
          
        //if(results.statusCode ===200){
+        console.log("response results :",results);
+         console.log("response objects :",searchreponse);
         this.productDetails = results.responseObject[0];
         if(this.productDetails){
           let arr=this.productDetails.thumbnail_image;
           if(arr){
             for (let i = 0; i < arr.length; i++) {
-              //this.items.push(new ImageItem({ src: arr[i].srcUrl, thumb: arr[i].previewUrl }))
               this.items.push(new ImageItem({ src: arr[i], thumb: arr[i] }));
             }
             this.items.push(new ImageItem({ src:'http://localhost:4200/assets/img/DealsBargain-Logo.png' , thumb:'http://localhost:4200/assets/img/DealsBargain-Logo.png'}));
           } else {
             this.items.push(new ImageItem({ src:this.productDetails.image , thumb:this.productDetails.image  }));
             this.items.push(new ImageItem({ src:'http://localhost:4200/assets/img/DealsBargain-Logo.png' , thumb:'http://localhost:4200/assets/img/DealsBargain-Logo.png'}));
-            
           }
           this.loadZoomImagesList();
         }
@@ -129,8 +129,8 @@ export class ProductdetailsComponent implements OnInit {
     this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
         (results: searchreponse) => {
           this.similarProducts = results.responseObjects;
+          console.log("simillar products :",this.similarProducts);
       });
-      
   }
 
   loadZoomImagesList() {
@@ -195,10 +195,6 @@ export class ProductdetailsComponent implements OnInit {
       });
       var galleryTop = new Swiper('.gallery-top', {
         spaceBetween: 10,
-        // navigation: {
-        //   nextEl: '.swiper-button-next',
-        //   prevEl: '.swiper-button-prev',
-        // },
         thumbs: {
           swiper: galleryThumbs
         }
@@ -221,7 +217,11 @@ export class ProductdetailsComponent implements OnInit {
 
   public addToCart(product: Product) {
     this.cartService.addToCart(product);
-    this._router.navigateByUrl('/mycart');
+  }
+
+  public quickBuy(produt :Product){
+    this.cartService.addToCart(produt);
+    this._router.navigateByUrl('/productpurchase');
   }
 
 }

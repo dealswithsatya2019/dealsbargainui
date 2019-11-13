@@ -1,5 +1,5 @@
-<div class="content-container pt-4">
-	<div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+<div class="content-container pt-4 product-details">
+	<div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;" class="mb-4">
 		<div fxflex="100" fxflex.gt-md="35" fxflex.md="45" style="flex: 1 1 55%; box-sizing: border-box; max-width: 45%;display: flex">
 			<div class="swiper-container gallery-thumbs" style="height:450px">
 				<div class="swiper-wrapper">
@@ -26,7 +26,6 @@
 
 			<h5>
 			
-
 				<span class="mr-1 rate-product">4.6
 					<i class="fa fa-star"></i>
 					<div class="product-rating">
@@ -50,8 +49,19 @@
 					<button mat-button class="action-btns">
 						<i class="fa fa-heart"></i>
 					</button>
-					<button mat-button class="action-btns">
+					<button mat-button class="action-btns share">
 						<i class="fa fa-share-alt"></i>
+						<div class="social-share">
+							<a href="">
+								<i class="fa fa-facebook-official"></i>
+							</a>
+							<a href="">
+								<i class="fa fa-twitter-square"></i>
+							</a>
+							<a href="">
+								<i class="fa fa-linkedin-square"></i>
+							</a>
+						</div>
 					</button>
 				</span>
 				<small class="py-1">
@@ -97,12 +107,13 @@
 			<h6>Warranty : {{productDetails.warranty ===''? 'NA' : productDetails.warranty}}</h6>
 			<div class="py-3 mt-4 lh">
 				<ng-container *ngIf="isProductAvailable; else outofstock">
-					<a mat-button class="quick-buy" [routerLink]="['/productpurchase']">Quick Buy</a>
-					<a mat-button class="add-bag" [routerLink]="['/mycart']">ADD TO BAG</a>
+					<a mat-button class="quick-buy" (click)="quickBuy(productDetails)" >Quick Buy</a>
+					<a mat-button class="add-bag" (click)="addToCart(productDetails)">ADD TO BAG</a>
 				</ng-container>
 				<ng-template #outofstock>
 					<a mat-button class="add-bag">OUT OF STOCK</a>
 				</ng-template>
+				
 			</div>
 			<!-- <p class="py-3">
 				<span>Hassle Free Delivery</span>
@@ -214,14 +225,27 @@
 									<span class="new_cost">{{product.discount_amount}}</span>
 								</ng-container>
 							</p>
-							<button mat-button class="cart-btn" (click)="addToCart(product)">Add Cart</button>
 						</mat-card-content>
 						<mat-card-actions>
-							<button mat-button class="action-btns">
+							<button mat-button class="action-btns" matTooltip="Add To Wishlist">
 								<i class="fa fa-heart"></i>
 							</button>
-							<button mat-button class="action-btns">
+							<button mat-button class="action-btns cart" matTooltip="Add To Cart" (click)="addToCart(product)">
+								<i class="fa fa-shopping-cart"></i>
+							</button>
+							<button mat-button class="action-btns share">
 								<i class="fa fa-share-alt"></i>
+								<div class="social-share">
+									<a href="">
+										<i class="fa fa-facebook-official"></i>
+									</a>
+									<a href="">
+										<i class="fa fa-twitter-square"></i>
+									</a>
+									<a href="">
+										<i class="fa fa-linkedin-square"></i>
+									</a>
+								</div>
 							</button>
 						</mat-card-actions>
 					</mat-card>

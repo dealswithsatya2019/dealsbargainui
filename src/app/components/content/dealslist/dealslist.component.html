@@ -2,23 +2,36 @@
     <div fxLayout="row wrap" style="padding: 30px;">
         <mat-card *ngFor="let product of hotDeals; let i = index"
             class="product" fxLayout="column">
-            <mat-card-subtitle>
-                <span class="badge badge-danger">{{product.discount}}</span>
-            </mat-card-subtitle>
+            <!-- <mat-card-subtitle>
+                <span class="badge offer-badge">{{product.discount}}</span>
+            </mat-card-subtitle> -->
             <img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo">
             <mat-card-content>
-                <p class="p-title">{{product.item_name}}</p>
-                <span class="old_cost">${{product.price}}</span>
-                <span class="new_cost">${{product.deal_price}}</span>
+                <p class="p-title text-center">{{product.item_name}}</p>
+                <p class="p-cost text-center">
+                    <span class="old_cost">${{product.price}}</span>
+                    <span class="new_cost">${{product.deal_price}}</span>
+                </p>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-button class="action-btns" matTooltip="Add To wishlist"><i class="fa fa-heart"></i></button>
-                <button mat-button class="action-btns" matTooltip="Add To Cart"><i class="fa fa-shopping-cart"></i></button>
-                <button mat-button class="action-btns share"><i class="fa fa-share-alt"></i>
+                <button mat-button class="action-btns" matTooltip="Add To Wishlist">
+                    <i class="fa fa-heart"></i>
+                </button>
+                <button mat-button class="action-btns cart" matTooltip="Add To Cart" (click)="addToCart(product)">
+                    <i class="fa fa-shopping-cart"></i>
+                </button>
+                <button mat-button class="action-btns share">
+                    <i class="fa fa-share-alt"></i>
                     <div class="social-share">
-                        <a href=""><i class="fa fa-facebook-official"></i></a>
-                        <a href=""><i class="fa fa-twitter-square"></i></a>
-                        <a href=""><i class="fa fa-linkedin-square"></i></a>
+                        <a href="">
+                            <i class="fa fa-facebook-official"></i>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-twitter-square"></i>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-linkedin-square"></i>
+                        </a>
                     </div>
                 </button>
             </mat-card-actions>
