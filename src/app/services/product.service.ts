@@ -17,9 +17,13 @@ export class ProductService {
 
   constructor(private _httpCommonService: HttCommonService, public _router: Router) { }
   
-  routeProductDetails(params) {
-    this._router.navigate(['/productdetails', { cname: params.cname, scname: params.scname, pid: params.pid }]);
+  routeProductDetails() {
+    this._router.navigate(['/productdetails']);
   }
+
+  routeProductList() {
+    this._router.navigate(['/productlist']);
+  }  
 
   public getProductlist(categoryName, subCategoryName?, countryCode?, from?, limit?): Observable<any> {
     const body =

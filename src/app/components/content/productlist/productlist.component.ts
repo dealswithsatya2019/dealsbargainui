@@ -7,6 +7,8 @@ import { searchreponse } from 'src/app/models/searchResponse';
 import { CartService } from 'src/app/services/cart.service';
 import { Product } from 'src/app/models/product';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
+import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
+import { ProductDetailsRouteInfoService } from 'src/app/services/routing-services/product-details-route-info.service';
 
 @Component({
   selector: 'app-productlist',
@@ -15,7 +17,10 @@ import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 })
 export class ProductlistComponent implements OnInit {
 
-  constructor(private _snackBar: MatSnackBar,private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,private cartService: CartService) { }
+  constructor(private _snackBar: MatSnackBar,private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,private cartService: CartService,
+    public _productListRouteInfo:ProductListRouteInfoService,
+    public _productDetailsRouteInfo:ProductDetailsRouteInfoService
+  ) { }
   cname: any;
   scname: any;
   sub;
@@ -27,7 +32,7 @@ export class ProductlistComponent implements OnInit {
   public snackBarConfig : MatSnackBarConfig;
 
   ngOnInit() {
-    this.sub = this._Activatedroute.paramMap.subscribe(params => {
+   /* this.sub = this._Activatedroute.paramMap.subscribe(params => {
       console.log('params' + params);
       this.cname = params.get('cname');
       this.scname = params.get('scname');
@@ -36,15 +41,25 @@ export class ProductlistComponent implements OnInit {
           this.products = results.responseObjects;
           this.getDistinctBrands();
         });
-    });
+    });*/
+    this.cname = this._productListRouteInfo.cname;
+    this.scname = this._productListRouteInfo.scname;
+    this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
+      (results: searchreponse) => {
+        this.products = results.responseObjects;
+        this.getDistinctBrands();
+      });
     this.snackBarConfig = new MatSnackBarConfig();
     this.snackBarConfig.horizontalPosition = "center";
     this.snackBarConfig.verticalPosition = "top";
     this.snackBarConfig.duration = 2000;
   }
 
-  showProductDetails(params) {
-    this._productservice.routeProductDetails(params);
+  showProductDetails(cname,scname, pid) {
+    this._productDetailsRouteInfo.cname = cname;
+    this._productDetailsRouteInfo.scname = scname;
+    this._productDetailsRouteInfo.productId =pid;
+    this._productservice.routeProductDetails();
   }
 
   getDistinctBrands() {

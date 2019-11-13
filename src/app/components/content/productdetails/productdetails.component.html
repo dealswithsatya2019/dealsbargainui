@@ -96,8 +96,13 @@
 			</h6>
 			<h6>Warranty : {{productDetails.warranty ===''? 'NA' : productDetails.warranty}}</h6>
 			<div class="py-3 mt-4 lh">
-				<a mat-button class="quick-buy" [routerLink]="['/productpurchase']">Quick Buy</a>
-				<a mat-button class="add-bag" [routerLink]="['/mycart']">ADD TO BAG</a>
+				<ng-container *ngIf="isProductAvailable; else outofstock">
+					<a mat-button class="quick-buy" [routerLink]="['/productpurchase']">Quick Buy</a>
+					<a mat-button class="add-bag" [routerLink]="['/mycart']">ADD TO BAG</a>
+				</ng-container>
+				<ng-template #outofstock>
+					<a mat-button class="add-bag">OUT OF STOCK</a>
+				</ng-template>
 			</div>
 			<!-- <p class="py-3">
 				<span>Hassle Free Delivery</span>
@@ -177,7 +182,8 @@
 
 	<!-- Similar Products -->
 	<h5 class="subtitle position-relative"> SIMILAR PRODUCTS
-		<a [routerLink]="['productlist',cname.toLowerCase(),scname]" routerLinkActive="active" class="pl-3">VIEW ALL</a>
+		<!-- <a [routerLink]="['productlist',cname.toLowerCase(),scname]" routerLinkActive="active" class="pl-3">VIEW ALL</a> -->
+		<a (click)="routeToProductListPage(cname.toLowerCase(),scname)"  class="pl-3">VIEW ALL</a>
 	</h5>
 	<div *ngIf="similarProducts">
 		<div class="swiper-container similar">
@@ -190,7 +196,8 @@
 							</mat-card-subtitle>
 						</ng-container>
 						<div class="product-img">
-							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails('{cname:product.category,scname:product.subcategory,pid:product.item_id}')">
+							<!-- <img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails('{cname:product.category,scname:product.subcategory,pid:product.item_id}')"> -->
+							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails(product.category,product.subcategory,product.item_id)">
 						</div>
 						<mat-card-content class="product-desc">
 							<p class="p-title">{{product.item_name}}</p>

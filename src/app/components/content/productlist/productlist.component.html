@@ -48,7 +48,7 @@
 								<span class="badge badge-danger">{{product.discount}}</span>
 							</mat-card-subtitle> -->
 							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo"
-								(click)="showProductDetails({cname:cname,scname:scname,pid:product.item_id})">
+								(click)="showProductDetails(cname,scname,product.item_id)">
 
 							<mat-card-content>
 								<p class="p-title">{{product.item_name}}</p>

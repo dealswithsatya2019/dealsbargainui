@@ -8,6 +8,7 @@ import { MatDialogConfig, MatDialog } from '@angular/material';
 import { Swiper, Navigation, Pagination, Scrollbar, Autoplay } from 'swiper/js/swiper.esm.js';
 import { CartService } from 'src/app/services/cart.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { ProductDetailsRouteInfoService } from 'src/app/services/routing-services/product-details-route-info.service';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay]);
 
 
@@ -22,12 +23,16 @@ export class ContentComponent implements AfterViewInit, OnInit {
   public todayDeals: Product[];
   public snackBarConfig : MatSnackBarConfig;
 
-  constructor(private _snackBar: MatSnackBar, private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public cart: CartService) {
+  constructor(private _snackBar: MatSnackBar, private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public cart: CartService,
+    public _productDetailsRouteInfo:ProductDetailsRouteInfoService) {
   }
 
 
-  showProductDetails(params) {
-    this._productservice.routeProductDetails(params);
+  showProductDetails(cname,scname,pid){
+    this._productDetailsRouteInfo.cname = cname;
+    this._productDetailsRouteInfo.scname = scname;
+    this._productDetailsRouteInfo.productId = pid;
+    this._productservice.routeProductDetails();
   }
 
   ngAfterViewInit() {

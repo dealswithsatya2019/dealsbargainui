@@ -4,6 +4,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
 import { MenuCategories } from 'src/app/models/MenuCategories';
 import { searchreponse } from 'src/app/models/searchResponse';
+import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
 // import { MatDialogRef } from '@angular/material';
 
 @Component({
@@ -15,7 +16,7 @@ export class MenuBarComponent implements OnInit {
 
   public menuCategories : MenuCategories[];
 
-  constructor(public _productservice: ProductService) { }
+  constructor(public _productservice: ProductService, public _productListRouteInfo:ProductListRouteInfoService) { }
 
   ngOnInit() {
     this.getAllCategoriesMenuInfo();
@@ -88,5 +89,11 @@ export class MenuBarComponent implements OnInit {
         console.error('============================='+error);
       }*/ 
     );
+  }
+
+  routeToProductListPage(cname,scname){
+    this._productListRouteInfo.cname = cname;
+    this._productListRouteInfo.scname = scname;
+    this._productservice.routeProductList();
   }
 }

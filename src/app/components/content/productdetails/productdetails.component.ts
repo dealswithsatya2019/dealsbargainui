@@ -7,10 +7,12 @@ import { searchreponse } from 'src/app/models/searchResponse';
 import { RateproductComponent } from '../rateproduct/rateproduct.component';
 import { Swiper, Navigation, Pagination, Scrollbar, Autoplay, Thumbs } from 'swiper/js/swiper.esm.js';
 import { ProductDetails } from 'src/app/models/ProductDetails';
-import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
+import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize, GalleryConfig } from '@ngx-gallery/core';
 import { UserService } from 'src/app/user.service';
 import { CartService } from 'src/app/services/cart.service';
 import { KeyValuePair } from 'src/app/models/KeyValuePair';
+import { ProductDetailsRouteInfoService } from 'src/app/services/routing-services/product-details-route-info.service';
+import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
 declare let paypal: any;
@@ -44,6 +46,7 @@ export class ProductdetailsComponent implements OnInit {
   public ThreeStar: number = 30;
   public TwoStar: number = 20;
   public OneStar: number = 10;
+  public isProductAvailable : boolean =false;
   // product = {
   //   price: 0.01,
   //   description: "Kappa",
@@ -59,19 +62,29 @@ export class ProductdetailsComponent implements OnInit {
   //   title: "Kappa Variety Puzzles & Games Book Case Pack 48"
   // }
 
-  constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public gallery: Gallery, public userservice: UserService,private cartService: CartService) { 
+  constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public gallery: Gallery, public userservice: UserService,private cartService: CartService,
+    public _productListRouteInfo:ProductListRouteInfoService,
+    public _productDetailsRouteInfo:ProductDetailsRouteInfoService) { 
     this.authToken =  sessionStorage.getItem("access_token");
   }
 
   ngOnInit() {
-    this._Activatedroute.paramMap.subscribe((params : ParamMap)=> {  
+    /*this._Activatedroute.paramMap.subscribe((params : ParamMap)=> {  
       this.cname=params.get('cname');  
       this.scname=params.get('scname');  
       this.pid=params.get('pid');  
-    }); 
-    
+    });*/
+     
+    this.cname = this._productDetailsRouteInfo.cname;
+    this.scname = this._productDetailsRouteInfo.scname;
+    this.pid = this._productDetailsRouteInfo.productId;
     this._productservice.getHttpProductDetailsById(this.cname, this.scname, this.pid, 'us').subscribe(
       (results: searchreponse) => {
+        if(results.statusDesc !== 'Unavailable'){
+          this.isProductAvailable = true;
+        }
+      if(results.responseObject){
+         
        //if(results.statusCode ===200){
         this.productDetails = results.responseObject[0];
         if(this.productDetails){
@@ -81,6 +94,7 @@ export class ProductdetailsComponent implements OnInit {
               //this.items.push(new ImageItem({ src: arr[i].srcUrl, thumb: arr[i].previewUrl }))
               this.items.push(new ImageItem({ src: arr[i], thumb: arr[i] }));
             }
+            this.items.push(new ImageItem({ src:'http://localhost:4200/assets/img/DealsBargain-Logo.png' , thumb:'http://localhost:4200/assets/img/DealsBargain-Logo.png'}));
           } else {
             this.items.push(new ImageItem({ src:this.productDetails.image , thumb:this.productDetails.image  }));
             this.items.push(new ImageItem({ src:'http://localhost:4200/assets/img/DealsBargain-Logo.png' , thumb:'http://localhost:4200/assets/img/DealsBargain-Logo.png'}));
@@ -103,9 +117,10 @@ export class ProductdetailsComponent implements OnInit {
         }
         console.log(this.productDetails);
         //this.productDetails.thumbnail_image=['https://d1k0ppjronk6up.cloudfront.net/products/1529/images_b75_image2_844.jpg',this.productDetails.image];
-       /*}else{
+       }else{
+        this.items.push(new ImageItem({ src:'http://localhost:4200/assets/img/DealsBargain-Logo.png' , thumb:'http://localhost:4200/assets/img/DealsBargain-Logo.png'}));
          console.log('Product is unavailable'+results);
-       }*/
+       }
       },
       (error) => {
         console.log(error);
@@ -119,6 +134,18 @@ export class ProductdetailsComponent implements OnInit {
   }
 
   loadZoomImagesList() {
+    /**
+     * thumbPosition: ThumbnailsPosition.Top,
+      itemTemplate: this.itemTemplate,
+      gestures: false,
+      imageSize: 'cover',
+      loadingMode: "indeterminate",
+      loadingIcon: 'Loading...'
+     */
+    const config: GalleryConfig = {
+           loadingMode: "indeterminate"
+    };
+    this.gallery.ref().setConfig(config);
     this.gallery.ref().load(this.items);
   }
 
@@ -179,8 +206,17 @@ export class ProductdetailsComponent implements OnInit {
     }, 1000);
   }
 
-  showProductDetails(params){
-    this._productservice.routeProductDetails(params);
+  showProductDetails(cname,scname,pid){
+    this._productDetailsRouteInfo.cname = cname;
+    this._productDetailsRouteInfo.scname = scname;
+    this._productDetailsRouteInfo.productId = pid;
+    this._productservice.routeProductDetails();
+  }
+
+  routeToProductListPage(cname,scname){
+    this._productListRouteInfo.cname = cname;
+    this._productListRouteInfo.scname = scname;
+    this._productservice.routeProductList();
   }
 
   public addToCart(product: Product) {
