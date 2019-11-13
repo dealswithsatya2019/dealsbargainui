@@ -18,6 +18,7 @@ export class ProductService {
   constructor(private _httpCommonService: HttCommonService, public _router: Router) { }
   
   routeProductDetails(params) {
+    console.log("product params ",params.pid);
     this._router.navigate(['/productdetails', { cname: params.cname, scname: params.scname, pid: params.pid }]);
   }
 

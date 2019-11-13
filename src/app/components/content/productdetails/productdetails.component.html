@@ -106,8 +106,8 @@
 			</h6>
 			<h6>Warranty : {{productDetails.warranty ===''? 'NA' : productDetails.warranty}}</h6>
 			<div class="py-3 mt-4 lh">
-				<a mat-button class="quick-buy" [routerLink]="['/productpurchase']">Quick Buy</a>
-				<a mat-button class="add-bag" [routerLink]="['/mycart']">ADD TO BAG</a>
+				<a mat-button class="quick-buy" (click)="quickBuy(productDetails)" >Quick Buy</a>
+				<a mat-button class="add-bag" (click)="addToCart(productDetails)">ADD TO BAG</a>
 			</div>
 			<!-- <p class="py-3">
 				<span>Hassle Free Delivery</span>
