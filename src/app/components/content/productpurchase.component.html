@@ -88,7 +88,7 @@
                     </div>
                 </mat-step>
 
-                <mat-step label="ADDRESS" [completed]="false">
+                <mat-step label="SHIPPING ADDRESS" [completed]="false">
                     <div class="mb-3">
                         <mat-radio-group aria-label="Select an option">
                             <ng-container *ngIf="addressInfo">
@@ -109,7 +109,7 @@
                         <mat-expansion-panel-header>
                             Add New Address
                         </mat-expansion-panel-header>
-                        <form [formGroup]="addressform" (submit)="funSave()">
+                        <form [formGroup]="addressform" (submit)="funSave()" class="my-3">
                             <mat-form-field appearance="outline">
                                 <mat-label>Name</mat-label>
                                 <input formControlName="name" matInput placeholder="Name">
@@ -188,8 +188,8 @@
                                         <input matInput class="text-center" value="{{!cart.quantity ? 1 : cart.quantity}}">
                                         <button (click) = "addCartFromSummary(cart)">+</button>
                                     </div>
-                                    <div class="" style="flex: 1 1 30%;max-width: 30%;">
-                                        <button mat-button (click) = "removeProduct(cart)">Remove</button>
+                                    <div class="ml-3 mt-2" style="flex: 1 1 30%;max-width: 30%;">
+                                        <button mat-button (click) = "removeProduct(cart)" class="remove-btn">Remove</button>
                                     </div>
                                 </div>
                             </div>

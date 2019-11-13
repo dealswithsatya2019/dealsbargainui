@@ -1,11 +1,12 @@
 .payment-options{
     width: 100%;
+    background-color: #5d5d5a;
     float: left;
-    color: #666;
+    color: #e1e1e1;
     border-top: 2px solid #c6c6c6;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 .get-in-touch{
     line-height: 30px;
@@ -37,9 +38,8 @@
 }
 .avail-payment{text-align: center;}
 .avail-payment img{
-    width: 65px;
-    height: 40px;
-    margin: 10px auto;
+    width: 50px;
+    height: 33px;
 }
 .foo-title{
     position: relative;
@@ -78,7 +78,9 @@
     .mat-button{
         padding: 0px;
         min-width: 40px;
+        height: 40px;
+        margin-top: 5px;
         margin-right: 10px;
-        i{font-size: 20px;}
+        i{font-size: 26px;}
     }
 }

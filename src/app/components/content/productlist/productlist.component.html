@@ -51,25 +51,42 @@
 								(click)="showProductDetails({cname:cname,scname:scname,pid:product.item_id})">
 
 							<mat-card-content>
-								<p class="p-title">{{product.item_name}}</p>
-								<p class="p-cost">
-										<ng-container *ngIf="product.dealtype==''">
-												<span class="old_cost">{{product.supplier_deal_price}}</span>
-												<span class="new_cost">{{product.deal_price}}</span>
-											</ng-container>
-											<ng-container *ngIf="product.dealtype!='' && product.discount=='0'">
-												<span class="new_cost">{{product.price}}</span>
-											</ng-container>
-											<ng-container *ngIf="product.dealtype!='' && product.discount!='0'">
-												<span class="old_cost">{{product.price}}</span>
-												<span class="new_cost">{{product.discount_amount}}</span>
-											</ng-container>									
+								<p class="p-title text-center">{{product.item_name}}</p>
+								<p class="p-cost text-center">
+									<ng-container *ngIf="product.dealtype==''">
+										<span class="old_cost">{{product.supplier_deal_price}}</span>
+										<span class="new_cost">{{product.deal_price}}</span>
+									</ng-container>
+									<ng-container *ngIf="product.dealtype!='' && product.discount=='0'">
+										<span class="new_cost">{{product.price}}</span>
+									</ng-container>
+									<ng-container *ngIf="product.dealtype!='' && product.discount!='0'">
+										<span class="old_cost">{{product.price}}</span>
+										<span class="new_cost">{{product.discount_amount}}</span>
+									</ng-container>									
 								</p>
-								<button mat-button class="cart-btn" (click)="addToCart(product)">Add Cart</button>
 							</mat-card-content>
 							<mat-card-actions>
-								<button mat-button><i class="fa fa-heart"></i></button>
-								<button mat-button (click)="openShare($event)"><i class="fa fa-share-alt"></i></button>
+								<button mat-button class="action-btns" matTooltip="Add To Wishlist">
+									<i class="fa fa-heart"></i>
+								</button>
+								<button mat-button class="action-btns cart" matTooltip="Add To Cart" (click)="addToCart(product)">
+									<i class="fa fa-shopping-cart"></i>
+								</button>
+								<button mat-button class="action-btns share">
+									<i class="fa fa-share-alt"></i>
+									<div class="social-share">
+										<a href="">
+											<i class="fa fa-facebook-official"></i>
+										</a>
+										<a href="">
+											<i class="fa fa-twitter-square"></i>
+										</a>
+										<a href="">
+											<i class="fa fa-linkedin-square"></i>
+										</a>
+									</div>
+								</button>
 							</mat-card-actions>
 						</mat-card>
 					</ng-container>
