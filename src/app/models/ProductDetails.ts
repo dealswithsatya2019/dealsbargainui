@@ -51,4 +51,5 @@ export class ProductDetails {
     fuzzy_title :string ='';
     product_attributes: Array<KeyValuePair> =[];
     dealtype: string ='';
+    deal_price: string = '';
 }
