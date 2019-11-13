@@ -32,6 +32,7 @@ export class ProductdetailsComponent implements OnInit {
   paypalElement: ElementRef;
   paidFor: boolean = false;
   public productDetails : ProductDetails = new ProductDetails();
+  public product: Product = new Product();
   public similarProducts : Product[];
   public myThumbnail="https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
   public myFullresImage="https://wittlock.github.io/ngx-image-zoom/assets/fullres.jpg";
@@ -215,13 +216,40 @@ export class ProductdetailsComponent implements OnInit {
     this._productservice.routeProductList();
   }
 
-  public addToCart(product: Product) {
-    this.cartService.addToCart(product);
+  public addToCart(produt: ProductDetails) {
+    this.product = this.getProductFromDetails(produt); 
+    this.cartService.addToCart(this.product);
   }
 
-  public quickBuy(produt :Product){
-    this.cartService.addToCart(produt);
+  public quickBuy(produt :ProductDetails){
+    this.product = this.getProductFromDetails(produt); 
+    this.cartService.addToCart(this.product);
     this._router.navigateByUrl('/productpurchase');
+  }
+
+  getProductFromDetails(produt :ProductDetails) :Product{
+    this.product = new Product();
+    this.product.category = produt.category;
+    this.product.subcategory  = produt.subcategory;
+    this.product.item_id = produt.item_id+"";
+    this.product.master_suplier = produt.master_suplier;
+    this.product.prepay_price  = (produt.prepay_price != null && produt.prepay_price != undefined ) ? parseFloat(produt.prepay_price) : 0;
+    this.product.price = produt.price;
+    this.product.quantity = (produt.quantity != null && produt.quantity != undefined ) ? parseInt(produt.quantity) : 0;
+    this.product.ship_cost = (produt.ship_cost != null && produt.ship_cost != undefined ) ? parseFloat(produt.ship_cost) : 0;
+    this.product.supplier_deal_price =produt.supplier_deal_price;
+    this.product.title = produt.title;
+    this.product.brand_name = produt.brand_name;
+    this.product.custom_price = (produt.custom_price != null && produt.custom_price != undefined ) ? parseFloat(produt.custom_price) : 0;
+    this.product.date = produt.date;
+    this.product.deal_price = produt.deal_price;
+    this.product.dealtype = produt.dealtype;
+    this.product.description = produt.description;
+    this.product.discount = produt.discount;
+    this.product.discount_amount = produt.discount_amount;
+    this.product.image = produt.image;
+    this.product.others = produt.other;
+    return this.product;
   }
 
 }
