@@ -81,6 +81,34 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
       this.loginformService.response = JSON.parse(sessionStorage.getItem("f_login_form"));
       console.log("response ", this.loginformService.response);
     }
+    paypal
+      .Buttons({
+        style: {
+          layout: 'horizontal'
+        },
+        createOrder: (data, actions) => {
+          return actions.order.create({
+            purchase_units: [
+              {
+                description: "",
+                amount: {
+                  currency_code: "USD",
+                  value: this.totalPaybaleCost,
+                }
+              }
+            ]
+          });
+        },
+        onApprove: async (data, actions) => {
+          const order = await actions.order.capture();
+          this.paypalFor = true;
+          console.log("order :", order);
+        },
+        onError: err => {
+          console.log("Error :", err);
+        }
+      })
+      .render(this.paypalElement.nativeElement);
   }
 
   ngAfterViewInit() {
@@ -284,7 +312,7 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   public totalCost: number = 0;
   public deliveryCost: number = 0;
   public couponDiscountCost: number = 0;
-  public totalPaybaleCost: number = 0;
+  public totalPaybaleCost: number = 1;
   public totalCartSize: number = 0;
 
   public calculatePrices() {
@@ -330,34 +358,7 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   }
 
   public configurePaypal() {
-    paypal
-      .Buttons({
-        style: {
-          layout: 'horizontal'
-        },
-        createOrder: (data, actions) => {
-          return actions.order.create({
-            purchase_units: [
-              {
-                description: "",
-                amount: {
-                  currency_code: "USD",
-                  value: this.totalPaybaleCost,
-                }
-              }
-            ]
-          });
-        },
-        onApprove: async (data, actions) => {
-          const order = await actions.order.capture();
-          this.paypalFor = true;
-          console.log("order :", order);
-        },
-        onError: err => {
-          console.log("Error :", err);
-        }
-      })
-      .render(this.paypalElement.nativeElement);
+    
   }
 
 
