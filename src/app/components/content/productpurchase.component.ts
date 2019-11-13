@@ -17,6 +17,7 @@ import * as CryptoJS from 'crypto-js';
 import { cartInfo } from 'src/app/models/cartInfo';
 import { CartService } from 'src/app/services/cart.service';
 import { AddProductReq } from './addproductreq';
+import { environment } from 'src/environments/environment';
 declare let paypal: any;
 
 @Component({
@@ -44,6 +45,7 @@ export class ProductpurchaseComponent implements OnInit {
   public loginErrorMsg: string;
   public addressInfo: addressResponse;
   public cartInfo: cartInfo;
+  private APIEndpoint : string  = environment.APIEndpoint;
 
   addressform: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -80,6 +82,7 @@ export class ProductpurchaseComponent implements OnInit {
       let sessioninfo = sessionStorage.getItem("f_login_form");
       this.loginformService.response = sessioninfo;
       console.log("response ", this.loginformService.response);
+      this.configurePaypal();
     }
 
   }
@@ -183,12 +186,12 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public getAddresslist(): Observable<addressResponse> {
-    return this.http.get<addressResponse>("http://34.233.128.163/api/v1/user/contacts/us",
+    return this.http.get<addressResponse>(this.APIEndpoint+"/user/contacts/us",
       { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
   public getCartlist(): Observable<cartInfo> {
-    return this.http.post<cartInfo>("http://34.233.128.163/api/v1/user/cart/operation/getCartInfo",
+    return this.http.post<cartInfo>(this.APIEndpoint+"/user/cart/operation/getCartInfo",
       { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
@@ -208,7 +211,7 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public saveAddress(addressInfoJson: string) {
-    this.http.post("http://34.233.128.163/api/v1/user/contact", addressInfoJson,
+    this.http.post(this.APIEndpoint+"/user/contact", addressInfoJson,
       { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } }).subscribe(data => {
         console.log("Address :", data);
         let jsonobj = JSON.parse(JSON.stringify(data));
@@ -235,7 +238,7 @@ export class ProductpurchaseComponent implements OnInit {
     });
     let body = JSON.stringify(this.addProductsArray);
     console.log("BODY", body);
-    return this.http.post<any>("http://34.233.128.163/api/v1/user/cart/operation/addItemToCart",
+    return this.http.post<any>(this.APIEndpoint+"/user/cart/operation/addItemToCart",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
   public addCartData: any;
@@ -259,7 +262,7 @@ export class ProductpurchaseComponent implements OnInit {
         "count": "1"
       },
     ]
-    return this.http.post<any>("http://34.233.128.163/api/v1/user/cart/operation/addItemToCart",
+    return this.http.post<any>(this.APIEndpoint+"/user/cart/operation/addItemToCart",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
@@ -314,7 +317,7 @@ export class ProductpurchaseComponent implements OnInit {
     } else if (event.selectedIndex == 2) {
       this.getCarts();
     } else if (event.selectedIndex == 3) {
-      this.configurePaypal();
+      
     }
     return false;
   }
@@ -346,7 +349,6 @@ export class ProductpurchaseComponent implements OnInit {
         onError: err => {
           console.log("Error :", err);
         }
-
       })
       .render(this.paypalElement.nativeElement);
   }

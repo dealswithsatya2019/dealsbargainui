@@ -3,11 +3,14 @@ import { throwError, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/internal/operators/catchError';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttCommonService {
+
+  private APIEndpoint : string  = environment.APIEndpoint;
 
   constructor(private http: HttpClient) { }
 
@@ -15,16 +18,7 @@ export class HttCommonService {
   apiURL = this.getApiUrl();
 
   getApiUrl() {
-    /* if (this.Origin.includes('localhost')) {
-       if (environment.production && environment.remove_tomcat_dependency) {
-         return environment.local_proxy;
-       }
-     } else {
-    return `${this.Origin}`;
-    }*/
-    //return "http://34.233.128.163/api/v1";
-    return "http://50.17.29.77/api/v1";
-
+    return this.APIEndpoint;
   }
 
   private extractData(res: Response) {
@@ -49,7 +43,6 @@ export class HttCommonService {
     return this.http.post(
       url, body,
       { headers: { 'Content-Type': 'application/json' } }).pipe(map(this.extractData),catchError(this.handleError));
-    //}).pipe(map(this.extractData).catch(this.handleError));
   }
 
   postRequest(urlAppendParam, body?, authToken?): Observable<any> {
@@ -62,7 +55,6 @@ export class HttCommonService {
     return this.http.post(
       url, body,
       { headers: { 'Content-Type': 'application/json','authorization': 'Bearer '+authToken} }).pipe(map(this.extractData),catchError(this.handleError));
-    //}).pipe(map(this.extractData).catch(this.handleError));
   }
 
 

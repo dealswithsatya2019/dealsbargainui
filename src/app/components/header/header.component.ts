@@ -15,6 +15,7 @@ import { FormControl } from '@angular/forms';
 import { fuzzysearch } from 'src/app/models/fuzzysearch';
 import { hits } from 'src/app/models/hits';
 import { hitsmain } from 'src/app/models/hitsmain';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class HeaderComponent implements OnInit {
   isLoading = false;
   errorMsg: string;
   classes: string;
+  private APIEndpoint : string  = environment.APIEndpoint;
   @ViewChild(MatMenuTrigger, { static: false }) clickHoverMenuTrigger: MatMenuTrigger;
   @Input('class') panelClass: string  = "megaMenu";
   openOnMouseOver() {
@@ -42,8 +44,7 @@ export class HeaderComponent implements OnInit {
     public _router: Router, private http: HttpClient, private renderer: Renderer2) { }
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   options = { headers: this.headers };
-  // url = 'http://34.233.128.163/api/v1/products/search/';
-  url = 'http://34.233.128.163/api/v1/dashboard/fuzzysearch';
+  url = this.APIEndpoint+'/dashboard/fuzzysearch';
 
   public searchResponseObj: searchreponse;
   public products: Product[] = [];

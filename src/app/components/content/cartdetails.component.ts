@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class CartdetailsComponent implements OnInit {
   public userToken: string;
   public shoppingCartItems: Product[] = [];
   public product: Product;
+  private APIEndpoint : string  = environment.APIEndpoint;
 
   constructor(public http: HttpClient, private _Activatedroute: ActivatedRoute, private cartService: CartService, public _router: Router) {
   }
@@ -60,7 +62,7 @@ export class CartdetailsComponent implements OnInit {
   }
 
   public getCartlist(): Observable<cartInfo> {
-    return this.http.post<cartInfo>("http://34.233.128.163/api/v1/user/cart/operation/getCartInfo",
+    return this.http.post<cartInfo>(this.APIEndpoint+"/user/cart/operation/getCartInfo",
       { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
@@ -75,7 +77,7 @@ export class CartdetailsComponent implements OnInit {
         "count": "1"
       },
     ]
-    return this.http.post<any>("http://34.233.128.163/api/v1/user/cart/operation/addItemToCart",
+    return this.http.post<any>(this.APIEndpoint+"/user/cart/operation/addItemToCart",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
