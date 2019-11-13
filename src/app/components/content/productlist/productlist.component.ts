@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SocialshareComponent } from '../socialshare/socialshare.component';
-import { MatDialogConfig, MatDialog } from '@angular/material';
+import { MatDialogConfig, MatDialog, } from '@angular/material';
 import { searchreponse } from 'src/app/models/searchResponse';
 import { CartService } from 'src/app/services/cart.service';
 import { Product } from 'src/app/models/product';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-productlist',
@@ -14,7 +15,7 @@ import { Product } from 'src/app/models/product';
 })
 export class ProductlistComponent implements OnInit {
 
-  constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,private cartService: CartService) { }
+  constructor(private _snackBar: MatSnackBar,private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,private cartService: CartService) { }
   cname: any;
   scname: any;
   sub;
@@ -23,6 +24,7 @@ export class ProductlistComponent implements OnInit {
   selectedBrandsArray: Array<string> = [];
   fromPrice: number = 0;
   toPrice: number = 0;
+  public snackBarConfig : MatSnackBarConfig;
 
   ngOnInit() {
     this.sub = this._Activatedroute.paramMap.subscribe(params => {
@@ -35,6 +37,10 @@ export class ProductlistComponent implements OnInit {
           this.getDistinctBrands();
         });
     });
+    this.snackBarConfig = new MatSnackBarConfig();
+    this.snackBarConfig.horizontalPosition = "center";
+    this.snackBarConfig.verticalPosition = "top";
+    this.snackBarConfig.duration = 2000;
   }
 
   showProductDetails(params) {
@@ -78,6 +84,7 @@ export class ProductlistComponent implements OnInit {
 
   public addToCart(product: Product) {
     this.cartService.addToCart(product);
+    // this._snackBar.open("The item has been added to cart.", "", this.snackBarConfig);
     this._router.navigateByUrl('/mycart');
   }
 }

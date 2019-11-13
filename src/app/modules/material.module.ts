@@ -11,7 +11,8 @@ import {
   MatSlideToggleModule,
   MatNativeDateModule,
   MatTooltipModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  
 } from  '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -26,6 +27,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatStepperModule} from '@angular/material/stepper'; 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -38,7 +40,7 @@ const MaterialComponents = [
   MatTooltipModule,
   MatSlideToggleModule,MatButtonModule,MatDialogModule,MatFormFieldModule,
   MatInputModule,MatGridListModule,MatRadioModule,MatSelectModule,MatDatepickerModule,
-  MatNativeDateModule,MatCheckboxModule,MatExpansionModule,MatBadgeModule,MatStepperModule,MatProgressBarModule
+  MatNativeDateModule,MatCheckboxModule,MatExpansionModule,MatBadgeModule,MatStepperModule,MatProgressBarModule,MatSnackBarModule,
 ];
 
 @NgModule({

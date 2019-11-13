@@ -17,14 +17,10 @@ export class CartdetailsComponent implements OnInit {
 
   public cartInfo: cartInfo;
   public autherization: string;
-  public productid: string;
-  public catName: string;
-  public subCatName: string;
-  public supplierName: string;
   public userToken: string;
   public shoppingCartItems: Product[] = [];
   public product: Product;
-  private APIEndpoint : string  = environment.APIEndpoint;
+  private APIEndpoint: string = environment.APIEndpoint;
 
   constructor(public http: HttpClient, private _Activatedroute: ActivatedRoute, private cartService: CartService, public _router: Router) {
   }
@@ -34,14 +30,15 @@ export class CartdetailsComponent implements OnInit {
     this.shoppingCartItems = this.cartService.getItems();
     console.log("Items in cart page ", this.shoppingCartItems);
     let access_token = sessionStorage.getItem("access_token");
+    console.log("access_token :",access_token);
     if (access_token != null) {
+      console.log("access token not null...");
       this.product = this.cartService.recentProduct();
-      this.productid = this.product.item_id;
-      this.catName = "Automotive, tool & industrial";
-      this.subCatName = "Accessories";
-      this.supplierName = 'doba';
-      this.autherization = "Bearer " + access_token;
-      this.addCart(this.product);
+      if (this.product != null) {
+        this.autherization = "Bearer " + access_token;
+        this.addCart(this.product);
+        this.cartService.setRecentProduct();
+      }
       this.getCarts();
     }
   }
@@ -62,7 +59,7 @@ export class CartdetailsComponent implements OnInit {
   }
 
   public getCartlist(): Observable<cartInfo> {
-    return this.http.post<cartInfo>(this.APIEndpoint+"/user/cart/operation/getCartInfo",
+    return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartInfo",
       { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
@@ -72,12 +69,12 @@ export class CartdetailsComponent implements OnInit {
         "countryCode": "us",
         "category": product.category,
         "subcategory": product.subcategory,
-        "item_id": product.product_id,
+        "item_id": product.item_id,
         "master_supplier": product.master_suplier,
         "count": "1"
       },
     ]
-    return this.http.post<any>(this.APIEndpoint+"/user/cart/operation/addItemToCart",
+    return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 

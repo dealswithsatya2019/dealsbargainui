@@ -34,6 +34,10 @@ export class CartService {
     return this.addedProduct;
   }
 
+  public setRecentProduct(): Product {
+    return this.addedProduct = null;
+  }
+
   public removeFromCart(item: Product) {
     this.itemsInCartTemp = [];
     if (this.itemsInCart.some(e => e.item_id === item.item_id)) {

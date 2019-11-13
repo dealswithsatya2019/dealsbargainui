@@ -32,8 +32,8 @@
                         </button>
                     </mat-menu>
                     <a mat-button [routerLink]="['wishlist']"><i class="fa fa-heart"></i><span>Wishlist</span></a>
-                    <a mat-button [routerLink]="['/mycart']"><i class='fa fa-check-square-o'></i><span>Checkout</span></a>
                 </ng-container>
+                <a mat-button [routerLink]="['mycart']"><i class='fa fa-check-square-o'></i><span>Checkout<i>{{cartService.getItems().length}}</i></span></a>
             </div>
         </mat-toolbar-row> 
 

@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit, OnChanges } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
@@ -7,9 +6,10 @@ import { searchreponse } from 'src/app/models/searchResponse';
 import { SocialshareComponent } from './socialshare/socialshare.component';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { Swiper, Navigation, Pagination, Scrollbar, Autoplay } from 'swiper/js/swiper.esm.js';
-import { encode } from 'punycode';
 import { CartService } from 'src/app/services/cart.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay]);
+
 
 @Component({
   selector: 'app-content',
@@ -20,7 +20,9 @@ export class ContentComponent implements AfterViewInit, OnInit {
   public flashDeals: Product[];
   public hotDeals: Product[];
   public todayDeals: Product[];
-  constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,public cart: CartService) {
+  public snackBarConfig : MatSnackBarConfig;
+
+  constructor(private _snackBar: MatSnackBar, private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public cart: CartService) {
   }
 
 
@@ -62,7 +64,7 @@ export class ContentComponent implements AfterViewInit, OnInit {
       })
     }, 1000);
   }
-
+  
   ngOnInit() {
     this._productservice.getHttpProductDealsByType('f', 'us', 0, 50).subscribe(
       (results: searchreponse) => {
@@ -76,6 +78,10 @@ export class ContentComponent implements AfterViewInit, OnInit {
       (results: searchreponse) => {
         this.todayDeals = results.responseObjects;
       });
+    this.snackBarConfig = new MatSnackBarConfig();
+    this.snackBarConfig.horizontalPosition = "center";
+    this.snackBarConfig.verticalPosition = "top";
+    this.snackBarConfig.duration = 2000;
   }
 
   openShare(event: any) {
@@ -105,7 +111,12 @@ export class ContentComponent implements AfterViewInit, OnInit {
 
   public addToCart(product: Product) {
     this.cart.addToCart(product);
+    // type MatSnackBarHorizontalPosition = 'start' | 'center' | 'end' | 'left' | 'right';
+    // type MatSnackBarVerticalPosition = 'top' | 'bottom';
+    // this.snackBar.open(this.message, this.action ? this.actionButtonLabel : undefined, config);
     this._router.navigateByUrl('/mycart');
+    // this._snackBar.open("The item has been added to cart.", "", this.snackBarConfig);
+
   }
 
 }

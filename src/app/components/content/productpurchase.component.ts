@@ -282,33 +282,6 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
     this.addProduToCart().subscribe(data => this.addCartData = data);
   }
 
-  public addCartFromSummary(product: Product) {
-    this.addProduToCartFromSummary(product).subscribe(data => this.addCartData = data);
-  }
-
-  public addProduToCartFromSummary(product: Product): Observable<any> {
-    let body = [
-      {
-        "countryCode": "us",
-        "category": product.category,
-        "subcategory": product.subcategory,
-        "item_id": product.product_id,
-        "master_supplier": product.master_suplier,
-        "count": "1"
-      },
-    ]
-    return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
-      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
-  }
-
-  public addToCart(product: Product) {
-    this.cartService.addToCart(product);
-    if (this.autherization != null) {
-      this.addCartFromSummary(product);
-    }
-    this.getCarts();
-  }
-
   public totalCost: number = 0;
   public deliveryCost: number = 0;
   public couponDiscountCost: number = 0;

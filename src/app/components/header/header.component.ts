@@ -16,6 +16,7 @@ import { fuzzysearch } from 'src/app/models/fuzzysearch';
 import { hits } from 'src/app/models/hits';
 import { hitsmain } from 'src/app/models/hitsmain';
 import { environment } from 'src/environments/environment';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -41,7 +42,7 @@ export class HeaderComponent implements OnInit {
     this.clickHoverMenuTrigger.toggleMenu();
   }
   constructor(public dialog: MatDialog, public userservice: UserService, public _socioAuthServ: AuthService,
-    public _router: Router, private http: HttpClient, private renderer: Renderer2) { }
+    public _router: Router, private http: HttpClient, private renderer: Renderer2,public cartService: CartService) { }
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   options = { headers: this.headers };
   url = this.APIEndpoint+'/dashboard/fuzzysearch';
