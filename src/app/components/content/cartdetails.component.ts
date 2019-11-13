@@ -27,28 +27,34 @@ export class CartdetailsComponent implements OnInit {
 
   ngOnInit() {
     this.shoppingCartItems = [];
-    this.shoppingCartItems = this.cartService.getItems();
-    console.log("Items in cart page ", this.shoppingCartItems);
     let access_token = sessionStorage.getItem("access_token");
-    console.log("access_token :",access_token);
+    console.log("access_token :", access_token);
     if (access_token != null) {
-      console.log("access token not null...");
-      this.product = this.cartService.recentProduct();
-      if (this.product != null) {
-        this.autherization = "Bearer " + access_token;
-        this.addCart(this.product);
-        this.cartService.setRecentProduct();
-      }
+      // console.log("access token not null...");
+      // this.product = this.cartService.recentProduct();
+      // if (this.product != null) {
+      this.autherization = "Bearer " + access_token;
+      //   this.addCart(this.product);
+      //   this.cartService.setRecentProduct();
+      // }
       this.getCarts();
+    } else {
+      this.shoppingCartItems = this.cartService.getItems();
+      console.log("Items in cart page ", this.shoppingCartItems);
     }
   }
 
   public getCarts() {
-    this.getCartlist().subscribe(data =>
-      this.cartInfo = data);
-    if (this.cartInfo != null && this.cartInfo.responseObject != null) {
-      this.shoppingCartItems = this.cartInfo.responseObject;
+    console.log("get Cart api called...");
+    this.getCartlist().subscribe(data => {
+      this.cartInfo = data;
+      if (this.cartInfo != null && this.cartInfo.responseObject != null) {
+        this.shoppingCartItems = [];
+        this.shoppingCartItems = this.cartInfo.responseObject;
+        console.log("shoppingCartItems ", this.shoppingCartItems);
+      }
     }
+    );
 
   }
 
@@ -59,6 +65,9 @@ export class CartdetailsComponent implements OnInit {
   }
 
   public getCartlist(): Observable<cartInfo> {
+    console.log("before api called     ", this.http);
+    console.log("before api called  endpoint   ", this.APIEndpoint);
+    console.log("before api called  autherization", this.autherization);
     return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartInfo",
       { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }

@@ -119,7 +119,7 @@ export class ContentComponent implements AfterViewInit, OnInit {
     // type MatSnackBarHorizontalPosition = 'start' | 'center' | 'end' | 'left' | 'right';
     // type MatSnackBarVerticalPosition = 'top' | 'bottom';
     // this.snackBar.open(this.message, this.action ? this.actionButtonLabel : undefined, config);
-    this._router.navigateByUrl('/mycart');
+    // this._router.navigateByUrl('/mycart');
     // this._snackBar.open("The item has been added to cart.", "", this.snackBarConfig);
 
   }

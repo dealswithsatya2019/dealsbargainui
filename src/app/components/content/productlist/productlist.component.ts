@@ -100,6 +100,6 @@ export class ProductlistComponent implements OnInit {
   public addToCart(product: Product) {
     this.cartService.addToCart(product);
     // this._snackBar.open("The item has been added to cart.", "", this.snackBarConfig);
-    this._router.navigateByUrl('/mycart');
+    // this._router.navigateByUrl('/mycart');
   }
 }

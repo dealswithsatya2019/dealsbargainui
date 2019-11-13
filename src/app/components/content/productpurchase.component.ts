@@ -260,6 +260,7 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
 
   public addProductsArray: AddProductReq[] = [];
   public productReq: AddProductReq;
+  
   public addProduToCart(): Observable<any> {
     this.cartService.getItems().forEach(element => {
       this.productReq = new AddProductReq();
@@ -276,6 +277,7 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
     return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
+  
   public addCartData: any;
 
   public addCart() {
@@ -352,7 +354,7 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
     this.cartService.addToCart(product);
     return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
-      
+
   }
 
 
