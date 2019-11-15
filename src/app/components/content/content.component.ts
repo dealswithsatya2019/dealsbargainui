@@ -11,6 +11,8 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ProductDetailsRouteInfoService } from 'src/app/services/routing-services/product-details-route-info.service';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay]);
 import { environment } from 'src/environments/environment';
+import { ProductRouteInfo } from 'src/app/models/ProductRouteInfo';
+import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
 
 
 @Component({
@@ -25,14 +27,13 @@ export class ContentComponent implements AfterViewInit, OnInit {
   public snackBarConfig : MatSnackBarConfig;
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
   constructor(private _snackBar: MatSnackBar, private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public cart: CartService,
-    public _productDetailsRouteInfo:ProductDetailsRouteInfoService) {
+    public _productListRouteInfo:ProductListRouteInfoService) {
   }
 
 
   showProductDetails(cname,scname,pid){
-    this._productDetailsRouteInfo.cname = cname;
-    this._productDetailsRouteInfo.scname = scname;
-    this._productDetailsRouteInfo.productId = pid;
+    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(cname,scname,pid);
+    this._productListRouteInfo.addToCart(productRouteInfo);
     this._productservice.routeProductDetails();
   }
 

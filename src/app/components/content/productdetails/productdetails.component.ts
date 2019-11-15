@@ -13,6 +13,8 @@ import { CartService } from 'src/app/services/cart.service';
 import { KeyValuePair } from 'src/app/models/KeyValuePair';
 import { ProductDetailsRouteInfoService } from 'src/app/services/routing-services/product-details-route-info.service';
 import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
+import { ProductRouteInfo } from 'src/app/models/ProductRouteInfo';
+import { Subscription } from 'rxjs';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
 declare let paypal: any;
@@ -48,6 +50,7 @@ export class ProductdetailsComponent implements OnInit {
   public TwoStar: number = 20;
   public OneStar: number = 10;
   public isProductAvailable : boolean =false;
+  subscription : Subscription;
   // product = {
   //   price: 0.01,
   //   description: "Kappa",
@@ -75,10 +78,17 @@ export class ProductdetailsComponent implements OnInit {
       this.scname=params.get('scname');  
       this.pid=params.get('pid');  
     });*/
+    /*this.subscription = this._productListRouteInfo.getCart().subscribe(productRouteInfo => {
+      if (productRouteInfo) {
+        this.cname = productRouteInfo.cname;
+        this.scname = productRouteInfo.scname;
+        this.pid = productRouteInfo.productId;
+      }*/
+    let prodListClickInfo: ProductRouteInfo = JSON.parse(sessionStorage.getItem("product_details"));
+    this.cname = prodListClickInfo.cname;
+    this.scname = prodListClickInfo.scname;
+    this.pid = prodListClickInfo.productId;
      
-    this.cname = this._productDetailsRouteInfo.cname;
-    this.scname = this._productDetailsRouteInfo.scname;
-    this.pid = this._productDetailsRouteInfo.productId;
     this._productservice.getHttpProductDetailsById(this.cname, this.scname, this.pid, 'us').subscribe(
       (results: searchreponse) => {
         if(results.statusDesc !== 'Unavailable'){
@@ -96,10 +106,9 @@ export class ProductdetailsComponent implements OnInit {
             for (let i = 0; i < arr.length; i++) {
               this.items.push(new ImageItem({ src: arr[i], thumb: arr[i] }));
             }
-            this.items.push(new ImageItem({ src:'http://localhost:4200/assets/img/DealsBargain-Logo.png' , thumb:'http://localhost:4200/assets/img/DealsBargain-Logo.png'}));
           } else {
             this.items.push(new ImageItem({ src:this.productDetails.image , thumb:this.productDetails.image  }));
-            this.items.push(new ImageItem({ src:'http://localhost:4200/assets/img/DealsBargain-Logo.png' , thumb:'http://localhost:4200/assets/img/DealsBargain-Logo.png'}));
+//            this.items.push(new ImageItem({ src:'http://localhost:4200/assets/img/DealsBargain-Logo.png' , thumb:'http://localhost:4200/assets/img/DealsBargain-Logo.png'}));
           }
           this.loadZoomImagesList();
         }
@@ -117,9 +126,7 @@ export class ProductdetailsComponent implements OnInit {
           this.productDetails.dealtype ='';
         }
         console.log(this.productDetails);
-        //this.productDetails.thumbnail_image=['https://d1k0ppjronk6up.cloudfront.net/products/1529/images_b75_image2_844.jpg',this.productDetails.image];
        }else{
-        this.items.push(new ImageItem({ src:'http://localhost:4200/assets/img/DealsBargain-Logo.png' , thumb:'http://localhost:4200/assets/img/DealsBargain-Logo.png'}));
          console.log('Product is unavailable'+results);
        }
       },
@@ -132,7 +139,13 @@ export class ProductdetailsComponent implements OnInit {
           this.similarProducts = results.responseObjects;
           console.log("simillar products :",this.similarProducts);
       });
+   // }); 
   }
+
+  ngOnDestroy(){
+   // this.subscription.unsubscribe();
+  }
+
 
   loadZoomImagesList() {
     /**
@@ -171,7 +184,7 @@ export class ProductdetailsComponent implements OnInit {
   
   ngAfterViewInit() {
 
-    setTimeout(() => {
+    /*setTimeout(() => {
       var swiper = new Swiper('.similar', {
         autoplay: {
           delay: 3000,
@@ -200,19 +213,21 @@ export class ProductdetailsComponent implements OnInit {
           swiper: galleryThumbs
         }
       });
-    }, 1000);
+    }, 1000);*/
   }
 
   showProductDetails(cname,scname,pid){
-    this._productDetailsRouteInfo.cname = cname;
-    this._productDetailsRouteInfo.scname = scname;
-    this._productDetailsRouteInfo.productId = pid;
+    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(cname,scname,pid);
+    sessionStorage.setItem("product_details", JSON.stringify(productRouteInfo));
+    //this._productListRouteInfo.addToCart(productRouteInfo);
     this._productservice.routeProductDetails();
   }
 
   routeToProductListPage(cname,scname){
-    this._productListRouteInfo.cname = cname;
-    this._productListRouteInfo.scname = scname;
+    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(cname,scname,'');
+   /* this._productListRouteInfo.cname = cname;
+    this._productListRouteInfo.scname = scname;*/
+    sessionStorage.setItem("product_list", JSON.stringify(productRouteInfo));
     this._productservice.routeProductList();
   }
 

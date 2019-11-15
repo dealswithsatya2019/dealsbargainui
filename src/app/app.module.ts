@@ -51,6 +51,7 @@ import { GalleryModule } from '@ngx-gallery/core';
 import { LightboxModule } from '@ngx-gallery/lightbox';
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import { MyprofileComponent } from './components/content/myprofile/myprofile.component';
+import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -130,7 +131,7 @@ export function ProvideConfig() {
     NgxStarRatingModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA , NO_ERRORS_SCHEMA],
-  providers: [HttCommonService, ProductService, UserService,{ provide: AuthServiceConfig, useFactory: ProvideConfig}],
+  providers: [HttCommonService, ProductService, UserService,ProductListRouteInfoService, { provide: AuthServiceConfig, useFactory: ProvideConfig}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -80,9 +80,9 @@ export class ProductService {
     const body =
       {
         "countryCode": countryCode,
-        "category": categoryName
+        "categoryName": categoryName
       };
-    return this._httpCommonService.postReq('us_prod_subcategories/_search', JSON.stringify(body));
+    return this._httpCommonService.postReq('products/subcategory', JSON.stringify(body));
   }
 
   public submitReview(authToken?,cname?, scname?, itemId?, countryCode?,rating?, reviewTitle?,comment?,masterSuppler?,productRecommended?): Observable<any>

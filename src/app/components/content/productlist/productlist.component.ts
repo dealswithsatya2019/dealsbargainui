@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SocialshareComponent } from '../socialshare/socialshare.component';
@@ -10,13 +10,15 @@ import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
 import { ProductDetailsRouteInfoService } from 'src/app/services/routing-services/product-details-route-info.service';
 import { environment } from 'src/environments/environment';
+import { ProductRouteInfo } from 'src/app/models/ProductRouteInfo';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-productlist',
   templateUrl: './productlist.component.html',
   styleUrls: ['./productlist.component.scss']
 })
-export class ProductlistComponent implements OnInit {
+export class ProductlistComponent implements OnInit, OnDestroy {
 
   constructor(private _snackBar: MatSnackBar,private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,private cartService: CartService,
     public _productListRouteInfo:ProductListRouteInfoService,
@@ -32,7 +34,7 @@ export class ProductlistComponent implements OnInit {
   toPrice: number = 0;
   public snackBarConfig : MatSnackBarConfig;
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
-
+  //subscription : Subscription;
   ngOnInit() {
    /* this.sub = this._Activatedroute.paramMap.subscribe(params => {
       console.log('params' + params);
@@ -44,23 +46,34 @@ export class ProductlistComponent implements OnInit {
           this.getDistinctBrands();
         });
     });*/
-    this.cname = this._productListRouteInfo.cname;
-    this.scname = this._productListRouteInfo.scname;
-    this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
-      (results: searchreponse) => {
-        this.products = results.responseObjects;
-        this.getDistinctBrands();
-      });
+    /*this.subscription = this._productListRouteInfo.getCart().subscribe(productRouteInfo => {
+      if (productRouteInfo) {
+        this.cname = productRouteInfo.cname;
+        this.scname = productRouteInfo.scname;
+      }*/
+      let menuClickInfo: ProductRouteInfo = JSON.parse(sessionStorage.getItem("product_list"));
+      this.cname = menuClickInfo.cname;
+      this.scname = menuClickInfo.scname;
+      this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
+        (results: searchreponse) => {
+          this.products = results.responseObjects;
+          this.getDistinctBrands();
+        });
+     // });
     this.snackBarConfig = new MatSnackBarConfig();
     this.snackBarConfig.horizontalPosition = "center";
     this.snackBarConfig.verticalPosition = "top";
     this.snackBarConfig.duration = 2000;
   }
 
+  ngOnDestroy(){
+    //this.subscription.unsubscribe();
+  }
+
   showProductDetails(cname,scname, pid) {
-    this._productDetailsRouteInfo.cname = cname;
-    this._productDetailsRouteInfo.scname = scname;
-    this._productDetailsRouteInfo.productId =pid;
+    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(cname,scname,pid);
+    sessionStorage.setItem("product_details", JSON.stringify(productRouteInfo));
+    //this._productListRouteInfo.addToCart(productRouteInfo);
     this._productservice.routeProductDetails();
   }
 

@@ -4,8 +4,9 @@ import { ProductService } from 'src/app/services/product.service';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
 import { MenuCategories } from 'src/app/models/MenuCategories';
 import { searchreponse } from 'src/app/models/searchResponse';
-import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
+//import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
 import { AuthResopnse2 } from 'src/app/models/ApiResponse2';
+import { ProductRouteInfo } from 'src/app/models/ProductRouteInfo';
 // import { MatDialogRef } from '@angular/material';
 
 @Component({
@@ -17,7 +18,8 @@ export class MenuBarComponent implements OnInit {
 
   public menuCategories : MenuCategories[];
 
-  constructor(public _productservice: ProductService, public _productListRouteInfo:ProductListRouteInfoService) { }
+  //constructor(public _productservice: ProductService, public _productListRouteInfo:ProductListRouteInfoService) { }
+  constructor(public _productservice: ProductService) { }
 
   ngOnInit() {
     this.getAllCategoriesMenuInfo();
@@ -105,24 +107,37 @@ export class MenuBarComponent implements OnInit {
 
    getAllCategoriesMenuInfo(){
     try {
-    this._productservice.getCategoryMenuInfo('','us').subscribe(
-      (authResponse: searchreponse) => {
-        this.menuCategories = authResponse.responseObjects;
-      }
+      this._productservice.getCategoryMenuInfo('','us').subscribe(
+        (authResponse: searchreponse) => {
+          this.menuCategories = authResponse.responseObjects;
+        }
      //,
       //error =>{
         //console.error('============================='+error);
       //} 
     );
     } catch (error) {
-    console.log(error);   
+      console.log(error);   
+    }
   }
-} 
+  
+  getSubgetgories(cname){
+    try {
+        this._productservice.getSubCategories(cname,'us').subscribe(
+          (authResponse: AuthResopnse2) => {
+            this.menuCategories.push(authResponse.responseObjects);
+          }
+        );
+    } catch (error) {
+      console.log(error);   
+    }
+  }
 
 
   routeToProductListPage(cname,scname){
-    this._productListRouteInfo.cname = cname;
-    this._productListRouteInfo.scname = scname;
+    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(cname,scname,'');
+    /*this._productListRouteInfo.addToCart(productRouteInfo);*/
+    sessionStorage.setItem("product_list", JSON.stringify(productRouteInfo));
     this._productservice.routeProductList();
   }
 }

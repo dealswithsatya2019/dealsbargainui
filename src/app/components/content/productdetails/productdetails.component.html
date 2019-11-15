@@ -21,7 +21,8 @@
 		<div fxflex="100" fxflex.gt-md="45" fxflex.md="55" ngclass.gt-sm="px-3 m-0" ngclass.sm="mt-2" ngclass.xs="mt-2" class="px-4 m-0"
 		 style="flex: 1 1 55%; box-sizing: border-box; max-width: 55%;">
 			<div fxshow="false" fxshow.gt-md="">
-				<mat-card class="zoom-viewer mat-elevation-z18 mat-card ng-star-inserted" style="background-image: url(&quot;assets/images/products/keyboard/1-big.png&quot;); background-position: 87.4477% 97.493%; display: none; height: 359px; width: 478px;"></mat-card>
+				<!-- <mat-card class="zoom-viewer mat-elevation-z18 mat-card ng-star-inserted" style="background-image: url(&quot;assets/images/products/keyboard/1-big.png&quot;); background-position: 87.4477% 97.493%; display: none; height: 359px; width: 478px;"></mat-card>-->
+				<mat-card class="zoom-viewer mat-elevation-z18 mat-card ng-star-inserted" style="background-position: 87.4477% 97.493%; display: none; height: 359px; width: 478px;"></mat-card>
 			</div>
 
 			<h5>
@@ -192,7 +193,7 @@
 -->
 
 	<!-- Similar Products -->
-	<h5 class="subtitle position-relative"> SIMILAR PRODUCTS
+<h5 class="subtitle position-relative"> SIMILAR PRODUCTS
 		<!-- <a [routerLink]="['productlist',cname.toLowerCase(),scname]" routerLinkActive="active" class="pl-3">VIEW ALL</a> -->
 		<a (click)="routeToProductListPage(cname.toLowerCase(),scname)"  class="pl-3">VIEW ALL</a>
 	</h5>
