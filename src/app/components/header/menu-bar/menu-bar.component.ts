@@ -5,6 +5,7 @@ import { AuthResopnse } from 'src/app/models/AuthResponse';
 import { MenuCategories } from 'src/app/models/MenuCategories';
 import { searchreponse } from 'src/app/models/searchResponse';
 import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
+import { AuthResopnse2 } from 'src/app/models/ApiResponse2';
 // import { MatDialogRef } from '@angular/material';
 
 @Component({
@@ -36,7 +37,9 @@ export class MenuBarComponent implements OnInit {
     "Health",
     "Home & Garden",
     "Toys",
-    "Sports"
+    "Sports",
+    "Menu",
+    "Women"
   ];
 
   menus = [
@@ -76,20 +79,46 @@ export class MenuBarComponent implements OnInit {
     {
       cname: "Sports",
       scnames: ["Camping & hiking", "Cycling & wheel sports", "Lawn games", "Fencing", "Tennis & racquet sports", "Badminton", "Electronics", "Water polo", "Game room", "Wrestling", "Sports medicine", "Cricket", "Martial arts", "Archery", "Swimming", "Motor sports", "General sports", "Cheerleading", "Skating", "Golf", "Boxing", "Volleyball", "Bowling", "Snowshoeing", "Pilates", "Kayaking", "Surfing", "Baseball", "Running", "Yoga", "Row", "Softball", "Water sports", "Equestrian sports", "Climbing", "Airsoft", "Fishing", "Sports electronics & gadgets", "Basketball", "Boating", "Accessories", "Paintball", "Diving", "Disc sports", "Gymnastics", "Hunting", "Hockey", "Soccer", "Snow skiing", "Fan gear", "Snowmobiling", "Football", "Rv equipment", "Track & field", "Skateboarding", "Exercise & fitness", "Ballet & dance"]
+    },{
+      cname: "Men",
+      scnames:[]
+    },{
+      cname: "Women",
+      scnames :[]
     }
   ];
 
-  getAllCategoriesMenuInfo(){
+  /*getAllCategoriesMenuInfo(){
+    try {
+    for(let i=0;i<this.mainMenus.length ;i++){  //How to properly iterate here!!
+      this._productservice.getSubCategories(this.mainMenus[i],'us').subscribe(
+        (authResponse: AuthResopnse2) => {
+          this.menuCategories.push(authResponse.responseObjects);
+        }
+      );
+    }
+  } catch (error) {
+    console.log(error);   
+  }
+   
+  }*/
+
+   getAllCategoriesMenuInfo(){
+    try {
     this._productservice.getCategoryMenuInfo('','us').subscribe(
       (authResponse: searchreponse) => {
         this.menuCategories = authResponse.responseObjects;
       }
-      /*,
-      error =>{
-        console.error('============================='+error);
-      }*/ 
+     //,
+      //error =>{
+        //console.error('============================='+error);
+      //} 
     );
+    } catch (error) {
+    console.log(error);   
   }
+} 
+
 
   routeToProductListPage(cname,scname){
     this._productListRouteInfo.cname = cname;

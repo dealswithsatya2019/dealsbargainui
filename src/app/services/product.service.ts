@@ -76,6 +76,15 @@ export class ProductService {
     return this._httpCommonService.postReq('products/subcategory/all', JSON.stringify(body));
   }
 
+  public getSubCategories(categoryName, countryCode?): Observable<any> {
+    const body =
+      {
+        "countryCode": countryCode,
+        "category": categoryName
+      };
+    return this._httpCommonService.postReq('us_prod_subcategories/_search', JSON.stringify(body));
+  }
+
   public submitReview(authToken?,cname?, scname?, itemId?, countryCode?,rating?, reviewTitle?,comment?,masterSuppler?,productRecommended?): Observable<any>
     {
       const body ={

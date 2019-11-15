@@ -9,6 +9,7 @@ import { Product } from 'src/app/models/product';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
 import { ProductDetailsRouteInfoService } from 'src/app/services/routing-services/product-details-route-info.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-productlist',
@@ -30,6 +31,7 @@ export class ProductlistComponent implements OnInit {
   fromPrice: number = 0;
   toPrice: number = 0;
   public snackBarConfig : MatSnackBarConfig;
+  public PRICE_PREFIX: string = environment.PRICE_PREFIX;
 
   ngOnInit() {
    /* this.sub = this._Activatedroute.paramMap.subscribe(params => {

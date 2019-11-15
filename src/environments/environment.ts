@@ -4,9 +4,10 @@
 
 export const environment = {
   production: false,
-  APIEndpoint: 'http://50.17.29.77/api/v1'
+  APIEndpoint: 'http://50.17.29.77/api/v1',
+  PRICE_PREFIX: '$ '
   // APIEndpoint: 'http://34.233.128.163/api/v1'
-
+  
 };
 
 /*
