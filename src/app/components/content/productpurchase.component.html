@@ -3,7 +3,7 @@
         <div class="left-panel">
             <mat-horizontal-stepper [linear]="false" (selectionChange)="selectionChange($event)" [selectedIndex]="selectedIndex" >
                 <mat-step label="LOGIN" [completed]="false">
-                    <div class="mb-3" [(expanded)]="exp1" (opened)="setStep(1)" class="active">
+                    <div class="mb-3">
                         <!-- /#new customer login starts-->
                         <ng-container *ngIf="!autherization">
                             <div class="new-login mt-3" style="display: flex;">
@@ -61,21 +61,13 @@
                                 <div class="existed-login mt-3" style="display: flex;line-height: 30px;">
                                     <div class="" style="flex: 1 1 50%;max-width: 50%;padding: 0 5%;">
                                         <p>Email
-                                            <span class="pl-2">{{loginformService.response.name}}</span>
+                                            <span class="pl-2">Hi -- {{loginformService.response.name}}</span>
                                         </p>
                                         <a mat-button class="p-0" (click)="signOut()">Logout and signin with another
                                             account</a>
                                         <button mat-button matStepperNext (click) = "getAddresses()" class="my-2 w-100 login-login-btn">Continue
                                             Checkout
                                         </button>
-                                    </div>
-                                    <div class="" style="flex: 1 1 50%;max-width: 50%;padding: 0 5%;">
-                                        Advantages of secure login
-                                        <ul>
-                                            <li>Easily Track orders</li>
-                                            <li>Get relavant alerts and notifications</li>
-                                            <li>Wishlist, Reviews, Ratings and more</li>
-                                        </ul>
                                     </div>
                                 </div>
                             </ng-container>
@@ -88,7 +80,7 @@
                     </div>
                 </mat-step>
 
-                <mat-step label="SHIPPING ADDRESS" [completed]="false">
+                <mat-step label="SHIPPING ADDRESS" [completed]="false" (click)="getAddresses()">
                     <div class="mb-3">
                         <mat-radio-group aria-label="Select an option">
                             <ng-container *ngIf="addressInfo">
@@ -100,12 +92,66 @@
                                         <div class="pl-3">{{address.street}} ,{{address.city}}, {{address.other}}</div>
                                         <button mat-button class="edit-address"
                                             (click)="showAddressInfo(address.address_id)">Edit</button>
+                                        <button mat-button class="delete-address" 
+                                            (click)="deleteAddressService(address.address_id)">Delete</button>    
                                     </div>
                                 </ng-container>
                             </ng-container>
                         </mat-radio-group>
                     </div>
-                    <mat-expansion-panel class="mb-3" [(expanded)]="exp3" (opened)="setStep(3)" [completed]="false">
+                    <ng-container *ngIf="isUpdateAddress">
+                        <mat-expansion-panel class="mb-3" [(expanded)]="exp2" (opened)="setStep(3)" [completed]="false">
+                            <mat-expansion-panel-header>
+                                Update Address
+                            </mat-expansion-panel-header>
+                            <form [formGroup]="updateaddressform" (submit)="updateAddressService(address.address_id)" class="my-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Name</mat-label>
+                                    <input formControlName="name" matInput placeholder="Name" [value]="address.name">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Mobile Number</mat-label>
+                                    <input formControlName="mobile_number" matInput placeholder="Placeholder" [value]="address.mobile_number">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Pincode</mat-label>
+                                    <input formControlName="zipcode" matInput placeholder="Placeholder" [value]="address.zipcode">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Locality</mat-label>
+                                    <input formControlName="street" matInput placeholder="Placeholder" [value]="address.street">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" style="width:98%">
+                                    <mat-label>Address</mat-label>
+                                    <textarea formControlName="address" matInput placeholder="Textarea" [value]="address.address"></textarea>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>City/District</mat-label>
+                                    <input formControlName="city" matInput placeholder="Placeholder" [value]="address.city">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>State</mat-label>
+                                    <input formControlName="state" matInput placeholder="Placeholder" [value]="address.state">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Landmark</mat-label>
+                                    <input formControlName="landmark" matInput placeholder="Placeholder" [value]="address.landmark">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Alternate Phone</mat-label>
+                                    <input formControlName="altphone" matInput placeholder="Placeholder" [value]="address.altphone">
+                                </mat-form-field>
+    
+                                <mat-radio-group aria-label="Select an option">
+                                    <mat-radio-button value="1" class="mr-2">Home ( All Day Delivery )</mat-radio-button>
+                                    <mat-radio-button value="2">Work (Delivery between 10AM - 5PM)</mat-radio-button>
+                                </mat-radio-group>
+                                <button mat-raised-button type="submit" [disabled]="addressform.invalid"
+                                    class=" my-2 w-100 login-login-btn">Update</button>
+                            </form>
+                        </mat-expansion-panel>
+                    </ng-container>
+                    <mat-expansion-panel class="mb-3" [(expanded)]="exp1" (opened)="setStep(3)" [completed]="false">
                         <mat-expansion-panel-header>
                             Add New Address
                         </mat-expansion-panel-header>
@@ -156,7 +202,7 @@
                         </form>
                     </mat-expansion-panel>
                     <div class="pt-5 text-center">
-                        <button mat-button matStepperPrevious><i class="fa fa-chevron-left"></i></button>
+                        <button mat-button matStepperPrevious (click)="getAddresses()"><i class="fa fa-chevron-left"></i></button>
                         <button mat-button matStepperNext (click)="getCarts()"><i
                                 class="fa fa-chevron-right"></i></button>
                     </div>
@@ -200,14 +246,14 @@
                         </p>
                     </div>
                     <div class="pt-5 text-center">
-                        <button mat-button matStepperPrevious><i class="fa fa-chevron-left"></i></button>
+                        <button mat-button matStepperPrevious (click)="getAddresses()"><i class="fa fa-chevron-left"></i></button>
                         <button mat-button matStepperNext><i class="fa fa-chevron-right"></i></button>
                     </div>
                 </mat-step>
 
                 <mat-step label="PAYMENT" [completed]="false">
 
-                    <div [(expanded)]="exp5" (opened)="setStep(5)" [expanded]="true">
+                    <div>
 
                         <mat-radio-group aria-label="Select an option" class="py-3 d-block">
                             <mat-radio-button value="1" [checked]="true">Paypal</mat-radio-button>
@@ -222,7 +268,7 @@
                         </mat-radio-group>
                     </div>
                     <div class="pt-5 text-center">
-                        <button mat-button matStepperPrevious><i class="fa fa-chevron-left"></i></button>
+                        <button mat-button matStepperPrevious (click)="getCarts()"><i class="fa fa-chevron-left"></i></button>
                     </div>
 
                 </mat-step>

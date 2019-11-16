@@ -18,6 +18,7 @@ import { cartInfo } from 'src/app/models/cartInfo';
 import { CartService } from 'src/app/services/cart.service';
 import { AddProductReq } from './addproductreq';
 import { environment } from 'src/environments/environment';
+import { address } from 'src/app/models/address';
 declare let paypal: any;
 
 @Component({
@@ -30,12 +31,8 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
   paypalFor: boolean = false;
-  stepNo: number = 1;
   exp1: boolean = true;
   exp2: boolean = false;
-  exp3: boolean = false;
-  exp4: boolean = false;
-  exp5: boolean = false;
   userName: string = "";
   public productDetails: any[];
   public product: Product;
@@ -44,6 +41,7 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   public pid: string;
   public loginErrorMsg: string;
   public addressInfo: addressResponse;
+  public address : address;
   public cartInfo: cartInfo;
   private APIEndpoint: string = environment.APIEndpoint;
 
@@ -58,6 +56,21 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
     state: new FormControl(''),
     landmark: new FormControl(''),
     altphone: new FormControl(''),
+    address_id: new FormControl(''),
+  });
+
+  updateaddressform: FormGroup = new FormGroup({
+    countrycode: new FormControl('us'),
+    name: new FormControl(''),
+    mobile_number: new FormControl(''),
+    zipcode: new FormControl(''),
+    street: new FormControl(''),
+    address: new FormControl(''),
+    city: new FormControl(''),
+    state: new FormControl(''),
+    landmark: new FormControl(''),
+    altphone: new FormControl(''),
+    address_id: new FormControl(''),
   });
 
   constructor(public loginformService: LoginformService,
@@ -121,7 +134,6 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
         this.loginformService.response = response;
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
         this.userName = response.name;
-        this.setStep(2);
         this.exp1 = false;
         this.exp2 = true;
       }
@@ -134,7 +146,6 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
         this.loginformService.response = response;
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
         this.userName = response.name;
-        this.setStep(2);
         this.exp1 = false;
         this.exp2 = true;
       }
@@ -175,28 +186,6 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
     this._router.navigateByUrl("/productpurchase");
   }
 
-  setStep(stepNo) {
-    this.stepNo = stepNo;
-    if (this.stepNo == 1) {
-      this.exp1 = true;
-      this.exp2 = this.exp3 = this.exp4 = this.exp5 = false;
-    } else if (this.stepNo == 2) {
-      this.exp2 = true;
-      this.exp1 = this.exp3 = this.exp4 = this.exp5 = false;
-      this.getAddresses();
-    } else if (this.stepNo == 3) {
-      this.exp3 = true;
-      this.exp2 = this.exp1 = this.exp4 = this.exp5 = false;
-      this.getCarts();
-    } else if (this.stepNo == 4) {
-      this.exp4 = true;
-      this.exp2 = this.exp3 = this.exp1 = this.exp5 = false;
-    } else if (this.stepNo == 5) {
-      this.exp5 = true;
-      this.exp2 = this.exp3 = this.exp4 = this.exp1 = false;
-    }
-  }
-
   signOut(): void {
     this._socioAuthServ.signOut();
     this.loginformService.response = null;
@@ -213,9 +202,40 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
     this.saveAddress(addressInfo);
   }
 
+  public isUpdateAddress : boolean ;
+
   public getAddresslist(): Observable<addressResponse> {
+    console.log("getAddresslist called :");
+    console.log("getAddresslist called :",this.autherization);
+
     return this.http.get<addressResponse>(this.APIEndpoint + "/user/contacts/us",
       { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+  }
+
+  public updateAddress(addressInfoJson): Observable<addressResponse> {
+    return this.http.post<addressResponse>(this.APIEndpoint + "/user/contact/", addressInfoJson,
+      { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+  }
+
+  public deleteAddress(addressId): Observable<addressResponse> {
+    return this.http.post<addressResponse>(this.APIEndpoint + "/user/contacts/us/" + addressId,
+      { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+  }
+
+  public updateAddressService(addressId) {
+    this.addressform.controls.address_id.setValue(addressId);
+    let addressInfo = JSON.parse(JSON.stringify(this.addressform.value));
+    console.log("addressInfo update :", addressInfo);
+    this.updateAddress(addressInfo).subscribe(data => this.addressInfo = data);
+    this.isUpdateAddress = false;
+    this.exp1 = false;
+    this.exp2 = false;
+    this.getAddresses();
+  }
+
+  public deleteAddressService(addressId) {
+    this.deleteAddress(addressId).subscribe(data => this.addressInfo = data);
+    this.getAddresses();
   }
 
   public getCartlist(): Observable<cartInfo> {
@@ -231,18 +251,29 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   }
 
   public getAddresses() {
-    this.getAddresslist().subscribe(data => 
-      {
-        this.addressInfo = data;
-        console.log("staus code ",this.addressInfo.statusCode);
-        if(this.addressInfo.statusCode ==  404){
-          this.exp3 = true;
-        }
-      });
+    this.getAddresslist().subscribe(data => {
+      this.addressInfo = data;
+      console.log("data from response :",data)
+      if (this.addressInfo.statusCode == 404) {
+        this.exp1 = true;
+        this.exp2 = false;
+      }else{
+        this.exp1 = false;
+        this.exp2 = false;
+        this.isUpdateAddress = false;
+      }
+    });
   }
 
   public showAddressInfo(addressId) {
-    console.log("address Id :", addressId);
+    this.isUpdateAddress = true;
+    this.exp1 = false;
+    this.exp2 = true;
+    console.log("address id ",addressId);
+    console.log("response objects ",this.addressInfo.responseObjects);
+    this.address = (this.addressInfo.responseObjects.filter(itemLoop => itemLoop.address_id == addressId))[0];
+    console.log("address object ",this.address);
+
   }
 
   public saveAddress(addressInfoJson: string) {
@@ -253,14 +284,15 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
         console.log("Status", jsonobj.statusCode);
         if (jsonobj.statusCode == 200 || 1 == 1) {
           this.getAddresses();
-          this.setStep(2);
+          this.exp1 = false;
+          this.exp1 = false;
         }
       })
   }
 
   public addProductsArray: AddProductReq[] = [];
   public productReq: AddProductReq;
-  
+
   public addProduToCart(): Observable<any> {
     this.cartService.getItems().forEach(element => {
       this.productReq = new AddProductReq();
@@ -277,7 +309,7 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
     return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
-  
+
   public addCartData: any;
 
   public addCart() {
@@ -333,7 +365,7 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   }
 
   public configurePaypal() {
-    
+
   }
 
   public addCartFromSummary(product: Product) {
@@ -354,9 +386,6 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
     this.cartService.addToCart(product);
     return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
-
   }
-
-
 
 }

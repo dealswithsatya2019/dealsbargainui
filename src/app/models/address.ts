@@ -10,4 +10,10 @@ export class address {
     street : string;
     zipcode : string;
     created_on : string;
+    name :string;
+    countrycode :string;
+    address : string;
+    landmark : string;
+    altphone :string;
+
 }
