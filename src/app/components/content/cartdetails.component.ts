@@ -65,9 +65,7 @@ export class CartdetailsComponent implements OnInit {
   }
 
   public getCartlist(): Observable<cartInfo> {
-    console.log("before api called     ", this.http);
-    console.log("before api called  endpoint   ", this.APIEndpoint);
-    console.log("before api called  autherization", this.autherization);
+    
     return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartInfo",
       { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }

@@ -224,7 +224,11 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   }
 
   public deleteAddress(addressId): Observable<addressResponse> {
-    return this.http.post<addressResponse>(this.APIEndpoint + "/user/contacts/us/" + addressId,
+    let body = {
+      "countryCode":"us",
+      "addressid":addressId
+    }
+    return this.http.post<addressResponse>(this.APIEndpoint + "/user/contacts/",body,
       { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
@@ -250,37 +254,32 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   }
 
   public getCarts() {
-    console.log("selected address id",this.selectedAddressId);
+    console.log("selected address id", this.selectedAddressId);
     if (this.selectedAddressId != null && this.selectedAddressId.length > 0) {
       this.isAddress = true;
-      console.log("getCarts calledddddddddd",this.isAddress)
+      console.log("getCarts calledddddddddd", this.isAddress)
       this.getCartlist().subscribe(data => {
         this.cartInfo = data;
         this.calculatePrices();
       });
-    }else{
+    } else {
       this.isAddress = false;
     }
   }
 
   public getAddresses() {
-    console.log("isLogin",this.isLogIn);
-    console.log("isAddress",this.isAddress);
-    console.log("isCart",this.isCart);
-    if (this.isLogIn) {
-      this.getAddresslist().subscribe(data => {
-        this.addressInfo = data;
-        console.log("data from response :", data)
-        if (this.addressInfo.statusCode == 404) {
-          this.exp1 = true;
-          this.exp2 = false;
-        } else {
-          this.exp1 = false;
-          this.exp2 = false;
-          this.isUpdateAddress = false;
-        }
-      });
-    }
+    this.getAddresslist().subscribe(data => {
+      this.addressInfo = data;
+      console.log("data from response :", data)
+      if (this.addressInfo.statusCode == 404) {
+        this.exp1 = true;
+        this.exp2 = false;
+      } else {
+        this.exp1 = false;
+        this.exp2 = false;
+        this.isUpdateAddress = false;
+      }
+    });
   }
 
   public showAddressInfo(addressId) {

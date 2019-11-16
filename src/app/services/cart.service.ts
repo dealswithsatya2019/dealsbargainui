@@ -3,6 +3,7 @@ import { Product } from '../models/product';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { element } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -15,40 +16,62 @@ export class CartService {
   public addCartData: any;
   private APIEndpoint: string = environment.APIEndpoint;
 
-  constructor(public http: HttpClient){}
+  constructor(public http: HttpClient) { }
 
   public addToCart(item: Product) {
-    console.log("Exist ", (this.itemsInCart.some(e => e.item_id === item.item_id)))
+    let access_token = sessionStorage.getItem("access_token");
     this.itemsInCartTemp = [];
+    let isProductExist = false;
+    let totalCartCount = 0;
     if (this.itemsInCart.some(e => e.item_id === item.item_id)) {
+      isProductExist = true;
       this.itemsInCart.forEach(element => {
         if (element.item_id == item.item_id) {
           element.quantity = (element.quantity + 1);
+          totalCartCount = element.quantity + 1
         }
         this.itemsInCartTemp.push(element)
       });
+      item.quantity = totalCartCount;
       this.itemsInCart = [];
       this.itemsInCart = this.itemsInCartTemp;
-      console.log("Items :", this.itemsInCart);
     } else {
       item.quantity = 1;
       this.itemsInCart.push(item);
     }
     this.addedProduct = item;
-    console.log("SIZE", this.itemsInCart.length);
-    let access_token = sessionStorage.getItem("access_token");
-    console.log("access_token :", access_token);
     if (access_token != null) {
-      if (item != null) {
-        this.autherization = "Bearer " + access_token;
-        this.addCart(item);
-        this.setRecentProduct();
+      if (isProductExist) {
+        item.quantity = totalCartCount;
+        this.updateCart(item);
+      } else {
+        if (item != null) {
+          this.autherization = "Bearer " + access_token;
+          this.addCart(item);
+          this.setRecentProduct();
+        }
       }
     }
   }
 
   public addCart(product: Product) {
     this.addProduToCart(product).subscribe(data => this.addCartData = data);
+  }
+
+  public updateCart(product: Product) {
+    this.updateProduToCart(product).subscribe(data => this.addCartData = data);
+  }
+
+  public updateProduToCart(product: Product): Observable<any> {
+    let body = [
+      {
+        "cartId": product.cart_id,
+        "quantity": product.quantity,
+        "code": "us"
+      },
+    ]
+    return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/updateQuantityCartItem/us",
+      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
   public addProduToCart(product: Product): Observable<any> {
@@ -76,10 +99,13 @@ export class CartService {
 
   public removeFromCart(item: Product) {
     this.itemsInCartTemp = [];
+    let totalCount = 0;
     if (this.itemsInCart.some(e => e.item_id === item.item_id)) {
       this.itemsInCart.forEach(element => {
         if (element.item_id == item.item_id) {
           element.quantity = (element.quantity - 1);
+          totalCount = (totalCount - 1);
+          totalCount
           if (element.quantity < 0) {
             element.quantity = 0;
           }
@@ -88,15 +114,31 @@ export class CartService {
       });
       this.itemsInCart = [];
       this.itemsInCart = this.itemsInCartTemp;
+      item.quantity = totalCount;
+      this.updateCart(item);
     }
   }
 
   public removeCart(item: Product) {
     this.itemsInCart = this.itemsInCart.filter(itemLoop => itemLoop.item_id != item.item_id);
+
   }
 
   public getItems(): Product[] {
     return this.itemsInCart;
+  }
+
+  public removeCartService(cartId) {
+    this.removeProduct(cartId).subscribe();
+  }
+
+  public removeProduct(addressId): Observable<any> {
+    let body = {
+      "countryCode": "us",
+      "addressid": addressId
+    }
+    return this.http.post<any>(this.APIEndpoint + "/user/contacts/", body,
+      { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
 }
