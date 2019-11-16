@@ -1,53 +1,119 @@
-<div class="menu-toolbar">
 
-	<div class="search px-2 position-relative" style="background-color:#f5f5f5">
+<div class="swiper-container flash-deals">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide">
+			<mat-card>
+				<img src="../../../assets/img/banner5.jpg">
+			</mat-card>
+		</div>
+		<div class="swiper-slide">
+			<mat-card>
+				<img src="../../../assets/img/banner5.jpg">
+			</mat-card>
+		</div>
+		<div class="swiper-slide">
+			<mat-card>
+				<img src="../../../assets/img/banner5.jpg">
+			</mat-card>
+		</div>
+	</div>
+	<div class="swiper-button-prev"></div>
+	<div class="swiper-button-next"></div>
+</div>
 
-		<div class="swiper-container banner-container">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide" *ngFor="let product of flashDeals; let i = index">
-					<mat-card>
-						<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
-					</mat-card>
+<mat-toolbar-row class="info-toolbar my-4">
+	<div class="info-bar w-100" fxlayout="row wrap"
+		style="flex-flow: row wrap; border:1px solid #ccc; display: flex;">
+		
+		<div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
+			style="flex: 1 1 25%; box-sizing: border-box; max-width: 25%;">
+			<mat-card _ngcontent-faj-c21="" class="light-block mat-card" fxlayout="row"
+				fxlayoutalign="start center"
+				style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
+				<img src="../../../assets/img/shipping.png">
+				<div class="info-content">
+					<p>FREE SHIPPING</p>
 				</div>
-			</div>
-			<div class="swiper-button-prev"></div>
-			<div class="swiper-button-next"></div>
-		</div>
-	</div>
-	
-</div>
-
-<div class="content-container">
-	<!-- hotdeals -->
-	<div *ngIf="hotDeals">
-		<h5 class="subtitle position-relative">HOT DEALS
-			<a [routerLink]="['/dealslist/h']" class="pl-3">VIEW ALL</a>
-		</h5>
-		<div class="product" fxLayout="row">
-			<mat-card class="item-card" *ngFor="let product of hotDeals; let i = index" style="width: 19%;">
-				<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
 			</mat-card>
-				<!-- <div class="deal-timer">
-					<span class="timerbadge">2 Days Left</span>
-				</div> -->	
 		</div>
-	</div>
-	<!-- hotdeals end-->
-
-	<!-- Today deals -->
-	<div *ngIf="todayDeals">
-		<h5 class="subtitle position-relative">TODAY's DEALS
-			<a [routerLink]="['/dealslist/t']" class="pl-3">VIEW ALL</a>
-		</h5>
-		<div class="product" fxLayout="row">
-			<mat-card class="item-card" *ngFor="let product of todayDeals; let i = index" style="width: 19%;">
-				<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
+		<div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
+			style="flex: 1 1 25%; box-sizing: border-box; max-width: 25%;">
+			<mat-card class="light-block mat-card" fxlayout="row" fxlayoutalign="start center"
+				style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
+				<!-- <img src="../../assets/img/time-left.png"> -->
+				<img src="../../../assets/img/easy returns.jpg">
+				<div class="info-content">
+					<p>EASY RETURNS</p>
+				</div>
+			</mat-card>
+		</div>
+		<div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
+			style="flex: 1 1 25%; box-sizing: border-box; max-width: 25%;">
+			<mat-card class="light-block mat-card" fxlayout="row" fxlayoutalign="start center"
+				style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
+				<img src="../../../assets/img/Secure-Payment-21.png">
+				<div class="info-content">
+					<p>SECURE PAYMENT</p>
+				</div>
+			</mat-card>
+		</div>
+		<div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
+			style="flex: 1 1 25%; box-sizing: border-box; max-width: 25%;">
+			<mat-card class="light-block mat-card" fxlayout="row" fxlayoutalign="start center"
+				style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
+				<img src="../../../assets/img/best-deal.png">
+				<div class="info-content">
+					<p>BEST DEALS</p>
+				</div>
 			</mat-card>
 		</div>
 	</div>
-	<!-- Today deals end -->
-
+</mat-toolbar-row>
+<h5 class="subtitle position-relative">FLASH DEALS
+		<a [routerLink]="['/dealslist/f']" class="pl-3">VIEW ALL</a>
+	</h5>
+<div class="swiper-container banner-container">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide" *ngFor="let product of flashDeals; let i = index">
+			<mat-card>
+				<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
+			</mat-card>
+		</div>
+	</div>
+	<div class="swiper-button-prev"></div>
+	<div class="swiper-button-next"></div>
 </div>
+
+<!-- hotdeals -->
+<div *ngIf="hotDeals">
+	<h5 class="subtitle position-relative">HOT DEALS
+		<a [routerLink]="['/dealslist/h']" class="pl-3">VIEW ALL</a>
+	</h5>
+	<div class="product" fxLayout="row">
+		<mat-card class="item-card" *ngFor="let product of hotDeals; let i = index" style="width: 19%;">
+			<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
+		</mat-card>
+			<!-- <div class="deal-timer">
+				<span class="timerbadge">2 Days Left</span>
+			</div> -->	
+	</div>
+</div>
+<!-- hotdeals end-->
+
+<!-- Today deals -->
+<div *ngIf="todayDeals">
+	<h5 class="subtitle position-relative">TODAY's DEALS
+		<a [routerLink]="['/dealslist/t']" class="pl-3">VIEW ALL</a>
+	</h5>
+	<div class="product" fxLayout="row">
+		<mat-card class="item-card" *ngFor="let product of todayDeals; let i = index" style="width: 19%;">
+			<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
+		</mat-card>
+	</div>
+</div>
+<!-- Today deals end -->
+
+
 <ng-template #dealsContentTemplate let-product="productinfo">
 	<ng-container *ngIf="product.discount && product.discount!='0'">
 		<mat-card-subtitle>

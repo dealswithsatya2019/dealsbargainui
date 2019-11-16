@@ -1,4 +1,11 @@
-<div class="content-container pt-4 product-details">
+<div class="content-container product-details">
+		<mat-toolbar-row>
+			<ul>
+				<li><a>Home</a></li>
+				<li><a>Product List</a></li>
+				<li><a>Product Details</a></li>
+			</ul>
+		</mat-toolbar-row>
 	<div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;" class="mb-4">
 		<div fxflex="100" fxflex.gt-md="35" fxflex.md="45" style="flex: 1 1 55%; box-sizing: border-box; max-width: 45%;display: flex">
 			<div class="swiper-container gallery-thumbs" style="height:450px">
@@ -26,24 +33,6 @@
 			</div>
 
 			<h5>
-			
-				<span class="mr-1 rate-product">4.6
-					<i class="fa fa-star"></i>
-					<div class="product-rating">
-						<div class="stars">
-							<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating><i class="fa fa-sort-desc" aria-hidden="true"></i>
-						</div>
-						
-						<div class="product-rating-bar">
-							13 customers ratings
-							5star <mat-progress-bar mode="determinate" value="{FiveStar}}"></mat-progress-bar>
-							4star <mat-progress-bar mode="determinate" value="{{FourStar}}"></mat-progress-bar>
-							3star <mat-progress-bar mode="determinate" value="{{ThreeStar}}"></mat-progress-bar>
-							2star <mat-progress-bar mode="determinate" value="{{TwoStar}}"></mat-progress-bar>
-							1star <mat-progress-bar mode="determinate" value="{{OneStar}}"></mat-progress-bar>
-						</div>
-					</div>
-				</span>
 	
 				{{productDetails.title}}
 				<span>
@@ -65,9 +54,26 @@
 						</div>
 					</button>
 				</span>
-				<small class="py-1">
-					<i class="fa fa-thumbs-up"></i> 8 Recommendations</small>
+				
 			</h5>
+			<p style="clear: both;display: flex;align-items: center;"><span class="mr-1 rate-product">
+					<ngx-star-rating [ngModel]="product" [id]="'productRating1'" [disabled]="true"></ngx-star-rating>
+				<div class="product-rating">
+					<div class="stars">
+						<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating><i class="fa fa-sort-desc" aria-hidden="true"></i>
+					</div>
+					
+					<div class="product-rating-bar">
+						13 customers ratings
+						5star <mat-progress-bar mode="determinate" value="{FiveStar}}"></mat-progress-bar>
+						4star <mat-progress-bar mode="determinate" value="{{FourStar}}"></mat-progress-bar>
+						3star <mat-progress-bar mode="determinate" value="{{ThreeStar}}"></mat-progress-bar>
+						2star <mat-progress-bar mode="determinate" value="{{TwoStar}}"></mat-progress-bar>
+						1star <mat-progress-bar mode="determinate" value="{{OneStar}}"></mat-progress-bar>
+					</div>
+				</div>
+			</span><small class="py-1">
+					<i class="fa fa-thumbs-up"></i> 8 Recommendations</small></p>
 			<p style="color: #747474;font-weight: 300;">BRAND : {{productDetails.brand_name}}</p>
 
 

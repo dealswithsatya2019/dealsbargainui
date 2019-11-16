@@ -1,115 +1,54 @@
 
-    <mat-toolbar>
-         <mat-toolbar-row class="top-toolbar">
-            <div class="logo">
-                <img class="img-fluid img-cursor" mat-card-image src="../../assets/img/DealsBargain-Logo.png"
-                    alt="photo" (click)=gotoHomePage()>
-            </div>
-            <mat-form-field floatLabel="never">
-                <input matInput value="search item here..." aria-label="State" [matAutocomplete]="auto" [formControl]="searchMoviesCtrl">
-                <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let hits of filteredMovies" [value]="hits._source.title">
-                        {{hits._source.title}}
-                    </mat-option>
-                </mat-autocomplete>
-                <button mat-button color="primary" class="search-btn" (click)="search()"><i class="fa fa-search"></i></button>
-            </mat-form-field>
-        
-            <div>
-                <a mat-button (click)="funSignIn()" *ngIf="!this.userservice.response"><i class="fa fa-unlock-alt"></i><span>Login & Signup</span></a>
-                <ng-container *ngIf="this.userservice.response">
-                    <button mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger"><i
-                            class="fa fa-user"></i><span>{{this.userservice.response.name}}</span></button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item style="border-bottom: 1px solid #ccc;">
-                            <a mat-button [routerLink]="['myprofile']"> Profile</a>
-                        </button>
-                        <button mat-menu-item style="border-bottom: 1px solid #ccc;">
-                            <a mat-button [routerLink]="['orders']">Orders</a>
-                        </button>
-                        <button mat-menu-item>
-                            <a mat-button (click)="signOut()">Logout</a>
-                        </button>
-                    </mat-menu>
-                    <a mat-button [routerLink]="['wishlist']"><i class="fa fa-heart"></i><span>Wishlist</span></a>
-                </ng-container>
-                <a mat-button [routerLink]="['mycart']"><i class='fa fa-check-square-o'></i><span>Checkout ({{cartService.getItems().length}})</span></a>
-            </div>
-        </mat-toolbar-row> 
+<mat-toolbar>
+    <mat-toolbar-row class="top-toolbar">
+        <!-- logo -->
+        <div class="logo">
+            <img class="img-fluid img-cursor" mat-card-image src="../../assets/img/DealsBargain-Logo.png"
+                alt="photo" (click)=gotoHomePage()>
+        </div>
+        <!-- /#logo -->
+
+        <!-- search bar -->
+        <mat-form-field floatLabel="never">
+            <input matInput value="search item here..." aria-label="State" [matAutocomplete]="auto" [formControl]="searchMoviesCtrl">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let hits of filteredMovies" [value]="hits._source.title">
+                    {{hits._source.title}}
+                </mat-option>
+            </mat-autocomplete>
+            <button mat-button color="primary" class="search-btn" (click)="search()"><i class="fa fa-search"></i></button>
+        </mat-form-field>
+        <!-- /#search bar -->
 
 
-        <mat-toolbar-row class="info-toolbar">
-            <div class="info-bar w-100" fxlayout="row wrap"
-                style="flex-flow: row wrap; border:1px solid #ccc; display: flex;">
-                
-                <div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
-                    style="flex: 1 1 25%; box-sizing: border-box; max-width: 25%;">
-                    <mat-card _ngcontent-faj-c21="" class="light-block mat-card" fxlayout="row"
-                        fxlayoutalign="start center"
-                        style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
-                        <img src="../../../assets/img/shipping.png">
-                        <div class="info-content">
-                            <p>FREE SHIPPING</p>
-                        </div>
-                    </mat-card>
-                </div>
-                <div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
-                    style="flex: 1 1 25%; box-sizing: border-box; max-width: 25%;">
-                    <mat-card class="light-block mat-card" fxlayout="row" fxlayoutalign="start center"
-                        style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
-                        <!-- <img src="../../assets/img/time-left.png"> -->
-                        <img src="../../../assets/img/easy returns.jpg">
-                        <div class="info-content">
-                            <p>EASY RETURNS</p>
-                        </div>
-                    </mat-card>
-                </div>
-                <div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
-                    style="flex: 1 1 25%; box-sizing: border-box; max-width: 25%;">
-                    <mat-card class="light-block mat-card" fxlayout="row" fxlayoutalign="start center"
-                        style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
-                        <img src="../../../assets/img/Secure-Payment-21.png">
-                        <div class="info-content">
-                            <p>SECURE PAYMENT</p>
-                        </div>
-                    </mat-card>
-                </div>
-                <div class="info-div" fxflex="100" fxflex.gt-md="25" fxflex.gt-xs="50"
-                    style="flex: 1 1 25%; box-sizing: border-box; max-width: 25%;">
-                    <mat-card class="light-block mat-card" fxlayout="row" fxlayoutalign="start center"
-                        style="flex-direction: row; box-sizing: border-box; display: flex; align-items: center;">
-                        <img src="../../../assets/img/best-deals.png">
-                        <div class="info-content">
-                            <p>BEST DEALS</p>
-                        </div>
-                    </mat-card>
-                </div>
-            </div>
-        </mat-toolbar-row>
-
-
-        <mat-toolbar-row class="search-toolbar">
-            <div class="verticalCategories">
-                <div class="sidemenu">
-                    <app-menu-bar></app-menu-bar>
-                </div>
-            </div>
-            <div class="search pl-3 position-relative">
-                <button mat-button [matMenuTriggerFor]="deals">Deals</button>
-                <mat-menu #deals="matMenu">
+        <!-- login & profile options -->
+        <div>
+            <a mat-button (click)="funSignIn()" *ngIf="!this.userservice.response"><i class="fa fa-unlock-alt"></i><span>Login & Signup</span></a>
+            <ng-container *ngIf="this.userservice.response">
+                <button mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger"><i
+                        class="fa fa-user"></i><span>{{this.userservice.response.name}}</span></button>
+                <mat-menu #menu="matMenu">
                     <button mat-menu-item style="border-bottom: 1px solid #ccc;">
-                        <a mat-button [routerLink]="['/dealslist/f']"> Flash deals</a>
+                        <a mat-button [routerLink]="['myprofile']"> Profile</a>
                     </button>
                     <button mat-menu-item style="border-bottom: 1px solid #ccc;">
-                        <a mat-button [routerLink]="['/dealslist/h']">Hot deals</a>
+                        <a mat-button [routerLink]="['orders']">Orders</a>
                     </button>
                     <button mat-menu-item>
-                        <a mat-button [routerLink]="['/dealslist/t']">Today Deals</a>
+                        <a mat-button (click)="signOut()">Logout</a>
                     </button>
                 </mat-menu>
-                <button mat-button>Coupons</button>    
-            </div> 
-        </mat-toolbar-row>
-    </mat-toolbar>
+                <a mat-button [routerLink]="['wishlist']"><i class="fa fa-heart"></i><span>Wishlist</span></a>
+            </ng-container>
+            <a mat-button [routerLink]="['mycart']"><i class='fa fa-check-square-o'></i><span>Checkout ({{cartService.getItems().length}})</span></a>
+        </div>
+        <!-- /#login & profile options -->
+    </mat-toolbar-row> 
+
+</mat-toolbar>
+<div class="menu py-2 text-center">
+    <app-menu-bar></app-menu-bar>
+</div>
+
 
 

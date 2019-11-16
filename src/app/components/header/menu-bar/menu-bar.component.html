@@ -1,16 +1,4 @@
-<!-- <div>
-    <ng-container *ngFor="let category of menus">
-        <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{category.cname}}</a>
-        <mat-menu #menu="matMenu">
-            <ng-container *ngFor="let subcategory of category.scnames" class="mainMenu">
-                <button mat-menu-item>
-                    <a mat-button [routerLink]="['productlist',category.cname.toLowerCase(),subcategory.toLowerCase()]" routerLinkActive="active"> {{subcategory}} </a>
-                </button>
-            </ng-container>
-        </mat-menu>
-    </ng-container>
-
-</div>  -->
+<mat-toolbar-row>
 <ng-container *ngFor="let mainMenuCategory of menuCategories">
     <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{mainMenuCategory.category}}</a>
     <mat-menu #menu="matMenu" panelClass="magaMenu" backdropClass="megaMenu">
@@ -39,3 +27,4 @@
         </div>
     </mat-menu>
 </ng-container>
+</mat-toolbar-row>

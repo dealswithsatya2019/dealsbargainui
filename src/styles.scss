@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,900&display=swap');
 
 body{
-    background-color: #f5f5f5;
+    background-color: #fafafa;
     font-family: 'Roboto', sans-serif !important;
 }
 a, a:hover{
@@ -131,9 +131,9 @@ h1,h2,h3,h4,h5,h6,p{
     border-bottom: 1px solid #666;
 }
 .mat-menu-content{padding: 0px !important;}
-// .fa-facebook-official{color: #3b5998 !important;}
-// .fa-twitter-square{color: #38A1f3 !important;}
-// .fa-linkedin-square{color:#0e76a8 !important;}
+.fa-facebook-official{color: #3b5998 !important;}
+.fa-twitter-square{color: #38A1f3 !important;}
+.fa-linkedin-square{color:#0e76a8 !important;}
 // ---------------- login-container  --------------------
 
 .login-container{
@@ -169,7 +169,14 @@ h1,h2,h3,h4,h5,h6,p{
     display: none;
 }
 
-
-@media screen and (max-width:575px){
-    .content-container{padding: 0px 10px;}
+label.star[_ngcontent-otj-c13]{
+    font-size: 25px !important;
+    padding: 7px !important;
+    
+}
+@media screen and (min-width:1366px){
+    .content-container{
+        max-width: 1300px;
+        margin: auto;
+    }
 }

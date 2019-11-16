@@ -1,8 +1,13 @@
+footer{
+    background-color: #fff;
+    border-top:2px solid #8a8989;
+    padding-top: 10px;
+}
 .payment-options{
     width: 100%;
-    background-color: #5d5d5a;
+    background-color: #fff;
     float: left;
-    color: #e1e1e1;
+    color: #333;
     border-top: 2px solid #c6c6c6;
     display: flex;
     align-items: center;
@@ -11,12 +16,22 @@
 .get-in-touch{
     line-height: 30px;
     list-style-type: none;
-    color: #e1e1e1;
+    color: #333;
 }
 .get-in-touch li{
     margin-bottom: 8px;
     position: relative;
     padding-left: 24px;
+    font-size: 14px
+}
+.get-in-touch li a {
+    display: inline-block;
+    width: 25px;
+    margin-right: 10px;
+   cursor: pointer;
+}
+img {
+    max-width: 100%;
 }
 .get-in-touch li::before{
     position: absolute;
@@ -24,7 +39,7 @@
     left: 0px;
     font-family: FontAwesome;
     font-size: 16px;
-    color: #c6c6c6;
+    color: #ff9600;
 }
 .location::before{
     content: "\f041"; 
@@ -44,7 +59,7 @@
 .foo-title{
     position: relative;
     margin-bottom: 27px;
-    color: #f5f5f5;
+    color: #000;
     font-weight: 600;
     text-transform: uppercase;
 }
@@ -52,7 +67,7 @@
     content: '';
     position: absolute;
     left: 0px;bottom: -8px;
-    width: 16%;
+    width: 100px;
     height: 2px;
     background-color: #ff9600;
 }
@@ -60,7 +75,7 @@
     list-style-type: none;
 }
 .foo-list li::before{
-    content: "\f105"; /* FontAwesome Unicode */
+    // content: "\f105"; /* FontAwesome Unicode */
   font-family: FontAwesome;
   display: inline-block;
   margin-left: -1.3em; /* same as padding-left set on li */
@@ -70,17 +85,7 @@
 }
 .foo-list li a{
     text-decoration: none;
-    color: #e1e1e1;
+    color: #333;
     line-height: 37px;
     font-size: 14px;
-}
-.join-us{
-    .mat-button{
-        padding: 0px;
-        min-width: 40px;
-        height: 40px;
-        margin-top: 5px;
-        margin-right: 10px;
-        i{font-size: 26px;}
-    }
 }

@@ -41,6 +41,17 @@ export class ContentComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
 
     setTimeout(() => {
+      var swiper = new Swiper('.flash-deals', {
+        autoplay: {
+          delay: 3000,
+        },
+        speed: 500,
+        slidesPerView: 1,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        }
+      })
       var swiper = new Swiper('.banner-container', {
         autoplay: {
           delay: 3000,

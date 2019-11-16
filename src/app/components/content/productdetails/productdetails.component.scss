@@ -1,3 +1,18 @@
+ul{
+  padding: 0px;list-style: none;
+  li{display: inline;position: relative;padding-right: 25px;font-size: 14px}
+  li::after{
+    content: '>';
+    position: absolute;
+    right: 9px;
+    top: -2px;
+  }
+  li:last-child{
+    &::after{
+      content: '';
+    }
+  }
+}
 mat-toolbar-row{
   height: auto;
   padding: 0px;
@@ -31,11 +46,7 @@ h5{
     margin-bottom: 20px; /* same as fxLayoutGap for even distribution */
   }
   
-  .product img{
-    height: 150px;
-    object-fit: contain;
-  }
-  
+.swiper-slide img{width: 100%;}
   .margin-top-20{
     margin-top:20px;
   } 
@@ -190,7 +201,7 @@ h5{
   }
  
   .rate-product{
-    background-color:green;
+    display: inline-block;
     color:#fff;
     font-size: 13px;
     padding: 2px 4px;
@@ -200,7 +211,7 @@ h5{
       .product-rating{
         display: inline-block;
         position: absolute;
-        top: 20px;
+        top: 30px;
         left: 0px;
         z-index: 999;
         box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);

@@ -1,22 +1,27 @@
-<footer style="background-color: #5d5d5a"> 
-    <div class="container-fluid">
+<footer> 
+    <div class="content-container">
         <div class="row">
 
-            <div class="col-sm-6 col-md-3 p-4">
+            <div class="col-sm-6 col-md-4 p-4">
                 <h6 class="foo-title">Contact Us</h6>
                 <ul class="get-in-touch pl-0">
-                    <li class="location">
+                    <li class="location"><b>Address : </b>
                         dealsbargain.com
                     </li>
-                    <li class="mail">Email-info@dealsbargain.com</li>
-                    <li class="phone"><span>phone-1:98012121237, <br>
-                        phone-1:040-98675421</span></li>
+                    <li class="mail"><b>Email : </b> Email-info@dealsbargain.com</li>
+                    <li class="phone"><b>Hotline : </b><span>98012121237, 040-98675421</span></li>
+                    <li>
+                        <a><img src="../../../assets/img/facebook.png"></a>
+                        <a><img src="../../../assets/img/twitter-sign.png"></a>
+                        <a><img src="../../../assets/img/instagram.png"></a>
+                        <a><img src="../../../assets/img/linkedin.png"></a>
+                    </li>
                 </ul>
             </div>
 
             <div class="col-sm-6 col-md-3 p-4">
                 <h6 class="foo-title">About Market</h6>
-                <ul class="pl-3 foo-list">
+                <ul class="p-0 foo-list">
                     <li><a [routerLink]="['aboutus']">About Us</a></li>
                     <li><a [routerLink]="['marketreview']">Market Reviews</a></li>
                     <li><a [routerLink]="['termsofuse']">Terms Of Use</a></li>
@@ -24,10 +29,19 @@
                     <li><a [routerLink]="['sitemap']">Site Map</a></li>
                 </ul>
             </div>
-
             <div class="col-sm-6 col-md-3 p-4">
+                <h6 class="foo-title">Payment & Shipping</h6>
+                <ul class="p-0 foo-list">
+                    <li><a [routerLink]="['termsofuse']">Terms Of Use</a></li>
+                    <li><a [routerLink]="['paymentmethods']">Payment Methods</a></li>
+                    <li><a [routerLink]="['shippingguide']">Shipping Guide</a></li>
+                    <li><a [routerLink]="['locationweship']">Loacation We Ship To</a></li>
+                    <li><a [routerLink]="['estimateddeliverytime']">Estimated Delivery Time</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-6 col-md-2 p-4">
                 <h6 class="foo-title">Customer Service</h6>
-                <ul class="pl-3 foo-list">
+                <ul class="p-0 foo-list">
                     <li><a [routerLink]="['shippingpolicy']">Shipping Policy</a></li>
                     <li><a [routerLink]="['compensation']">Compensation First</a></li>
                     <li><a [routerLink]="['myaccount']">My Account</a></li>
@@ -36,27 +50,13 @@
                 </ul>
             </div>
 
-            <div class="col-sm-6 col-md-3 p-4">
-                <h6 class="foo-title">Payment & Shipping</h6>
-                <ul class="pl-3 foo-list">
-                    <li><a [routerLink]="['termsofuse']">Terms Of Use</a></li>
-                    <li><a [routerLink]="['paymentmethods']">Payment Methods</a></li>
-                    <li><a [routerLink]="['shippingguide']">Shipping Guide</a></li>
-                    <li><a [routerLink]="['locationweship']">Loacation We Ship To</a></li>
-                    <li><a [routerLink]="['estimateddeliverytime']">Estimated Delivery Time</a></li>
-                </ul>
-            </div>
+           
         </div>
     </div>
 
     <div class="payment-options pb-2">
         <span>&copy; copyrights reserved</span>
 
-        <div class="join-us">
-            <a mat-button><i class="fa fa-facebook-square"></i></a>
-            <a mat-button><i class="fa fa-twitter-square"></i></a>
-            <a mat-button><i class="fa fa-linkedin-square"></i></a>
-        </div>
         
         <div class="avail-payment">
             <img src="../../assets/img/paypal.jpg">
