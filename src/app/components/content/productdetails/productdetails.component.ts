@@ -43,6 +43,7 @@ export class ProductdetailsComponent implements OnInit {
   public OneStar: number = 10;
   public isProductAvailable : boolean =false;
   subscription : Subscription;
+  public authToken :string;
 
   constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public gallery: Gallery, public userservice: UserService,private cartService: CartService,
     public _productListRouteInfo:ProductListRouteInfoService,
@@ -50,7 +51,7 @@ export class ProductdetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.authToken = sessionStorage.getItem("access_token");
     let prodListClickInfo: ProductRouteInfo = JSON.parse(sessionStorage.getItem("product_details"));
     this.cname = prodListClickInfo.cname;
     this.scname = prodListClickInfo.scname;

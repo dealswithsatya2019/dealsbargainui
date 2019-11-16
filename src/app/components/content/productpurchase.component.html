@@ -1,8 +1,8 @@
 <div class="content-container pt-3">
     <div class="" style="display: flex;padding-top: 100px;">
         <div class="left-panel">
-            <mat-horizontal-stepper [linear]="false" (selectionChange)="selectionChange($event)" [selectedIndex]="selectedIndex" >
-                <mat-step label="LOGIN" [completed]="false">
+            <mat-horizontal-stepper (selectionChange)="selectionChange($event)" [selectedIndex]="selectedIndex" >
+                <mat-step label="LOGIN">
                     <div class="mb-3">
                         <!-- /#new customer login starts-->
                         <ng-container *ngIf="!autherization">
@@ -80,9 +80,9 @@
                     </div>
                 </mat-step>
 
-                <mat-step label="SHIPPING ADDRESS" [completed]="false" (click)="getAddresses()">
+                <mat-step label="SHIPPING ADDRESS" [(completed)]="isLogIn" (click)="getAddresses()">
                     <div class="mb-3">
-                        <mat-radio-group aria-label="Select an option">
+                        <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedAddressId">
                             <ng-container *ngIf="addressInfo">
                                 <ng-container *ngFor="let address of addressInfo.responseObjects">
                                     <div class="add1 my-3">
@@ -100,7 +100,7 @@
                         </mat-radio-group>
                     </div>
                     <ng-container *ngIf="isUpdateAddress">
-                        <mat-expansion-panel class="mb-3" [(expanded)]="exp2" (opened)="setStep(3)" [completed]="false">
+                        <mat-expansion-panel class="mb-3" [(expanded)]="exp2">
                             <mat-expansion-panel-header>
                                 Update Address
                             </mat-expansion-panel-header>
@@ -151,7 +151,7 @@
                             </form>
                         </mat-expansion-panel>
                     </ng-container>
-                    <mat-expansion-panel class="mb-3" [(expanded)]="exp1" (opened)="setStep(3)" [completed]="false">
+                    <mat-expansion-panel class="mb-3" [(expanded)]="exp1" [completed]="false">
                         <mat-expansion-panel-header>
                             Add New Address
                         </mat-expansion-panel-header>
@@ -193,7 +193,7 @@
                                 <input formControlName="altphone" matInput placeholder="Placeholder">
                             </mat-form-field>
 
-                            <mat-radio-group aria-label="Select an option">
+                            <mat-radio-group aria-label="Select an option" formControlName="addresstype">
                                 <mat-radio-button value="1" class="mr-2">Home ( All Day Delivery )</mat-radio-button>
                                 <mat-radio-button value="2">Work (Delivery between 10AM - 5PM)</mat-radio-button>
                             </mat-radio-group>
@@ -207,7 +207,7 @@
                                 class="fa fa-chevron-right"></i></button>
                     </div>
                 </mat-step>
-                <mat-step label="ORDER SUMMARY" (click)="getCarts()" [completed]="false">
+                <mat-step label="ORDER SUMMARY" [(completed)]="isAddress" (click)="getCarts()">
                     <div class="mb-3">
                         <ng-container *ngIf="cartInfo">
                             <div class="order-1 py-3 mt-3" *ngFor='let cart of cartInfo.responseObject'>
@@ -247,11 +247,11 @@
                     </div>
                     <div class="pt-5 text-center">
                         <button mat-button matStepperPrevious (click)="getAddresses()"><i class="fa fa-chevron-left"></i></button>
-                        <button mat-button matStepperNext><i class="fa fa-chevron-right"></i></button>
+                        <button mat-button matStepperNext (click)="goToPayment()"><i class="fa fa-chevron-right"></i></button>
                     </div>
                 </mat-step>
 
-                <mat-step label="PAYMENT" [completed]="false">
+                <mat-step label="PAYMENT" [(completed)]="isCart">
 
                     <div>
 

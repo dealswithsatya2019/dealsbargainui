@@ -41,9 +41,13 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   public pid: string;
   public loginErrorMsg: string;
   public addressInfo: addressResponse;
-  public address : address;
+  public address: address;
   public cartInfo: cartInfo;
   private APIEndpoint: string = environment.APIEndpoint;
+  public selectedAddressId: string;
+  public isLogIn: boolean = false;
+  public isAddress: boolean = false;
+  public isCart: boolean = false;
 
   addressform: FormGroup = new FormGroup({
     countrycode: new FormControl('us'),
@@ -57,6 +61,7 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
     landmark: new FormControl(''),
     altphone: new FormControl(''),
     address_id: new FormControl(''),
+    addresstype: new FormControl(''),
   });
 
   updateaddressform: FormGroup = new FormGroup({
@@ -169,6 +174,7 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
               password: null,
               mobileno: null
             });
+            this.isLogIn = true;
             sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
             this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
@@ -202,11 +208,11 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
     this.saveAddress(addressInfo);
   }
 
-  public isUpdateAddress : boolean ;
+  public isUpdateAddress: boolean;
 
   public getAddresslist(): Observable<addressResponse> {
     console.log("getAddresslist called :");
-    console.log("getAddresslist called :",this.autherization);
+    console.log("getAddresslist called :", this.autherization);
 
     return this.http.get<addressResponse>(this.APIEndpoint + "/user/contacts/us",
       { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
@@ -244,35 +250,47 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   }
 
   public getCarts() {
-    this.getCartlist().subscribe(data => {
-      this.cartInfo = data;
-      this.calculatePrices();
-    });
+    console.log("selected address id",this.selectedAddressId);
+    if (this.selectedAddressId != null && this.selectedAddressId.length > 0) {
+      this.isAddress = true;
+      console.log("getCarts calledddddddddd",this.isAddress)
+      this.getCartlist().subscribe(data => {
+        this.cartInfo = data;
+        this.calculatePrices();
+      });
+    }else{
+      this.isAddress = false;
+    }
   }
 
   public getAddresses() {
-    this.getAddresslist().subscribe(data => {
-      this.addressInfo = data;
-      console.log("data from response :",data)
-      if (this.addressInfo.statusCode == 404) {
-        this.exp1 = true;
-        this.exp2 = false;
-      }else{
-        this.exp1 = false;
-        this.exp2 = false;
-        this.isUpdateAddress = false;
-      }
-    });
+    console.log("isLogin",this.isLogIn);
+    console.log("isAddress",this.isAddress);
+    console.log("isCart",this.isCart);
+    if (this.isLogIn) {
+      this.getAddresslist().subscribe(data => {
+        this.addressInfo = data;
+        console.log("data from response :", data)
+        if (this.addressInfo.statusCode == 404) {
+          this.exp1 = true;
+          this.exp2 = false;
+        } else {
+          this.exp1 = false;
+          this.exp2 = false;
+          this.isUpdateAddress = false;
+        }
+      });
+    }
   }
 
   public showAddressInfo(addressId) {
     this.isUpdateAddress = true;
     this.exp1 = false;
     this.exp2 = true;
-    console.log("address id ",addressId);
-    console.log("response objects ",this.addressInfo.responseObjects);
+    console.log("address id ", addressId);
+    console.log("response objects ", this.addressInfo.responseObjects);
     this.address = (this.addressInfo.responseObjects.filter(itemLoop => itemLoop.address_id == addressId))[0];
-    console.log("address object ",this.address);
+    console.log("address object ", this.address);
 
   }
 
@@ -332,6 +350,15 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
     this.totalPaybaleCost = ((this.totalCost + this.deliveryCost) - this.couponDiscountCost)
     this.totalCartSize = this.cartInfo.responseObject.length;
     console.log(this.totalCost + ":" + this.deliveryCost + ":" + this.couponDiscountCost + ":" + this.totalPaybaleCost + ":" + this.totalCartSize);
+  }
+
+  public goToPayment() {
+    if (this.cartInfo != null && this.cartInfo.responseObject != null && this.cartInfo.responseObject.length > 0) {
+      this.isCart = true;
+    } else {
+      this.isCart = false;
+    }
+
   }
 
   public initializeValues() {
