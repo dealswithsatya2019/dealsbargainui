@@ -24,7 +24,7 @@ declare let paypal: any;
   templateUrl: './productdetails.component.html',
   styleUrls: ['./productdetails.component.scss']
 })
-export class ProductdetailsComponent implements OnInit, AfterViewInit {
+export class ProductdetailsComponent implements OnInit , AfterViewInit {
 
   //https://ngx-gallery-cors-error.stackblitz.io
    //Using loadingMode: 'indeterminate' on the GalleryModule's config worked.
@@ -184,7 +184,7 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
 
     setTimeout(() => {
-      var swiper = new Swiper('.similar', {
+      var swiper5 = new Swiper('.similar', {
         autoplay: {
           delay: 3000,
         },
@@ -198,21 +198,21 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
       })
       }, 1000);
 
-      setTimeout(() => {
-      var galleryThumbs = new Swiper('.gallery-thumbs', {
-        spaceBetween: 10,
-        slidesPerView: 4,
-        freeMode: true,
-        watchSlidesVisibility: true,
-        watchSlidesProgress: true,
-      });
-      var galleryTop = new Swiper('.gallery-top', {
-        spaceBetween: 10,
-        thumbs: {
-          swiper: galleryThumbs
-        }
-      });
-    }, 1000);
+    //   setTimeout(() => {
+    //   var galleryThumbs = new Swiper('.gallery-thumbs', {
+    //     spaceBetween: 10,
+    //     slidesPerView: 4,
+    //     freeMode: true,
+    //     watchSlidesVisibility: true,
+    //     watchSlidesProgress: true,
+    //   });
+    //   var galleryTop = new Swiper('.gallery-top', {
+    //     spaceBetween: 10,
+    //     thumbs: {
+    //       swiper: galleryThumbs
+    //     }
+    //   });
+    // }, 1000);
   }
 
   showProductDetails(params){
