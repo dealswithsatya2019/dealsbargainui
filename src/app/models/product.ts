@@ -24,4 +24,5 @@ export class Product {
     prepay_price : number = 0;
     cart_id : string = "";
     deals_bargain_supplier_deal_price: string ="";
+    deals_bargain_deal_price: string ="";
  }

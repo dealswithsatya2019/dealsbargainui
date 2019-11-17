@@ -78,14 +78,14 @@
 
 		<!-- 	<p class="py-3">1000 People have viewed this product</p> -->
 			<h4>
-				<ng-container *ngIf="productDetails.dealtype==''">
-					{{productDetails.deal_price}}<span class="px-3 stike-off">{{productDetails.supplier_deal_price}}</span>
+				<ng-container *ngIf="productDetails.dealtype!=''">
+					{{PRICE_PREFIX}}{{productDetails.deals_bargain_deal_price}}<span class="px-3 stike-off">{{PRICE_PREFIX}}{{productDetails.deals_bargain_supplier_deal_price}}</span>
 				</ng-container>
-				<ng-container *ngIf="productDetails.dealtype!='' && productDetails.discount=='0'">
-					<span class="new_cost">{{productDetails.price}}</span>
+				<ng-container *ngIf="productDetails.dealtype=='' && productDetails.discount=='0'">
+					<span class="new_cost">{{PRICE_PREFIX}}{{productDetails.price}}</span>
 				</ng-container>
-				<ng-container *ngIf="productDetails.dealtype!='' && productDetails.discount!='0'">
-					{{productDetails.discount_amount}}<span class="px-3 stike-off">{{productDetails.price}}</span>				
+				<ng-container *ngIf="productDetails.dealtype=='' && productDetails.discount!='0'">
+					{{PRICE_PREFIX}}{{productDetails.discount_amount}}<span class="px-3 stike-off">{{PRICE_PREFIX}}{{productDetails.price}}</span>				
 				</ng-container>
 				<ng-container *ngIf="productDetails.discount && productDetails.discount!='0'">
 						<span class="px-3 discount">({{productDetails.discount}}% off)</span> 
@@ -110,7 +110,7 @@
 			<h6 *ngFor="let keyValPair of product_attributes">
 				{{keyValPair.key}} : {{keyValPair.value}}
 			</h6>
-			<h6>Warranty : {{productDetails.warranty ===''? 'NA' : productDetails.warranty}}</h6>
+			<h6>Warranty : {{productDetails.warranty ===''? 'No' : productDetails.warranty}}</h6>
 			<div class="py-3 mt-4 lh">
 				<ng-container *ngIf="isProductAvailable; else outofstock">
 					<a mat-button class="quick-buy" (click)="quickBuy(productDetails)" >Quick Buy</a>
@@ -151,13 +151,13 @@
 
 			<p>PRODUCT DESCRIPTION</p>
 			<p>{{productDetails.description}}</p>
-			<div class="py-1">
+<!-- 			<div class="py-1">
 				<p>
 					<span>Product Code: 1234567890</span>
 					<br>
 					<span>Need Help? Contact Us</span>
 				</p>
-			</div>
+			</div>-->
 
 		</mat-expansion-panel>
 
@@ -220,8 +220,8 @@
 							<p class="p-title">{{product.item_name}}</p>
 							<p class="p-cost">
 								<ng-container *ngIf="product.dealtype!=''">
-									<span class="old_cost">{{PRICE_PREFIX}}{{product.supplier_deal_price}}</span>
-									<span class="new_cost">{{PRICE_PREFIX}}{{product.deal_price}}</span>
+									<span class="old_cost">{{PRICE_PREFIX}}{{product.deals_bargain_supplier_deal_price}}</span>
+									<span class="new_cost">{{PRICE_PREFIX}}{{product.deals_bargain_deal_price}}</span>
 								</ng-container>
 								<ng-container *ngIf="product.dealtype=='' && product.discount=='0'">
 									<span class="new_cost">{{PRICE_PREFIX}}{{product.price}}</span>
