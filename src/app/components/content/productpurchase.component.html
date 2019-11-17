@@ -13,7 +13,8 @@
                                     <form [formGroup]="loginformService.form" class="normal-form w-100"
                                         (submit)="funLogin()">
                                         <mat-form-field floatLabel="never" class="w-100">
-                                            <input formControlName="name" matInput placeholder="Email address or Mobile number*">
+                                            <input formControlName="name" matInput
+                                                placeholder="Email address or Mobile number*">
                                             <mat-error>This field is mandatory</mat-error>
                                         </mat-form-field>
 
@@ -47,8 +48,8 @@
                                     <p class="mt-3 m-0 text-center">Don't have an account?</p>
                                     <p class="mt-2 m-0 text-center">Join Deals Today</p>
 
-                                    <button mat-raised-button type="submit"
-                                        class=" my-2 w-100 checkout-login-btn">Sign Up</button>
+                                    <button mat-raised-button type="submit" class=" my-2 w-100 checkout-login-btn">Sign
+                                        Up</button>
                                 </div>
                                 <!-- /# social login -->
 
@@ -65,7 +66,8 @@
                                         </p>
                                         <a mat-button class="p-0" (click)="signOut()">Logout and signin with another
                                             account</a>
-                                        <button mat-button matStepperNext (click) = "getAddresses()" class="my-2 w-100 login-login-btn">Continue
+                                        <button mat-button matStepperNext (click)="getAddresses()"
+                                            class="my-2 w-100 login-login-btn">Continue
                                             Checkout
                                         </button>
                                     </div>
@@ -76,11 +78,12 @@
 
                     </div>
                     <div class="pt-5 text-center">
-                        <button mat-button matStepperNext (click)="getAddresses()"><i class="fa fa-chevron-right"></i></button>
+                        <button mat-button matStepperNext (click)="getAddresses()"><i
+                                class="fa fa-chevron-right"></i></button>
                     </div>
                 </mat-step>
 
-                <mat-step label="SHIPPING ADDRESS" (click)="getAddresses()" completed="{{isAddress}}" >
+                <mat-step label="SHIPPING ADDRESS" (click)="getAddresses()" completed="{{isAddress}}">
                     <div class="mb-3">
                         <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedAddressId">
                             <ng-container *ngIf="addressInfo">
@@ -92,8 +95,8 @@
                                         <div class="pl-3">{{address.street}} ,{{address.city}}, {{address.other}}</div>
                                         <button mat-button class="edit-address"
                                             (click)="showAddressInfo(address.address_id)">Edit</button>
-                                        <button mat-button class="delete-address" 
-                                            (click)="deleteAddressService(address.address_id)">Delete</button>    
+                                        <button mat-button class="delete-address"
+                                            (click)="deleteAddressService(address.address_id)">Delete</button>
                                     </div>
                                 </ng-container>
                             </ng-container>
@@ -104,46 +107,56 @@
                             <mat-expansion-panel-header>
                                 Update Address
                             </mat-expansion-panel-header>
-                            <form [formGroup]="updateaddressform" (submit)="updateAddressService(address.address_id)" class="my-3">
+                            <form [formGroup]="updateaddressform" (submit)="updateAddressService(address.address_id)"
+                                class="my-3">
                                 <mat-form-field appearance="outline">
                                     <mat-label>Name</mat-label>
                                     <input formControlName="name" matInput placeholder="Name" [value]="address.name">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>Mobile Number</mat-label>
-                                    <input formControlName="mobile_number" matInput placeholder="Placeholder" [value]="address.mobile_number">
+                                    <input formControlName="mobile_number" matInput placeholder="Placeholder"
+                                        [value]="address.mobile_number">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>Pincode</mat-label>
-                                    <input formControlName="zipcode" matInput placeholder="Placeholder" [value]="address.zipcode">
+                                    <input formControlName="zipcode" matInput placeholder="Placeholder"
+                                        [value]="address.zipcode">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>Locality</mat-label>
-                                    <input formControlName="street" matInput placeholder="Placeholder" [value]="address.street">
+                                    <input formControlName="street" matInput placeholder="Placeholder"
+                                        [value]="address.street">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" style="width:98%">
                                     <mat-label>Address</mat-label>
-                                    <textarea formControlName="address" matInput placeholder="Textarea" [value]="address.address"></textarea>
+                                    <textarea formControlName="address" matInput placeholder="Textarea"
+                                        [value]="address.address"></textarea>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>City/District</mat-label>
-                                    <input formControlName="city" matInput placeholder="Placeholder" [value]="address.city">
+                                    <input formControlName="city" matInput placeholder="Placeholder"
+                                        [value]="address.city">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>State</mat-label>
-                                    <input formControlName="state" matInput placeholder="Placeholder" [value]="address.state">
+                                    <input formControlName="state" matInput placeholder="Placeholder"
+                                        [value]="address.state">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>Landmark</mat-label>
-                                    <input formControlName="landmark" matInput placeholder="Placeholder" [value]="address.landmark">
+                                    <input formControlName="landmark" matInput placeholder="Placeholder"
+                                        [value]="address.landmark">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>Alternate Phone</mat-label>
-                                    <input formControlName="altphone" matInput placeholder="Placeholder" [value]="address.altphone">
+                                    <input formControlName="altphone" matInput placeholder="Placeholder"
+                                        [value]="address.altphone">
                                 </mat-form-field>
-    
+
                                 <mat-radio-group aria-label="Select an option">
-                                    <mat-radio-button value="1" class="mr-2">Home ( All Day Delivery )</mat-radio-button>
+                                    <mat-radio-button value="1" class="mr-2">Home ( All Day Delivery )
+                                    </mat-radio-button>
                                     <mat-radio-button value="2">Work (Delivery between 10AM - 5PM)</mat-radio-button>
                                 </mat-radio-group>
                                 <button mat-raised-button type="submit" [disabled]="addressform.invalid"
@@ -162,11 +175,11 @@
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>Mobile Number</mat-label>
-                                <input formControlName="mobile_number" matInput placeholder="Placeholder">
+                                <input formControlName="mobile_number" matInput >
                             </mat-form-field>
                             <mat-form-field appearance="outline">
-                                <mat-label>Pincode</mat-label>
-                                <input formControlName="zipcode" matInput placeholder="Placeholder">
+                                <mat-label>Alternate Phone</mat-label>
+                                <input formControlName="altphone" matInput placeholder="Placeholder">
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>Locality</mat-label>
@@ -177,20 +190,26 @@
                                 <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
-                                <mat-label>City/District</mat-label>
+                                <mat-label>City</mat-label>
                                 <input formControlName="city" matInput placeholder="Placeholder">
                             </mat-form-field>
                             <mat-form-field appearance="outline">
+                                <mat-label>Country</mat-label>
+                                <mat-select formControlName="country" value="United States">
+                                    <mat-option value="United States">United States</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
                                 <mat-label>State</mat-label>
-                                <input formControlName="state" matInput placeholder="Placeholder">
+                                <mat-select formControlName="state" placeholder="Placeholder">
+                                    <mat-option *ngFor="let state of statesArr" [value]="state">
+                                        {{state}}
+                                    </mat-option>
+                                </mat-select>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
-                                <mat-label>Landmark</mat-label>
-                                <input formControlName="landmark" matInput placeholder="Placeholder">
-                            </mat-form-field>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Alternate Phone</mat-label>
-                                <input formControlName="altphone" matInput placeholder="Placeholder">
+                                <mat-label>Zip Code/Postal</mat-label>
+                                <input formControlName="zipcode" matInput placeholder="Placeholder">
                             </mat-form-field>
 
                             <mat-radio-group aria-label="Select an option" formControlName="addresstype">
@@ -202,7 +221,8 @@
                         </form>
                     </mat-expansion-panel>
                     <div class="pt-5 text-center">
-                        <button mat-button matStepperPrevious (click)="getAddresses()"><i class="fa fa-chevron-left"></i></button>
+                        <button mat-button matStepperPrevious (click)="getAddresses()"><i
+                                class="fa fa-chevron-left"></i></button>
                         <button mat-button matStepperNext (click)="getCarts()"><i
                                 class="fa fa-chevron-right"></i></button>
                     </div>
@@ -231,11 +251,13 @@
                                 <div class="options" style="display: flex;">
                                     <div class="option-btns mt-2" style="flex: 1 1 20%;max-width: 120px;">
                                         <button (click)="removeFromCart(cart)">-</button>
-                                        <input matInput class="text-center" value="{{!cart.quantity ? 1 : cart.quantity}}">
-                                        <button (click) = "addCartFromSummary(cart)">+</button>
+                                        <input matInput class="text-center"
+                                            value="{{!cart.quantity ? 1 : cart.quantity}}">
+                                        <button (click)="addCartFromSummary(cart)">+</button>
                                     </div>
                                     <div class="ml-3 mt-2" style="flex: 1 1 30%;max-width: 30%;">
-                                        <button mat-button (click) = "removeProduct(cart)" class="remove-btn">Remove</button>
+                                        <button mat-button (click)="removeProduct(cart)"
+                                            class="remove-btn">Remove</button>
                                     </div>
                                 </div>
                             </div>
@@ -246,8 +268,10 @@
                         </p>
                     </div>
                     <div class="pt-5 text-center">
-                        <button mat-button matStepperPrevious (click)="getAddresses()"><i class="fa fa-chevron-left"></i></button>
-                        <button mat-button matStepperNext (click)="goToPayment()"><i class="fa fa-chevron-right"></i></button>
+                        <button mat-button matStepperPrevious (click)="getAddresses()"><i
+                                class="fa fa-chevron-left"></i></button>
+                        <button mat-button matStepperNext (click)="goToPayment()"><i
+                                class="fa fa-chevron-right"></i></button>
                     </div>
                 </mat-step>
 
@@ -268,7 +292,8 @@
                         </mat-radio-group>
                     </div>
                     <div class="pt-5 text-center">
-                        <button mat-button matStepperPrevious (click)="getCarts()"><i class="fa fa-chevron-left"></i></button>
+                        <button mat-button matStepperPrevious (click)="getCarts()"><i
+                                class="fa fa-chevron-left"></i></button>
                     </div>
 
                 </mat-step>

@@ -48,34 +48,39 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   public isLogIn: boolean = false;
   public isAddress: boolean = false;
   public isCart: boolean = false;
+  public statesArr : string[]  = environment.STATES.split(',');
+  
 
   addressform: FormGroup = new FormGroup({
     countrycode: new FormControl('us'),
-    name: new FormControl(''),
-    mobile_number: new FormControl(''),
-    zipcode: new FormControl(''),
-    street: new FormControl(''),
-    address: new FormControl(''),
-    city: new FormControl(''),
-    state: new FormControl(''),
+    name: new FormControl('',[Validators.required]),
+    mobile_number: new FormControl('',[Validators.required, Validators.pattern('[0-9]+')]),
+    zipcode: new FormControl('',[Validators.required,Validators.pattern('[0-9]+')]),
+    street: new FormControl('',[Validators.required]),
+    address: new FormControl('',[Validators.required]),
+    city: new FormControl('',[Validators.required]),
+    state: new FormControl('',[Validators.required]),
     landmark: new FormControl(''),
-    altphone: new FormControl(''),
+    altphone: new FormControl('',[Validators.required]),
     address_id: new FormControl(''),
-    addresstype: new FormControl(''),
+    addresstype: new FormControl('',[Validators.required]),
+    country: new FormControl('United States',[Validators.required]),
+    
   });
 
   updateaddressform: FormGroup = new FormGroup({
     countrycode: new FormControl('us'),
-    name: new FormControl(''),
-    mobile_number: new FormControl(''),
-    zipcode: new FormControl(''),
-    street: new FormControl(''),
-    address: new FormControl(''),
-    city: new FormControl(''),
-    state: new FormControl(''),
+    name: new FormControl('',[Validators.required]),
+    mobile_number: new FormControl('',[Validators.required, Validators.pattern('[0-9]+')]),
+    zipcode: new FormControl('',[Validators.required,Validators.pattern('[0-9]+')]),
+    street: new FormControl('',[Validators.required]),
+    address: new FormControl('',[Validators.required]),
+    city: new FormControl('',[Validators.required]),
+    state: new FormControl('',[Validators.required]),
     landmark: new FormControl(''),
-    altphone: new FormControl(''),
+    altphone: new FormControl('',[Validators.required]),
     address_id: new FormControl(''),
+    country: new FormControl('United States',[Validators.required]),
   });
 
   constructor(public loginformService: LoginformService,
@@ -93,6 +98,7 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
+    
     let access_token = sessionStorage.getItem("access_token");
     if (access_token != null) {
       this.autherization = "Bearer " + access_token;
