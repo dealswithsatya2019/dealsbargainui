@@ -94,6 +94,16 @@ export class CartdetailsComponent implements OnInit {
     this._router.navigateByUrl('/mycart');
   }
 
+
+  public updateCart(product: Product) {
+    this.cartService.addToCart(product);
+    this.shoppingCartItems = this.cartService.getItems();
+    if (this.autherization != null) {
+      this.addCart(product);
+    }
+    this._router.navigateByUrl('/mycart');
+  }
+
   public removeFromCart(product: Product) {
     this.cartService.removeFromCart(product);
     this.shoppingCartItems = this.cartService.getItems();
