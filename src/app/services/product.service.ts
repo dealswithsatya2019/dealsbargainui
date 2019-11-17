@@ -23,7 +23,7 @@ export class ProductService {
 
   routeProductList(params) {
     //this._router.navigate(['/productlist',{cname: params.cname, scname:params.scname}]);
-    this._router.navigate(['/productlist',params.cname, params.scname]);
+    this._router.navigate(['/product',params.cname, params.scname]);
   }  
 
   public getProductlist(categoryName, subCategoryName?, countryCode?, from?, limit?): Observable<any> {

@@ -52,4 +52,5 @@ export class ProductDetails {
     product_attributes: Array<KeyValuePair> =[];
     dealtype: string ='';
     deal_price: string = ''; 
+    deals_bargain_supplier_deal_price: string = '';
 }

@@ -23,4 +23,5 @@ export class Product {
     custom_price : number  = 0;
     prepay_price : number = 0;
     cart_id : string = "";
+    deals_bargain_supplier_deal_price: string ="";
  }

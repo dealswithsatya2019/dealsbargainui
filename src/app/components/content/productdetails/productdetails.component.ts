@@ -15,6 +15,7 @@ import { ProductDetailsRouteInfoService } from 'src/app/services/routing-service
 import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
 import { ProductRouteInfo } from 'src/app/models/ProductRouteInfo';
 import { Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
 declare let paypal: any;
@@ -28,7 +29,8 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
 
   //https://ngx-gallery-cors-error.stackblitz.io
    //Using loadingMode: 'indeterminate' on the GalleryModule's config worked.
-  public authToken: string = "";
+   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
+   public authToken: string = "";
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
   paidFor: boolean = false;
@@ -96,8 +98,6 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
       if(results.responseObject){
          
        //if(results.statusCode ===200){
-        console.log("response results :",results);
-         console.log("response objects :",searchreponse);
         this.productDetails = results.responseObject[0];
         if(this.productDetails){
           let arr=this.productDetails.thumbnail_image;
@@ -136,7 +136,7 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
     this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
         (results: searchreponse) => {
           this.similarProducts = results.responseObjects;
-          console.log("simillar products :",this.similarProducts);
+          //console.log("simillar products :",this.similarProducts);
       });
    // }); 
   }

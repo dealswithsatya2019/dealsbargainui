@@ -1,6 +1,6 @@
 <mat-toolbar-row>
 <ng-container *ngFor="let mainMenuCategory of menuCategories">
-    <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{mainMenuCategory.category}}</a>
+    <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{mainMenuCategory.category_display_name}}</a>
     <mat-menu #menu="matMenu" panelClass="magaMenu" backdropClass="megaMenu">
         <div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
            <!-- <div class="p-2" fxflex="25" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 25%; max-width: 25%;">
