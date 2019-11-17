@@ -40,11 +40,9 @@ export class ProductlistComponent implements OnInit, OnDestroy {
   //subscription : Subscription;
   ngOnInit() {
    this.sub = this._Activatedroute.paramMap.subscribe(params => {
-      console.log('params' + params);
       //this.cname = params.get('cname');
       //this.scname = params.get('scname');
       
-    });
     /*this.subscription = this._productListRouteInfo.getCart().subscribe(productRouteInfo => {
       if (productRouteInfo) {
         this.cname = productRouteInfo.cname;
@@ -59,6 +57,8 @@ export class ProductlistComponent implements OnInit, OnDestroy {
           this.getDistinctBrands();
         });
      // });
+    });
+
     this.snackBarConfig = new MatSnackBarConfig();
     this.snackBarConfig.horizontalPosition = "center";
     this.snackBarConfig.verticalPosition = "top";
@@ -66,6 +66,7 @@ export class ProductlistComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
+    this.sub.unsubscribe();
     this.subscription.unsubscribe();
   }
 
