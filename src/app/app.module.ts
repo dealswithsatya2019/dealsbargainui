@@ -131,7 +131,8 @@ export function ProvideConfig() {
     NgxStarRatingModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA , NO_ERRORS_SCHEMA],
-  providers: [HttCommonService, ProductService, UserService,ProductListRouteInfoService, { provide: AuthServiceConfig, useFactory: ProvideConfig}],
+  providers: [HttCommonService, ProductService, UserService, { provide: AuthServiceConfig, useFactory: ProvideConfig}],
   bootstrap: [AppComponent]
 })
+//providers: [HttCommonService, ProductService, UserService,ProductListRouteInfoService, { provide: AuthServiceConfig, useFactory: ProvideConfig}],
 export class AppModule { }

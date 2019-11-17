@@ -17,14 +17,21 @@ import { ProductRouteInfo } from 'src/app/models/ProductRouteInfo';
 import { Subscription } from 'rxjs';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
+declare let paypal: any;
 
 @Component({
   selector: 'app-productdetails',
   templateUrl: './productdetails.component.html',
   styleUrls: ['./productdetails.component.scss']
 })
-export class ProductdetailsComponent implements OnInit {
+export class ProductdetailsComponent implements OnInit, AfterViewInit {
 
+  //https://ngx-gallery-cors-error.stackblitz.io
+   //Using loadingMode: 'indeterminate' on the GalleryModule's config worked.
+  public authToken: string = "";
+  @ViewChild('paypal', { static: true })
+  paypalElement: ElementRef;
+  paidFor: boolean = false;
   public productDetails : ProductDetails = new ProductDetails();
   public product: Product = new Product();
   public similarProducts : Product[];
@@ -43,7 +50,20 @@ export class ProductdetailsComponent implements OnInit {
   public OneStar: number = 10;
   public isProductAvailable : boolean =false;
   subscription : Subscription;
-  public authToken :string;
+  // product = {
+  //   price: 0.01,
+  //   description: "Kappa",
+  //   image_uri: "https://d1k0ppjronk6up.cloudfront.net/products/1529/images_b75_image2_844.jpg",
+  //   offer_per: 10,
+  //   name: "Kappa Variety Puzzles & Games Book Case Pack 48",
+  //   status: "",
+  //   brand_name: "Kappa",
+  //   master_suplier: "",
+  //   actual_price: 0.01,
+  //   offer_price: 0.01,
+  //   drop_ship_fee: "0.001$",
+  //   title: "Kappa Variety Puzzles & Games Book Case Pack 48"
+  // }
 
   constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public gallery: Gallery, public userservice: UserService,private cartService: CartService,
     public _productListRouteInfo:ProductListRouteInfoService,
@@ -52,6 +72,17 @@ export class ProductdetailsComponent implements OnInit {
 
   ngOnInit() {
     this.authToken = sessionStorage.getItem("access_token");
+    /*this._Activatedroute.paramMap.subscribe((params : ParamMap)=> {  
+      this.cname=params.get('cname');  
+      this.scname=params.get('scname');  
+      this.pid=params.get('pid');  
+    });*/
+    /*this.subscription = this._productListRouteInfo.getCart().subscribe(productRouteInfo => {
+      if (productRouteInfo) {
+        this.cname = productRouteInfo.cname;
+        this.scname = productRouteInfo.scname;
+        this.pid = productRouteInfo.productId;
+      }*/
     let prodListClickInfo: ProductRouteInfo = JSON.parse(sessionStorage.getItem("product_details"));
     this.cname = prodListClickInfo.cname;
     this.scname = prodListClickInfo.scname;
@@ -152,7 +183,7 @@ export class ProductdetailsComponent implements OnInit {
   
   ngAfterViewInit() {
 
-    /*setTimeout(() => {
+    setTimeout(() => {
       var swiper = new Swiper('.similar', {
         autoplay: {
           delay: 3000,
@@ -181,22 +212,22 @@ export class ProductdetailsComponent implements OnInit {
           swiper: galleryThumbs
         }
       });
-    }, 1000);*/
+    }, 1000);
   }
 
-  showProductDetails(cname,scname,pid){
-    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(cname,scname,pid);
+  showProductDetails(params){
+    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params.cname,params.scname,params.pid);
     sessionStorage.setItem("product_details", JSON.stringify(productRouteInfo));
     //this._productListRouteInfo.addToCart(productRouteInfo);
-    this._productservice.routeProductDetails();
+    this._productservice.routeProductDetails(params);
   }
 
-  routeToProductListPage(cname,scname){
-    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(cname,scname,'');
+  routeToProductListPage(params){
+    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params.cname,params.scname,'');
    /* this._productListRouteInfo.cname = cname;
     this._productListRouteInfo.scname = scname;*/
     sessionStorage.setItem("product_list", JSON.stringify(productRouteInfo));
-    this._productservice.routeProductList();
+    this._productservice.routeProductList(params);
   }
 
   public addToCart(produt: ProductDetails) {

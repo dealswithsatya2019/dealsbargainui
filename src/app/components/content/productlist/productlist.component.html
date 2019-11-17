@@ -48,7 +48,7 @@
 								<span class="badge badge-danger">{{product.discount}}</span>
 							</mat-card-subtitle> -->
 							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo"
-								(click)="showProductDetails(cname,scname,product.item_id)">
+								(click)="showProductDetails({cname:cname,scname:scname,pid:product.item_id})">
 
 							<mat-card-content>
 								<p class="p-title text-center">{{product.item_name}}</p>
@@ -57,10 +57,10 @@
 										<span class="old_cost">{{PRICE_PREFIX}}{{product.supplier_deal_price}}</span>
 										<span class="new_cost">{{PRICE_PREFIX}}{{product.deal_price}}</span>
 									</ng-container>
-									<ng-container *ngIf="product.dealtype!='' && product.discount=='0'">
+									<ng-container *ngIf="product.discount!='' && product.discount=='0'">
 										<span class="new_cost">{{PRICE_PREFIX}}{{product.price}}</span>
 									</ng-container>
-									<ng-container *ngIf="product.dealtype!='' && product.discount!='0'">
+									<ng-container *ngIf="product.discount!='' && product.discount!='0'">
 										<span class="old_cost">{{PRICE_PREFIX}}{{product.price}}</span>
 										<span class="new_cost">{{PRICE_PREFIX}}{{product.discount_amount}}</span>
 									</ng-container>									

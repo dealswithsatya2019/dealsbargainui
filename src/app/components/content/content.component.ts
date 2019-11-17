@@ -27,15 +27,16 @@ export class ContentComponent implements AfterViewInit, OnInit {
   public snackBarConfig : MatSnackBarConfig;
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
   constructor(private _snackBar: MatSnackBar, private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public cart: CartService,
-    public _productListRouteInfo:ProductListRouteInfoService) {
+    ) //public _productListRouteInfo:ProductListRouteInfoService
+    {
   }
 
 
-  showProductDetails(cname,scname,pid){
-    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(cname,scname,pid);
+  showProductDetails(params){
+    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params.cname,params.scname,params.pid);
     sessionStorage.setItem("product_details", JSON.stringify(productRouteInfo));
-    this._productListRouteInfo.addToCart(productRouteInfo);
-    this._productservice.routeProductDetails();
+    //this._productListRouteInfo.addToCart(productRouteInfo);
+    this._productservice.routeProductDetails(params);
   }
 
   ngAfterViewInit() {

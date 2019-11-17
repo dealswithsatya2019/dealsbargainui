@@ -20,10 +20,13 @@ import { Subscription } from 'rxjs';
 })
 export class ProductlistComponent implements OnInit, OnDestroy {
 
-  constructor(private _snackBar: MatSnackBar,private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,private cartService: CartService,
+/*  constructor(private _snackBar: MatSnackBar,private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,private cartService: CartService,
     public _productListRouteInfo:ProductListRouteInfoService,
     public _productDetailsRouteInfo:ProductDetailsRouteInfoService
+  ) { }*/
+  constructor(private _snackBar: MatSnackBar,private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,private cartService: CartService,
   ) { }
+  subscription: Subscription;
   cname: any;
   scname: any;
   sub;
@@ -36,16 +39,17 @@ export class ProductlistComponent implements OnInit, OnDestroy {
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
   //subscription : Subscription;
   ngOnInit() {
-   /* this.sub = this._Activatedroute.paramMap.subscribe(params => {
+   this.sub = this._Activatedroute.paramMap.subscribe(params => {
       console.log('params' + params);
-      this.cname = params.get('cname');
-      this.scname = params.get('scname');
-      this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
-        (results: searchreponse) => {
-          this.products = results.responseObjects;
-          this.getDistinctBrands();
-        });
-    });*/
+      //this.cname = params.get('cname');
+      //this.scname = params.get('scname');
+      
+    });
+    this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
+      (results: searchreponse) => {
+        this.products = results.responseObjects;
+        this.getDistinctBrands();
+      });
     /*this.subscription = this._productListRouteInfo.getCart().subscribe(productRouteInfo => {
       if (productRouteInfo) {
         this.cname = productRouteInfo.cname;
@@ -54,7 +58,7 @@ export class ProductlistComponent implements OnInit, OnDestroy {
       let menuClickInfo: ProductRouteInfo = JSON.parse(sessionStorage.getItem("product_list"));
       this.cname = menuClickInfo.cname;
       this.scname = menuClickInfo.scname;
-      this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
+      this.subscription = this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
         (results: searchreponse) => {
           this.products = results.responseObjects;
           this.getDistinctBrands();
@@ -67,14 +71,14 @@ export class ProductlistComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    //this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
-  showProductDetails(cname,scname, pid) {
-    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(cname,scname,pid);
+  showProductDetails(params) {
+    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params.cname,params.scname,params.pid);
     sessionStorage.setItem("product_details", JSON.stringify(productRouteInfo));
     //this._productListRouteInfo.addToCart(productRouteInfo);
-    this._productservice.routeProductDetails();
+    this._productservice.routeProductDetails(params);
   }
 
   getDistinctBrands() {

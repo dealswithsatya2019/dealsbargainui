@@ -7,8 +7,9 @@ import { searchreponse } from 'src/app/models/searchResponse';
 //import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
 import { AuthResopnse2 } from 'src/app/models/ApiResponse2';
 import { ProductRouteInfo } from 'src/app/models/ProductRouteInfo';
+import { Subscription } from 'rxjs';
 // import { MatDialogRef } from '@angular/material';
-
+//https://stackoverflow.com/questions/47080338/how-do-i-access-mat-menu-trigger-from-typescript
 @Component({
   selector: 'app-menu-bar',
   templateUrl: './menu-bar.component.html',
@@ -17,12 +18,14 @@ import { ProductRouteInfo } from 'src/app/models/ProductRouteInfo';
 export class MenuBarComponent implements OnInit {
 
   public menuCategories : MenuCategories[];
-
+  public menuSubCategories : MenuCategories;
   //constructor(public _productservice: ProductService, public _productListRouteInfo:ProductListRouteInfoService) { }
+  subscription : Subscription;
   constructor(public _productservice: ProductService) { }
 
   ngOnInit() {
     this.getAllCategoriesMenuInfo();
+    
   }
 
   @ViewChild(MatMenuTrigger, { static: false }) HoverMenuTrigger: MatMenuTrigger;
@@ -90,6 +93,10 @@ export class MenuBarComponent implements OnInit {
     }
   ];
 
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
+
   /*getAllCategoriesMenuInfo(){
     try {
     for(let i=0;i<this.mainMenus.length ;i++){  //How to properly iterate here!!
@@ -107,7 +114,7 @@ export class MenuBarComponent implements OnInit {
 
    getAllCategoriesMenuInfo(){
     try {
-      this._productservice.getCategoryMenuInfo('','us').subscribe(
+      this.subscription = this._productservice.getCategoryMenuInfo('','us').subscribe(
         (authResponse: searchreponse) => {
           this.menuCategories = authResponse.responseObjects;
         }
@@ -125,7 +132,7 @@ export class MenuBarComponent implements OnInit {
     try {
         this._productservice.getSubCategories(cname,'us').subscribe(
           (authResponse: AuthResopnse2) => {
-            this.menuCategories.push(authResponse.responseObjects);
+            this.menuSubCategories = authResponse.responseObjects;
           }
         );
     } catch (error) {
@@ -134,10 +141,10 @@ export class MenuBarComponent implements OnInit {
   }
 
 
-  routeToProductListPage(cname,scname){
-    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(cname,scname,'');
+  routeToProductListPage(params){
+    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params.cname,params.scname,'');
     /*this._productListRouteInfo.addToCart(productRouteInfo);*/
     sessionStorage.setItem("product_list", JSON.stringify(productRouteInfo));
-    this._productservice.routeProductList();
+    this._productservice.routeProductList(params);
   }
 }

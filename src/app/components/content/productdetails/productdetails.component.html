@@ -201,7 +201,7 @@
 	<!-- Similar Products -->
 <h5 class="subtitle position-relative"> SIMILAR PRODUCTS
 		<!-- <a [routerLink]="['productlist',cname.toLowerCase(),scname]" routerLinkActive="active" class="pl-3">VIEW ALL</a> -->
-		<a (click)="routeToProductListPage(cname.toLowerCase(),scname)"  class="pl-3">VIEW ALL</a>
+		<a (click)="routeToProductListPage({cname:cname.toLowerCase(),scname:scname})"  class="pl-3">VIEW ALL</a>
 	</h5>
 	<div *ngIf="similarProducts">
 		<div class="swiper-container similar">
@@ -214,8 +214,8 @@
 							</mat-card-subtitle>
 						</ng-container>
 						<div class="product-img">
-							<!-- <img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails('{cname:product.category,scname:product.subcategory,pid:product.item_id}')"> -->
-							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails(product.category,product.subcategory,product.item_id)">
+							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails({cname:product.category,scname:product.subcategory,pid:product.item_id})">
+							<!-- <img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails(product.category,product.subcategory,product.item_id)">-->
 						</div>
 						<mat-card-content class="product-desc">
 							<p class="p-title">{{product.item_name}}</p>
