@@ -30,7 +30,7 @@ export class CartdetailsComponent implements OnInit {
     let access_token = sessionStorage.getItem("access_token");
     console.log("access_token :", access_token);
     if (access_token != null) {
-      // console.log("access token not null...");
+      // console.log("access tokenO not null...");
       // this.product = this.cartService.recentProduct();
       // if (this.product != null) {
       this.autherization = "Bearer " + access_token;
@@ -66,7 +66,7 @@ export class CartdetailsComponent implements OnInit {
 
   public getCartlist(): Observable<cartInfo> {
     
-    return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartInfo",
+    return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartdetails/us",
       { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
@@ -104,8 +104,8 @@ export class CartdetailsComponent implements OnInit {
     this._router.navigateByUrl('/mycart');
   }
 
-  public removeFromCart(product: Product) {
-    this.cartService.removeFromCart(product);
+  public ItemCountChangeCart(product: Product) {
+    this.cartService.ItemFromCartChange(product);
     this.shoppingCartItems = this.cartService.getItems();
     this._router.navigateByUrl('/mycart');
   }
@@ -114,6 +114,7 @@ export class CartdetailsComponent implements OnInit {
     this.cartService.removeCart(product);
     this.shoppingCartItems = this.cartService.getItems();
     this._router.navigateByUrl('/mycart');
+    
   }
 
 }

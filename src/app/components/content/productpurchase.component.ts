@@ -48,39 +48,38 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   public isLogIn: boolean = false;
   public isAddress: boolean = false;
   public isCart: boolean = false;
-  public statesArr : string[]  = environment.STATES.split(',');
-  
+  public statesArr: string[] = environment.STATES.split(',');
+
 
   addressform: FormGroup = new FormGroup({
     countrycode: new FormControl('us'),
-    name: new FormControl('',[Validators.required]),
-    mobile_number: new FormControl('',[Validators.required, Validators.pattern('[0-9]+')]),
-    zipcode: new FormControl('',[Validators.required,Validators.pattern('[0-9]+')]),
-    street: new FormControl('',[Validators.required]),
-    address: new FormControl('',[Validators.required]),
-    city: new FormControl('',[Validators.required]),
-    state: new FormControl('',[Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    mobile_number: new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]),
+    zipcode: new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]),
+    street: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    state: new FormControl('', [Validators.required]),
     landmark: new FormControl(''),
-    altphone: new FormControl('',[Validators.required]),
-    address_id: new FormControl(''),
-    addresstype: new FormControl('',[Validators.required]),
-    country: new FormControl('United States',[Validators.required]),
-    
+    altphone: new FormControl('', [Validators.required]),
+    addresstype: new FormControl('', [Validators.required]),
+    country: new FormControl('United States', [Validators.required]),
+
   });
 
   updateaddressform: FormGroup = new FormGroup({
     countrycode: new FormControl('us'),
-    name: new FormControl('',[Validators.required]),
-    mobile_number: new FormControl('',[Validators.required, Validators.pattern('[0-9]+')]),
-    zipcode: new FormControl('',[Validators.required,Validators.pattern('[0-9]+')]),
-    street: new FormControl('',[Validators.required]),
-    address: new FormControl('',[Validators.required]),
-    city: new FormControl('',[Validators.required]),
-    state: new FormControl('',[Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    mobile_number: new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]),
+    zipcode: new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]),
+    street: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    state: new FormControl('', [Validators.required]),
     landmark: new FormControl(''),
-    altphone: new FormControl('',[Validators.required]),
+    altphone: new FormControl('', [Validators.required]),
     address_id: new FormControl(''),
-    country: new FormControl('United States',[Validators.required]),
+    country: new FormControl('United States', [Validators.required]),
   });
 
   constructor(public loginformService: LoginformService,
@@ -98,12 +97,13 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    
+
     let access_token = sessionStorage.getItem("access_token");
     if (access_token != null) {
       this.autherization = "Bearer " + access_token;
       this.loginformService.response = JSON.parse(sessionStorage.getItem("f_login_form"));
       console.log("response ", this.loginformService.response);
+      this.isLogIn = true;
     }
     paypal
       .Buttons({
@@ -231,10 +231,10 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
 
   public deleteAddress(addressId): Observable<addressResponse> {
     let body = {
-      "countryCode":"us",
-      "addressid":addressId
+      "countryCode": "us",
+      "addressid": addressId
     }
-    return this.http.post<addressResponse>(this.APIEndpoint + "/user/contacts/",body,
+    return this.http.post<addressResponse>(this.APIEndpoint + "/user/contacts/", body,
       { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
@@ -255,8 +255,12 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   }
 
   public getCartlist(): Observable<cartInfo> {
+    let body = {
+      "countryCode": "us",
+      "address_id": this.selectedAddressId,
+    }
     return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartInfo",
-      { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
   public getCarts() {
@@ -375,7 +379,7 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   }
 
   public removeFromCart(product: Product) {
-    this.cartService.removeFromCart(product);
+    this.cartService.removeProduct(product);
 
   }
 

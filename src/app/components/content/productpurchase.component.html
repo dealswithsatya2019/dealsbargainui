@@ -89,7 +89,7 @@
                             <ng-container *ngIf="addressInfo">
                                 <ng-container *ngFor="let address of addressInfo.responseObjects">
                                     <div class="add1 my-3">
-                                        <mat-radio-button value="address.address_id">{{address.name}}
+                                        <mat-radio-button [value]="address.address_id">{{address.name}}
                                             <span class="px-1">HOME</span> {{address.mobile_number}}
                                         </mat-radio-button>
                                         <div class="pl-3">{{address.street}} ,{{address.city}}, {{address.other}}</div>
@@ -262,8 +262,7 @@
                                 </div>
                             </div>
                         </ng-container>
-                        <p class="mt-3">Order Confirmation will be sent to
-                            <b>dealsbargain@gmail.com</b>
+                        <p class="mt-3">
                             <button mat-button matStepperNext class="float-right login-login-btn">CONTINUE</button>
                         </p>
                     </div>

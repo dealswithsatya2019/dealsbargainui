@@ -28,7 +28,7 @@ export class CartService {
       this.itemsInCart.forEach(element => {
         if (element.item_id == item.item_id) {
           element.quantity = (element.quantity + 1);
-          totalCartCount = element.quantity + 1
+          totalCartCount = element.quantity;
         }
         this.itemsInCartTemp.push(element)
       });
@@ -38,6 +38,7 @@ export class CartService {
     } else {
       item.quantity = 1;
       this.itemsInCart.push(item);
+      console.log("Item cart ",this.getItems())
     }
     this.addedProduct = item;
     if (access_token != null) {
@@ -85,6 +86,7 @@ export class CartService {
         "count": "1"
       },
     ]
+    console.log("Category :",product.category);
     return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
@@ -97,15 +99,14 @@ export class CartService {
     return this.addedProduct = null;
   }
 
-  public removeFromCart(item: Product) {
+  public ItemFromCartChange(item: Product) {
     this.itemsInCartTemp = [];
     let totalCount = 0;
     if (this.itemsInCart.some(e => e.item_id === item.item_id)) {
       this.itemsInCart.forEach(element => {
         if (element.item_id == item.item_id) {
           element.quantity = (element.quantity - 1);
-          totalCount = (totalCount - 1);
-          totalCount
+          totalCount = element.quantity;
           if (element.quantity < 0) {
             element.quantity = 0;
           }
@@ -121,7 +122,10 @@ export class CartService {
 
   public removeCart(item: Product) {
     this.itemsInCart = this.itemsInCart.filter(itemLoop => itemLoop.item_id != item.item_id);
-
+    let access_token = sessionStorage.getItem("access_token");
+    if(access_token != null){
+      this.removeProduct(item.cart_id);      
+    }
   }
 
   public getItems(): Product[] {
@@ -132,12 +136,12 @@ export class CartService {
     this.removeProduct(cartId).subscribe();
   }
 
-  public removeProduct(addressId): Observable<any> {
+  public removeProduct(cart_id): Observable<any> {
     let body = {
       "countryCode": "us",
-      "addressid": addressId
+      "cart_id": cart_id
     }
-    return this.http.post<any>(this.APIEndpoint + "/user/contacts/", body,
+    return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/removeItemFromCart", body,
       { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 

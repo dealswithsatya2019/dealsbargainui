@@ -25,16 +25,16 @@ export class ContentComponent implements AfterViewInit, OnInit {
   public flashDeals: Product[];
   public hotDeals: Product[];
   public todayDeals: Product[];
-  public snackBarConfig : MatSnackBarConfig;
+  public snackBarConfig: MatSnackBarConfig;
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
   constructor(private _snackBar: MatSnackBar, private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public cart: CartService,
-    ) //public _productListRouteInfo:ProductListRouteInfoService
-    {
+  ) //public _productListRouteInfo:ProductListRouteInfoService
+  {
   }
 
 
-  showProductDetails(params){
-    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params.cname,params.scname,params.pid);
+  showProductDetails(params) {
+    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params.cname, params.scname, params.pid);
     sessionStorage.setItem("product_details", JSON.stringify(productRouteInfo));
     //this._productListRouteInfo.addToCart(productRouteInfo);
     this._productservice.routeProductDetails(params);
@@ -85,7 +85,7 @@ export class ContentComponent implements AfterViewInit, OnInit {
       })
     }, 1000);
   }
-  
+
   ngOnInit() {
     this._productservice.getHttpProductDealsByType('f', 'us', 0, 50).subscribe(
       (results: searchreponse) => {
@@ -131,6 +131,9 @@ export class ContentComponent implements AfterViewInit, OnInit {
   }
 
   public addToCart(product: Product) {
+    if (product.quantity == 0) {
+      product.quantity = 1;
+    }
     this.cart.addToCart(product);
     // type MatSnackBarHorizontalPosition = 'start' | 'center' | 'end' | 'left' | 'right';
     // type MatSnackBarVerticalPosition = 'top' | 'bottom';

@@ -8,7 +8,6 @@
                 <div class="order-details pl-3" style="flex: 1 1 60%;max-width: 60%;">
                     <h6>{{cart.item_name}}</h6>
                     <div class="small-cap">{{cart.brand_name}}</div>
-                    <div class="mt-2 small-cap">Seller: {{cart.master_suplier}}</div>
                     <p class="p-cost">
                         <ng-container *ngIf="cart.deal_type==''">
                             <span class="old_cost">{{cart.supplier_deal_price}}</span>
@@ -29,7 +28,7 @@
             </div>
             <div class="options" style="display: flex;">
                 <div class="option-btns mt-2" style="flex: 1 1 20%;max-width: 120px;">
-                    <button (click)="removeFromCart(cart)">-</button>
+                    <button (click)="ItemCountChangeCart(cart)">-</button>
                     <input matInput class="text-center" value="{{cart.quantity}}" >
                     <button (click)="addToCart(cart)">+</button>
                 </div>
@@ -38,8 +37,7 @@
                 </div>
             </div>
         </div>
-        <p class="my-3">Order Confirmation will be sent to
-            <b>dealsbargain@gmail.com</b>
+        <p class="my-3">
             <button mat-button class="float-right login-login-btn" [routerLink]="['/productpurchase']">Place ORDER</button>
         </p>
     </ng-container>
