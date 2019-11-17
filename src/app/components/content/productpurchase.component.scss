@@ -1,4 +1,5 @@
 .checkout-card{
+    width: 310px;
     background-color: #fff;
     margin-top: -8px;
     .price-details{
@@ -244,7 +245,7 @@ mat-horizontal-stepper{
     margin-bottom: 12px;
 }
 .cpnid{
-    width:79%;
+    width:77%;
     border: 1px solid #e8e8e8;
     color:#666;
     float: left;
@@ -261,9 +262,10 @@ mat-horizontal-stepper{
     border-radius: 0px;
     margin-top: -2px;
     box-shadow: none;
+    padding: 0px;
 }
 .left-panel{
-    flex: 1 1 70%;max-width: 70%;min-height: 370px;
+    min-height: 370px;
     background-color: #fff;
 }
 .remove-btn{

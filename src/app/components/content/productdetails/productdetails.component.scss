@@ -13,6 +13,8 @@ ul{
     }
   }
 }
+.left-details{flex: 1 1 45%; box-sizing: border-box; max-width: 45%;display: flex;}
+.right-details{flex: 1 1 55%; box-sizing: border-box; max-width: 55%;}
 mat-toolbar-row{
   height: auto;
   padding: 0px;
@@ -93,6 +95,10 @@ h5{
         line-height: 33px;
         text-align: center;
         background: url('../../../../assets/img/badge.png') no-repeat;
+      }
+      .product-img{
+        height: 130px;
+        img{max-height: 100%;}
       }
       .p-title{
         white-space: pre-wrap;
@@ -209,7 +215,7 @@ h5{
     position: relative;
     &:hover{
       .product-rating{
-        display: inline-block;
+        display: block;
         position: absolute;
         top: 30px;
         left: 0px;
@@ -395,7 +401,7 @@ h5{
     border-radius: 5px;
     background-color: #fff;
     &:hover{
-      .product-rating-bar{display: inline-block;
+      .product-rating-bar{display: block;
         i{font-size: 19px;}
       }
     }
@@ -403,8 +409,16 @@ h5{
   .cart{border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-radius: 0px;}
 
   mat-expansion-panel{margin-bottom: 20px;}
-
+.progress-line{
+  display: flex;
+  align-items: center;
+}
  /* .mat-progress-bar .mat-progress-bar-buffer {
     background: #E4E8EB;
     border-radius: 5px;
   }*/
+
+  @media screen and (max-width:768px){
+    .left-details, .right-details{max-width: 100%;flex: 1 1 100%;}
+    .col-flex{flex-wrap: wrap;}
+  }

@@ -23,7 +23,7 @@ Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
   templateUrl: './productdetails.component.html',
   styleUrls: ['./productdetails.component.scss']
 })
-export class ProductdetailsComponent implements OnInit {
+export class ProductdetailsComponent implements OnInit , AfterViewInit {
 
   public productDetails : ProductDetails = new ProductDetails();
   public product: Product = new Product();
@@ -152,8 +152,8 @@ export class ProductdetailsComponent implements OnInit {
   
   ngAfterViewInit() {
 
-    /*setTimeout(() => {
-      var swiper = new Swiper('.similar', {
+    setTimeout(() => {
+      var swiper5 = new Swiper('.similar', {
         autoplay: {
           delay: 3000,
         },
@@ -167,21 +167,21 @@ export class ProductdetailsComponent implements OnInit {
       })
       }, 1000);
 
-      setTimeout(() => {
-      var galleryThumbs = new Swiper('.gallery-thumbs', {
-        spaceBetween: 10,
-        slidesPerView: 4,
-        freeMode: true,
-        watchSlidesVisibility: true,
-        watchSlidesProgress: true,
-      });
-      var galleryTop = new Swiper('.gallery-top', {
-        spaceBetween: 10,
-        thumbs: {
-          swiper: galleryThumbs
-        }
-      });
-    }, 1000);*/
+    //   setTimeout(() => {
+    //   var galleryThumbs = new Swiper('.gallery-thumbs', {
+    //     spaceBetween: 10,
+    //     slidesPerView: 4,
+    //     freeMode: true,
+    //     watchSlidesVisibility: true,
+    //     watchSlidesProgress: true,
+    //   });
+    //   var galleryTop = new Swiper('.gallery-top', {
+    //     spaceBetween: 10,
+    //     thumbs: {
+    //       swiper: galleryThumbs
+    //     }
+    //   });
+    // }, 1000);
   }
 
   showProductDetails(cname,scname,pid){

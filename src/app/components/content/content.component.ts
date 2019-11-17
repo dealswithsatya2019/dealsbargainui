@@ -20,6 +20,7 @@ import { ProductListRouteInfoService } from 'src/app/services/routing-services/p
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss']
 })
+
 export class ContentComponent implements AfterViewInit, OnInit {
   public flashDeals: Product[];
   public hotDeals: Product[];

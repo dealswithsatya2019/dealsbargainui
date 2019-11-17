@@ -6,8 +6,8 @@
 				<li><a>Product Details</a></li>
 			</ul>
 		</mat-toolbar-row>
-	<div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;" class="mb-4">
-		<div fxflex="100" fxflex.gt-md="35" fxflex.md="45" style="flex: 1 1 55%; box-sizing: border-box; max-width: 45%;display: flex">
+	<div style="display: flex;" class="mb-4 col-flex">
+		<div class="left-details">
 			<div class="swiper-container gallery-thumbs" style="height:450px">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" *ngFor="let listitem of items; index as j">
@@ -25,9 +25,8 @@
 
 		</div>
 
-		<div fxflex="100" fxflex.gt-md="45" fxflex.md="55" ngclass.gt-sm="px-3 m-0" ngclass.sm="mt-2" ngclass.xs="mt-2" class="px-4 m-0"
-		 style="flex: 1 1 55%; box-sizing: border-box; max-width: 55%;">
-			<div fxshow="false" fxshow.gt-md="">
+		<div class="right-details pl-3">
+			<div>
 				<!-- <mat-card class="zoom-viewer mat-elevation-z18 mat-card ng-star-inserted" style="background-image: url(&quot;assets/images/products/keyboard/1-big.png&quot;); background-position: 87.4477% 97.493%; display: none; height: 359px; width: 478px;"></mat-card>-->
 				<mat-card class="zoom-viewer mat-elevation-z18 mat-card ng-star-inserted" style="background-position: 87.4477% 97.493%; display: none; height: 359px; width: 478px;"></mat-card>
 			</div>
@@ -64,12 +63,12 @@
 					</div>
 					
 					<div class="product-rating-bar">
-						13 customers ratings
-						5star <mat-progress-bar mode="determinate" value="{FiveStar}}"></mat-progress-bar>
-						4star <mat-progress-bar mode="determinate" value="{{FourStar}}"></mat-progress-bar>
-						3star <mat-progress-bar mode="determinate" value="{{ThreeStar}}"></mat-progress-bar>
-						2star <mat-progress-bar mode="determinate" value="{{TwoStar}}"></mat-progress-bar>
-						1star <mat-progress-bar mode="determinate" value="{{OneStar}}"></mat-progress-bar>
+						<p class="mb-2">13 customers ratings</p>
+						<p class="progress-line">5star <mat-progress-bar mode="determinate" value="{FiveStar}}"></mat-progress-bar></p>
+						<p class="progress-line">4star <mat-progress-bar mode="determinate" value="{{FourStar}}"></mat-progress-bar></p>
+						<p class="progress-line">3star <mat-progress-bar mode="determinate" value="{{ThreeStar}}"></mat-progress-bar></p>
+						<p class="progress-line">2star <mat-progress-bar mode="determinate" value="{{TwoStar}}"></mat-progress-bar></p>
+						<p class="progress-line">1star <mat-progress-bar mode="determinate" value="{{OneStar}}"></mat-progress-bar></p>
 					</div>
 				</div>
 			</span><small class="py-1">

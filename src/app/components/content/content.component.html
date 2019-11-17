@@ -69,19 +69,17 @@
 		</div>
 	</div>
 </mat-toolbar-row>
+<div *ngIf="flashDeals">
 <h5 class="subtitle position-relative">FLASH DEALS
 		<a [routerLink]="['/dealslist/f']" class="pl-3">VIEW ALL</a>
 	</h5>
-<div class="swiper-container banner-container">
-	<div class="swiper-wrapper">
-		<div class="swiper-slide" *ngFor="let product of flashDeals; let i = index">
-			<mat-card>
-				<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
-			</mat-card>
-		</div>
+
+	<div class="product" fxLayout="row">
+		<mat-card class="item-card" *ngFor="let product of flashDeals; let i = index">
+			<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
+		</mat-card>
 	</div>
-	<div class="swiper-button-prev"></div>
-	<div class="swiper-button-next"></div>
+	
 </div>
 
 <!-- hotdeals -->
@@ -90,7 +88,7 @@
 		<a [routerLink]="['/dealslist/h']" class="pl-3">VIEW ALL</a>
 	</h5>
 	<div class="product" fxLayout="row">
-		<mat-card class="item-card" *ngFor="let product of hotDeals; let i = index" style="width: 19%;">
+		<mat-card class="item-card" *ngFor="let product of hotDeals; let i = index">
 			<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
 		</mat-card>
 			<!-- <div class="deal-timer">
@@ -106,7 +104,7 @@
 		<a [routerLink]="['/dealslist/t']" class="pl-3">VIEW ALL</a>
 	</h5>
 	<div class="product" fxLayout="row">
-		<mat-card class="item-card" *ngFor="let product of todayDeals; let i = index" style="width: 19%;">
+		<mat-card class="item-card" *ngFor="let product of todayDeals; let i = index">
 			<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
 		</mat-card>
 	</div>
