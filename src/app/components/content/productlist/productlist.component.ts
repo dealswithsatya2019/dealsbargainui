@@ -45,11 +45,6 @@ export class ProductlistComponent implements OnInit, OnDestroy {
       //this.scname = params.get('scname');
       
     });
-    this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
-      (results: searchreponse) => {
-        this.products = results.responseObjects;
-        this.getDistinctBrands();
-      });
     /*this.subscription = this._productListRouteInfo.getCart().subscribe(productRouteInfo => {
       if (productRouteInfo) {
         this.cname = productRouteInfo.cname;
