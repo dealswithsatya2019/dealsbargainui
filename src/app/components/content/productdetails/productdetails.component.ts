@@ -156,7 +156,7 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
       loadingIcon: 'Loading...'
      */
     const config: GalleryConfig = {
-           loadingMode: "indeterminate"
+        loadingMode: "indeterminate"
     };
     this.gallery.ref().setConfig(config);
     this.gallery.ref().load(this.items);
@@ -184,7 +184,8 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
   ngAfterViewInit() {
 
     setTimeout(() => {
-      var swiper5 = new Swiper('.similar', {
+      var swiper = new Swiper('.similar', {
+        init:true,
         autoplay: {
           delay: 3000,
         },
@@ -196,7 +197,7 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
           prevEl: '.swiper-button-prev',
         }
       })
-      }, 1000);
+    }, 1000);
 
     //   setTimeout(() => {
     //   var galleryThumbs = new Swiper('.gallery-thumbs', {

@@ -59,16 +59,18 @@
 					<ngx-star-rating [ngModel]="product" [id]="'productRating1'" [disabled]="true"></ngx-star-rating>
 				<div class="product-rating">
 					<div class="stars">
-						<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating><i class="fa fa-sort-desc" aria-hidden="true"></i>
+						<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating>
+						<!-- <b>4.1 out of 5</b> -->
 					</div>
 					
 					<div class="product-rating-bar">
 						<p class="mb-2">13 customers ratings</p>
-						<p class="progress-line">5star <mat-progress-bar mode="determinate" value="{FiveStar}}"></mat-progress-bar></p>
-						<p class="progress-line">4star <mat-progress-bar mode="determinate" value="{{FourStar}}"></mat-progress-bar></p>
-						<p class="progress-line">3star <mat-progress-bar mode="determinate" value="{{ThreeStar}}"></mat-progress-bar></p>
-						<p class="progress-line">2star <mat-progress-bar mode="determinate" value="{{TwoStar}}"></mat-progress-bar></p>
-						<p class="progress-line">1star <mat-progress-bar mode="determinate" value="{{OneStar}}"></mat-progress-bar></p>
+						<p class="progress-line">5star <mat-progress-bar mode="determinate" value="{FiveStar}}"></mat-progress-bar> <span>60%</span></p>
+						<p class="progress-line">4star <mat-progress-bar mode="determinate" value="{{FourStar}}"></mat-progress-bar> <span>30%</span></p>
+						<p class="progress-line">3star <mat-progress-bar mode="determinate" value="{{ThreeStar}}"></mat-progress-bar> <span>20%</span></p>
+						<p class="progress-line">2star <mat-progress-bar mode="determinate" value="{{TwoStar}}"></mat-progress-bar> <span>6%</span></p>
+						<p class="progress-line">1star <mat-progress-bar mode="determinate" value="{{OneStar}}"></mat-progress-bar> <span>4%</span></p>
+						<a class="py-3 text-center" mat-button >View all Ratings</a>
 					</div>
 				</div>
 			</span><small class="py-1">

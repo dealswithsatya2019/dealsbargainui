@@ -34,7 +34,7 @@ h5{
   display: none;
   width: 70px;
   position: absolute;
-  top: 30px;
+  top: 40px;
   left: 0px;
   padding-top: 20px;
   a{
@@ -104,6 +104,8 @@ h5{
         white-space: pre-wrap;
         margin: 8px 0px;
         font-size: 14px;
+        height: 59px;
+        overflow: hidden;
       }
       .p-cost{
         padding-bottom: 8px;
@@ -117,8 +119,9 @@ h5{
       }
       mat-card-actions{
         display: block;
-        border-top: 2px solid #f7f7f7;
+        // border-top: 2px solid #f7f7f7;
         margin-top: 10px;
+        border: 2px solid #ccc;
       }
       .action-btns{
         min-width: 32px;padding: 0px;
@@ -151,7 +154,7 @@ h5{
   .margin-top-20{
     margin-top:20px;
   } 
-  
+  .cart{border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-radius: 0px;}
   .old_cost{
     font-size: 14px;
     margin-right: 8px;
@@ -217,7 +220,7 @@ h5{
       .product-rating{
         display: block;
         position: absolute;
-        top: 30px;
+        top: 35px;
         left: 0px;
         z-index: 999;
         box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);
@@ -376,7 +379,7 @@ h5{
   div.stars{
     width: 280px;
     font-size: 10px;
-    padding: 2px 4px;
+    padding: 2px 4px 2px 15px;
     border-radius: 2px;
     display: inline-block;
     position: relative;
@@ -397,7 +400,7 @@ h5{
   }
   .product-rating{
     display: none;
-    width: 290px;
+    width: 330px;
     border-radius: 5px;
     background-color: #fff;
     &:hover{
@@ -412,6 +415,13 @@ h5{
 .progress-line{
   display: flex;
   align-items: center;
+  color: #333;
+  span{float: right;width:22.5px;
+  }
+}
+.fa-shopping-cart{
+  font-size: 18px !important ;
+  color: #ff9600 !important;
 }
  /* .mat-progress-bar .mat-progress-bar-buffer {
     background: #E4E8EB;
