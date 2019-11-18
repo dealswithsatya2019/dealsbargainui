@@ -30,13 +30,7 @@ export class CartdetailsComponent implements OnInit {
     let access_token = sessionStorage.getItem("access_token");
     console.log("access_token :", access_token);
     if (access_token != null) {
-      // console.log("access tokenO not null...");
-      // this.product = this.cartService.recentProduct();
-      // if (this.product != null) {
       this.autherization = "Bearer " + access_token;
-      //   this.addCart(this.product);
-      //   this.cartService.setRecentProduct();
-      // }
       this.getCarts();
     } else {
       this.shoppingCartItems = this.cartService.getItems();
@@ -44,30 +38,10 @@ export class CartdetailsComponent implements OnInit {
     }
   }
 
-  public getCarts() {
-    console.log("get Cart api called...");
-    this.getCartlist().subscribe(data => {
-      this.cartInfo = data;
-      if (this.cartInfo != null && this.cartInfo.responseObject != null) {
-        this.shoppingCartItems = [];
-        this.shoppingCartItems = this.cartInfo.responseObject;
-        console.log("shoppingCartItems ", this.shoppingCartItems);
-      }
-    }
-    );
-
-  }
-
   public addCartData: any;
 
   public addCart(product: Product) {
     this.addProduToCart(product).subscribe(data => this.addCartData = data);
-  }
-
-  public getCartlist(): Observable<cartInfo> {
-    
-    return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartdetails/us",
-      { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
   public addProduToCart(product: Product): Observable<any> {
@@ -94,27 +68,41 @@ export class CartdetailsComponent implements OnInit {
     this._router.navigateByUrl('/mycart');
   }
 
-
-  public updateCart(product: Product) {
-    this.cartService.addToCart(product);
+  public updateItemCountFromCartComp(product: Product, isAdd: boolean) {
+    console.log("updateItemCountFromCartComp value",isAdd);
+    this.cartService.updateItemCountFromCart(product, isAdd);
     this.shoppingCartItems = this.cartService.getItems();
-    if (this.autherization != null) {
-      this.addCart(product);
+  }
+
+  public removeItemFromCartComp(product: Product) {
+    this.cartService.removeProduct(product);
+    this.shoppingCartItems = this.cartService.getItems();
+  }
+
+  public getCarts() {
+    console.log("get Cart api called...");
+    this.getCartlist().subscribe(data => {
+      this.cartInfo = data;
+      this.shoppingCartItems = [];
+      if (this.cartInfo != null && this.cartInfo.responseObject != null) {
+        this.shoppingCartItems = [];
+        this.cartInfo.responseObject.forEach(element => {
+          if (element.quantity == 0) {
+            element.quantity = 1;
+          }
+          this.cartService.setItems(element);
+          this.shoppingCartItems.push(element);
+        });
+        console.log("shoppingCartItems ", this.shoppingCartItems);
+      }
     }
-    this._router.navigateByUrl('/mycart');
+    );
   }
 
-  public ItemCountChangeCart(product: Product) {
-    this.cartService.ItemFromCartChange(product);
-    this.shoppingCartItems = this.cartService.getItems();
-    this._router.navigateByUrl('/mycart');
-  }
+  public getCartlist(): Observable<cartInfo> {
 
-  public removeProduct(product: Product) {
-    this.cartService.removeCart(product);
-    this.shoppingCartItems = this.cartService.getItems();
-    this._router.navigateByUrl('/mycart');
-    
+    return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartdetails/us",
+      { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
 }

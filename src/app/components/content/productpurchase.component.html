@@ -229,8 +229,8 @@
                 </mat-step>
                 <mat-step label="ORDER SUMMARY" completed="{{isCart}}" (click)="getCarts()">
                     <div class="mb-3">
-                        <ng-container *ngIf="cartInfo">
-                            <div class="order-1 py-3 mt-3" *ngFor='let cart of cartInfo.responseObject'>
+                        <ng-container *ngIf="shoppingCartItems">
+                            <div class="order-1 py-3 mt-3" *ngFor='let cart of shoppingCartItems'>
                                 <div class="order-item" style="display: flex;">
                                     <div class="text-center" style="flex: 1 1 20%;max-width: 120px;">
                                         <img [src]="cart.image" class="img-cursor">
@@ -250,13 +250,13 @@
                                 </div>
                                 <div class="options" style="display: flex;">
                                     <div class="option-btns mt-2" style="flex: 1 1 20%;max-width: 120px;">
-                                        <button (click)="removeFromCart(cart)">-</button>
+                                        <button (click)="updateItemCountFromCartComp(cart,false)">-</button>
                                         <input matInput class="text-center"
                                             value="{{!cart.quantity ? 1 : cart.quantity}}">
-                                        <button (click)="addCartFromSummary(cart)">+</button>
+                                        <button (click)="updateItemCountFromCartComp(cart,true)">+</button>
                                     </div>
                                     <div class="ml-3 mt-2" style="flex: 1 1 30%;max-width: 30%;">
-                                        <button mat-button (click)="removeProduct(cart)"
+                                        <button mat-button (click)="removeItemFromCartComp(cart)"
                                             class="remove-btn">Remove</button>
                                     </div>
                                 </div>

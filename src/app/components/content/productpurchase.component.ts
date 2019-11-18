@@ -19,6 +19,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { AddProductReq } from './addproductreq';
 import { environment } from 'src/environments/environment';
 import { address } from 'src/app/models/address';
+import { delay } from 'q';
 declare let paypal: any;
 
 @Component({
@@ -26,7 +27,7 @@ declare let paypal: any;
   templateUrl: './productpurchase.component.html',
   styleUrls: ['./productpurchase.component.scss']
 })
-export class ProductpurchaseComponent implements OnInit, AfterViewInit {
+export class ProductpurchaseComponent implements OnInit {
   public autherization: string;
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
@@ -49,6 +50,7 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
   public isAddress: boolean = false;
   public isCart: boolean = false;
   public statesArr: string[] = environment.STATES.split(',');
+  public shoppingCartItems: Product[] = [];
 
 
   addressform: FormGroup = new FormGroup({
@@ -133,10 +135,6 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
         }
       })
       .render(this.paypalElement.nativeElement);
-  }
-
-  ngAfterViewInit() {
-    this.configurePaypal();
   }
 
   loginFacebook() {
@@ -270,6 +268,18 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
       console.log("getCarts calledddddddddd", this.isAddress)
       this.getCartlist().subscribe(data => {
         this.cartInfo = data;
+        this.shoppingCartItems = [];
+        if (this.cartInfo != null && this.cartInfo.responseObject != null) {
+          this.cartService.clearCart();
+          this.cartInfo.responseObject.forEach(element => {
+            if (element.quantity == 0) {
+              element.quantity = 1;
+            }
+            this.cartService.setItems(element);
+            this.shoppingCartItems.push(element);
+          });
+          console.log("shoppingCartItems ", this.shoppingCartItems);
+        }
         this.calculatePrices();
       });
     } else {
@@ -351,7 +361,7 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
 
   public calculatePrices() {
     this.initializeValues();
-    this.cartInfo.responseObject.forEach(element => {
+    this.shoppingCartItems.forEach(element => {
       this.totalCost = this.totalCost + element.prepay_price;
       this.deliveryCost = element.ship_cost;
       this.couponDiscountCost = 0;
@@ -378,13 +388,19 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
     this.totalCartSize = 0;
   }
 
-  public removeFromCart(product: Product) {
-    this.cartService.removeProduct(product);
-
+  public updateItemCountFromCartComp(product: Product, isAdd: boolean) {
+    console.log("updateItemCountFromCartComp value", isAdd);
+    this.cartService.updateItemCountFromCart(product, isAdd);
+    // delay(10000);
+    // this.getCarts();
+    this.shoppingCartItems  = this.cartService.getItems();
   }
 
-  public removeProduct(product: Product) {
-    this.cartService.removeCart(product);
+  public removeItemFromCartComp(product: Product) {
+    this.cartService.removeProduct(product);
+    // delay(1000);
+    // this.getCarts();
+    this.shoppingCartItems  = this.cartService.getItems();
   }
 
   public selectedIndex: number = 0;
@@ -398,30 +414,6 @@ export class ProductpurchaseComponent implements OnInit, AfterViewInit {
 
     }
     return false;
-  }
-
-  public configurePaypal() {
-
-  }
-
-  public addCartFromSummary(product: Product) {
-    this.addProduToCartFromSummary(product).subscribe(data => this.addCartData = data);
-  }
-
-  public addProduToCartFromSummary(product: Product): Observable<any> {
-    let body = [
-      {
-        "countryCode": "us",
-        "category": product.category,
-        "subcategory": product.subcategory,
-        "item_id": product.item_id,
-        "master_supplier": product.master_suplier,
-        "count": "1"
-      },
-    ]
-    this.cartService.addToCart(product);
-    return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
-      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
 }
