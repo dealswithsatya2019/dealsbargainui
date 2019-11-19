@@ -9,31 +9,33 @@
                     <p>9876543210</p>
                     <button mat-button class="edit-btn">Edit</button>
                 </div>
-                <button mat-button class="wishlist-btn"><i class="fa fa-"></i> Wishlist</button>
+                <!-- <button mat-button class="wishlist-btn"><i class="fa fa-"></i> Wishlist</button> -->
                 <mat-accordion [multi]="true">
                     <mat-expansion-panel [expanded]="true">
                         <mat-expansion-panel-header>
-                           Orders
+                           Profile
                         </mat-expansion-panel-header>
                         <div class="list-box">
+                            <a mat-button>Whishlist</a>
                             <a mat-button>My Orders</a>
-                            <a mat-button>Return/Exchange</a>
+                            <a mat-button>Addresses</a>
+                            <a mat-button>Reviews & Ratings</a>
+                            <a mat-button>Change Password</a>
+                            <a mat-button>Unsubscribe</a>
                         </div>
                     </mat-expansion-panel>
-                    <mat-expansion-panel [expanded]="true">
+                  <!--  <mat-expansion-panel [expanded]="true">
                         <mat-expansion-panel-header>
                             My Info
                         </mat-expansion-panel-header>
                         <div class="list-box">
-                            <a mat-button>Profile</a>
                             <a mat-button>Addresses</a>
                             <a mat-button>Reviews & Ratings</a>
                             <a mat-button>Change Password</a>
-                            <a mat-button>Feedback</a>
                         </div>
-                    </mat-expansion-panel>
+                    </mat-expansion-panel>-->
                 </mat-accordion>
-                <button mat-button class="my-3 uns-btn">Unsubscribe</button>
+                <!-- <button mat-button class="my-3 uns-btn">Unsubscribe</button>-->
             </aside>
             <div class="product-list">
                 <div class="productlistcontainer p-4">
@@ -139,7 +141,7 @@
                     </div>
                     <!--- --- /#ORDERS --------  -->
     
-                    <!--- --- Return/Exchange Orders --------  -->
+                    <!--- --- Return/Exchange Orders --------  
                     <h4>Return/Exchange Orders</h4>
                     <div class="order-details py-4" fxLayout="row">
                         <p>Order ID<br> <b>162348148</b></p>
@@ -149,7 +151,7 @@
                         <p>Status <br> <b>Completed</b></p>
                         <p>Tracking <br> <b>#</b></p>
                         <button mat-button class="view-btn">View</button>
-                    </div>
+                    </div>-->
                     <!--- --- Return/Exchange Orders --------  -->
     
                     <!-- ----- Change Password ----- -->
