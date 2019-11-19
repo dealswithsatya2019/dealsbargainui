@@ -7,9 +7,14 @@ export class AppRoutes{
     static readonly ProductDetails='productdetails/:cname/:scname/:pid';
     static readonly DealsList='dealslist/:dealtype';
     static readonly UserProfile = 'myprofile';
+    static readonly UserPersonalInfo = 'personalinfo';
     static readonly UserOrders ='orders';
     static readonly UserWhishlist ='wishlist';
+    static readonly UserAddresses ='addresses';
+    static readonly UserReviewAndRatings ='review-ratings';
+    static readonly UserChangePassword ='change-passowrd';
     static readonly UserCheckout = 'checkout';
+    static readonly Unsubscribe ='unsubscribe';
     static readonly Aboutus = 'aboutus';
     static readonly MarketReview = 'marketreview';
     static readonly TermsOfUse = 'termsofuse';

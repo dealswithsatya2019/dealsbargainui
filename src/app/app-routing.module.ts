@@ -27,6 +27,10 @@ import { EstimateddeliverytimeComponent } from './components/footer/estimateddel
 import { MyaccountComponent } from './components/footer/myaccount.component';
 import { ProductpurchaseComponent } from './components/content/productpurchase.component';
 import { CartdetailsComponent } from './components/content/cartdetails.component';
+import { AddressesComponent } from 'src/app/components/user/addresses/addresses.component';
+import { ReviewRatingsComponent } from 'src/app/components/user/review-ratings/review-ratings.component';
+import { ChangePasswordComponent } from 'src/app/components/user/change-password/change-password.component';
+import { UnsubscribeComponent } from 'src/app/components/user/unsubscribe/unsubscribe.component';
 
 const routes: Routes = [
   {
@@ -48,7 +52,36 @@ const routes: Routes = [
     canActivate: [AuthGuard] ,
     data: { 
       datepropsample: 'datavaluesample'
-    } 
+    } ,
+    children: [
+      {
+        path: AppRoutes.UserWhishlist, 
+        component: WishlistComponent,
+        outlet: 'profileoutlet'
+      },
+      //{ path: 'balance', loadChildren: () => import(`./balance/balance.module`).then(m => m.BalanceModule) },
+      {
+        path: AppRoutes.UserOrders, 
+        component: OrdersComponent,
+        outlet: 'profileoutlet'
+      },
+      { path: AppRoutes.UserAddresses, 
+        component: AddressesComponent ,
+        outlet: 'profileoutlet'
+      },
+      { path: AppRoutes.UserReviewAndRatings, 
+          component: ReviewRatingsComponent ,
+          outlet: 'profileoutlet'
+      },
+      { path: AppRoutes.UserChangePassword, 
+          component: ChangePasswordComponent ,
+          outlet: 'profileoutlet'
+      },
+      { path: AppRoutes.Unsubscribe, 
+          component: UnsubscribeComponent ,
+          outlet: 'profileoutlet'
+      }
+    ]
   },
   {
     path: AppRoutes.UserWhishlist,

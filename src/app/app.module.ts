@@ -52,6 +52,11 @@ import { LightboxModule } from '@ngx-gallery/lightbox';
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import { MyprofileComponent } from './components/content/myprofile/myprofile.component';
 import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
+import { PersonalInfoComponent } from './components/user/personal-info/personal-info.component';
+import { AddressesComponent } from './components/user/addresses/addresses.component';
+import { ReviewRatingsComponent } from './components/user/review-ratings/review-ratings.component';
+import { ChangePasswordComponent } from './components/user/change-password/change-password.component';
+import { UnsubscribeComponent } from './components/user/unsubscribe/unsubscribe.component';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -108,7 +113,12 @@ export function ProvideConfig() {
     ProductpurchaseComponent,
     CartdetailsComponent,
     RateproductComponent,
-    MyprofileComponent
+    MyprofileComponent,
+    PersonalInfoComponent,
+    AddressesComponent,
+    ReviewRatingsComponent,
+    ChangePasswordComponent,
+    UnsubscribeComponent
   ],
   entryComponents:[LoginComponent,SignupComponent,SocialshareComponent,RateproductComponent],
   imports: [

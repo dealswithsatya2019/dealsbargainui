@@ -1,0 +1,61 @@
+ <!-- ---  Manage Addresses ------ -->
+ <mat-accordion>
+        <mat-expansion-panel >
+            <mat-expansion-panel-header>
+                Add New Address
+            </mat-expansion-panel-header>
+            <form>
+                <mat-form-field appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input formControlName="name" matInput placeholder="Name">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Mobile Number</mat-label>
+                    <input formControlName="mobile_number" matInput placeholder="Placeholder">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Pincode</mat-label>
+                    <input formControlName="zipcode" matInput placeholder="Placeholder">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Locality</mat-label>
+                    <input formControlName="street" matInput placeholder="Placeholder">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width:98%">
+                    <mat-label>Address</mat-label>
+                    <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>City/District</mat-label>
+                    <input formControlName="city" matInput placeholder="Placeholder">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>State</mat-label>
+                    <input formControlName="state" matInput placeholder="Placeholder">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Landmark</mat-label>
+                    <input formControlName="landmark" matInput placeholder="Placeholder">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Alternate Phone</mat-label>
+                    <input formControlName="altphone" matInput placeholder="Placeholder">
+                </mat-form-field>
+
+                <mat-radio-group aria-label="Select an option" class="d-block">
+                    <mat-radio-button value="1" class="mr-2">Home ( All Day Delivery )</mat-radio-button>
+                    <mat-radio-button value="2">Work (Delivery between 10AM - 5PM)</mat-radio-button>
+                </mat-radio-group>
+                <button mat-raised-button type="submit" class=" my-2 login-login-btn">Save</button>
+            </form>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="address p-3">
+        <h6>HOME</h6>
+
+        <p><b>Dealsbargain <span class="ml-4">9863545757</span></b></p>
+        <p class="my-3" style="width: 60%;">Dealsbargain, Hyderabad,500023.</p>
+    </div>
+
+    <!-- ---  Manage Addresses ------ -->
