@@ -54,35 +54,6 @@ export class ContentComponent implements AfterViewInit, OnInit {
           prevEl: '.swiper-button-prev',
         }
       })
-      var swiper = new Swiper('.banner-container', {
-        autoplay: {
-          delay: 3000,
-        },
-        spaceBetween: 20,
-        speed: 500,
-        slidesPerView: 3,
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-        breakpoints: {
-          0: {
-            slidesPerView: 1,
-          },
-          600: {
-            slidesPerView: 2,
-          },
-          991: {
-            slidesPerView: 3,
-          },
-          1200: {
-            slidesPerView: 4,
-          },
-          1500: {
-            slidesPerView: 5,
-          }
-        }
-      })
     }, 1000);
   }
 
