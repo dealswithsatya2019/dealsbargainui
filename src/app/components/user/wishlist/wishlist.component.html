@@ -1,1 +1,12 @@
-<p>wishlist works!</p>
+<ng-container *ngIf="actionType=='' || actionType=='list'">
+    {{actionType}}
+</ng-container>
+<ng-container *ngIf="actionType=='add'">
+    
+        <button mat-button class="action-btns" matTooltip="Add To Wishlist">
+                <i class="fa fa-heart"></i>
+            </button>
+</ng-container>
+<ng-container *ngIf="actionType=='remove'">
+    {{actionType}}
+</ng-container>

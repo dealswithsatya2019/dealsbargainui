@@ -12,6 +12,22 @@ export class ProfileComponent implements OnInit {
   constructor(public userservice : UserService,public _socioAuthServ: AuthService) { }
   //css : "3px double yellow";
   ngOnInit() {
+    /*
+    this.router.navigate([
+  // NOTE: No relative-path navigation is required because we are accessing
+  // the parent's "activatedRoute" instance. As such, this will be executed
+  // as if we were doing this in the parent view component.
+  {
+    outlets: {
+      editArea: ['addRootPartner']
+    }
+  }
+],
+  {
+    relativeTo: this.activatedRoute.parent // <--- PARENT activated route.
+  }
+);
+    */
   }
 
   funUpdate() {

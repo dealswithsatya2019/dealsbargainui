@@ -27,6 +27,7 @@ export class ContentComponent implements AfterViewInit, OnInit {
   public todayDeals: Product[];
   public snackBarConfig: MatSnackBarConfig;
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
+  public whishlist_action_type: string ='add';
   constructor(private _snackBar: MatSnackBar, private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public cart: CartService,
   ) //public _productListRouteInfo:ProductListRouteInfoService
   {
