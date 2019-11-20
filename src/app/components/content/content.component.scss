@@ -4,7 +4,14 @@
   align-items: end;
   
 }
-.cart{border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-radius: 0px;}
+.cart{
+  margin: 3px 0px;
+  background-color: #efa132;
+  color: #fff;
+  font-size: 13px;
+  height: 30px;
+  line-height: 28px;
+}
 .banner-container{
   width: 100%;
 }
@@ -71,7 +78,7 @@ p{margin: 0px;}
     }
     .action-btns{
       min-width: 40px;padding: 0px;
-      i{font-size: 14px;color: rgba(0,0,0,0.7);}
+      i{font-size: 16px;}
     }
     .share{
       position: relative;
@@ -258,4 +265,12 @@ p{margin: 0px;}
 .fa-shopping-cart{
   font-size: 18px !important ;
   color: #ff9600 !important;
+}
+.fa-heart{
+  color: #e24e4e;
+  font-size: 20px;
+}
+.fa-share-alt{
+  color: #2a7ace;
+  font-size: 20px;
 }

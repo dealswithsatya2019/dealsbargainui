@@ -123,10 +123,12 @@ h5{
         margin-top: 10px;
         border: 2px solid #ccc;
       }
-      .action-btns{
-        min-width: 32px;padding: 0px;
-        i{color: #7f7979;}
-      }
+      
+        .action-btns{
+          min-width: 40px;padding: 0px;
+          i{font-size: 16px;}
+        }
+    
     }
   }
   .product{
@@ -154,7 +156,20 @@ h5{
   .margin-top-20{
     margin-top:20px;
   } 
-  .cart{border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-radius: 0px;}
+  .cart{
+    margin: 3px 0px;
+    background-color: #efa132;
+    color: #fff;
+    font-size: 13px;
+  }
+  .fa-heart{
+    color: #e24e4e;
+
+  }
+  .fa-share-alt{
+    color: #2a7ace;
+
+  }
   .old_cost{
     font-size: 14px;
     margin-right: 8px;
@@ -405,11 +420,18 @@ h5{
     background-color: #fff;
     &:hover{
       .product-rating-bar{display: block;
-        i{font-size: 19px;}
+      
       }
     }
   }
-  .cart{border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-radius: 0px;}
+  .cart{
+    margin: 3px 0px;
+    background-color: #efa132;
+    color: #fff;
+    font-size: 13px;
+    height: 30px;
+    line-height: 28px;
+  }
 
   mat-expansion-panel{margin-bottom: 20px;}
 .progress-line{
