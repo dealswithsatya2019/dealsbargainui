@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -47,7 +47,6 @@ export class ProductpurchaseComponent implements OnInit {
   private APIEndpoint: string = environment.APIEndpoint;
   public selectedAddressId: string;
   public isLogIn: boolean = false;
-  public isAddress: boolean = false;
   public isCart: boolean = false;
   public statesArr: string[] = environment.STATES.split(',');
   public shoppingCartItems: Product[] = [];
@@ -227,13 +226,17 @@ export class ProductpurchaseComponent implements OnInit {
       { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
-  public deleteAddress(addressId): Observable<addressResponse> {
+  public deleteAddress(addressId : string): Observable<addressResponse> {
+    let access_token = sessionStorage.getItem("access_token");
+    this.autherization = "Bearer " + access_token;
     let body = {
       "countryCode": "us",
       "addressid": addressId
     }
-    return this.http.post<addressResponse>(this.APIEndpoint + "/user/contacts/", body,
-      { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': this.autherization }), body
+    };
+    return this.http.delete<addressResponse>(this.APIEndpoint + "/user/contact", httpOptions);
   }
 
   public updateAddressService(addressId) {
@@ -248,6 +251,7 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public deleteAddressService(addressId) {
+
     this.deleteAddress(addressId).subscribe(data => this.addressInfo = data);
     this.getAddresses();
   }
@@ -264,12 +268,11 @@ export class ProductpurchaseComponent implements OnInit {
   public getCarts() {
     console.log("selected address id", this.selectedAddressId);
     if (this.selectedAddressId != null && this.selectedAddressId.length > 0) {
-      this.isAddress = true;
-      console.log("getCarts calledddddddddd", this.isAddress)
       this.getCartlist().subscribe(data => {
         this.cartInfo = data;
         this.shoppingCartItems = [];
         if (this.cartInfo != null && this.cartInfo.responseObject != null) {
+          this.isCart = true;
           this.cartService.clearCart();
           this.cartInfo.responseObject.forEach(element => {
             if (element.quantity == 0) {
@@ -282,12 +285,12 @@ export class ProductpurchaseComponent implements OnInit {
         }
         this.calculatePrices();
       });
-    } else {
-      this.isAddress = false;
     }
   }
 
   public getAddresses() {
+
+    console.log("address calleddddddd");
     this.getAddresslist().subscribe(data => {
       this.addressInfo = data;
       console.log("data from response :", data)
@@ -393,14 +396,14 @@ export class ProductpurchaseComponent implements OnInit {
     this.cartService.updateItemCountFromCart(product, isAdd);
     // delay(10000);
     // this.getCarts();
-    this.shoppingCartItems  = this.cartService.getItems();
+    this.shoppingCartItems = this.cartService.getItems();
   }
 
   public removeItemFromCartComp(product: Product) {
     this.cartService.removeProduct(product);
     // delay(1000);
     // this.getCarts();
-    this.shoppingCartItems  = this.cartService.getItems();
+    this.shoppingCartItems = this.cartService.getItems();
   }
 
   public selectedIndex: number = 0;

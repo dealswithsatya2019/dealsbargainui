@@ -1,8 +1,8 @@
 <div class="content-container pt-3">
     <div class="" style="display: flex;padding-top: 100px;">
         <div class="left-panel">
-            <mat-horizontal-stepper linear>
-                <mat-step label="LOGIN" completed="{{isLogIn}}">
+            <mat-horizontal-stepper (selectionChange)="selectionChange($event)" linear>
+                <mat-step label="LOGIN" completed="{{isLogIn}}" >
                     <div class="mb-3">
                         <!-- /#new customer login starts-->
                         <ng-container *ngIf="!autherization">
@@ -83,7 +83,7 @@
                     </div>
                 </mat-step>
 
-                <mat-step label="SHIPPING ADDRESS" (click)="getAddresses()" completed="{{isAddress}}">
+                <mat-step label="SHIPPING ADDRESS"  [(completed)]="selectedAddressId" >
                     <div class="mb-3">
                         <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedAddressId">
                             <ng-container *ngIf="addressInfo">
@@ -227,7 +227,7 @@
                                 class="fa fa-chevron-right"></i></button>
                     </div>
                 </mat-step>
-                <mat-step label="ORDER SUMMARY" completed="{{isCart}}" (click)="getCarts()">
+                <mat-step label="ORDER SUMMARY" [(completed)]="isCart" (click)="getCarts()" >
                     <div class="mb-3">
                         <ng-container *ngIf="shoppingCartItems">
                             <div class="order-1 py-3 mt-3" *ngFor='let cart of shoppingCartItems'>
@@ -274,7 +274,7 @@
                     </div>
                 </mat-step>
 
-                <mat-step label="PAYMENT" completed="false">
+                <mat-step label="PAYMENT" completed="false" >
 
                     <div>
 
