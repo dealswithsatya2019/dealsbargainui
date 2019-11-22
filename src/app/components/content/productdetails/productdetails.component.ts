@@ -52,6 +52,7 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
   public OneStar: number = 10;
   public isProductAvailable : boolean =false;
   subscription : Subscription;
+  public whishlist_action_type : string;
   // product = {
   //   price: 0.01,
   //   description: "Kappa",

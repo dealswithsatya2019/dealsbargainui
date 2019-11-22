@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { WhishlistService } from 'src/app/services/whishlist.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-wishlist',
@@ -12,6 +13,9 @@ export class WishlistComponent implements OnInit {
   @Input() public productInfo: Product;
   @Input() public actionType: string = 'list';
   public itemsInWhishslist: Product[] = [];
+  public PRICE_PREFIX: string = environment.PRICE_PREFIX;
+  public shoppingCartItems: Product[] = [];
+  
   constructor(private _whishlistService: WhishlistService) {
     this._whishlistService.getItems();
   }

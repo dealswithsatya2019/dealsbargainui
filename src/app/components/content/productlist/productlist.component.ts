@@ -37,6 +37,7 @@ export class ProductlistComponent implements OnInit, OnDestroy {
   toPrice: number = 0;
   public snackBarConfig : MatSnackBarConfig;
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
+  public whishlist_action_type :string;
   //subscription : Subscription;
   ngOnInit() {
    this.sub = this._Activatedroute.paramMap.subscribe(params => {

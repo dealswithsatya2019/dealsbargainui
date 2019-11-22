@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit {
     this.clickHoverMenuTrigger.toggleMenu();
   }
   constructor(public dialog: MatDialog, public userservice: UserService, public _socioAuthServ: AuthService,
-    public _router: Router, private http: HttpClient, private renderer: Renderer2,public cartService: CartService, private _whishlistService: WhishlistService) { }
+    public _router: Router, private http: HttpClient, private renderer: Renderer2,public cartService: CartService, public _whishlistService: WhishlistService) { }
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   options = { headers: this.headers };
   url = this.APIEndpoint+'/dashboard/fuzzysearch';
