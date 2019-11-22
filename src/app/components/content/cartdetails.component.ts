@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { cartInfo } from 'src/app/models/cartInfo';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,14 +13,16 @@ import { environment } from 'src/environments/environment';
   templateUrl: './cartdetails.component.html',
   styleUrls: ['./cartdetails.component.scss']
 })
-export class CartdetailsComponent implements OnInit {
 
+export class CartdetailsComponent implements OnInit, OnDestroy {
+  
   public cartInfo: cartInfo;
   public autherization: string;
   public userToken: string;
   public shoppingCartItems: Product[] = [];
   public product: Product;
   private APIEndpoint: string = environment.APIEndpoint;
+  subscriptions = new Subscription();
 
   constructor(public http: HttpClient, private _Activatedroute: ActivatedRoute, private cartService: CartService, public _router: Router) {
   }
@@ -41,7 +43,7 @@ export class CartdetailsComponent implements OnInit {
   public addCartData: any;
 
   public addCart(product: Product) {
-    this.addProduToCart(product).subscribe(data => this.addCartData = data);
+    this.subscriptions.add(this.subscriptions.add(this.addProduToCart(product).subscribe(data => this.addCartData = data)));
   }
 
   public addProduToCart(product: Product): Observable<any> {
@@ -81,7 +83,7 @@ export class CartdetailsComponent implements OnInit {
 
   public getCarts() {
     console.log("get Cart api called...");
-    this.getCartlist().subscribe(data => {
+    this.subscriptions.add(this.getCartlist().subscribe(data => {
       this.cartInfo = data;
       this.shoppingCartItems = [];
       if (this.cartInfo != null && this.cartInfo.responseObject != null) {
@@ -96,13 +98,17 @@ export class CartdetailsComponent implements OnInit {
         console.log("shoppingCartItems ", this.shoppingCartItems);
       }
     }
-    );
+    ));
   }
 
   public getCartlist(): Observable<cartInfo> {
 
     return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartdetails/us",
       { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
 }

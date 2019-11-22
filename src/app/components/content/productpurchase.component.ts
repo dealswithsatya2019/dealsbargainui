@@ -7,7 +7,7 @@ import { Product } from 'src/app/models/product';
 import { LoginformService } from 'src/app/services/forms/loginform.service';
 import { HttCommonService } from 'src/app/services/httpcommon.service';
 import { ProductService } from 'src/app/services/product.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { addressResponse } from 'src/app/models/addressResponse';
 import { UserService } from 'src/app/user.service';
 import { AuthService as UserAuth } from 'src/app/services/auth.service';
@@ -50,6 +50,7 @@ export class ProductpurchaseComponent implements OnInit {
   public isCart: boolean = false;
   public statesArr: string[] = environment.STATES.split(',');
   public shoppingCartItems: Product[] = [];
+  subscriptions = new Subscription();
 
 
   addressform: FormGroup = new FormGroup({
@@ -168,7 +169,7 @@ export class ProductpurchaseComponent implements OnInit {
 
     var ciphertext = this.encryptionService.encrypt(key2, key3, key1, userInfo.password);
     try {
-      this.userAuth.authenticateUser(userInfo.name, userInfo.password, 'us', key1, key2, key3).subscribe(
+      this.subscriptions.add(this.userAuth.authenticateUser(userInfo.name, userInfo.password, 'us', key1, key2, key3).subscribe(
         (authResponse: AuthResopnse) => {
           if (authResponse.statusCode === 200) {
             this.userservice.form.setValue({
@@ -187,7 +188,7 @@ export class ProductpurchaseComponent implements OnInit {
           } else {
             this.loginErrorMsg = authResponse.statusDesc;
           }
-        });
+        }));
     } catch (error) {
       this.loginErrorMsg = 'Got issue check in console';
       console.log(error);
@@ -226,7 +227,7 @@ export class ProductpurchaseComponent implements OnInit {
       { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
-  public deleteAddress(addressId : string): Observable<addressResponse> {
+  public deleteAddress(addressId: string): Observable<addressResponse> {
     let access_token = sessionStorage.getItem("access_token");
     this.autherization = "Bearer " + access_token;
     let body = {
@@ -243,7 +244,7 @@ export class ProductpurchaseComponent implements OnInit {
     this.addressform.controls.address_id.setValue(addressId);
     let addressInfo = JSON.parse(JSON.stringify(this.addressform.value));
     console.log("addressInfo update :", addressInfo);
-    this.updateAddress(addressInfo).subscribe(data => this.addressInfo = data);
+    this.subscriptions.add(this.updateAddress(addressInfo).subscribe(data => this.addressInfo = data));
     this.isUpdateAddress = false;
     this.exp1 = false;
     this.exp2 = false;
@@ -252,7 +253,7 @@ export class ProductpurchaseComponent implements OnInit {
 
   public deleteAddressService(addressId) {
 
-    this.deleteAddress(addressId).subscribe(data => this.addressInfo = data);
+    this.subscriptions.add(this.deleteAddress(addressId).subscribe(data => this.addressInfo = data));
     this.getAddresses();
   }
 
@@ -268,7 +269,7 @@ export class ProductpurchaseComponent implements OnInit {
   public getCarts() {
     console.log("selected address id", this.selectedAddressId);
     if (this.selectedAddressId != null && this.selectedAddressId.length > 0) {
-      this.getCartlist().subscribe(data => {
+      this.subscriptions.add(this.getCartlist().subscribe(data => {
         this.cartInfo = data;
         this.shoppingCartItems = [];
         if (this.cartInfo != null && this.cartInfo.responseObject != null) {
@@ -284,14 +285,14 @@ export class ProductpurchaseComponent implements OnInit {
           console.log("shoppingCartItems ", this.shoppingCartItems);
         }
         this.calculatePrices();
-      });
+      }));
     }
   }
 
   public getAddresses() {
 
     console.log("address calleddddddd");
-    this.getAddresslist().subscribe(data => {
+    this.subscriptions.add(this.getAddresslist().subscribe(data => {
       this.addressInfo = data;
       console.log("data from response :", data)
       if (this.addressInfo.statusCode == 404) {
@@ -302,7 +303,7 @@ export class ProductpurchaseComponent implements OnInit {
         this.exp2 = false;
         this.isUpdateAddress = false;
       }
-    });
+    }));
   }
 
   public showAddressInfo(addressId) {
@@ -317,7 +318,7 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public saveAddress(addressInfoJson: string) {
-    this.http.post(this.APIEndpoint + "/user/contact", addressInfoJson,
+    this.subscriptions.add(this.http.post(this.APIEndpoint + "/user/contact", addressInfoJson,
       { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } }).subscribe(data => {
         console.log("Address :", data);
         let jsonobj = JSON.parse(JSON.stringify(data));
@@ -327,7 +328,7 @@ export class ProductpurchaseComponent implements OnInit {
           this.exp1 = false;
           this.exp1 = false;
         }
-      })
+      }))
   }
 
   public addProductsArray: AddProductReq[] = [];
@@ -353,7 +354,7 @@ export class ProductpurchaseComponent implements OnInit {
   public addCartData: any;
 
   public addCart() {
-    this.addProduToCart().subscribe(data => this.addCartData = data);
+    this.subscriptions.add(this.addProduToCart().subscribe(data => this.addCartData = data));
   }
 
   public totalCost: number = 0;
@@ -408,6 +409,7 @@ export class ProductpurchaseComponent implements OnInit {
 
   public selectedIndex: number = 0;
   public selectionChange(event) {
+    console.log("Event Obj :",event);
     if (event.selectedIndex == 0) {
     } else if (event.selectedIndex == 1) {
       this.getAddresses();
@@ -417,6 +419,10 @@ export class ProductpurchaseComponent implements OnInit {
 
     }
     return false;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
 }
