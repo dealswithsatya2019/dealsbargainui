@@ -69,7 +69,7 @@
 		</div>
 	</div>
 </mat-toolbar-row>
-<div *ngIf="flashDeals">
+<div *ngIf="flashDeals && flashDeals.length >0 ">
 <h5 class="subtitle position-relative">FLASH DEALS
 		<a [routerLink]="['/dealslist/f']" class="pl-3">VIEW ALL</a>
 	</h5>
@@ -83,7 +83,7 @@
 </div>
 
 <!-- hotdeals -->
-<div *ngIf="hotDeals">
+<div *ngIf="hotDeals && hotDeals.length >0 ">
 	<h5 class="subtitle position-relative">HOT DEALS
 		<a [routerLink]="['/dealslist/h']" class="pl-3">VIEW ALL</a>
 	</h5>
@@ -99,12 +99,25 @@
 <!-- hotdeals end-->
 
 <!-- Today deals -->
-<div *ngIf="todayDeals">
+<div *ngIf="todayDeals && todayDeals.length >0">
 	<h5 class="subtitle position-relative">TODAY's DEALS
 		<a [routerLink]="['/dealslist/t']" class="pl-3">VIEW ALL</a>
 	</h5>
 	<div class="product" fxLayout="row">
 		<mat-card class="item-card" *ngFor="let product of todayDeals; let i = index">
+			<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
+		</mat-card>
+	</div>
+</div>
+<!-- Today deals end -->
+
+<!-- Best Sellers -->
+<div *ngIf="bestSellers && bestSellers.length >0">
+	<h5 class="subtitle position-relative">BEST SELLER's
+		<a [routerLink]="['/dealslist/b']" class="pl-3">VIEW ALL</a>
+	</h5>
+	<div class="product" fxLayout="row">
+		<mat-card class="item-card" *ngFor="let product of bestSellers; let i = index">
 			<ng-container *ngTemplateOutlet="dealsContentTemplate;context:{productinfo: product}"></ng-container>
 		</mat-card>
 	</div>

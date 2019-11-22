@@ -1,9 +1,9 @@
 <div class="content-container product-details">
 		<mat-toolbar-row>
 			<ul>
-				<li><a>Home</a></li>
-				<li><a>Product List</a></li>
-				<li><a>Product Details</a></li>
+				<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
+				<li><a class="pl-3" (click)="routeToProductListPage({cname:cname.toLowerCase(),scname:scname})" routerLinkActive="active">Product List</a></li>
+				<li><a >Product Details</a></li>
 			</ul>
 		</mat-toolbar-row>
 	<div style="display: flex;" class="mb-4 col-flex">

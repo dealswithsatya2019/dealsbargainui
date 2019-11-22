@@ -25,6 +25,7 @@ export class ContentComponent implements AfterViewInit, OnInit {
   public flashDeals: Product[];
   public hotDeals: Product[];
   public todayDeals: Product[];
+  public bestSellers: Product[];
   public snackBarConfig: MatSnackBarConfig;
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
   public whishlist_action_type: string ='add';
@@ -70,6 +71,10 @@ export class ContentComponent implements AfterViewInit, OnInit {
     this._productservice.getHttpProductDealsByType('t', 'us', 0, 50).subscribe(
       (results: searchreponse) => {
         this.todayDeals = results.responseObjects;
+      });
+    this._productservice.getHttpProductDealsByType('b', 'us', 0, 50).subscribe(
+      (results: searchreponse) => {
+        this.bestSellers = results.responseObjects;
       });
     this.snackBarConfig = new MatSnackBarConfig();
     this.snackBarConfig.horizontalPosition = "center";
