@@ -25,4 +25,5 @@ export class Product {
     cart_id : string = "";
     deals_bargain_supplier_deal_price: string ="";
     deals_bargain_deal_price: string ="";
+    wishlistId: string ="";
  }

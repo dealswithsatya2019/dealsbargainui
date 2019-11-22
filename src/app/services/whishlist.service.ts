@@ -4,19 +4,24 @@ import { HttCommonService } from 'src/app/services/httpcommon.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { searchreponse } from 'src/app/models/searchResponse';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WhishlistService {
 
-  private access_token: string;
+  public access_token: string;
   public addWhislistData: any;
   private itemsInWhishslist: Product[] = [];
   private itemsInWhishslistTemp: Product[] = [];
 
   constructor(private _httpCommonService: HttCommonService, public _router: Router) {
     this.access_token = sessionStorage.getItem("access_token");
+  }
+
+  public setItemsInWhishslist(produt){
+    this.itemsInWhishslist.push(produt);
   }
 
   public addToWhishlist(item: Product) {
@@ -34,8 +39,8 @@ export class WhishlistService {
             this.addWhislistData = data
           }
         },
-        (error) => {
-          console.log(error);
+        (error: HttpErrorResponse) => {
+          console.log('error============='+error);
         }
       );
     }
@@ -43,13 +48,13 @@ export class WhishlistService {
 
 
   public removeFromWhishlist(item: Product) {
-    this.itemsInWhishslist = this.itemsInWhishslist.filter(itemLoop => itemLoop.item_id != item.item_id);
     if (this.access_token != null) {
+      this.itemsInWhishslist = this.itemsInWhishslist.filter(itemLoop => itemLoop.item_id != item.item_id);
       console.log("removeWhishlistProduct :", item);
       this.callRemoveWhishlistAPI(item).subscribe(
         (data: searchreponse) => {
           if (data.responseObjects && data.statusCode == 200) {
-            this.addWhislistData = data
+            //this.itemsInWhishslist = this.itemsInWhishslist.filter(itemLoop => itemLoop.item_id != item.item_id);
           }
         },
         (error) => {
@@ -59,44 +64,21 @@ export class WhishlistService {
     }
   }
 
-  public getWhishlist() : any[]{
-    /*if (this.access_token != null) {
-      console.log("getWhishlist :");
-      this.callGetWhishlistAPI().subscribe(
-        (data: searchreponse) => {
-          if (data != null && data.responseObject != null) {
-            this.itemsInWhishslist = data.responseObjects;
-            this.itemsInWhishslist.forEach(element => {
-              if (element.quantity == 0) {
-                element.quantity = 1;
-              }
-              this.itemsInWhishslist.push(element);
-            });
-            console.log("shoppingCartItems ", this.itemsInWhishslist);
-          }
-        }),
-        (error) => {
-          console.log(error);
-        };
-    }*/
-    return this.itemsInWhishslist;
-  }
+
 
   public updateWhishlist() {
-   /* if (this.access_token != null) {
-      console.log("getWhishlist :");
+    if (this.access_token != null) {
       this.callGetWhishlistAPI().subscribe(
         (data: searchreponse) => {
-          let alreadyWhishlist: Product[] = [];
           if (data != null && data.responseObjects != null) {
+            let alreadyWhishlist: Product[] = data.responseObjects;
             console.log("Before Update whishlist  ", this.itemsInWhishslist);
             alreadyWhishlist.forEach(alreadyWhishlistItem => {
-              if (alreadyWhishlistItem.quantity == 0) {
+              if (alreadyWhishlistItem.quantity == undefined || alreadyWhishlistItem.quantity == 0) {
                 alreadyWhishlistItem.quantity = 1;
               }
-              alreadyWhishlist.push(alreadyWhishlistItem);
               let newWhislistProd = this.itemsInWhishslist.find(newObj => newObj.item_id !== alreadyWhishlistItem.item_id);
-              if (newWhislistProd !== null) {
+              if (newWhislistProd !== undefined) {
                 alreadyWhishlist.push(newWhislistProd);
                 this.addToWhishlist(newWhislistProd);
               }
@@ -108,15 +90,15 @@ export class WhishlistService {
               this.addToWhishlist(newWhislistProd);
             });
           }
-          console.log("shoppingCartItems ", this.itemsInWhishslist);
+          console.log("itemsInWhishslist ", this.itemsInWhishslist);
         }),
         (error) => {
           console.log(error);
         };
-    }*/
+    }
   }
 
-  private callAddWhishlistAPI(product: Product): Observable<any> {
+  public callAddWhishlistAPI(product: Product): Observable<any> {
     const body = {
       "countryCode": "us",
       "category": product.category,
@@ -128,19 +110,19 @@ export class WhishlistService {
   }
 
 
-  private callRemoveWhishlistAPI(product: Product): Observable<any> {
+  public callRemoveWhishlistAPI(product: Product): Observable<any> {
     const body = {
       "countryCode": "us",
-      "id": product.item_id
+      "id": product.wishlistId
     };
     return this._httpCommonService.postRequest('wishlist/remove', JSON.stringify(body), this.access_token);
   }
 
-  private callGetWhishlistAPI(): Observable<any> {
+  public callGetWhishlistAPI(): Observable<any> {
     const body = {
       "countryCode": "us",
     };
-    return this._httpCommonService.postRequest('wishlist/get', JSON.stringify(body), this.access_token);
+    return this._httpCommonService.postRequest('user/wishlist/get', JSON.stringify(body), this.access_token);
   }
 
   public getItems(): Product[] {
@@ -148,7 +130,7 @@ export class WhishlistService {
   }
 
   
-  public clearCart() {
+  public clearWhislist() {
     this.itemsInWhishslist = [];
     this.itemsInWhishslistTemp = [];
   }

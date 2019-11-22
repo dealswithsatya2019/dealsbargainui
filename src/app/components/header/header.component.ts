@@ -133,6 +133,7 @@ export class HeaderComponent implements OnInit {
     sessionStorage.removeItem("f_login_form");
     sessionStorage.removeItem("success");
     sessionStorage.removeItem("access_token");
+    this._whishlistService.clearWhislist();
   }
   gotoHomePage() {
     this._router.navigate(['/']);
