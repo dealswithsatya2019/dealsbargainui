@@ -6,8 +6,12 @@
 					Brands
 				</mat-expansion-panel-header>
 				<div fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex;">
-					<mat-checkbox *ngFor='let brand_name of distinctbrandsArray' value="brand_name"
-						(change)="refreshBrands($event,brand_name)">{{brand_name}}</mat-checkbox>
+					<ng-container *ngFor='let brand_name of distinctbrandsArray'>
+						<ng-container *ngIf='brand_name.length > 0'>
+							<mat-checkbox value="brand_name"
+								(change)="refreshBrands($event,brand_name)">{{brand_name}}</mat-checkbox>
+						</ng-container>
+					</ng-container>
 				</div>
 			</mat-expansion-panel>
 			<mat-expansion-panel [expanded]="true">
@@ -43,7 +47,8 @@
 					*ngIf="fromPrice.value > 0 ?  (product.prepay_price >= fromPrice.value ? true : false): true">
 					<ng-container *ngIf="toPrice.value > 0 ? (product.prepay_price <= toPrice.value): true">
 						<mat-card
-							*ngIf="selectedBrandsArray.length == 0 ? true: selectedBrandsArray.includes(product.brand_name)" class="product" fxLayout="column">
+							*ngIf="selectedBrandsArray.length == 0 ? true: selectedBrandsArray.includes(product.brand_name)"
+							class="product" fxLayout="column">
 							<!-- <mat-card-subtitle>
 								<span class="badge badge-danger">{{product.discount}}</span>
 							</mat-card-subtitle> -->
@@ -54,8 +59,10 @@
 								<p class="p-title text-center">{{product.item_name}}</p>
 								<p class="p-cost text-center">
 									<ng-container *ngIf="product.dealtype!=''">
-										<span class="old_cost">{{PRICE_PREFIX}}{{product.deals_bargain_supplier_deal_price}}</span>
-										<span class="new_cost">{{PRICE_PREFIX}}{{product.deals_bargain_deal_price}}</span>
+										<span
+											class="old_cost">{{PRICE_PREFIX}}{{product.deals_bargain_supplier_deal_price}}</span>
+										<span
+											class="new_cost">{{PRICE_PREFIX}}{{product.deals_bargain_deal_price}}</span>
 									</ng-container>
 									<ng-container *ngIf="product.dealtype=='' && product.discount=='0'">
 										<span class="new_cost">{{PRICE_PREFIX}}{{product.price}}</span>
@@ -63,11 +70,12 @@
 									<ng-container *ngIf="product.dealtype=='' && product.discount!='0'">
 										<span class="old_cost">{{PRICE_PREFIX}}{{product.price}}</span>
 										<span class="new_cost">{{PRICE_PREFIX}}{{product.discount_amount}}</span>
-									</ng-container>									
+									</ng-container>
 								</p>
 							</mat-card-content>
 							<mat-card-actions>
-								<app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
+								<app-wishlist [actionType]="whishlist_action_type" [productInfo]="product">
+								</app-wishlist>
 								<button mat-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
 									Add Cart
 								</button>
