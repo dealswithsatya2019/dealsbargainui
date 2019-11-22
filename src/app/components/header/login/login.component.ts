@@ -12,6 +12,7 @@ import { EncryptionService } from 'src/app/services/encryption.service';
 import { AuthService as UserAuth } from 'src/app/services/auth.service';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
 import { LoginformService } from 'src/app/services/forms/loginform.service';
+import { WhishlistService } from 'src/app/services/whishlist.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
               public userAuth: UserAuth,
               public matDialogRef: MatDialogRef<LoginComponent>,
               public router: Router,
-              public encryptionService: EncryptionService) { }
+              public encryptionService: EncryptionService,
+              public whishlistService: WhishlistService) { }
 
   ngOnInit() {
   }
@@ -39,6 +41,7 @@ export class LoginComponent implements OnInit {
         this.loginformService.response = response;
         this.userservice.response = JSON.parse(JSON.stringify(response));
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
+        this.whishlistService.updateWhishlist();
       }
     );
   }
@@ -54,6 +57,7 @@ export class LoginComponent implements OnInit {
         this.loginformService.response = response;
         this.userservice.response = JSON.parse(JSON.stringify(response));
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
+        this.whishlistService.updateWhishlist();
       }
     );
   } 
@@ -91,6 +95,7 @@ export class LoginComponent implements OnInit {
           this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
           this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
           this.funClose();
+          this.whishlistService.updateWhishlist();
         }else{
           this.loginErrorMsg = authResponse.statusDesc;
           console.log('Failed' + JSON.stringify(authResponse));

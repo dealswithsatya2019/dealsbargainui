@@ -1,11 +1,46 @@
 <ng-container *ngIf="actionType=='' || actionType=='list'">
-    {{actionType}}
+    <div class="content-container mt-4">
+        <ng-container *ngIf="shoppingCartItems">
+            <div class="order-1 py-3" *ngFor='let product of itemsInWhishslist'>
+                <div class="order-item" style="display: flex;">
+                    <div class="text-center" style="flex: 1 1 20%;max-width: 120px;">
+                        <img [src]="product.image" class="img-cursor">
+                    </div>
+                    <div class="order-details pl-3" style="flex: 1 1 40%;max-width: 40%;">
+                        <h6>{{product.item_name}}</h6>
+                        <div class="small-cap">{{product.brand_name}}</div>
+                        <p class="p-cost">
+                            <ng-container *ngIf="product.dealtype!=''">
+                                <span class="old_cost">{{PRICE_PREFIX}}{{product.deals_bargain_supplier_deal_price}}</span>
+                                <span class="new_cost">{{PRICE_PREFIX}}{{product.deals_bargain_deal_price}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="product.dealtype=='' && product.discount=='0'">
+                                <span class="new_cost">{{PRICE_PREFIX}}{{product.price}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="product.dealtype=='' && product.discount!='0'">
+                                <span class="old_cost">{{PRICE_PREFIX}}{{product.price}}</span>
+                                <span class="new_cost">{{PRICE_PREFIX}}{{product.discount_amount}}</span>
+                            </ng-container>
+                        </p>
+                    </div>
+                    <div class="" style="flex: 1 1 25%;max-width: 25%;">
+                        <div>Delivery by Nov 20 | Free</div>
+                    </div>
+                </div>
+                <div class="options" style="display: flex;">
+                    <div class="mt-2 ml-3" style="flex: 1 1 30%;max-width: 30%;">
+                        <button mat-button (click)="removeFromWhishlist(product)" class="remove-btn">Remove</button>
+                    </div>
+                </div>
+            </div>
+            <p class="my-2 text-right">
+                <button mat-button class="login-login-btn" [routerLink]="['/productpurchase']">Place ORDER</button>
+            </p>
+        </ng-container>
+    </div>
 </ng-container>
 <ng-container *ngIf="actionType=='add'">
-        <button mat-button class="action-btns" matTooltip="Add To Wishlist">
-                <i class="fa fa-heart"></i>
-            </button>
-</ng-container>
-<ng-container *ngIf="actionType=='remove'">
-    {{actionType}}
+    <button mat-button class="action-btns" matTooltip="Add To Wishlist" (click)="addToWhishlist()">
+        <i class="fa fa-heart"></i>
+    </button>
 </ng-container>

@@ -14,9 +14,7 @@
                 </p>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-button class="action-btns" matTooltip="Add To Wishlist">
-                    <i class="fa fa-heart"></i>
-                </button>
+                <app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
                 <button mat-button class="action-btns cart" matTooltip="Add To Cart" (click)="addToCart(product)">
                     <i class="fa fa-shopping-cart"></i>
                 </button>

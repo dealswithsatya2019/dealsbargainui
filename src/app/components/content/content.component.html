@@ -142,8 +142,8 @@
 
 	</mat-card-content>
 	<mat-card-actions>
-		<app-wishlist [actionType]="whishlist_action_type" ></app-wishlist>
-		<button mat-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
+     	<app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
+		<button mat-raised-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
 			Add Cart
 		</button>
 		<button mat-button class="action-btns share">

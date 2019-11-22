@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Product } from 'src/app/models/product';
+import { WhishlistService } from 'src/app/services/whishlist.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -7,14 +9,25 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class WishlistComponent implements OnInit {
 
-  @Input() public actionType : string = 'list';
-  constructor() { }
-
-  ngOnInit() {
+  @Input() public productInfo: Product;
+  @Input() public actionType: string = 'list';
+  public itemsInWhishslist: Product[] = [];
+  constructor(private _whishlistService: WhishlistService) {
+    this._whishlistService.getItems();
   }
 
-  addToWhishlist(){
-      
+  ngOnInit() {
+    if (this.actionType === 'list') {
+      this._whishlistService.getWhishlist();
+    }
+  }
+
+  addToWhishlist() {
+    this._whishlistService.addToWhishlist(this.productInfo);
+  }
+
+  removeFromWhishlist(productInfo) {
+    this._whishlistService.removeFromWhishlist(productInfo);
   }
 
 }

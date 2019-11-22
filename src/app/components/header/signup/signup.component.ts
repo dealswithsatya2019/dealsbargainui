@@ -8,6 +8,7 @@ import { AuthService as UserAuth } from 'src/app/services/auth.service';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { UserService } from 'src/app/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { WhishlistService } from 'src/app/services/whishlist.service';
 
 @Component({
   selector: 'app-signup',
@@ -23,7 +24,8 @@ export class SignupComponent implements OnInit {
     public userservice: UserService,
     public matDialogRef: MatDialogRef<SignupComponent>,
     public router: Router,
-    public encryptionService: EncryptionService) { }
+    public encryptionService: EncryptionService,
+    public  whishlistService: WhishlistService) { }
 
   ngOnInit() {
   }
@@ -48,6 +50,7 @@ export class SignupComponent implements OnInit {
         this.funClose();
         this.userservice.response = response;
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
+        this.whishlistService.updateWhishlist();
       }
     );
   }8
@@ -58,6 +61,7 @@ export class SignupComponent implements OnInit {
         this.funClose();
         this.userservice.response = response;
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
+        this.whishlistService.updateWhishlist();
       }
     );
   }
@@ -83,6 +87,7 @@ export class SignupComponent implements OnInit {
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
             this.signUpErrorMsg = '';
             this.funClose();
+            this.whishlistService.updateWhishlist();
           } else {
             //this.userservice.form.setValue({ name: userInfo.name, email: userInfo.email, password: userInfo.password, mobileno: userInfo.mobileno });
             this.signUpErrorMsg = authResponse.statusDesc;

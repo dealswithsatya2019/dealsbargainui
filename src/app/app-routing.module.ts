@@ -55,6 +55,12 @@ const routes: Routes = [
     } ,
     children: [
       {
+        path: AppRoutes.Base,
+        component: WishlistComponent,
+        pathMatch: 'full'
+      
+      },
+      {
         path: AppRoutes.UserWhishlist, 
         component: WishlistComponent,
         outlet: 'profileoutlet'

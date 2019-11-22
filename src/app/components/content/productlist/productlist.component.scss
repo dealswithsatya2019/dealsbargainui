@@ -61,6 +61,7 @@
   .product-list-page{
     display: flex;
     aside{flex: 1 1 100%;max-width: 220px;}
+    .product-list{flex: 1 1 0%;}
   }
   .productlistcontainer{
     mat-card{
