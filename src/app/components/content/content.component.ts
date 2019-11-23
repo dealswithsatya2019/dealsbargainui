@@ -36,7 +36,7 @@ export class ContentComponent implements AfterViewInit, OnInit {
 
 
   showProductDetails(params) {
-    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params.cname, params.scname, params.pid);
+    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
     sessionStorage.setItem("product_details", JSON.stringify(productRouteInfo));
     //this._productListRouteInfo.addToCart(productRouteInfo);
     this._productservice.routeProductDetails(params);

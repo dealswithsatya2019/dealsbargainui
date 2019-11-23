@@ -3,6 +3,7 @@ import { Product } from 'src/app/models/product';
 import { WhishlistService } from 'src/app/services/whishlist.service';
 import { environment } from 'src/environments/environment';
 import { searchreponse } from 'src/app/models/searchResponse';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -16,7 +17,7 @@ export class WishlistComponent implements OnInit {
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
   public shoppingCartItems: Product[] = [];
   
-  constructor(private _whishlistService: WhishlistService) {
+  constructor(private _whishlistService: WhishlistService, private _cartService: CartService) {
     
   }
 
@@ -54,6 +55,11 @@ export class WishlistComponent implements OnInit {
   }
 
   removeFromWhishlist(productInfo) {
+    this._whishlistService.removeFromWhishlist(productInfo);
+  }
+
+  moveToCart(productInfo){
+    this._cartService.addToCart(productInfo);
     this._whishlistService.removeFromWhishlist(productInfo);
   }
 

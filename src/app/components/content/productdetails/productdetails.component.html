@@ -2,8 +2,9 @@
 		<mat-toolbar-row>
 			<ul>
 				<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
-				<li><a class="pl-3" (click)="routeToProductListPage({cname:cname.toLowerCase(),scname:scname})" routerLinkActive="active">Product List</a></li>
+				<li><a class="pl-3" (click)="routeToProductListPage({cname:cname,scname:scname})" routerLinkActive="active">{{cname}}</a></li>
 				<li><a >Product Details</a></li>
+				<li><a >{{scname}}</a></li>
 			</ul>
 		</mat-toolbar-row>
 	<div style="display: flex;" class="mb-4 col-flex">
@@ -76,7 +77,7 @@
 					</span>
 					
 				</p>
-			<p style="color: #747474;font-weight: 300;">BRAND : {{productDetails.brand_name}}</p>
+			
 
 
 		<!-- 	<p class="py-3">1000 People have viewed this product</p> -->
@@ -109,11 +110,14 @@
 				<button mat-raised-button>L</button>
 				<button mat-raised-button>XL</button>
 			</div> -->
-			
-			<h6 *ngFor="let keyValPair of product_attributes">
-				{{keyValPair.key}} : {{keyValPair.value}}
-			</h6>
+			<p style="color: #747474;font-weight: 300;">Brand Name : {{productDetails.brand_name}}</p>
+			<h6>Item SKU : {{productDetails.item_sku}}</h6>
+			<h6>Condition : {{productDetails.condition}}</h6>
 			<h6>Warranty : {{productDetails.warranty ===''? 'No' : productDetails.warranty}}</h6>
+			<h6 *ngFor="let keyValPair of product_attributes">
+					{{keyValPair.key}} : {{keyValPair.value}}
+			</h6>
+				
 			<div class="py-3 mt-4 lh">
 				<ng-container *ngIf="isProductAvailable; else outofstock">
 					<a mat-button class="quick-buy" (click)="quickBuy(productDetails)" >Quick Buy</a>
@@ -203,7 +207,7 @@
 	<!-- Similar Products -->
 <h5 class="subtitle position-relative"> SIMILAR PRODUCTS
 		<!-- <a [routerLink]="['productlist',cname.toLowerCase(),scname]" routerLinkActive="active" class="pl-3">VIEW ALL</a> -->
-		<a (click)="routeToProductListPage({cname:cname.toLowerCase(),scname:scname})"  class="pl-3">VIEW ALL</a>
+		<a (click)="routeToProductListPage(prodListRouteInfo)"  class="pl-3">VIEW ALL</a>
 	</h5>
 	<div *ngIf="similarProducts">
 		<div class="swiper-container similar">

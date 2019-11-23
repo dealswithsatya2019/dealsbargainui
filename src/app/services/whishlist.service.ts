@@ -27,6 +27,7 @@ export class WhishlistService {
   public addToWhishlist(item: Product) {
     if (this.itemsInWhishslist.some(e => e.item_id === item.item_id)) {
       alert("This item is already added to cart.");
+      return;
     } else {
       item.quantity = 1;
       this.itemsInWhishslist.push(item);

@@ -2,7 +2,9 @@ export class Product {
     product_id: string;
     item_id: string;
     title: string;
+    condition: string;
     item_name: string;
+    item_sku: string;
     price: string;
     deal_price: string;
     discount: string;

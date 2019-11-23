@@ -23,19 +23,19 @@
                             </ng-container>
                         </p>
                     </div>
-                    <div class="" style="flex: 1 1 25%;max-width: 25%;">
+                   <!--  <div class="" style="flex: 1 1 25%;max-width: 25%;">
                         <div>Delivery by Nov 20 | Free</div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="options" style="display: flex;">
                     <div class="mt-2 ml-3" style="flex: 1 1 30%;max-width: 30%;">
                         <button mat-button (click)="removeFromWhishlist(product)" class="remove-btn">Remove</button>
                     </div>
+                    <div class="mt-2 ml-3" style="flex: 1 1 30%;max-width: 30%;">
+                        <button mat-button (click)="moveToCart(product)" class="remove-btn">Move To Cart</button>
+                    </div>
                 </div>
             </div>
-            <p class="my-2 text-right">
-                <button mat-button class="login-login-btn" [routerLink]="['/productpurchase']">Place ORDER</button>
-            </p>
         </ng-container>
     </div>
 </ng-container>

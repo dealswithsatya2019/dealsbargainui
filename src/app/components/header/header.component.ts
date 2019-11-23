@@ -94,6 +94,10 @@ export class HeaderComponent implements OnInit {
   ];
   ngOnInit() {
     this.userservice.response = JSON.parse(sessionStorage.getItem("f_login_form"));
+    let access_token = sessionStorage.getItem("access_token");
+    if(access_token != undefined){
+      this._whishlistService.updateWhishlist();
+    }
     this.searchMoviesCtrl.valueChanges
       .pipe(
         debounceTime(500),

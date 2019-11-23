@@ -18,7 +18,7 @@
                     <ng-container *ngFor="let subMenu of subcategoryMenu.value">
                         <button mat-menu-item>
                             <!-- <a mat-button [routerLink]="['productlist',mainMenuCategory.category.toLowerCase(),subMenu]" routerLinkActive="active">{{subMenu}} </a> -->
-                            <a mat-button  (click)="routeToProductListPage({cname:mainMenuCategory.category.toLowerCase(),scname:subMenu})">{{subMenu}} </a>
+                            <a mat-button  (click)="routeToProductListPage({cname:mainMenuCategory.category,scmenuname:subcategoryMenu.key,scname:subMenu})">{{subMenu}} </a>
                            
                         </button>
                     </ng-container>

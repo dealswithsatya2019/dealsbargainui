@@ -1,10 +1,24 @@
 export class ProductRouteInfo {
     cname: string;
+    scmenuname: string;
     scname: string;
-    productId: string;
-    constructor(public _cname:string,public _scname:string,public _productId:string){
-        this.cname = _cname;
-        this.scname = _scname;
-        this.productId = _productId;
+    pid: string;
+    constructor(public params: any){
+        if(params.cname!=undefined){
+            this.cname = params.cname;
+        }
+        
+        if(params.scmenuname!=undefined){
+            this.scmenuname = params.scmenuname;
+        }
+        
+        if(params.scname!=undefined){
+            this.scname = params.scname;
+        }
+        
+        if(params.pid!=undefined){
+            this.pid = params.pid;
+        }
     }
+    
 }

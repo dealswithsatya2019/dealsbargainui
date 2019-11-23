@@ -1,4 +1,13 @@
 <div class="product-list-page ">
+	<!--	<mat-toolbar-row>
+				<ul>
+					<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
+					<li><a class="pl-3" (click)="routeToProductListPage({cname:cname,scname:scname})" routerLinkActive="active">{{cname}}</a></li>
+					<li><a >Product Details</a></li>
+					<li><a >{{scname}}</a></li>
+				</ul>
+			</mat-toolbar-row>
+		-->	
 	<aside class="margin-top-20">
 		<mat-accordion [multi]="true">
 			<mat-expansion-panel [expanded]="true">
@@ -74,8 +83,7 @@
 								</p>
 							</mat-card-content>
 							<mat-card-actions>
-								<app-wishlist [actionType]="whishlist_action_type" [productInfo]="product">
-								</app-wishlist>
+								<app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
 								<button mat-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
 									Add Cart
 								</button>

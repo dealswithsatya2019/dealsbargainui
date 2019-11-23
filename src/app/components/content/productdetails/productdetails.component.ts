@@ -39,6 +39,7 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
   public similarProducts : Product[];
   public myThumbnail="https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
   public myFullresImage="https://wittlock.github.io/ngx-image-zoom/assets/fullres.jpg";
+  public prodListRouteInfo: ProductRouteInfo;
   public cname: string;
   public scname: string;
   public pid: string;
@@ -75,8 +76,8 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
 
   ngOnInit() {
     this.authToken = sessionStorage.getItem("access_token");
-    /*this._Activatedroute.paramMap.subscribe((params : ParamMap)=> {  
-      this.cname=params.get('cname');  
+    this._Activatedroute.paramMap.subscribe((params : ParamMap)=> {  
+      /*this.cname=params.get('cname');  
       this.scname=params.get('scname');  
       this.pid=params.get('pid');  
     });*/
@@ -86,10 +87,10 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
         this.scname = productRouteInfo.scname;
         this.pid = productRouteInfo.productId;
       }*/
-    let prodListClickInfo: ProductRouteInfo = JSON.parse(sessionStorage.getItem("product_details"));
-    this.cname = prodListClickInfo.cname;
-    this.scname = prodListClickInfo.scname;
-    this.pid = prodListClickInfo.productId;
+    this.prodListRouteInfo = JSON.parse(sessionStorage.getItem("product_details"));
+    this.cname = this.prodListRouteInfo.cname;
+    this.scname = this.prodListRouteInfo.scname;
+    this.pid = this.prodListRouteInfo.pid;
      
     this._productservice.getHttpProductDetailsById(this.cname, this.scname, this.pid, 'us').subscribe(
       (results: searchreponse) => {
@@ -134,12 +135,12 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
         console.log(error);
       }
     );
-    this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
+    this._productservice.getProductlist(this.prodListRouteInfo.cname, this.prodListRouteInfo.scname, 'us', 0, 20).subscribe(
         (results: searchreponse) => {
           this.similarProducts = results.responseObjects;
           //console.log("simillar products :",this.similarProducts);
       });
-   // }); 
+    }); 
   }
 
   ngOnDestroy(){
@@ -157,7 +158,8 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
       loadingIcon: 'Loading...'
      */
     const config: GalleryConfig = {
-        loadingMode: "indeterminate"
+        loadingMode: "indeterminate",
+        imageSize: 'cover'
     };
     this.gallery.ref().setConfig(config);
     this.gallery.ref().load(this.items);
@@ -174,9 +176,9 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
     dialogConfig.data = {
         id: 1,
         title: 'dialog box',
-        cname: this.cname,
-        scname: this.scname,
-        itemid: this.pid,
+        cname: this.prodListRouteInfo.cname,
+        scname: this.prodListRouteInfo.scname,
+        itemid: this.prodListRouteInfo.pid,
         masterSuppler: this.productDetails.master_suplier
     };
     this.dialog.open(RateproductComponent, dialogConfig);
@@ -218,14 +220,14 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
   }
 
   showProductDetails(params){
-    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params.cname,params.scname,params.pid);
+    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
     sessionStorage.setItem("product_details", JSON.stringify(productRouteInfo));
     //this._productListRouteInfo.addToCart(productRouteInfo);
     this._productservice.routeProductDetails(params);
   }
 
   routeToProductListPage(params){
-    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params.cname,params.scname,'');
+    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
    /* this._productListRouteInfo.cname = cname;
     this._productListRouteInfo.scname = scname;*/
     sessionStorage.setItem("product_list", JSON.stringify(productRouteInfo));
