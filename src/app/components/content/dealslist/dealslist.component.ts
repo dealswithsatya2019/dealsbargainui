@@ -18,7 +18,7 @@ export class DealslistComponent implements OnInit {
   public hotDeals : Product[];
   dealtype: any;
   sub:any;
-  public whishlist_action_type :string;
+  public whishlist_action_type :string ='add';
   
   ngOnInit() {
     this.sub = this._Activatedroute.paramMap.subscribe(params => {
