@@ -124,7 +124,7 @@ export class HeaderComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
-    dialogConfig.height = '500px';
+    dialogConfig.height = '465px';
     this.dialog.open(LoginComponent, dialogConfig);
   }
   signOut(): void {

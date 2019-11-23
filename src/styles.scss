@@ -11,7 +11,7 @@ a, a:hover{
     text-decoration: none;
 }
 .content-container{
-    padding: 0px 30px;
+    padding: 0px 15px;
 }
 h1,h2,h3,h4,h5,h6,p{
     margin: 0px;
@@ -96,6 +96,11 @@ h1,h2,h3,h4,h5,h6,p{
     padding-right: 22px;
     font-size: 13px;
 }
+aside .mat-expansion-panel-header.mat-expanded{
+    height: 48px !important;
+    margin-bottom: 10px;
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.6);
+}
 .mat-stepper-horizontal-line{display: none;}
 .top-toolbar .mat-form-field-appearance-legacy .mat-form-field-underline,
 .login-container .mat-form-field-appearance-legacy .mat-form-field-underline{
@@ -145,6 +150,10 @@ h1,h2,h3,h4,h5,h6,p{
     margin: auto;
     position: relative;
 }
+.login-container .mat-form-field{
+    font-size: 14px;
+    margin-bottom: 10px;
+}
 .login-title{
     font-size: 22px;
     margin-bottom: 20px;
@@ -163,7 +172,7 @@ h1,h2,h3,h4,h5,h6,p{
     letter-spacing: 1px;
 }
 .login-links{font-size: 13px;}
-.login-logo{position: absolute;left: 20px;top: 13px;width: 25px;}
+.login-logo{position: absolute;left: 20px;top: 6px;width: 23px;}
 .policy{
     font-size: 14px;
     line-height: 25px;
@@ -172,15 +181,12 @@ h1,h2,h3,h4,h5,h6,p{
 .checkout-panel .mat-expansion-indicator{
     display: none;
 }
-
-label.star[_ngcontent-otj-c13]{
-    font-size: 25px !important;
-    padding: 7px !important;
-    
+.mat-form-field.mat-form-field-invalid .mat-form-field-label{
+    color: rgba(0,0,0,0.6);
 }
 @media screen and (min-width:1366px){
     .content-container{
-        max-width: 1300px;
+        max-width: 1330px;
         margin: auto;
     }
 }

@@ -11,7 +11,7 @@ footer{
     border-top: 2px solid #c6c6c6;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 .get-in-touch{
     line-height: 30px;
@@ -51,10 +51,9 @@ img {
 .phone::before{
     content: "\f095"; 
 }
-.avail-payment{text-align: center;}
+.avail-payment{text-align: center;height: 70px;}
 .avail-payment img{
-    width: 50px;
-    height: 33px;
+    max-height:100%
 }
 .foo-title{
     position: relative;

@@ -14,7 +14,7 @@
     </div> -->
 
     <!-- <p class="text-center login-info">-OR USING MAIL-</p> -->
-<form [formGroup]="userservice.form" class="normal-form w-100 mt-5" (submit)="funRegister()">
+<form [formGroup]="userservice.form" class="normal-form w-100 mt-4" (submit)="funRegister()">
         {{this.signUpErrorMsg}}
             <!-- <input type="hidden" formControlName="$key"> -->
 
@@ -42,7 +42,7 @@
     <button mat-raised-button type="submit" [disabled]="userservice.form.invalid" class=" my-2 w-100 login-login-btn">SIGN UP</button>
 </form>
 
-<div class="login-links mt-4">
+<div class="login-links mt-3">
     Already have an account?<a mat-button (click)="funSignIn()" style="line-height: 17px;">Log In</a>
 </div>
 <!-- <p style="color: green;">Need Help ?</p>

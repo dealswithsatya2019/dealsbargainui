@@ -13,6 +13,8 @@ import { AuthService as UserAuth } from 'src/app/services/auth.service';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
 import { LoginformService } from 'src/app/services/forms/loginform.service';
 import { WhishlistService } from 'src/app/services/whishlist.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -29,10 +31,15 @@ export class LoginComponent implements OnInit {
               public matDialogRef: MatDialogRef<LoginComponent>,
               public router: Router,
               public encryptionService: EncryptionService,
-              public whishlistService: WhishlistService) { }
+              public whishlistService: WhishlistService,
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    // this._snackBar.open(message, action, {
+    //   duration: 2000,
+    // });
   }
+  
 
   loginFacebook() {
     this._socioAuthServ.signIn(FacebookLoginProvider.PROVIDER_ID).then(
@@ -68,7 +75,7 @@ export class LoginComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
-    dialogConfig.height = '500px';
+    dialogConfig.height = '450px';
     this.dialog.open(SignupComponent, dialogConfig);
   }
 
