@@ -15,16 +15,19 @@ import { environment } from 'src/environments/environment';
 })
 
 export class CartdetailsComponent implements OnInit, OnDestroy {
-  
+
   public cartInfo: cartInfo;
   public autherization: string;
   public userToken: string;
   public shoppingCartItems: Product[] = [];
   public product: Product;
   private APIEndpoint: string = environment.APIEndpoint;
+  private deliverydate_configurable_days = environment.DeliveryDate_Configurable_days;
   subscriptions = new Subscription();
+  send_date = new Date();
 
   constructor(public http: HttpClient, private _Activatedroute: ActivatedRoute, private cartService: CartService, public _router: Router) {
+    this.send_date.setHours(this.send_date.getHours() + (this.deliverydate_configurable_days * 24));
   }
 
   ngOnInit() {
@@ -71,7 +74,7 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
   }
 
   public updateItemCountFromCartComp(product: Product, isAdd: boolean) {
-    console.log("updateItemCountFromCartComp value",isAdd);
+    console.log("updateItemCountFromCartComp value", isAdd);
     this.cartService.updateItemCountFromCart(product, isAdd);
     this.shoppingCartItems = this.cartService.getItems();
   }

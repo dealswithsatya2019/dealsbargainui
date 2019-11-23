@@ -3,6 +3,7 @@ import { Product } from '../models/product';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,14 @@ export class CartService {
   private autherization: string;
   public addCartData: any;
   private APIEndpoint: string = environment.APIEndpoint;
+  public snackBarConfig: MatSnackBarConfig;	  
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient,private _snackBar: MatSnackBar) { 
+    this.snackBarConfig = new MatSnackBarConfig();
+    this.snackBarConfig.horizontalPosition = "center";
+    this.snackBarConfig.verticalPosition = "top";
+    this.snackBarConfig.duration = 2000;
+  }
 
 
   public recentProduct(): Product {
@@ -43,6 +50,11 @@ export class CartService {
       this.autherization = "Bearer " + access_token;
       this.removeProductHttp(item.cart_id).subscribe();
     }
+    this.raiseAlert("The selected item has been removed from cart.");
+  }
+
+  raiseAlert(message : string){
+    this._snackBar.open(message, "", this.snackBarConfig);
   }
 
   public removeProductHttp(cart_id: string) {
@@ -61,11 +73,12 @@ export class CartService {
     let access_token = sessionStorage.getItem("access_token");
     this.itemsInCartTemp = [];
     if (this.itemsInCart.some(e => e.item_id === item.item_id)) {
-      alert("This item is already added to cart.");
+      this.raiseAlert("This item is already added to cart.")
     } else {
       item.quantity = 1;
       this.itemsInCart.push(item);
       console.log("Item cart ", this.getItems())
+      this.raiseAlert("The item has been added to cart.")
     }
     if (access_token != null && item != null) {
       this.autherization = "Bearer " + access_token;
@@ -113,6 +126,7 @@ export class CartService {
       });
       this.itemsInCart = [];
       this.itemsInCart = this.itemsInCartTemp;
+      this.raiseAlert("The item count has been updated to cart.");
       console.log("updateItemCountFromCart", this.getItems());
     }
   }

@@ -20,6 +20,7 @@ import { AddProductReq } from './addproductreq';
 import { environment } from 'src/environments/environment';
 import { address } from 'src/app/models/address';
 import { delay } from 'q';
+import { MatStepper } from '@angular/material/';
 declare let paypal: any;
 
 @Component({
@@ -31,6 +32,7 @@ export class ProductpurchaseComponent implements OnInit {
   public autherization: string;
   @ViewChild('paypal', { static: true })
   paypalElement: ElementRef;
+  @ViewChild('horstepper', { static: true }) horstepper: MatStepper;
   paypalFor: boolean = false;
   exp1: boolean = true;
   exp2: boolean = false;
@@ -51,6 +53,9 @@ export class ProductpurchaseComponent implements OnInit {
   public statesArr: string[] = environment.STATES.split(',');
   public shoppingCartItems: Product[] = [];
   subscriptions = new Subscription();
+  send_date = new Date();
+
+  private deliverydate_configurable_days = environment.DeliveryDate_Configurable_days;
 
 
   addressform: FormGroup = new FormGroup({
@@ -95,10 +100,13 @@ export class ProductpurchaseComponent implements OnInit {
     public httpService: HttCommonService,
     public http: HttpClient,
     private cartService: CartService
-  ) { }
+  ) {
+    this.send_date.setHours(this.send_date.getHours() + (this.deliverydate_configurable_days * 24));
+  }
 
 
   ngOnInit() {
+
 
     let access_token = sessionStorage.getItem("access_token");
     if (access_token != null) {
@@ -106,6 +114,10 @@ export class ProductpurchaseComponent implements OnInit {
       this.loginformService.response = JSON.parse(sessionStorage.getItem("f_login_form"));
       console.log("response ", this.loginformService.response);
       this.isLogIn = true;
+      this.horstepper.selectedIndex = 1;
+      this.getAddresses();
+      this.shoppingCartItems = this.cartService.getItems();
+      this.calculatePrices();
     }
     paypal
       .Buttons({
@@ -249,12 +261,13 @@ export class ProductpurchaseComponent implements OnInit {
     this.exp1 = false;
     this.exp2 = false;
     this.getAddresses();
+    this.cartService.raiseAlert("The selected address has been updated successfully.");
   }
 
   public deleteAddressService(addressId) {
-
     this.subscriptions.add(this.deleteAddress(addressId).subscribe(data => this.addressInfo = data));
     this.getAddresses();
+    this.cartService.raiseAlert("The selected address has been deleted successfully.");
   }
 
   public getCartlist(): Observable<cartInfo> {
@@ -328,7 +341,8 @@ export class ProductpurchaseComponent implements OnInit {
           this.exp1 = false;
           this.exp1 = false;
         }
-      }))
+      }));
+    this.cartService.raiseAlert("The address has been saved successfully.");
   }
 
   public addProductsArray: AddProductReq[] = [];
@@ -409,7 +423,7 @@ export class ProductpurchaseComponent implements OnInit {
 
   public selectedIndex: number = 0;
   public selectionChange(event) {
-    console.log("Event Obj :",event);
+    console.log("Event Obj :", event);
     if (event.selectedIndex == 0) {
     } else if (event.selectedIndex == 1) {
       this.getAddresses();
