@@ -44,9 +44,7 @@ export class CartService {
   public removeProduct(item: Product) {
     this.itemsInCart = this.itemsInCart.filter(itemLoop => itemLoop.item_id != item.item_id);
     let access_token = sessionStorage.getItem("access_token");
-    console.log("access Token ", access_token);
     if (access_token != null) {
-      console.log("removeProduct :", item);
       this.autherization = "Bearer " + access_token;
       this.removeProductHttp(item.cart_id).subscribe();
     }
@@ -77,7 +75,6 @@ export class CartService {
     } else {
       item.quantity = 1;
       this.itemsInCart.push(item);
-      console.log("Item cart ", this.getItems())
       this.raiseAlert("The item has been added to cart.")
     }
     if (access_token != null && item != null) {
@@ -101,25 +98,20 @@ export class CartService {
         "count": "1"
       },
     ]
-    console.log("Category :", product.category);
     return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
-
 
   public updateItemCountFromCart(item: Product, isAdd: boolean) {
     this.itemsInCartTemp = [];
     let access_token = sessionStorage.getItem("access_token");
     if (this.itemsInCart.some(e => e.item_id === item.item_id)) {
-      console.log("Items in cart true", this.itemsInCart.length);
       this.itemsInCart.forEach(element => {
         if (element.item_id == item.item_id) {
-          console.log("condition  satisfied true", element.item_id);
           element.quantity = element.quantity >= 0 ? (isAdd ? (element.quantity + 1) : (element.quantity - 1)) : 1;
           if (access_token != null) {
             this.autherization = "Bearer " + access_token;
             this.updateCart(element);
-            console.log("element ", element);
           }
         }
         this.itemsInCartTemp.push(element);
@@ -127,7 +119,6 @@ export class CartService {
       this.itemsInCart = [];
       this.itemsInCart = this.itemsInCartTemp;
       this.raiseAlert("The item count has been updated to cart.");
-      console.log("updateItemCountFromCart", this.getItems());
     }
   }
 

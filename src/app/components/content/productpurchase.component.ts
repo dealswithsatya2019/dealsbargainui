@@ -20,7 +20,9 @@ import { AddProductReq } from './addproductreq';
 import { environment } from 'src/environments/environment';
 import { address } from 'src/app/models/address';
 import { delay } from 'q';
-import { MatStepper } from '@angular/material/';
+import { CreateOrederReq } from './orderReq';
+import { PromoResponse } from './promoResponse';
+import { PromoResponseMode } from './promoResponseModel';
 declare let paypal: any;
 
 @Component({
@@ -30,9 +32,8 @@ declare let paypal: any;
 })
 export class ProductpurchaseComponent implements OnInit {
   public autherization: string;
-  @ViewChild('paypal', { static: true })
-  paypalElement: ElementRef;
-  @ViewChild('horstepper', { static: true }) horstepper: MatStepper;
+  @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
+
   paypalFor: boolean = false;
   exp1: boolean = true;
   exp2: boolean = false;
@@ -89,6 +90,10 @@ export class ProductpurchaseComponent implements OnInit {
     country: new FormControl('United States', [Validators.required]),
   });
 
+  couponform: FormGroup = new FormGroup({
+    couponcode: new FormControl('', [Validators.required]),
+  });
+
   constructor(public loginformService: LoginformService,
     public userservice: UserService,
     public _socioAuthServ: AuthService,
@@ -99,26 +104,21 @@ export class ProductpurchaseComponent implements OnInit {
     public _router: Router,
     public httpService: HttCommonService,
     public http: HttpClient,
-    private cartService: CartService
-  ) {
+    private cartService: CartService) {
     this.send_date.setHours(this.send_date.getHours() + (this.deliverydate_configurable_days * 24));
   }
 
 
   ngOnInit() {
-
-
     let access_token = sessionStorage.getItem("access_token");
     if (access_token != null) {
       this.autherization = "Bearer " + access_token;
       this.loginformService.response = JSON.parse(sessionStorage.getItem("f_login_form"));
-      console.log("response ", this.loginformService.response);
       this.isLogIn = true;
-      this.horstepper.selectedIndex = 1;
-      this.getAddresses();
-      this.shoppingCartItems = this.cartService.getItems();
-      this.calculatePrices();
     }
+    this.shoppingCartItems = this.cartService.getItems();
+    this.calculatePrices();
+
     paypal
       .Buttons({
         style: {
@@ -131,7 +131,7 @@ export class ProductpurchaseComponent implements OnInit {
                 description: "",
                 amount: {
                   currency_code: "USD",
-                  value: this.totalPaybaleCost,
+                  value: 0.01,
                 }
               }
             ]
@@ -140,7 +140,13 @@ export class ProductpurchaseComponent implements OnInit {
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
           this.paypalFor = true;
-          console.log("order :", order);
+          let orderJson = JSON.parse(JSON.stringify(order));
+          let orderId = orderJson.id;
+          let create_time = orderJson.create_time;
+          let update_time = orderJson.update_time;
+          let dispute_categories = orderJson.dispute_categories;
+          let status = orderJson.status;
+          this.createOrder();
         },
         onError: err => {
           console.log("Error :", err);
@@ -220,16 +226,12 @@ export class ProductpurchaseComponent implements OnInit {
 
   funSave() {
     let addressInfo = JSON.parse(JSON.stringify(this.addressform.value));
-    console.log("addressInfo :", addressInfo);
     this.saveAddress(addressInfo);
   }
 
   public isUpdateAddress: boolean;
 
   public getAddresslist(): Observable<addressResponse> {
-    console.log("getAddresslist called :");
-    console.log("getAddresslist called :", this.autherization);
-
     return this.http.get<addressResponse>(this.APIEndpoint + "/user/contacts/us",
       { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
@@ -264,10 +266,20 @@ export class ProductpurchaseComponent implements OnInit {
     this.cartService.raiseAlert("The selected address has been updated successfully.");
   }
 
-  public deleteAddressService(addressId) {
-    this.subscriptions.add(this.deleteAddress(addressId).subscribe(data => this.addressInfo = data));
-    this.getAddresses();
-    this.cartService.raiseAlert("The selected address has been deleted successfully.");
+  public deleteAddressService(addressId: string) {
+    console.log("address seleted 1",new Date());
+    this.subscriptions.add(this.deleteAddress(addressId).subscribe(data => {
+      this.addressInfo = data;
+      if (this.addressInfo.statusCode == 200) {
+        console.log("address seleted 2",new Date());
+        this.cartService.raiseAlert("The selected address has been deleted successfully.");
+      } else {
+        this.cartService.raiseAlert("Failed to create the address. Please send a mail");
+      }
+      console.log("address seleted 3",new Date());
+      this.getAddresses();
+      console.log("address seleted 4",new Date());
+    }));
   }
 
   public getCartlist(): Observable<cartInfo> {
@@ -303,11 +315,9 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public getAddresses() {
-
-    console.log("address calleddddddd");
+    console.log("getAddresses ",new Date());
     this.subscriptions.add(this.getAddresslist().subscribe(data => {
       this.addressInfo = data;
-      console.log("data from response :", data)
       if (this.addressInfo.statusCode == 404) {
         this.exp1 = true;
         this.exp2 = false;
@@ -315,6 +325,8 @@ export class ProductpurchaseComponent implements OnInit {
         this.exp1 = false;
         this.exp2 = false;
         this.isUpdateAddress = false;
+        this.shoppingCartItems = this.cartService.getItems();
+        this.calculatePrices();
       }
     }));
   }
@@ -333,16 +345,17 @@ export class ProductpurchaseComponent implements OnInit {
   public saveAddress(addressInfoJson: string) {
     this.subscriptions.add(this.http.post(this.APIEndpoint + "/user/contact", addressInfoJson,
       { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } }).subscribe(data => {
-        console.log("Address :", data);
         let jsonobj = JSON.parse(JSON.stringify(data));
-        console.log("Status", jsonobj.statusCode);
-        if (jsonobj.statusCode == 200 || 1 == 1) {
+        if (jsonobj.statusCode == 200) {
+          this.cartService.raiseAlert("The address has been saved successfully.");
           this.getAddresses();
           this.exp1 = false;
           this.exp1 = false;
+        } else {
+          this.cartService.raiseAlert("Failed to creat the address, Please send a mail.");
         }
       }));
-    this.cartService.raiseAlert("The address has been saved successfully.");
+
   }
 
   public addProductsArray: AddProductReq[] = [];
@@ -368,7 +381,37 @@ export class ProductpurchaseComponent implements OnInit {
   public addCartData: any;
 
   public addCart() {
-    this.subscriptions.add(this.addProduToCart().subscribe(data => this.addCartData = data));
+    this.subscriptions.add(this.addProduToCart().subscribe(data => {
+      this.addCartData = data
+      this.shoppingCartItems = this.cartService.getItems();
+      this.calculatePrices();
+    }));
+
+  }
+
+  public addOrdersArray: CreateOrederReq[] = [];
+  public createOrderReq: CreateOrederReq;
+
+  public createOrderData: any;
+
+  public createOrderHttp(): Observable<any> {
+    this.shoppingCartItems.forEach(element => {
+      this.createOrderReq = new CreateOrederReq();
+      this.createOrderReq.category = element.category;
+      this.createOrderReq.item_id = element.item_id;
+      this.createOrderReq.master_supplier = element.master_suplier;
+      this.createOrderReq.subcategory = element.subcategory;
+      this.createOrderReq.address_id = this.selectedAddressId;
+      this.addOrdersArray.push(this.createOrderReq);
+    });
+    let body = JSON.stringify(this.addOrdersArray);
+
+    return this.http.post<any>(this.APIEndpoint + "/order/create-order",
+      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+  }
+
+  public createOrder() {
+    this.subscriptions.add(this.createOrderHttp().subscribe(data => this.createOrderData = data));
   }
 
   public totalCost: number = 0;
@@ -385,8 +428,9 @@ export class ProductpurchaseComponent implements OnInit {
       this.couponDiscountCost = 0;
     });
     this.totalPaybaleCost = ((this.totalCost + this.deliveryCost) - this.couponDiscountCost)
-    this.totalCartSize = this.cartInfo.responseObject.length;
-    console.log(this.totalCost + ":" + this.deliveryCost + ":" + this.couponDiscountCost + ":" + this.totalPaybaleCost + ":" + this.totalCartSize);
+    if (this.cartInfo != null && this.cartInfo.responseObject != null && this.cartInfo.responseObject.length > 0) {
+      this.totalCartSize = this.cartInfo.responseObject.length;
+    }
   }
 
   public goToPayment() {
@@ -409,15 +453,11 @@ export class ProductpurchaseComponent implements OnInit {
   public updateItemCountFromCartComp(product: Product, isAdd: boolean) {
     console.log("updateItemCountFromCartComp value", isAdd);
     this.cartService.updateItemCountFromCart(product, isAdd);
-    // delay(10000);
-    // this.getCarts();
     this.shoppingCartItems = this.cartService.getItems();
   }
 
   public removeItemFromCartComp(product: Product) {
     this.cartService.removeProduct(product);
-    // delay(1000);
-    // this.getCarts();
     this.shoppingCartItems = this.cartService.getItems();
   }
 
@@ -433,6 +473,29 @@ export class ProductpurchaseComponent implements OnInit {
 
     }
     return false;
+  }
+
+  public promoResponse: PromoResponse;
+
+  validateCoupon(couponCode: string) {
+    this.subscriptions.add(this.validateCouponHttp().subscribe(data => {
+      this.promoResponse = data
+      if (this.promoResponse.statusCode == "302") {
+        let promoValue = this.promoResponse.responseObjects.value;
+        this.couponDiscountCost = promoValue;
+        this.calculatePrices();
+      }
+    }));
+  }
+
+  validateCouponHttp(): Observable<PromoResponse> {
+    console.log("Coupon Code ", this.couponform.controls.couponcode.value);
+    let body = {
+      "countryCode": "us",
+      "coupon_code": this.couponform.controls.couponcode.value,
+    }
+    return this.http.post<PromoResponse>(this.APIEndpoint + "/coupon/applypromo",
+      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
   ngOnDestroy(): void {

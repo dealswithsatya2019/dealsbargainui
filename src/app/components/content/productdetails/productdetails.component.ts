@@ -18,7 +18,6 @@ import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
-declare let paypal: any;
 
 @Component({
   selector: 'app-productdetails',
@@ -31,8 +30,7 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
    //Using loadingMode: 'indeterminate' on the GalleryModule's config worked.
    public PRICE_PREFIX: string = environment.PRICE_PREFIX;
    public authToken: string = "";
-  @ViewChild('paypal', { static: true })
-  paypalElement: ElementRef;
+  
   paidFor: boolean = false;
   public productDetails : ProductDetails = new ProductDetails();
   public product: Product = new Product();
