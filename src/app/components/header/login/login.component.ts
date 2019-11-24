@@ -7,6 +7,7 @@ import { UserService } from 'src/app/user.service';
 import { MatDialogConfig } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { SignupComponent } from 'src/app/components/header/signup/signup.component';
+import { ForgotpasswordComponent } from 'src/app/components/header/forgotpassword/forgotpassword.component'
 import * as CryptoJS from 'crypto-js';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { AuthService as UserAuth } from 'src/app/services/auth.service';
@@ -78,7 +79,15 @@ export class LoginComponent implements OnInit {
     dialogConfig.height = '450px';
     this.dialog.open(SignupComponent, dialogConfig);
   }
-
+  forgotpwd() {
+    this.funClose();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '400px';
+    dialogConfig.height = '475px';
+    this.dialog.open(ForgotpasswordComponent, dialogConfig);
+  }
   funLogin() {
     let userInfo = JSON.parse(JSON.stringify(this.loginformService.form.value));
     var key1 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));

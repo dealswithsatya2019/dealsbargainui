@@ -57,6 +57,7 @@ import { AddressesComponent } from './components/user/addresses/addresses.compon
 import { ReviewRatingsComponent } from './components/user/review-ratings/review-ratings.component';
 import { ChangePasswordComponent } from './components/user/change-password/change-password.component';
 import { UnsubscribeComponent } from './components/user/unsubscribe/unsubscribe.component';
+import { ForgotpasswordComponent } from './components/header/forgotpassword/forgotpassword.component';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -118,9 +119,10 @@ export function ProvideConfig() {
     AddressesComponent,
     ReviewRatingsComponent,
     ChangePasswordComponent,
-    UnsubscribeComponent
+    UnsubscribeComponent,
+    ForgotpasswordComponent
   ],
-  entryComponents:[LoginComponent,SignupComponent,SocialshareComponent,RateproductComponent],
+  entryComponents:[LoginComponent,SignupComponent,SocialshareComponent,RateproductComponent,ForgotpasswordComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

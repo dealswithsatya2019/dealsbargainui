@@ -99,7 +99,9 @@ h1,h2,h3,h4,h5,h6,p{
 aside .mat-expansion-panel-header.mat-expanded{
     height: 48px !important;
     margin-bottom: 10px;
-    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.6);
+    box-shadow: 1px 1px 4px -2px rgba(0,0,0,0.3);
+    border-radius: 0px;
+    color: #ff9600;
 }
 .mat-stepper-horizontal-line{display: none;}
 .top-toolbar .mat-form-field-appearance-legacy .mat-form-field-underline,
@@ -171,7 +173,11 @@ aside .mat-expansion-panel-header.mat-expanded{
     color: #fff !important;
     letter-spacing: 1px;
 }
-.login-links{font-size: 13px;}
+.login-links{
+    font-size: 13px;display: flex;justify-content: space-between;
+    align-items: center;
+    .mat-button{padding: 0px;}
+}
 .login-logo{position: absolute;left: 20px;top: 6px;width: 23px;}
 .policy{
     font-size: 14px;
@@ -183,6 +189,17 @@ aside .mat-expansion-panel-header.mat-expanded{
 }
 .mat-form-field.mat-form-field-invalid .mat-form-field-label{
     color: rgba(0,0,0,0.6);
+}
+.mat-form-field-infix{
+    border: 0px;
+}
+.otp-section{
+    .mat-form-field-wrapper{
+        padding: 0px;
+        .mat-form-field-infix{
+            border: 0px;
+        }
+    }
 }
 @media screen and (min-width:1366px){
     .content-container{

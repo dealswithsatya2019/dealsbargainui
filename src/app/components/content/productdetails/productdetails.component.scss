@@ -52,19 +52,12 @@ h5{
   .margin-top-20{
     margin-top:20px;
   } 
-  
-  .old_cost{
-    font-size: 14px;
-    margin-right: 8px;
-    text-decoration: line-through;
-    color: #686565;
-  }
+
   .new_cost{
     font-size: 17px;
     color: #b90b1c;
   }
   
-
   .productlistcontainer{
     mat-card{
       background-color: #fff;
@@ -161,8 +154,8 @@ h5{
     background-color: #efa132;
     color: #fff;
     font-size: 13px;
-    height: 25px;
-    line-height: 27px;
+    height: 22px;
+    line-height: 22px;
   }
   .fa-heart{
     color: #e24e4e;
@@ -171,13 +164,13 @@ h5{
     color: #2a7ace;
   }
   .old_cost{
-    font-size: 14px;
+    font-size: 16px;
     margin-right: 8px;
     text-decoration: line-through;
     color: #686565;
   }
   .new_cost{
-    font-size: 17px;
+    font-size: 16px;
     color: #ff9600;
     font-weight: 700;
   }
@@ -203,7 +196,8 @@ h5{
     margin-bottom: 1rem;
     a{
       text-decoration: none;
-      font-size: 16px;
+      font-size: 14px;
+      color: #0056b3;
     }
   }
   .subtitle::after{
@@ -423,14 +417,6 @@ h5{
       
       }
     }
-  }
-  .cart{
-    margin: 3px 0px;
-    background-color: #efa132;
-    color: #fff;
-    font-size: 13px;
-    height: 30px;
-    line-height: 28px;
   }
 
   mat-expansion-panel{margin-bottom: 20px;}

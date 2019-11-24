@@ -7,16 +7,17 @@
   margin-right: 1.5%;
   padding: 10px;
   border-radius: 10px;
+  box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.15);
 }
   
 .old_cost{
-  font-size: 14px;
+  font-size: 16px;
   margin-right: 8px;
   text-decoration: line-through;
   color: #686565;
 }
 .new_cost{
-  font-size: 17px;
+  font-size: 16px;
   color: #ff9600;
   font-weight: 700;
 }
@@ -96,8 +97,8 @@
     background-color: #efa132;
     color: #fff;
     font-size: 13px;
-    height: 25px;
-    line-height: 27px;
+    height: 22px;
+    line-height: 22px;
   }
   .fa-heart{
     color: #e24e4e;

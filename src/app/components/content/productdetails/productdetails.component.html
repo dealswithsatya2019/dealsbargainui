@@ -2,7 +2,7 @@
 		<mat-toolbar-row>
 			<ul>
 				<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
-				<li><a class="pl-3" (click)="routeToProductListPage({cname:cname,scname:scname})" routerLinkActive="active">{{cname}}</a></li>
+				<li><a (click)="routeToProductListPage({cname:cname,scname:scname})" routerLinkActive="active">{{cname}}</a></li>
 				<li><a >Product Details</a></li>
 				<li><a >{{scname}}</a></li>
 			</ul>
