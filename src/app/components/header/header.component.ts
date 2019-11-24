@@ -134,10 +134,12 @@ export class HeaderComponent implements OnInit {
   signOut(): void {
     this._socioAuthServ.signOut();
     this.userservice.response = null;
+    this.cartService.clearCart();
     sessionStorage.removeItem("f_login_form");
     sessionStorage.removeItem("success");
     sessionStorage.removeItem("access_token");
     this._whishlistService.clearWhislist();
+    this._router.navigateByUrl("/");
   }
   gotoHomePage() {
     this._router.navigate(['/']);

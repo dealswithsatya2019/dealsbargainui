@@ -9,7 +9,7 @@ export class PromoResponseMode {
     public validto: string;
     public mode_of_value: string;
     public criteria_condition: string;
-    public criteria_amount: string;
+    public criteria_amount: number;
     public criteria_message: string;
     public criteria: string;
     public value: number;

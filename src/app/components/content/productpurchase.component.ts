@@ -117,6 +117,7 @@ export class ProductpurchaseComponent implements OnInit {
       this.isLogIn = true;
     }
     this.shoppingCartItems = this.cartService.getItems();
+    this.initializeValues();
     this.calculatePrices();
 
     paypal
@@ -220,8 +221,11 @@ export class ProductpurchaseComponent implements OnInit {
     this.autherization = null;
     this.cartInfo = null;
     this.addressInfo = null;
+    this.cartService.setItems(null);
+    this.shoppingCartItems = null;
     sessionStorage.removeItem("f_login_form");
     sessionStorage.removeItem("access_token");
+    this._router.navigateByUrl("/");
   }
 
   funSave() {
@@ -267,55 +271,58 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public deleteAddressService(addressId: string) {
-    console.log("address seleted 1",new Date());
+    console.log("address seleted 1", new Date());
     this.subscriptions.add(this.deleteAddress(addressId).subscribe(data => {
       this.addressInfo = data;
       if (this.addressInfo.statusCode == 200) {
-        console.log("address seleted 2",new Date());
+        console.log("address seleted 2", new Date());
         this.cartService.raiseAlert("The selected address has been deleted successfully.");
       } else {
         this.cartService.raiseAlert("Failed to create the address. Please send a mail");
       }
-      console.log("address seleted 3",new Date());
+      console.log("address seleted 3", new Date());
       this.getAddresses();
-      console.log("address seleted 4",new Date());
+      console.log("address seleted 4", new Date());
     }));
   }
 
   public getCartlist(): Observable<cartInfo> {
-    let body = {
-      "countryCode": "us",
-      "address_id": this.selectedAddressId,
+    if (this.selectedAddressId != null && this.selectedAddressId.length > 0) {
+      let body = {
+        "countryCode": "us",
+        "address_id": this.selectedAddressId,
+      }
+      return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartInfo",
+        body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+    } else {
+      return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartdetails/us",
+        { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
     }
-    return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartInfo",
-      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
   }
 
   public getCarts() {
-    console.log("selected address id", this.selectedAddressId);
-    if (this.selectedAddressId != null && this.selectedAddressId.length > 0) {
-      this.subscriptions.add(this.getCartlist().subscribe(data => {
-        this.cartInfo = data;
-        this.shoppingCartItems = [];
-        if (this.cartInfo != null && this.cartInfo.responseObject != null) {
-          this.isCart = true;
-          this.cartService.clearCart();
-          this.cartInfo.responseObject.forEach(element => {
-            if (element.quantity == 0) {
-              element.quantity = 1;
-            }
-            this.cartService.setItems(element);
-            this.shoppingCartItems.push(element);
-          });
-          console.log("shoppingCartItems ", this.shoppingCartItems);
-        }
+    this.subscriptions.add(this.getCartlist().subscribe(data => {
+      this.cartInfo = data;
+      this.shoppingCartItems = [];
+      if (this.cartInfo != null && this.cartInfo.responseObject != null) {
+        this.isCart = true;
+        this.cartService.clearCart();
+        this.cartInfo.responseObject.forEach(element => {
+          if (element.quantity == 0) {
+            element.quantity = 1;
+          }
+          this.cartService.setItems(element);
+          this.shoppingCartItems.push(element);
+        });
+        console.log("shoppingCartItems ", this.shoppingCartItems);
+        this.initializeValues();
         this.calculatePrices();
-      }));
-    }
+      }
+    }));
   }
 
   public getAddresses() {
-    console.log("getAddresses ",new Date());
+    console.log("getAddresses ", new Date());
     this.subscriptions.add(this.getAddresslist().subscribe(data => {
       this.addressInfo = data;
       if (this.addressInfo.statusCode == 404) {
@@ -325,8 +332,6 @@ export class ProductpurchaseComponent implements OnInit {
         this.exp1 = false;
         this.exp2 = false;
         this.isUpdateAddress = false;
-        this.shoppingCartItems = this.cartService.getItems();
-        this.calculatePrices();
       }
     }));
   }
@@ -382,9 +387,8 @@ export class ProductpurchaseComponent implements OnInit {
 
   public addCart() {
     this.subscriptions.add(this.addProduToCart().subscribe(data => {
-      this.addCartData = data
-      this.shoppingCartItems = this.cartService.getItems();
-      this.calculatePrices();
+      this.addCartData = data;
+      this.getCarts();
     }));
 
   }
@@ -421,11 +425,10 @@ export class ProductpurchaseComponent implements OnInit {
   public totalCartSize: number = 0;
 
   public calculatePrices() {
-    this.initializeValues();
+    console.log("calculatePrices",this.shoppingCartItems.length);
     this.shoppingCartItems.forEach(element => {
       this.totalCost = this.totalCost + element.prepay_price;
       this.deliveryCost = element.ship_cost;
-      this.couponDiscountCost = 0;
     });
     this.totalPaybaleCost = ((this.totalCost + this.deliveryCost) - this.couponDiscountCost)
     if (this.cartInfo != null && this.cartInfo.responseObject != null && this.cartInfo.responseObject.length > 0) {
@@ -476,13 +479,39 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public promoResponse: PromoResponse;
+  public promoResponseModel: PromoResponseMode;
 
   validateCoupon() {
     this.subscriptions.add(this.validateCouponHttp().subscribe(data => {
-      this.promoResponse = data
-      if (this.promoResponse.statusCode == "302") {
-        let promoValue = this.promoResponse.responseObjects.value;
-        this.couponDiscountCost = promoValue;
+      this.promoResponse = data;
+      console.log("SC ",this.promoResponse.statusCode);
+      if (this.promoResponse.statusCode == 302) {
+        this.promoResponseModel = this.promoResponse.responseObjects;
+        let discountType = this.promoResponseModel.mode_of_value;
+        if (this.promoResponseModel.criteria.toLowerCase() == "y") {
+          if (this.promoResponseModel.criteria_condition == ">=") {
+            if (this.totalPaybaleCost > this.promoResponseModel.criteria_amount) {
+              this.initializeValues();
+              if (discountType == "D") {
+                this.couponDiscountCost = this.promoResponseModel.value;
+              } else {
+                this.couponDiscountCost = ((this.promoResponseModel.value / 100) * this.totalPaybaleCost);
+              }
+            }
+          } else {
+            if (this.totalPaybaleCost > this.promoResponseModel.criteria_amount) {
+              this.initializeValues();
+              if (discountType == "D") {
+                this.couponDiscountCost = this.promoResponseModel.value;
+              } else {
+                this.couponDiscountCost = ((this.promoResponseModel.value / 100) * this.totalPaybaleCost)
+              }
+            }
+          }
+        } else {
+          this.initializeValues();
+          this.couponDiscountCost = this.promoResponseModel.value;
+        }
         this.calculatePrices();
       }
     }));

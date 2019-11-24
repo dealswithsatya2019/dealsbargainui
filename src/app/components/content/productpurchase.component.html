@@ -98,7 +98,7 @@
                                         <mat-radio-button [value]="address.address_id">{{address.name}}
                                             <span class="px-1">HOME</span> {{address.mobile_number}}
                                         </mat-radio-button>
-                                        <div class="pl-3">{{address.address}} ,{{address.city}},{{address.city}}.</div>
+                                        <div class="pl-3">{{address.address}} ,{{address.city}},{{address.state}}.</div>
                                         <button mat-button class="edit-address"
                                             (click)="showAddressInfo(address.address_id)">Edit</button>
                                         <button mat-button class="delete-address"
@@ -244,14 +244,12 @@
                                     <div class="order-details pl-3" style="flex: 1 1 60%;max-width: 60%;">
                                         <h6>{{cart.item_name}}</h6>
                                         <div class="small-cap">{{cart.brand_name}}</div>
-                                        <div class="mt-2 small-cap">Seller: {{cart.master_suplier}}</div>
                                         <p class="price-line mt-3"> &#8377; {{cart.prepay_price}}
                                             <span class="px-2">&#8377; {{cart.custom_price}}</span>
-                                            <span class="offer">14% off 6 offers available</span>
                                         </p>
                                     </div>
                                     <div class="" style="flex: 1 1 25%;max-width: 25%;">
-                                        <div>{{send_date | date}}</div>
+                                        <div>Expected Delivery by <strong>{{send_date | date}}</strong></div>
                                     </div>
                                 </div>
                                 <div class="options" style="display: flex;">

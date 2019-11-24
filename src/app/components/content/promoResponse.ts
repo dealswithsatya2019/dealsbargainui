@@ -2,6 +2,6 @@ import { PromoResponseMode } from './promoResponseModel';
 
 export class PromoResponse {
 
-    public statusCode: string;
+    public statusCode: number;
     public responseObjects : PromoResponseMode;
 }
