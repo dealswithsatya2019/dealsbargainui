@@ -17,7 +17,7 @@ export class WishlistComponent implements OnInit {
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
   public shoppingCartItems: Product[] = [];
   
-  constructor(private _whishlistService: WhishlistService, private _cartService: CartService) {
+  constructor(public _whishlistService: WhishlistService, private _cartService: CartService) {
     
   }
 

@@ -309,7 +309,7 @@
             <div class="checkout-card">
                 <h6 class="px-3 pt-3 text-center">ORDER SUMMARY</h6>
                 <div class="promocode-section">
-                        <form class="my-3" [formGroup]="couponform" (submit)="validateCoupon(couponform.couponcode)">
+                        <form class="my-3" [formGroup]="couponform" (submit)="validateCoupon()">
                             <mat-form-field>
                                 <input formControlName="couponcode" matInput
                                     placeholder="Enter promo code">

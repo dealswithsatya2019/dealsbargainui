@@ -13,8 +13,8 @@ export class WhishlistService {
 
   public access_token: string;
   public addWhislistData: any;
-  private itemsInWhishslist: Product[] = [];
-  private itemsInWhishslistTemp: Product[] = [];
+  public itemsInWhishslist: Product[] = [];
+  public itemsInWhishslistTemp: Product[] = [];
 
   constructor(private _httpCommonService: HttCommonService, public _router: Router) {
     this.access_token = sessionStorage.getItem("access_token");

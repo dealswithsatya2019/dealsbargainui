@@ -477,7 +477,7 @@ export class ProductpurchaseComponent implements OnInit {
 
   public promoResponse: PromoResponse;
 
-  validateCoupon(couponCode: string) {
+  validateCoupon() {
     this.subscriptions.add(this.validateCouponHttp().subscribe(data => {
       this.promoResponse = data
       if (this.promoResponse.statusCode == "302") {
