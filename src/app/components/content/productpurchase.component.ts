@@ -61,7 +61,7 @@ export class ProductpurchaseComponent implements OnInit {
 
   addressform: FormGroup = new FormGroup({
     countrycode: new FormControl('us'),
-    name: new FormControl('', [Validators.required]),
+    fullname: new FormControl('', [Validators.required]),
     mobile_number: new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]),
     zipcode: new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]),
     street: new FormControl('', [Validators.required]),
@@ -70,14 +70,14 @@ export class ProductpurchaseComponent implements OnInit {
     state: new FormControl('', [Validators.required]),
     landmark: new FormControl(''),
     altphone: new FormControl('', [Validators.required]),
-    addresstype: new FormControl('', [Validators.required]),
+    address_type: new FormControl('', [Validators.required]),
     country: new FormControl('United States', [Validators.required]),
 
   });
 
   updateaddressform: FormGroup = new FormGroup({
     countrycode: new FormControl('us'),
-    name: new FormControl('', [Validators.required]),
+    fullname: new FormControl('', [Validators.required]),
     mobile_number: new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]),
     zipcode: new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]),
     street: new FormControl('', [Validators.required]),
@@ -88,6 +88,7 @@ export class ProductpurchaseComponent implements OnInit {
     altphone: new FormControl('', [Validators.required]),
     address_id: new FormControl(''),
     country: new FormControl('United States', [Validators.required]),
+    address_type: new FormControl('', [Validators.required]),
   });
 
   couponform: FormGroup = new FormGroup({
@@ -230,6 +231,7 @@ export class ProductpurchaseComponent implements OnInit {
 
   funSave() {
     let addressInfo = JSON.parse(JSON.stringify(this.addressform.value));
+    console.log("addressInfo :",addressInfo);
     this.saveAddress(addressInfo);
   }
 

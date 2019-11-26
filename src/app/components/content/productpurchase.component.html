@@ -96,7 +96,7 @@
                                 <ng-container *ngFor="let address of addressInfo.responseObjects">
                                     <div class="add1 my-3">
                                         <mat-radio-button [value]="address.address_id">{{address.name}}
-                                            <span class="px-1">HOME</span> {{address.mobile_number}}
+                                            <span class="px-1">{{address.address_type == 2 ? 'Work' : 'Home'}}</span> {{address.mobile_number}}
                                         </mat-radio-button>
                                         <div class="pl-3">{{address.address}} ,{{address.city}},{{address.state}}.</div>
                                         <button mat-button class="edit-address"
@@ -117,7 +117,8 @@
                                 class="my-3">
                                 <mat-form-field appearance="outline">
                                     <mat-label>Name</mat-label>
-                                    <input formControlName="name" matInput placeholder="Name" [value]="address.name">
+                                    <input formControlName="fullname" matInput placeholder="Name" 
+                                    [value]="address.fullname">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>Mobile Number</mat-label>
@@ -125,9 +126,9 @@
                                         [value]="address.mobile_number">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
-                                    <mat-label>Pincode</mat-label>
-                                    <input formControlName="zipcode" matInput placeholder="Placeholder"
-                                        [value]="address.zipcode">
+                                    <mat-label>Alternate Phone</mat-label>
+                                    <input formControlName="altphone" matInput placeholder="Placeholder"
+                                    value="{{address.altphone ? '' : address.altphone}}">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>Locality</mat-label>
@@ -137,7 +138,7 @@
                                 <mat-form-field appearance="outline" style="width:98%">
                                     <mat-label>Address</mat-label>
                                     <textarea formControlName="address" matInput placeholder="Textarea"
-                                        [value]="address.address"></textarea>
+                                        value="{{address.address ? '' : address.address}}"></textarea>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>City/District</mat-label>
@@ -145,25 +146,25 @@
                                         [value]="address.city">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
+                                    <mat-label>Country</mat-label>
+                                    <mat-select formControlName="country" value="United States">
+                                        <mat-option value="United States">United States</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
                                     <mat-label>State</mat-label>
                                     <input formControlName="state" matInput placeholder="Placeholder"
                                         [value]="address.state">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
-                                    <mat-label>Landmark</mat-label>
-                                    <input formControlName="landmark" matInput placeholder="Placeholder"
-                                        [value]="address.landmark">
+                                    <mat-label>Pincode</mat-label>
+                                    <input formControlName="zipcode" matInput placeholder="Placeholder"
+                                        [value]="address.zipcode">
                                 </mat-form-field>
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Alternate Phone</mat-label>
-                                    <input formControlName="altphone" matInput placeholder="Placeholder"
-                                        [value]="address.altphone">
-                                </mat-form-field>
-
-                                <mat-radio-group aria-label="Select an option">
-                                    <mat-radio-button value="1" class="mr-2">Home ( All Day Delivery )
+                                <mat-radio-group formControlName="address_type" [value] = "address.address_type" aria-label="Select an option">
+                                    <mat-radio-button value="1" [checked] = "address.address_type == 1" class="mr-2">Home ( All Day Delivery )
                                     </mat-radio-button>
-                                    <mat-radio-button value="2">Work (Delivery between 10AM - 5PM)</mat-radio-button>
+                                    <mat-radio-button value="2" [checked] = "address.address_type == 2">Work (Delivery between 10AM - 5PM)</mat-radio-button>
                                 </mat-radio-group>
                                 <button mat-raised-button type="submit" [disabled]="addressform.invalid"
                                     class=" my-2 w-100 login-login-btn">Update</button>
@@ -177,7 +178,7 @@
                         <form [formGroup]="addressform" (submit)="funSave()" class="my-3">
                             <mat-form-field appearance="outline">
                                 <mat-label>Name</mat-label>
-                                <input formControlName="name" matInput placeholder="Name">
+                                <input formControlName="fullname" matInput placeholder="Name">
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>Mobile Number</mat-label>
@@ -218,7 +219,7 @@
                                 <input formControlName="zipcode" matInput placeholder="Placeholder">
                             </mat-form-field>
 
-                            <mat-radio-group aria-label="Select an option" formControlName="addresstype">
+                            <mat-radio-group aria-label="Select an option" formControlName="address_type">
                                 <mat-radio-button value="1" class="mr-2">Home ( All Day Delivery )</mat-radio-button>
                                 <mat-radio-button value="2">Work (Delivery between 10AM - 5PM)</mat-radio-button>
                             </mat-radio-group>
