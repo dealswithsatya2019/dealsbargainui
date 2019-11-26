@@ -41,22 +41,24 @@ export class ProductlistComponent implements OnInit, OnDestroy {
   //subscription : Subscription;
   ngOnInit() {
    this.sub = this._Activatedroute.paramMap.subscribe(params => {
-      //this.cname = params.get('cname');
-      //this.scname = params.get('scname');
+      this.cname = params.get('cname');
+      this.scname = params.get('scname');
       
     /*this.subscription = this._productListRouteInfo.getCart().subscribe(productRouteInfo => {
       if (productRouteInfo) {
         this.cname = productRouteInfo.cname;
         this.scname = productRouteInfo.scname;
-      }*/
+      }
       let menuClickInfo: ProductRouteInfo = JSON.parse(sessionStorage.getItem("product_list"));
       this.cname = menuClickInfo.cname;
-      this.scname = menuClickInfo.scname;
+      this.scname = menuClickInfo.scname;*/
       this.subscription = this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
-        (results: searchreponse) => {
-          this.products = results.responseObjects;
-          this.getDistinctBrands();
-        });
+          (results: searchreponse) => {
+            this.products = results.responseObjects;
+            this.getDistinctBrands();
+          }
+        
+      );
      // });
     });
 
@@ -72,8 +74,8 @@ export class ProductlistComponent implements OnInit, OnDestroy {
   }
 
   showProductDetails(params) {
-    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
-    sessionStorage.setItem("product_details", JSON.stringify(productRouteInfo));
+    /*let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
+    sessionStorage.setItem("product_details", JSON.stringify(productRouteInfo));*/
     //this._productListRouteInfo.addToCart(productRouteInfo);
     this._productservice.routeProductDetails(params);
   }

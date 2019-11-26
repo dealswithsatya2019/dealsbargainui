@@ -52,51 +52,48 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
   public isProductAvailable : boolean =false;
   subscription : Subscription;
   public whishlist_action_type : string ='add';
-  // product = {
-  //   price: 0.01,
-  //   description: "Kappa",
-  //   image_uri: "https://d1k0ppjronk6up.cloudfront.net/products/1529/images_b75_image2_844.jpg",
-  //   offer_per: 10,
-  //   name: "Kappa Variety Puzzles & Games Book Case Pack 48",
-  //   status: "",
-  //   brand_name: "Kappa",
-  //   master_suplier: "",
-  //   actual_price: 0.01,
-  //   offer_price: 0.01,
-  //   drop_ship_fee: "0.001$",
-  //   title: "Kappa Variety Puzzles & Games Book Case Pack 48"
-  // }
-
-  constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public gallery: Gallery, public userservice: UserService,private cartService: CartService,
-    public _productListRouteInfo:ProductListRouteInfoService,
-    public _productDetailsRouteInfo:ProductDetailsRouteInfoService) { 
+ 
+  constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, 
+    public _router: Router, public dialog: MatDialog, public gallery: Gallery, 
+    public userservice: UserService,private cartService: CartService) { 
   }
 
   ngOnInit() {
     this.authToken = sessionStorage.getItem("access_token");
     this._Activatedroute.paramMap.subscribe((params : ParamMap)=> {  
-      /*this.cname=params.get('cname');  
+      this.cname=params.get('cname');  
       this.scname=params.get('scname');  
       this.pid=params.get('pid');  
-    });*/
     /*this.subscription = this._productListRouteInfo.getCart().subscribe(productRouteInfo => {
       if (productRouteInfo) {
         this.cname = productRouteInfo.cname;
         this.scname = productRouteInfo.scname;
         this.pid = productRouteInfo.productId;
-      }*/
+      }
     this.prodListRouteInfo = JSON.parse(sessionStorage.getItem("product_details"));
     this.cname = this.prodListRouteInfo.cname;
     this.scname = this.prodListRouteInfo.scname;
-    this.pid = this.prodListRouteInfo.pid;
+    this.pid = this.prodListRouteInfo.pid;*/
      
+    this.getProductDetailsByid();
+    this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
+        (results: searchreponse) => {
+          this.similarProducts = results.responseObjects;
+          if(this.similarProducts){
+            this.similarProducts = this.similarProducts.filter(item => item.item_id !== this.pid);
+          }
+      });
+    }); 
+  }
+
+  getProductDetailsByid(){
     this._productservice.getHttpProductDetailsById(this.cname, this.scname, this.pid, 'us').subscribe(
       (results: searchreponse) => {
         if(results.statusDesc !== 'Unavailable'){
           this.isProductAvailable = true;
         }
       if(results.responseObject){
-         
+        this.items=[];  
        //if(results.statusCode ===200){
         this.productDetails = results.responseObject[0];
         if(this.productDetails){
@@ -106,8 +103,7 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
               this.items.push(new ImageItem({ src: arr[i], thumb: arr[i] }));
             }
           } else {
-            this.items.push(new ImageItem({ src:this.productDetails.image , thumb:this.productDetails.image  }));
-//            this.items.push(new ImageItem({ src:'http://localhost:4200/assets/img/DealsBargain-Logo.png' , thumb:'http://localhost:4200/assets/img/DealsBargain-Logo.png'}));
+            this.items.push(new ImageItem({ src:this.productDetails.image , thumb:this.productDetails.image }));
           }
           this.loadZoomImagesList();
         }
@@ -133,16 +129,11 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
         console.log(error);
       }
     );
-    this._productservice.getProductlist(this.prodListRouteInfo.cname, this.prodListRouteInfo.scname, 'us', 0, 20).subscribe(
-        (results: searchreponse) => {
-          this.similarProducts = results.responseObjects;
-          //console.log("simillar products :",this.similarProducts);
-      });
-    }); 
   }
+   
 
   ngOnDestroy(){
-   // this.subscription.unsubscribe();
+   //this.subscription.unsubscribe();
   }
 
 
@@ -155,6 +146,7 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
       loadingMode: "indeterminate",
       loadingIcon: 'Loading...'
      */
+    this.gallery.resetAll();
     const config: GalleryConfig = {
         loadingMode: "indeterminate",
         imageSize: 'cover'
@@ -218,17 +210,17 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
   }
 
   showProductDetails(params){
-    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
-    sessionStorage.setItem("product_details", JSON.stringify(productRouteInfo));
+    /*let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
+    sessionStorage.setItem("product_details", JSON.stringify(productRouteInfo));*/
     //this._productListRouteInfo.addToCart(productRouteInfo);
     this._productservice.routeProductDetails(params);
   }
 
   routeToProductListPage(params){
-    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
+    /*let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
    /* this._productListRouteInfo.cname = cname;
-    this._productListRouteInfo.scname = scname;*/
-    sessionStorage.setItem("product_list", JSON.stringify(productRouteInfo));
+    this._productListRouteInfo.scname = scname;
+    sessionStorage.setItem("product_list", JSON.stringify(productRouteInfo));*/
     this._productservice.routeProductList(params);
   }
 

@@ -16,17 +16,15 @@
                            Profile
                         </mat-expansion-panel-header>
                         <div class="list-box">
-                            <a mat-button [routerLink]="['/wishlist']" routerLinkActive="active">Whishlist</a>
-                            <!-- <a mat-button [routerLink]="['/myprofile', { outlets: {  'profileoutlet': ['/wishlist'] } }]" routerLinkActive="active">Whishlist</a>-->
-                            <!-- <a mat-button [routerLink]="['/myprofile', { outlets: {profileoutlet: ['/wishlist'] } }]" routerLinkActive="active">Whishlist</a>-->
-                            <a mat-button [routerLink]="['/orders']" routerLinkActive="active">My Orders</a>
-                            <a mat-button [routerLink]="['/addresses']" routerLinkActive="active">Addresses</a>
-                            <a mat-button [routerLink]="['/review-ratings']" routerLinkActive="active">Reviews & Ratings</a>
-                            <a mat-button [routerLink]="['/change-passowrd']" routerLinkActive="active">Change Password</a>
-                            <a mat-button [routerLink]="['/unsubscribe']" routerLinkActive="active">Unsubscribe</a>
+                            <!-- <a mat-button [routerLink]="['/wishlist']" routerLinkActive="active">Whishlist</a>-->
+                            <a mat-button [routerLink]="['/myprofile', { outlets: {  'profileoutlet': ['wishlist'] } }]" routerLinkActive="active">Whishlist</a>
+                            <a mat-button [routerLink]="['/myprofile', { outlets: {  'profileoutlet': ['orders'] } }]" routerLinkActive="active">My Orders</a>
+                            <a mat-button [routerLink]="['/myprofile', { outlets: {  'profileoutlet': ['addresses'] } }]" routerLinkActive="active">Addresses</a>
+                            <a mat-button [routerLink]="['/myprofile', { outlets: {  'profileoutlet': ['review-ratings'] } }]" routerLinkActive="active">Reviews & Ratings</a>
+                            <a mat-button [routerLink]="['/myprofile', { outlets: {  'profileoutlet': ['change-passowrd'] } }]" routerLinkActive="active">Change Password</a>
+                            <a mat-button [routerLink]="['/myprofile', { outlets: {  'profileoutlet': ['unsubscribe'] } }]" routerLinkActive="active">Unsubscribe</a>
                         </div>
                     </mat-expansion-panel>
-                    <router-outlet name="profileoutlet"></router-outlet>
                   <!--  <mat-expansion-panel [expanded]="true">
                         <mat-expansion-panel-header>
                             My Info
@@ -42,7 +40,8 @@
             </aside>
             <div class="product-list">
                 <div class="productlistcontainer p-4">
-                        
+                    <router-outlet name="profileoutlet"></router-outlet>
+
                     <!--- --- Return/Exchange Orders --------  
                     <h4>Return/Exchange Orders</h4>
                     <div class="order-details py-4" fxLayout="row">

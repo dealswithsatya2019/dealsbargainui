@@ -1,4 +1,5 @@
 
 export class SubCategoryMenus {
-    status: any[];
+    display_name: string ="";
+    subcategory: string="";
 }
