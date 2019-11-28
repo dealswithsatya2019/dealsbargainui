@@ -10,6 +10,8 @@ import { RegisterUser } from 'src/app/models/RegisterUser';
 })
 export class AuthService {
 
+  private authToken: string = '';
+
   constructor(private _httpCommonService: HttCommonService, public dialog: MatDialog) { }
     public isAuthenticated(): boolean {
 
@@ -18,6 +20,9 @@ export class AuthService {
       return token !== null;
   }
 
+  public setAuthToken(authToken){
+    this.authToken = authToken;
+  }
   public funSignIn() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;

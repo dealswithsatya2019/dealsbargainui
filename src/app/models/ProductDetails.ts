@@ -54,4 +54,7 @@ export class ProductDetails {
     deal_price: string = ''; 
     deals_bargain_supplier_deal_price: string = '';
     deals_bargain_deal_price: string ='';
+    display_name_category: string ='';
+    display_name_middle_subcategory: string = '';
+    display_name_subcategory: string = '';
 }

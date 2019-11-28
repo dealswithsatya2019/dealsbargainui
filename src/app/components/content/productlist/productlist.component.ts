@@ -27,8 +27,11 @@ export class ProductlistComponent implements OnInit, OnDestroy {
   constructor(private _snackBar: MatSnackBar,private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,private cartService: CartService,
   ) { }
   subscription: Subscription;
-  cname: any;
-  scname: any;
+  cname: string = '';
+  cdisplayname: string ='';
+  cmiddledisplayname: string ='';
+  scname: string = '';
+  scdisplayname: string ='';
   sub;
   products: any[];
   distinctbrandsArray: Array<string>;
@@ -55,6 +58,11 @@ export class ProductlistComponent implements OnInit, OnDestroy {
       this.subscription = this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
           (results: searchreponse) => {
             this.products = results.responseObjects;
+            if(this.products.length >0){
+              this.cdisplayname = this.products[0].display_name_category;
+              this.cmiddledisplayname = this.products[0].display_name_middle_subcategory;
+              this.scdisplayname = this.products[0].display_name_subcategory;
+            }
             this.getDistinctBrands();
           }
         

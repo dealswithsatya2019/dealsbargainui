@@ -16,6 +16,7 @@ import { ProductListRouteInfoService } from 'src/app/services/routing-services/p
 import { ProductRouteInfo } from 'src/app/models/ProductRouteInfo';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AuthResopnse } from 'src/app/models/AuthResponse';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
 
@@ -52,6 +53,7 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
   public isProductAvailable : boolean =false;
   subscription : Subscription;
   public whishlist_action_type : string ='add';
+  public result: string ='';
  
   constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, 
     public _router: Router, public dialog: MatDialog, public gallery: Gallery, 
@@ -166,9 +168,9 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
     dialogConfig.data = {
         id: 1,
         title: 'dialog box',
-        cname: this.prodListRouteInfo.cname,
-        scname: this.prodListRouteInfo.scname,
-        itemid: this.prodListRouteInfo.pid,
+        cname: this.cname,
+        scname: this.scname,
+        itemid: this.pid,
         masterSuppler: this.productDetails.master_suplier
     };
     this.dialog.open(RateproductComponent, dialogConfig);
@@ -233,6 +235,27 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
     this.product = this.getProductFromDetails(produt); 
     this.cartService.addToCart(this.product);
     this._router.navigateByUrl('/productpurchase');
+  }
+
+  public isRecommendThisProduct(isRecommend){
+    try {
+      let isProductRecommend = isRecommend? 'yes' : 'no';
+       this._productservice.submitReview(this.authToken,this.cname, this.scname, this.pid, 'us',
+         '', '', '',this.productDetails.master_suplier, isProductRecommend)
+       .subscribe(        
+         (authResponse: AuthResopnse) => {
+           sessionStorage.setItem("authResponse", JSON.stringify(authResponse));
+           if (authResponse.statusCode === 200) {
+              this.result = authResponse.statusDesc;
+             console.log('Success' + JSON.stringify(authResponse));
+           } else {
+             console.log('Failed' + JSON.stringify(authResponse));
+           }
+         });
+     } catch (error) {
+       console.log(error);
+     }
+    
   }
 
   getProductFromDetails(produt :ProductDetails) :Product{

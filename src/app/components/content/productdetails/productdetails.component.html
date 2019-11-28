@@ -1,10 +1,11 @@
 <div class="content-container product-details">
 		<mat-toolbar-row>
+			{{result}}
 			<ul>
 				<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
-				<li><a (click)="routeToProductListPage({cname:cname,scname:scname})" routerLinkActive="active">{{cname}}</a></li>
-				<li><a >Product Details</a></li>
-				<li><a >{{scname}}</a></li>
+				<li><a (click)="routeToProductListPage({cname:cname,scname:scname})" routerLinkActive="active">{{productDetails.display_name_category}}</a></li>
+				<li><a >{{productDetails.display_name_middle_subcategory}}</a></li>
+				<li><a >{{productDetails.display_name_subcategory}}</a></li>
 			</ul>
 		</mat-toolbar-row>
 	<div style="display: flex;" class="mb-4 col-flex">
@@ -59,7 +60,7 @@
 					<i class="fa fa-thumbs-up"></i> 8 Recommendations</small>
 				
 					<span class="float-right">
-							<app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
+							<app-wishlist [actionType]="whishlist_action_type" [productInfo]="productDetails"></app-wishlist>
 							<button mat-button class="action-btns share">
 							<i class="fa fa-share-alt"></i>
 							<div class="social-share">
@@ -286,11 +287,11 @@
 				<span class="rating-btm px-1">5</span>
 			</p>-->
 			<p>Do you recommend this product?
-				<a mat-raised-button class="ml-4">
+				<a mat-raised-button class="ml-4" (click)="isRecommendThisProduct(true)">
 					<i class="fa fa-thumbs-up"></i>
 				</a>
 				<a mat-raised-button class="ml-3">
-					<i class="fa fa-thumbs-down"></i>
+					<i class="fa fa-thumbs-down" (click)="isRecommendThisProduct(false)"></i>
 				</a>
 			</p>
 			<ng-container *ngIf="this.authToken">

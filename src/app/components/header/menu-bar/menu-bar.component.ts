@@ -142,9 +142,9 @@ export class MenuBarComponent implements OnInit {
 
 
   routeToProductListPage(params){
-    let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
-    /*this._productListRouteInfo.addToCart(productRouteInfo);*/
-    sessionStorage.setItem("product_list", JSON.stringify(productRouteInfo));
+    /*let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
+    /*this._productListRouteInfo.addToCart(productRouteInfo);
+    sessionStorage.setItem("product_list", JSON.stringify(productRouteInfo));*/
     this._productservice.routeProductList(params);
   }
 }

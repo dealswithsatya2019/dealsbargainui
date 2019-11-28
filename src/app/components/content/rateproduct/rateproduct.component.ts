@@ -51,13 +51,11 @@ export class RateproductComponent implements OnInit {
   }
 
   funSubmitReview() {
-    console.log(this.form.value);
     try {
-
      let formJson = JSON.parse(JSON.stringify(this.form.value));
-      //cname?, scname?, itemId?, countryCode?,rating?, reviewTitle?,comment?,masterSuppler?,productRecommended?
+     let isProductRecommend = formJson.isRecomended? 'yes' : 'no';
       this._productservice.submitReview(this.authToken,this.cname, this.scname, this.itemId, 'us',
-        formJson.rating, formJson.reviewTitle, formJson.comment,this.masterSuppler, formJson.productRecommended)
+        formJson.productRating, formJson.reviewTitle, formJson.comment,this.masterSuppler, isProductRecommend)
       .subscribe(        
         (authResponse: AuthResopnse) => {
           sessionStorage.setItem("authResponse", JSON.stringify(authResponse));
