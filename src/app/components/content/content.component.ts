@@ -28,7 +28,7 @@ export class ContentComponent implements AfterViewInit, OnInit {
   public bestSellers: Product[];
   public snackBarConfig: MatSnackBarConfig;
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
-  public whishlist_action_type: string ='add';
+  public whishlist_action_type: string = 'add';
   constructor(private _snackBar: MatSnackBar, private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, public cart: CartService,
   ) //public _productListRouteInfo:ProductListRouteInfoService
   {
@@ -112,12 +112,6 @@ export class ContentComponent implements AfterViewInit, OnInit {
       product.quantity = 1;
     }
     this.cart.addToCart(product);
-    // type MatSnackBarHorizontalPosition = 'start' | 'center' | 'end' | 'left' | 'right';
-    // type MatSnackBarVerticalPosition = 'top' | 'bottom';
-    // this.snackBar.open(this.message, this.action ? this.actionButtonLabel : undefined, config);
-    // this._router.navigateByUrl('/mycart');
-    // this._snackBar.open("The item has been added to cart.", "", this.snackBarConfig);
-
   }
 
 }
