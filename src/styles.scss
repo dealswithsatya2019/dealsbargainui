@@ -56,7 +56,7 @@ h1,h2,h3,h4,h5,h6,p{
     border-radius: 5px;
     box-shadow: 1px 2px 4px 0px rgba(0,0,0,0.6);
     position: absolute;
-    top: -100px;
+    top: -50px;
     left: 50%;
     transform: translateX(-50%);
     background-color: #fff;
@@ -103,6 +103,11 @@ aside .mat-expansion-panel-header.mat-expanded{
     border-radius: 0px;
     color: #ff9600;
 }
+.login-container .mat-checkbox-layout{
+    white-space: pre-wrap;
+}
+.login-container .mat-checkbox-layout .mat-checkbox-label{line-height: 20px;}
+
 .mat-stepper-horizontal-line{display: none;}
 .top-toolbar .mat-form-field-appearance-legacy .mat-form-field-underline,
 .login-container .mat-form-field-appearance-legacy .mat-form-field-underline{

@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '400px';
+    dialogConfig.width = '430px';
     dialogConfig.height = '600px';
     // this.dialog.open(LoginComponent, dialogConfig);
   }

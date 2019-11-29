@@ -22,7 +22,7 @@
 
 
         <!-- login & profile options -->
-        <div>
+        <div class="profile-options">
             <a mat-button (click)="funSignIn()" *ngIf="!this.userservice.response"><i class="fa fa-unlock-alt"></i><span>Login & Signup</span></a>
             <ng-container *ngIf="this.userservice.response">
                 <button mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger"><i

@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
-    dialogConfig.height = '450px';
+    dialogConfig.height = '550px';
     this.dialog.open(SignupComponent, dialogConfig);
   }
   forgotpwd() {
@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '400px';
+    dialogConfig.width = '430px';
     dialogConfig.height = '475px';
     this.dialog.open(ForgotpasswordComponent, dialogConfig);
   }

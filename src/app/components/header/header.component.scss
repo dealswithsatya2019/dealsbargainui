@@ -122,16 +122,22 @@
     .info-toolbar{
       padding: 10px;
     }
-    
+    .swiper-slide mat-card{
+      height: 300px !important;
+    }
   }
   
   @media screen and (max-width: 575px) {
     .top-toolbar{
-      .logo{max-width: 20%;}
+      .logo{max-width: 25%;order: 1;}
+      mat-form-field{order: 3;width: 100%;}
+      .profile-options{order: 2;}
       .mat-button{
         min-width: 30px;
-        span{display: none;}
       }
+    }
+    .swiper-slide mat-card{
+      height: 200px !important;
     }
   }
 

@@ -6,4 +6,17 @@
     line-height: 11px;
     border-radius: 50%;
     outline: none;
+}.fb-login{
+    margin-right: 10px;
+}
+.login-btn{
+    width: 48%;
+    padding: 0px 0px 0px 45px;
+    border: 1px solid #ccc;
+}
+
+.login-logo{position: absolute;left: 20px;top: 6px;width: 23px;}
+mat-checkbox{
+    font-size: 14px;
+    white-space: pre-wrap;
 }

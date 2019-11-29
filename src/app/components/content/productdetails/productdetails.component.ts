@@ -187,6 +187,23 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
         spaceBetween:20,
         speed: 500,
         slidesPerView:5,
+        breakpoints:{
+          0:{
+            slidesPerView: 1,
+          },
+          550:{
+            slidesPerView: 2,
+          },
+          768:{
+            slidesPerView: 3,
+          },
+          1024:{
+            slidesPerView: 4,
+          },
+          1288:{
+            slidesPerView: 5,
+          }
+        },
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',

@@ -3,7 +3,7 @@
 <p class="text-center login-title">Sign up to DealsBargain</p>
 
 <div class="login-container">
-    <!-- <div class="login-btn-container mb-5">
+     <div class="login-btn-container mb-4">
         <p class="text-center login-info">EASILY USING</p>
 
         <button mat-raised-button (click)="loginFacebook();" class="fb-login login-btn">
@@ -11,10 +11,10 @@
 
         <button mat-raised-button (click)="loginGmail();" class="gmail-login login-btn">
             <img src="../../.././../assets/img/search.png" class="login-logo">GOOGLE</button>
-    </div> -->
+    </div> 
 
-    <!-- <p class="text-center login-info">-OR USING MAIL-</p> -->
-<form [formGroup]="userservice.form" class="normal-form w-100 mt-4" (submit)="funRegister()">
+    <p class="text-center login-info">-OR USING MAIL-</p>
+<form [formGroup]="userservice.form" class="normal-form w-100 mt-3" (submit)="funRegister()">
         {{this.signUpErrorMsg}}
             <!-- <input type="hidden" formControlName="$key"> -->
 
@@ -37,9 +37,10 @@
             <input formControlName="mobileno" matInput placeholder="Mobile No*" >
             <mat-error>This field is mandatory</mat-error>
         </mat-form-field>
-                
-                       
-    <button mat-raised-button type="submit" [disabled]="userservice.form.invalid" class=" my-2 w-100 login-login-btn">SIGN UP</button>
+                              
+    <button mat-raised-button type="submit" [disabled]="userservice.form.invalid" class=" mb-2 w-100 login-login-btn">SIGN UP</button>
+    <mat-checkbox>I have read and agree to Dealsbargain Terms & Conditions.</mat-checkbox>
+
 </form>
 
 <div class="login-links mt-3">
