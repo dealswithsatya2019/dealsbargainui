@@ -1,14 +1,14 @@
+<mat-toolbar-row style="height:40px">
+	<ul>
+		<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
+		<li><a (click)="routeToProductListPage({cname:cname,scname:scname})" routerLinkActive="active">{{cdisplayname}}</a></li>
+		<li><a >{{cmiddledisplayname}}</a></li>
+		<li><a >{{scdisplayname}}</a></li>
+	</ul>
+</mat-toolbar-row>
 <div class="product-list-page ">
-		<mat-toolbar-row>
-				<ul>
-					<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
-					<li><a class="pl-3" (click)="routeToProductListPage({cname:cname,scname:scname})" routerLinkActive="active">{{cdisplayname}}</a></li>
-					<li><a >{{cmiddledisplayname}}</a></li>
-					<li><a >{{scdisplayname}}</a></li>
-				</ul>
-		</mat-toolbar-row>
 			
-	<aside class="margin-top-20">
+	<aside class="">
 		<mat-accordion [multi]="true">
 			<mat-expansion-panel [expanded]="true">
 				<mat-expansion-panel-header>
@@ -50,7 +50,7 @@
 		</mat-accordion>
 	</aside>
 	<div *ngIf="products" class="product-list" style="flex: 1 1 0%">
-		<div class="productlistcontainer margin-top-20 pl-3" fxLayout="row wrap">
+		<div class="productlistcontainer pl-3" fxLayout="row wrap">
 			<ng-container *ngFor="let product of products; let i = index">
 				<ng-container
 					*ngIf="fromPrice.value > 0 ?  (product.prepay_price >= fromPrice.value ? true : false): true">

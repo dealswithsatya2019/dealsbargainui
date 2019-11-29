@@ -45,9 +45,6 @@ h1,h2,h3,h4,h5,h6,p{
 // .mat-progress-bar-fill::after {
 //     background-color: #3d7f33 !important;
 // }
-.promocode-section .mat-form-field-underline{
-    display: none;
-}
 .add-bottom-padding{
     padding-bottom: 10px;
 }
@@ -59,7 +56,7 @@ h1,h2,h3,h4,h5,h6,p{
     border-radius: 5px;
     box-shadow: 1px 2px 4px 0px rgba(0,0,0,0.6);
     position: absolute;
-    top: -90px;
+    top: -85px;
     left: 50%;
     transform: translateX(-50%);
     background-color: #fff;
@@ -117,14 +114,16 @@ aside .mat-expansion-panel-header.mat-expanded{
     height: 0px !important;
     display: none;
 }
+.promocode-section .mat-form-field-appearance-legacy .mat-form-field-underline{
+    display: none;
+}
+.mat-button .mat-button-focus-overlay{
+    display: none;
+}
 .top-toolbar .mat-form-field-appearance-legacy .mat-form-field-wrapper,
 .search .mat-form-field-appearance-legacy .mat-form-field-wrapper{
     padding-bottom: 0px !important;
 }
-.signup .mat-form-field-appearance-legacy .mat-form-field-wrapper{
-    padding-bottom: 1em;
-}
-
 .top-toolbar .mat-form-field-appearance-legacy .mat-form-field-infix,
 .login-container .mat-form-field-appearance-legacy .mat-form-field-infix{
     border: 0px !important;
@@ -160,13 +159,13 @@ aside .mat-expansion-panel-header.mat-expanded{
 // ---------------- login-container  --------------------
 
 .login-container{
-    width: 340px;
+    width: 320px;
     margin: auto;
     position: relative;
 }
 .login-container .mat-form-field{
     font-size: 14px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 .login-title{
     font-size: 22px;
@@ -212,9 +211,6 @@ aside .mat-expansion-panel-header.mat-expanded{
             border: 0px;
         }
     }
-}
-.mat-button-focus-overlay{
-    opacity: 0 !important;
 }
 @media screen and (min-width:1366px){
     .content-container{

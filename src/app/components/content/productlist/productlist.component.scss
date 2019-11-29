@@ -1,4 +1,18 @@
-
+ul{
+  padding: 0px;list-style: none;
+  li{display: inline;position: relative;padding-right: 25px;font-size: 14px}
+  li::after{
+    content: '>';
+    position: absolute;
+    right: 9px;
+    top: -2px;
+  }
+  li:last-child{
+    &::after{
+      content: '';
+    }
+  }
+}
 .product{
   min-width: 100px;
   text-align: center;
@@ -114,7 +128,7 @@
   @media screen and (max-width:991px){
     .product{width:48.5% !important;}
   }
-  @media screen and (max-width:768px){
+  @media screen and (max-width:767px){
     .product{width:100% !important;}
   }
   @media screen and (max-width:575px){

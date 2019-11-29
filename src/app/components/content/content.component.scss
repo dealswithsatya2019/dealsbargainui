@@ -266,14 +266,12 @@ p{margin: 0px;}
   }
   .info-div{flex: 1 1 50% !important;max-width:50% !important;}
   .item-card{width: 49%;}
+  .swiper-slide mat-card{height: 300px;}
 }
 @media screen and (max-width:575px){
   .product{justify-content: center;}
+  .swiper-slide mat-card{height: 220px;}
   .item-card{width: 100%;}
-  .product{justify-content: center;}
-  .swiper-slide mat-card{
-    height: 200px;
-  }
 }
 .fa-shopping-cart{
   font-size: 18px !important ;
