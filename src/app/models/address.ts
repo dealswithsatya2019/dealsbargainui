@@ -15,5 +15,7 @@ export class address {
     address : string = "";
     landmark : string = "";
     altphone :string = "";
+    fullname : string = "";
+    address_type : number;
 
 }
