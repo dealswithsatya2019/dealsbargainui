@@ -270,6 +270,10 @@ p{margin: 0px;}
 @media screen and (max-width:575px){
   .product{justify-content: center;}
   .item-card{width: 100%;}
+  .product{justify-content: center;}
+  .swiper-slide mat-card{
+    height: 200px;
+  }
 }
 .fa-shopping-cart{
   font-size: 18px !important ;

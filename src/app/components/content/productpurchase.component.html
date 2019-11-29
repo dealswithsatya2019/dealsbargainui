@@ -1,12 +1,12 @@
-<div class="content-container pt-3">
-    <mat-toolbar-row>
+<div class="content-container">
+    <mat-toolbar-row style="height: 40px;">
         <ul>
             <li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
             <li><a [routerLink]="['/mycart']" routerLinkActive="active">Products</a></li>
             <li><a>Checkout</a></li>
         </ul>
     </mat-toolbar-row>
-    <div class="" style="display: flex;padding-top: 100px;">
+    <div class="" style="display: flex;padding-top: 75px;">
         <div class="left-panel">
                 <!-- #horstepper -->
             <mat-horizontal-stepper  (selectionChange)="selectionChange($event)" linear>
@@ -22,8 +22,7 @@
                                     <form [formGroup]="loginformService.form" class="normal-form w-100"
                                         (submit)="funLogin()">
                                         <mat-form-field floatLabel="never" class="w-100">
-                                            <input formControlName="name" matInput
-                                                placeholder="Email address or Mobile number*">
+                                            <input formControlName="name" matInput placeholder="Email address or Mobile number*">
                                             <mat-error>This field is mandatory</mat-error>
                                         </mat-form-field>
 
@@ -309,9 +308,8 @@
                 <h6 class="px-3 pt-3 text-center">ORDER SUMMARY</h6>
                 <div class="promocode-section">
                         <form class="my-3" [formGroup]="couponform" (submit)="validateCoupon()">
-                            <mat-form-field>
-                                <input formControlName="couponcode" matInput
-                                    placeholder="Enter promo code">
+                            <mat-form-field floatLabel="never" class="cpnid">
+                                <input formControlName="couponcode" matInput placeholder="Enter promo code">
                             </mat-form-field>
                             <button mat-raised-button type="submit" class="applycpn-btn"
                                 [disabled]="couponform.invalid">APPLY</button>

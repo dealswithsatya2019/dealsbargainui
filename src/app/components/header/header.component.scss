@@ -51,9 +51,7 @@
           display: inline-block;
         }
       }
-      @media screen and (max-width:575px){
-        display: none;
-      }
+     
     }
     
    
@@ -129,11 +127,13 @@
   
   @media screen and (max-width: 575px) {
     .top-toolbar{
-      .logo{max-width: 25%;order: 1;}
-      mat-form-field{order: 3;width: 100%;}
+      flex-wrap: wrap;
+      .logo{max-width: 30%;order: 1;}
+      .mat-form-field{order: 3;width: 100%;margin-left: 0px !important;margin-top: 10px;}
       .profile-options{order: 2;}
       .mat-button{
         min-width: 30px;
+        // span{display: none;}
       }
     }
     .swiper-slide mat-card{

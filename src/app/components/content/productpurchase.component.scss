@@ -12,13 +12,21 @@ ul{
         content: '';
       }
     }
-  }
+}
 .checkout-card{
     width: 310px;
     background-color: #fff;
     margin-top: -8px;
     .price-details{
         line-height: 45px;
+    }
+}
+.promocode-section{
+    form{
+        margin: auto;
+        .mat-form-field{
+            margin-right: 0px;
+        }
     }
 }
 .social-logo{
@@ -266,12 +274,14 @@ mat-horizontal-stepper{
     float: left;
     font-size: 13px;
     height: 34px;
-    padding: 0 10px;
+    line-height: 23px;
+    padding: 0 5px;
+    margin-top: -1px;
 }
 .applycpn-btn{
     width: 21%;
-    background: #fff2f0;
-    color: #ff5d3b;
+    background: #fff2f0 !important;
+    color: #ff5d3b !important;
     line-height: 35px;
     margin-left: -1px;
     border-radius: 0px;

@@ -110,7 +110,7 @@
 				<button mat-raised-button>L</button>
 				<button mat-raised-button>XL</button>
 			</div> -->
-			<p style="color: #747474;font-weight: 300;">Brand Name : {{productDetails.brand_name}}</p>
+			<p style="color: #747474;font-weight: 500;">Brand Name : {{productDetails.brand_name}}</p>
 			<h6>Item SKU : {{productDetails.item_sku}}</h6>
 			<h6>Condition : {{productDetails.condition}}</h6>
 			<h6>Warranty : {{productDetails.warranty ===''? 'No' : productDetails.warranty}}</h6>
@@ -157,7 +157,7 @@
 			</mat-expansion-panel-header>
 
 			<p>PRODUCT DESCRIPTION</p>
-			<p [innerHTML]="productDetails.description"></p>
+			<p>{{productDetails.description}}</p>
 <!-- 			<div class="py-1">
 				<p>
 					<span>Product Code: 1234567890</span>
@@ -205,12 +205,11 @@
 -->
 
 	<!-- Similar Products -->
-	<div *ngIf="similarProducts && similarProducts.length >0">
 <h5 class="subtitle position-relative"> SIMILAR PRODUCTS
 		<!-- <a [routerLink]="['productlist',cname.toLowerCase(),scname]" routerLinkActive="active" class="pl-3">VIEW ALL</a> -->
 		<a (click)="routeToProductListPage(prodListRouteInfo)"  class="pl-3">VIEW ALL</a>
 	</h5>
-	
+	<div *ngIf="similarProducts">
 		<div class="swiper-container similar">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" *ngFor="let product of similarProducts; let i = index">

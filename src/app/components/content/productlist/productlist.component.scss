@@ -111,8 +111,11 @@
   @media screen and (max-width:1024px){
     .product{width:31.8% !important;}
   }
+  @media screen and (max-width:991px){
+    .product{width:48.5% !important;}
+  }
   @media screen and (max-width:768px){
-    .product{width:48.5%;}
+    .product{width:100% !important;}
   }
   @media screen and (max-width:575px){
     .product{width:100%;}
