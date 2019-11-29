@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { environment } from 'src/environments/environment';
+import { IMaps } from '../models/IMaps';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,10 @@ export class HttCommonService {
     return this.http.post(
       url, body,
       { headers: { 'Content-Type': 'application/json','authorization': 'Bearer '+authToken} }).pipe(map(this.extractData),catchError(this.handleError));
+  }
+
+  getMapsServiceImaps() : Observable<IMaps>{
+    return this.http.get<IMaps>("https://ipapi.co/json");
   }
 
 
