@@ -12,7 +12,7 @@
         <mat-form-field floatLabel="never">
             <input matInput value="search item here..." aria-label="State" [matAutocomplete]="auto" [formControl]="searchMoviesCtrl">
             <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let hits of filteredMovies" [value]="hits._source.title">
+                <mat-option *ngFor="let hits of filteredMovies" [value]="hits._source.title" (click)="searchFromOption(hits)">
                     {{hits._source.title}}
                 </mat-option>
             </mat-autocomplete>
