@@ -58,9 +58,11 @@
 						<mat-card
 							*ngIf="selectedBrandsArray.length == 0 ? true: selectedBrandsArray.includes(product.brand_name)"
 							class="product" fxLayout="column">
-							<!-- <mat-card-subtitle>
-								<span class="badge badge-danger">{{product.discount}}</span>
-							</mat-card-subtitle> -->
+							<mat-card-subtitle>
+								<ng-container *ngIf="product.discount && product.discount!='0'">
+									<span class="badge badge-danger">{{product.discount}}</span>
+								</ng-container>
+							</mat-card-subtitle>
 							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo"
 								(click)="showProductDetails({cname:cname,scname:scname,pid:product.item_id})">
 
