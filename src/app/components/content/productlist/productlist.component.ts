@@ -128,4 +128,12 @@ export class ProductlistComponent implements OnInit, OnDestroy {
     // this._snackBar.open("The item has been added to cart.", "", this.snackBarConfig);
     // this._router.navigateByUrl('/mycart');
   }
+  
+  routeToProductListPage(params){
+    /*let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
+   /* this._productListRouteInfo.cname = cname;
+    this._productListRouteInfo.scname = scname;
+    sessionStorage.setItem("product_list", JSON.stringify(productRouteInfo));*/
+    this._productservice.routeProductList(params);
+  }
 }
