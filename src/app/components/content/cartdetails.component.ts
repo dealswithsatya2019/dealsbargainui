@@ -25,6 +25,7 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
   private deliverydate_configurable_days = environment.DeliveryDate_Configurable_days;
   subscriptions = new Subscription();
   send_date = new Date();
+  public PRICE_PREFIX: string = environment.PRICE_PREFIX;
 
   constructor(public http: HttpClient, private _Activatedroute: ActivatedRoute, private cartService: CartService, public _router: Router) {
     this.send_date.setHours(this.send_date.getHours() + (this.deliverydate_configurable_days * 24));

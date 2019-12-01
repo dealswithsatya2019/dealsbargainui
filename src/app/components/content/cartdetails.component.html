@@ -9,16 +9,18 @@
                     <h6>{{cart.item_name}}</h6>
                     <div class="small-cap">{{cart.brand_name}}</div>
                     <p class="p-cost">
-                        <ng-container *ngIf="cart.deal_type==''">
-                            <span class="old_cost">{{cart.supplier_deal_price}}</span>
-                            <span class="new_cost">{{cart.deal_price}}</span>
+                        <ng-container *ngIf="cart.dealtype!=''">
+                            <span
+                                class="old_cost">{{PRICE_PREFIX}}{{cart.deals_bargain_supplier_deal_price}}</span>
+                            <span
+                                class="new_cost">{{PRICE_PREFIX}}{{cart.deals_bargain_deal_price}}</span>
                         </ng-container>
-                        <ng-container *ngIf="cart.deal_type=='0'">
-                            <span class="new_cost">{{cart.price}}</span>
+                        <ng-container *ngIf="cart.dealtype=='' && cart.discount=='0'">
+                            <span class="new_cost">{{PRICE_PREFIX}}{{cart.price}}</span>
                         </ng-container>
-                        <ng-container *ngIf="cart.deal_type!='0'">
-                            <span class="old_cost">{{cart.price}}</span>
-                            <span class="new_cost">{{cart.discount_amount}}</span>
+                        <ng-container *ngIf="cart.dealtype=='' && cart.discount!='0'">
+                            <span class="old_cost">{{PRICE_PREFIX}}{{cart.price}}</span>
+                            <span class="new_cost">{{PRICE_PREFIX}}{{cart.discount_amount}}</span>
                         </ng-container>
                     </p>
                 </div>
