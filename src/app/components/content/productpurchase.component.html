@@ -245,8 +245,20 @@
                                     <div class="order-details pl-3" style="flex: 1 1 60%;max-width: 60%;">
                                         <h6>{{cart.item_name}}</h6>
                                         <div class="small-cap">{{cart.brand_name}}</div>
-                                        <p class="price-line mt-3"> &#8377; {{cart.prepay_price}}
-                                            <span class="px-2">&#8377; {{cart.custom_price}}</span>
+                                        <p class="price-line mt-3">
+                                            <ng-container *ngIf="cart.dealtype!=''">
+                                                <span
+                                                    class="old_cost">{{PRICE_PREFIX}}{{cart.deals_bargain_supplier_deal_price}}</span>
+                                                <span
+                                                    class="new_cost">{{PRICE_PREFIX}}{{cart.deals_bargain_deal_price}}</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="cart.dealtype=='' && cart.discount=='0'">
+                                                <span class="new_cost">{{PRICE_PREFIX}}{{cart.price}}</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="cart.dealtype=='' && cart.discount!='0'">
+                                                <span class="old_cost">{{PRICE_PREFIX}}{{cart.price}}</span>
+                                                <span class="new_cost">{{PRICE_PREFIX}}{{cart.discount_amount}}</span>
+                                            </ng-container>
                                         </p>
                                     </div>
                                     <div class="" style="flex: 1 1 25%;max-width: 25%;">
@@ -280,16 +292,14 @@
                 </mat-step>
 
                 <mat-step label="PAYMENT" completed="false">
-
                     <div>
-
                         <mat-radio-group aria-label="Select an option" class="py-3 d-block">
                             <mat-radio-button value="1" [checked]="true">Paypal</mat-radio-button>
                             <mat-toolbar-row>
                                 <div *ngIf="!paypalFor">
                                 </div>
                                 <div *ngIf="paypalFor">
-                                    <h1>Your transaction is success</h1>
+                                    <p>Your transaction is success</p>
                                 </div>
                                 <div #paypal></div>
                             </mat-toolbar-row>
@@ -299,9 +309,7 @@
                         <button mat-button matStepperPrevious (click)="getCarts()"><i
                                 class="fa fa-chevron-left"></i></button>
                     </div>
-
                 </mat-step>
-
             </mat-horizontal-stepper>
         </div>
         <div class="pl-4">

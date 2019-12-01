@@ -55,6 +55,7 @@ export class ProductpurchaseComponent implements OnInit {
   public shoppingCartItems: Product[] = [];
   subscriptions = new Subscription();
   send_date = new Date();
+  public PRICE_PREFIX: string = environment.PRICE_PREFIX;
 
   private deliverydate_configurable_days = environment.DeliveryDate_Configurable_days;
 
@@ -432,7 +433,13 @@ export class ProductpurchaseComponent implements OnInit {
   public calculatePrices() {
     console.log("calculatePrices",this.shoppingCartItems.length);
     this.shoppingCartItems.forEach(element => {
-      this.totalCost = this.totalCost + element.prepay_price;
+      if(element.dealtype!=''){
+        this.totalCost = this.totalCost + element.deals_bargain_deal_price;
+      }else if(element.dealtype=='' && element.discount=='0'){
+        this.totalCost = this.totalCost + element.price;
+      }else if(element.dealtype=='' && element.discount!='0'){
+        this.totalCost = this.totalCost + element.discount_amount;
+      }
       this.deliveryCost = element.ship_cost;
     });
     this.totalPaybaleCost = ((this.totalCost + this.deliveryCost) - this.couponDiscountCost)

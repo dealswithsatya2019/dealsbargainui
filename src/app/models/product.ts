@@ -5,7 +5,7 @@ export class Product {
     condition: string;
     item_name: string;
     item_sku: string;
-    price: string;
+    price: number;
     deal_price: string;
     discount: string;
     category: string;
@@ -19,14 +19,14 @@ export class Product {
     master_suplier: string;
     deal_type: string ="0";
     supplier_deal_price : string ="";
-    discount_amount: string ="";
+    discount_amount: number;
     quantity : number = 0;
     ship_cost : number  = 0;
     custom_price : number  = 0;
     prepay_price : number = 0;
     cart_id : string = "";
     deals_bargain_supplier_deal_price: string ="";
-    deals_bargain_deal_price: string ="";
+    deals_bargain_deal_price: number;
     wishlistId: string ="";
     display_name_category: string ="";
     display_name_subcategory: string ="";

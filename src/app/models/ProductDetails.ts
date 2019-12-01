@@ -8,7 +8,7 @@ export class ProductDetails {
     status: string ='';
     drop_ship_fee: string = ''; //0.00
     ship_cost: string =''; //11.67
-    price: string =''; //31.67
+    price: number; //31.67
     custom_price: string =''; //31.67
     prepay_price: string =''; //30.75
     min_street_price: string =''; // 0.00
@@ -26,7 +26,7 @@ export class ProductDetails {
     suplier_name: string =''; //"2155",
     supliercategory: string =''; //"7912:=Catalog||8336:=Electronics & computer||2168394:=General",
     discount: string =''; //"0.00",
-    discount_amount: string =''; //"0.00",
+    discount_amount: number; //"0.00",
     description: string =''; //"These bright tacks are sure to draw attention to important items on a bulletin board. Package contains 40 1/4" round thumb tacks in bright yellow.",
     product_sku: string =''; //"MT623",
     item_sku: string =''; //"MT623~60",
@@ -52,8 +52,8 @@ export class ProductDetails {
     product_attributes: Array<KeyValuePair> =[];
     dealtype: string ='';
     deal_price: string = ''; 
-    deals_bargain_supplier_deal_price: string = '';
-    deals_bargain_deal_price: string ='';
+    deals_bargain_supplier_deal_price: number;
+    deals_bargain_deal_price: number;
     display_name_category: string ='';
     display_name_middle_subcategory: string = '';
     display_name_subcategory: string = '';

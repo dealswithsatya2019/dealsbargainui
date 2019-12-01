@@ -18,6 +18,7 @@ import { hitsmain } from 'src/app/models/hitsmain';
 import { environment } from 'src/environments/environment';
 import { CartService } from 'src/app/services/cart.service';
 import { WhishlistService } from 'src/app/services/whishlist.service';
+import { ProductService } from 'src/app/services/product.service';
 
 
 @Component({
@@ -36,21 +37,23 @@ export class HeaderComponent implements OnInit {
   isLoading = false;
   errorMsg: string;
   classes: string;
-  private APIEndpoint : string  = environment.APIEndpoint;
+  private APIEndpoint: string = environment.APIEndpoint;
   @ViewChild(MatMenuTrigger, { static: false }) clickHoverMenuTrigger: MatMenuTrigger;
-  @Input('class') panelClass: string  = "megaMenu";
+  @Input('class') panelClass: string = "megaMenu";
   openOnMouseOver() {
     this.clickHoverMenuTrigger.toggleMenu();
   }
   constructor(public dialog: MatDialog, public userservice: UserService, public _socioAuthServ: AuthService,
-    public _router: Router, private http: HttpClient, private renderer: Renderer2,public cartService: CartService, public _whishlistService: WhishlistService) { }
+    public _router: Router, private http: HttpClient, private renderer: Renderer2, public cartService: CartService,
+    public _whishlistService: WhishlistService, public _productservice: ProductService) { }
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   options = { headers: this.headers };
-  url = this.APIEndpoint+'/dashboard/fuzzysearch';
+  url = this.APIEndpoint + '/dashboard/fuzzysearch';
 
   public searchResponseObj: searchreponse;
   public products: Product[] = [];
   public hits: hits[] = [];
+  public hit: hits;
   public hitsMain: hitsmain;
 
   /*menus = [
@@ -95,7 +98,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.userservice.response = JSON.parse(sessionStorage.getItem("f_login_form"));
     let access_token = sessionStorage.getItem("access_token");
-    if(this.userservice.getAuthToken() != undefined){
+    if(access_token != undefined){
       this.userservice.setAuthToken(access_token);
       this._whishlistService.updateWhishlist();
     }
@@ -105,7 +108,9 @@ export class HeaderComponent implements OnInit {
         tap(() => {
           this.filteredMovies = this.hits;
         }),
-        switchMap(value => this.http.post(this.url, { "countryCode": "us", "categoryName": "none", "searchquery": value.toLowerCase() }, this.options)
+        switchMap(value => this.http.post(this.url,
+          { "countryCode": "us", "categoryName": "none", "searchquery": value.title },
+          this.options)
           .pipe(
             finalize(() => {
               this.isLoading = false
@@ -120,8 +125,31 @@ export class HeaderComponent implements OnInit {
       });
   }
 
+  public searchFromOption(hitObj: hits) {
+    console.log("selected Value : " + hitObj);
+    let req = {
+      "cname": hitObj._source.category,
+      "scname": hitObj._source.subcategory,
+      "pid": hitObj._source.item_id
+    }
+    this.searchMoviesCtrl = new FormControl();
+    this._productservice.routeProductDetails(req);
+
+  }
+
   public search() {
-    this._router.navigate(['/productdetails/'+this.searchMoviesCtrl.value]);
+    this.hit = this.filteredMovies.filter(item => item._source.title == this.searchMoviesCtrl.value)[0];
+    if (this.hit != undefined) {
+      console.log("selected Value : " + this.hit);
+      let req = {
+        "cname": this.hit._source.category,
+        "scname": this.hit._source.subcategory,
+        "pid": this.hit._source.item_id
+      }
+      this.searchMoviesCtrl = new FormControl();
+      this._productservice.routeProductDetails(req);
+
+    }
   }
 
   funSignIn() {
