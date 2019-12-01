@@ -5,19 +5,18 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { searchreponse } from 'src/app/models/searchResponse';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserService } from 'src/app/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WhishlistService {
 
-  public access_token: string;
   public addWhislistData: any;
   public itemsInWhishslist: Product[] = [];
   public itemsInWhishslistTemp: Product[] = [];
 
-  constructor(private _httpCommonService: HttCommonService, public _router: Router) {
-    this.access_token = sessionStorage.getItem("access_token");
+  constructor(private _httpCommonService: HttCommonService, public _router: Router,public _userService: UserService) {
   }
 
   public setItemsInWhishslist(produt){
@@ -32,7 +31,7 @@ export class WhishlistService {
       item.quantity = 1;
       this.itemsInWhishslist.push(item);
     }
-    if (this.access_token != null && item != null) {
+    if (this._userService.getAuthToken() != null && item != null) {
       console.log("addWhishlistProduct :", item);
       this.callAddWhishlistAPI(item).subscribe(
         (data: searchreponse) => {
@@ -49,7 +48,7 @@ export class WhishlistService {
 
 
   public removeFromWhishlist(item: Product) {
-    if (this.access_token != null) {
+    if (this._userService.getAuthToken() != null) {
       this.itemsInWhishslist = this.itemsInWhishslist.filter(itemLoop => itemLoop.item_id != item.item_id);
       console.log("removeWhishlistProduct :", item);
       this.callRemoveWhishlistAPI(item).subscribe(
@@ -68,7 +67,7 @@ export class WhishlistService {
 
 
   public updateWhishlist() {
-    if (this.access_token != null) {
+    if (this._userService.getAuthToken() != null) {
       this.callGetWhishlistAPI().subscribe(
         (data: searchreponse) => {
           if (data != null && data.responseObjects != null) {
@@ -107,7 +106,7 @@ export class WhishlistService {
       "item_id": product.item_id,
       "master_supplier": product.master_suplier
     };
-    return this._httpCommonService.postRequest('wishlist/create', JSON.stringify(body), this.access_token);
+    return this._httpCommonService.postRequest('wishlist/create', JSON.stringify(body), this._userService.getAuthToken());
   }
 
 
@@ -116,14 +115,14 @@ export class WhishlistService {
       "countryCode": "us",
       "id": product.wishlistId
     };
-    return this._httpCommonService.postRequest('wishlist/remove', JSON.stringify(body), this.access_token);
+    return this._httpCommonService.postRequest('wishlist/remove', JSON.stringify(body), this._userService.getAuthToken());
   }
 
   public callGetWhishlistAPI(): Observable<any> {
     const body = {
       "countryCode": "us",
     };
-    return this._httpCommonService.postRequest('user/wishlist/get', JSON.stringify(body), this.access_token);
+    return this._httpCommonService.postRequest('user/wishlist/get', JSON.stringify(body), this._userService.getAuthToken());
   }
 
   public getItems(): Product[] {

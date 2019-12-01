@@ -4,6 +4,7 @@ import { WhishlistService } from 'src/app/services/whishlist.service';
 import { environment } from 'src/environments/environment';
 import { searchreponse } from 'src/app/models/searchResponse';
 import { CartService } from 'src/app/services/cart.service';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -17,7 +18,7 @@ export class WishlistComponent implements OnInit {
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
   public shoppingCartItems: Product[] = [];
   
-  constructor(public _whishlistService: WhishlistService, private _cartService: CartService) {
+  constructor(public _whishlistService: WhishlistService, private _cartService: CartService,private _userService: UserService ) {
     
   }
 
@@ -29,7 +30,7 @@ export class WishlistComponent implements OnInit {
   }
 
   public getWhishlist() {
-    if (this._whishlistService.access_token != null) {
+    if (this._userService.getAuthToken() != null) {
       console.log("getWhishlist :");
       this._whishlistService.callGetWhishlistAPI().subscribe(
         (data: searchreponse) => {

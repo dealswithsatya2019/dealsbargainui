@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 import { environment } from 'src/environments/environment';
+import { UserService } from 'src/app/user.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { environment } from 'src/environments/environment';
 export class CartdetailsComponent implements OnInit, OnDestroy {
 
   public cartInfo: cartInfo;
-  public autherization: string;
+  //public autherization: string;
   public userToken: string;
   public shoppingCartItems: Product[] = [];
   public product: Product;
@@ -26,7 +27,8 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();
   send_date = new Date();
 
-  constructor(public http: HttpClient, private _Activatedroute: ActivatedRoute, private cartService: CartService, public _router: Router) {
+  constructor(public http: HttpClient, private _Activatedroute: ActivatedRoute, private cartService: CartService, public _router: Router,
+    public userService: UserService) {
     this.send_date.setHours(this.send_date.getHours() + (this.deliverydate_configurable_days * 24));
   }
 
@@ -34,8 +36,8 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
     this.shoppingCartItems = [];
     let access_token = sessionStorage.getItem("access_token");
     console.log("access_token :", access_token);
-    if (access_token != null) {
-      this.autherization = "Bearer " + access_token;
+    if (this.userService.getAuthToken != null) {
+      //this.autherization = "Bearer " + access_token;
       this.getCarts();
     } else {
       this.shoppingCartItems = this.cartService.getItems();
@@ -60,14 +62,16 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
         "count": "1"
       },
     ]
+    let autherization = "Bearer " + this.userService.getAuthToken();
     return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
-      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+      body, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
   }
 
   public addToCart(product: Product) {
     this.cartService.addToCart(product);
     this.shoppingCartItems = this.cartService.getItems();
-    if (this.autherization != null) {
+    let autherization = "Bearer " + this.userService.getAuthToken();
+    if (autherization != null) {
       this.addCart(product);
     }
     this._router.navigateByUrl('/mycart');
@@ -105,9 +109,9 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
   }
 
   public getCartlist(): Observable<cartInfo> {
-
+    let autherization = "Bearer " + this.userService.getAuthToken();
     return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartdetails/us",
-      { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+      { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
   }
 
   ngOnDestroy(): void {

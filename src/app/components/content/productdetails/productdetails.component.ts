@@ -30,7 +30,6 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
   //https://ngx-gallery-cors-error.stackblitz.io
    //Using loadingMode: 'indeterminate' on the GalleryModule's config worked.
    public PRICE_PREFIX: string = environment.PRICE_PREFIX;
-   public authToken: string = "";
   
   paidFor: boolean = false;
   public productDetails : ProductDetails = new ProductDetails();
@@ -61,7 +60,6 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
   }
 
   ngOnInit() {
-    this.authToken = sessionStorage.getItem("access_token");
     this._Activatedroute.paramMap.subscribe((params : ParamMap)=> {  
       this.cname=params.get('cname');  
       this.scname=params.get('scname');  
@@ -257,7 +255,7 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
   public isRecommendThisProduct(isRecommend){
     try {
       let isProductRecommend = isRecommend? 'yes' : 'no';
-       this._productservice.submitReview(this.authToken,this.cname, this.scname, this.pid, 'us',
+       this._productservice.submitReview(this.userservice.getAuthToken(),this.cname, this.scname, this.pid, 'us',
          '', '', '',this.productDetails.master_suplier, isProductRecommend)
        .subscribe(        
          (authResponse: AuthResopnse) => {

@@ -7,8 +7,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class UserService {
 
   response: any;
+  private authToken: string;
 
-  constructor() { }
+  constructor() {
+    let accessToken = sessionStorage.getItem("access_token");
+    if(accessToken !== null){
+      this.authToken = accessToken;
+    }
+   }
 
   form: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -22,6 +28,14 @@ export class UserService {
       $key: null,
       name: 'sdjflsdjfklsdjfsdkl'
     });
+  }
+
+  public setAuthToken(authToken){
+    this.authToken = authToken;
+  }
+
+  public getAuthToken(){
+    return this.authToken;
   }
 
 }

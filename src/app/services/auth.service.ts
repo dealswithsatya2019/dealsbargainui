@@ -14,10 +14,8 @@ export class AuthService {
 
   constructor(private _httpCommonService: HttCommonService, public dialog: MatDialog) { }
     public isAuthenticated(): boolean {
-
-      const token = sessionStorage.getItem('f_login_form');
-      console.log('f_login_form'+ token);
-      return token !== null;
+      const access_token = sessionStorage.getItem('access_token');
+      return access_token !== null;
   }
 
   public setAuthToken(authToken){

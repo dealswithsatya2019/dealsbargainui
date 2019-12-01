@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import { FormBuilder , FormGroup } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-rateproduct',
@@ -10,7 +11,6 @@ import { AuthResopnse } from 'src/app/models/AuthResponse';
   styleUrls: ['./rateproduct.component.scss']
 })
 export class RateproductComponent implements OnInit {
-  public authToken: string = "";
   cname: string;
   scname: string;
   itemId: string;
@@ -27,6 +27,7 @@ export class RateproductComponent implements OnInit {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<RateproductComponent>,
     public _productservice: ProductService,
+    public userService: UserService,
     @Inject(MAT_DIALOG_DATA) data) {
     //this.description = data.description;
     this.comment = this.comment;
@@ -37,7 +38,6 @@ export class RateproductComponent implements OnInit {
     this.scname = data.scname;
     this.itemId = data.itemid;
     this.masterSuppler = data.masterSuppler;
-    this.authToken =  sessionStorage.getItem("access_token");
   }
 
   ngOnInit() {
@@ -54,7 +54,7 @@ export class RateproductComponent implements OnInit {
     try {
      let formJson = JSON.parse(JSON.stringify(this.form.value));
      let isProductRecommend = formJson.isRecomended? 'yes' : 'no';
-      this._productservice.submitReview(this.authToken,this.cname, this.scname, this.itemId, 'us',
+      this._productservice.submitReview(this.userService.getAuthToken(),this.cname, this.scname, this.itemId, 'us',
         formJson.productRating, formJson.reviewTitle, formJson.comment,this.masterSuppler, isProductRecommend)
       .subscribe(        
         (authResponse: AuthResopnse) => {

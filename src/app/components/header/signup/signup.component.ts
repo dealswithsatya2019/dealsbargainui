@@ -25,7 +25,9 @@ export class SignupComponent implements OnInit {
     public matDialogRef: MatDialogRef<SignupComponent>,
     public router: Router,
     public encryptionService: EncryptionService,
-    public  whishlistService: WhishlistService) { }
+    public  whishlistService: WhishlistService,
+    public _userSerive: UserService
+  ) { }
 
   ngOnInit() {
   }
@@ -82,6 +84,7 @@ export class SignupComponent implements OnInit {
           sessionStorage.setItem("authResponse", JSON.stringify(authResponse));
           if (authResponse.statusCode === 200) {
             sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
+            this._userSerive.setAuthToken(authResponse.responseObjects.access_token);
             console.log('Success' + JSON.stringify(authResponse));
             sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));

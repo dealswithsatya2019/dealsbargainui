@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { UserService } from 'src/app/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +13,12 @@ export class CartService {
   private itemsInCart: Product[] = [];
   private itemsInCartTemp: Product[] = [];
   private addedProduct: Product;
-  private autherization: string;
+  //private autherization: string;
   public addCartData: any;
   private APIEndpoint: string = environment.APIEndpoint;
   public snackBarConfig: MatSnackBarConfig;	  
 
-  constructor(public http: HttpClient,private _snackBar: MatSnackBar) { 
+  constructor(public http: HttpClient,private _snackBar: MatSnackBar,public userService: UserService) { 
     this.snackBarConfig = new MatSnackBarConfig();
     this.snackBarConfig.horizontalPosition = "center";
     this.snackBarConfig.verticalPosition = "top";
@@ -43,9 +44,7 @@ export class CartService {
 
   public removeProduct(item: Product) {
     this.itemsInCart = this.itemsInCart.filter(itemLoop => itemLoop.item_id != item.item_id);
-    let access_token = sessionStorage.getItem("access_token");
-    if (access_token != null) {
-      this.autherization = "Bearer " + access_token;
+    if (this.userService.getAuthToken() != null) {
       this.removeProductHttp(item.cart_id).subscribe();
     }
     this.raiseAlert("The selected item has been removed from cart.");
@@ -60,15 +59,15 @@ export class CartService {
       "countryCode": "us",
       "cart_id": cart_id
     }
+    let autherization = "Bearer " + this.userService.getAuthToken();
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': this.autherization }), body
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': autherization }), body
     };
     return this.http.delete(this.APIEndpoint + "/user/cart/operation/removeItemFromCart", httpOptions);
   }
 
 
   public addToCart(item: Product) {
-    let access_token = sessionStorage.getItem("access_token");
     this.itemsInCartTemp = [];
     if (this.itemsInCart.some(e => e.item_id === item.item_id)) {
       this.raiseAlert("This item is already added to cart.")
@@ -77,8 +76,7 @@ export class CartService {
       this.itemsInCart.push(item);
       this.raiseAlert("The item has been added to cart.")
     }
-    if (access_token != null && item != null) {
-      this.autherization = "Bearer " + access_token;
+    if (this.userService.getAuthToken()!= null && item != null) {
       this.addCart(item);
     }
   }
@@ -98,19 +96,18 @@ export class CartService {
         "count": "1"
       },
     ]
+    let autherization = "Bearer " + this.userService.getAuthToken();
     return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
-      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+      body, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
   }
 
   public updateItemCountFromCart(item: Product, isAdd: boolean) {
     this.itemsInCartTemp = [];
-    let access_token = sessionStorage.getItem("access_token");
     if (this.itemsInCart.some(e => e.item_id === item.item_id)) {
       this.itemsInCart.forEach(element => {
         if (element.item_id == item.item_id) {
           element.quantity = element.quantity >= 0 ? (isAdd ? (element.quantity + 1) : (element.quantity - 1)) : 1;
-          if (access_token != null) {
-            this.autherization = "Bearer " + access_token;
+          if (this.userService.getAuthToken() != null) {
             this.updateCart(element);
           }
         }
@@ -133,8 +130,9 @@ export class CartService {
       "quantity": product.quantity,
       "code": "us",
     }
+    let autherization = "Bearer " + this.userService.getAuthToken();
     return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/updateQuantityCartItem/us",
-      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+      body, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
   }
 
   public clearCart() {

@@ -85,7 +85,7 @@
 								</p>
 							</mat-card-content>
 							<mat-card-actions>
-								<app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
+								<app-wishlist [actionType]="'add'" [productInfo]="product"></app-wishlist>
 								<button mat-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
 									Add Cart
 								</button>

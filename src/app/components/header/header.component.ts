@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
   public hits: hits[] = [];
   public hitsMain: hitsmain;
 
-  menus = [
+  /*menus = [
     {
       cname: "Apparel",
       scnames: ["Accessories", "Apparel", "Jewelry & watches", "Shoes"]
@@ -91,11 +91,12 @@ export class HeaderComponent implements OnInit {
       cname: "Sports",
       scnames: ["Camping & hiking", "Cycling & wheel sports", "Lawn games", "Fencing", "Tennis & racquet sports", "Badminton", "Electronics", "Water polo", "Game room", "Wrestling", "Sports medicine", "Cricket", "Martial arts", "Archery", "Swimming", "Motor sports", "General sports", "Cheerleading", "Skating", "Golf", "Boxing", "Volleyball", "Bowling", "Snowshoeing", "Pilates", "Kayaking", "Surfing", "Baseball", "Running", "Yoga", "Row", "Softball", "Water sports", "Equestrian sports", "Climbing", "Airsoft", "Fishing", "Sports electronics & gadgets", "Basketball", "Boating", "Accessories", "Paintball", "Diving", "Disc sports", "Gymnastics", "Hunting", "Hockey", "Soccer", "Snow skiing", "Fan gear", "Snowmobiling", "Football", "Rv equipment", "Track & field", "Skateboarding", "Exercise & fitness", "Ballet & dance"]
     }
-  ];
+  ];*/
   ngOnInit() {
     this.userservice.response = JSON.parse(sessionStorage.getItem("f_login_form"));
     let access_token = sessionStorage.getItem("access_token");
-    if(access_token != undefined){
+    if(this.userservice.getAuthToken() != undefined){
+      this.userservice.setAuthToken(access_token);
       this._whishlistService.updateWhishlist();
     }
     this.searchMoviesCtrl.valueChanges

@@ -33,7 +33,9 @@ export class LoginComponent implements OnInit {
               public router: Router,
               public encryptionService: EncryptionService,
               public whishlistService: WhishlistService,
-              private _snackBar: MatSnackBar) { }
+              private _snackBar: MatSnackBar,
+              public _userSerive: UserService
+            ) { }
 
   ngOnInit() {
     // this._snackBar.open(message, action, {
@@ -54,6 +56,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  
   funClose() {
     this.matDialogRef.close();
   }
@@ -103,10 +106,11 @@ export class LoginComponent implements OnInit {
             name: userInfo.name,
             email: null,
             password:null,
-            mobileno:null
+            mobileno:null 
           });
           console.log('Success' + JSON.stringify(authResponse));
           sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
+          this._userSerive.setAuthToken(authResponse.responseObjects.access_token);
           sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
           this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
           this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));

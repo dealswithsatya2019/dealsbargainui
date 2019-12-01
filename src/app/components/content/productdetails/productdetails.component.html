@@ -293,7 +293,7 @@
 					<i class="fa fa-thumbs-down" (click)="isRecommendThisProduct(false)"></i>
 				</a>
 			</p>
-			<ng-container *ngIf="this.authToken">
+			<ng-container *ngIf="this.userservice.getAuthToken()">
 				<a mat-raised-button class="dialog-btn" (click)="openDialog()">Rate this product</a>
 			</ng-container>
 		</div>

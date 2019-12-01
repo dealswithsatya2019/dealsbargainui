@@ -13,7 +13,7 @@
                 <mat-step label="LOGIN" completed="{{isLogIn}}">
                     <div class="mb-3">
                         <!-- /#new customer login starts-->
-                        <ng-container *ngIf="!autherization">
+                        <ng-container *ngIf="!this.userservice.getAuthToken()">
                             <ng-container></ng-container>
                             <div class="new-login mt-3" style="display: flex;">
                                 <!-- login with mail -->
@@ -66,7 +66,7 @@
                         </ng-container>
                         <!-- /#new customer login ends-->
                         <!-- Already login user -->
-                        <ng-container *ngIf="autherization">
+                        <ng-container *ngIf="this.userservice.getAuthToken()">
                             <ng-container *ngIf="loginformService.response">
                                 <div class="existed-login mt-3" style="display: flex;line-height: 30px;">
                                     <div class="" style="flex: 1 1 50%;max-width: 50%;padding: 0 5%;">

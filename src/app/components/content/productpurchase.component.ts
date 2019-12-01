@@ -31,7 +31,7 @@ declare let paypal: any;
   styleUrls: ['./productpurchase.component.scss']
 })
 export class ProductpurchaseComponent implements OnInit {
-  public autherization: string;
+  //public autherization: string;
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
 
   paypalFor: boolean = false;
@@ -111,9 +111,9 @@ export class ProductpurchaseComponent implements OnInit {
 
 
   ngOnInit() {
-    let access_token = sessionStorage.getItem("access_token");
-    if (access_token != null) {
-      this.autherization = "Bearer " + access_token;
+    //let access_token = sessionStorage.getItem("access_token");
+    if (this.userservice.getAuthToken() != null) {
+      //this.autherization = "Bearer " + access_token;
       this.loginformService.response = JSON.parse(sessionStorage.getItem("f_login_form"));
       this.isLogIn = true;
     }
@@ -203,7 +203,6 @@ export class ProductpurchaseComponent implements OnInit {
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
             this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
             sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
-            this.autherization = "Bearer " + authResponse.responseObjects.access_token;
             this.addCart();
           } else {
             this.loginErrorMsg = authResponse.statusDesc;
@@ -219,7 +218,7 @@ export class ProductpurchaseComponent implements OnInit {
   signOut(): void {
     this._socioAuthServ.signOut();
     this.loginformService.response = null;
-    this.autherization = null;
+    this.userservice.setAuthToken(null);
     this.cartInfo = null;
     this.addressInfo = null;
     this.cartService.setItems(null);
@@ -238,24 +237,25 @@ export class ProductpurchaseComponent implements OnInit {
   public isUpdateAddress: boolean;
 
   public getAddresslist(): Observable<addressResponse> {
+    let autherization = "Bearer " + this.userservice.getAuthToken();
     return this.http.get<addressResponse>(this.APIEndpoint + "/user/contacts/us",
-      { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+      { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
   }
 
   public updateAddress(addressInfoJson): Observable<addressResponse> {
+    let autherization = "Bearer " + this.userservice.getAuthToken();
     return this.http.post<addressResponse>(this.APIEndpoint + "/user/contact/", addressInfoJson,
-      { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+      { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
   }
 
   public deleteAddress(addressId: string): Observable<addressResponse> {
-    let access_token = sessionStorage.getItem("access_token");
-    this.autherization = "Bearer " + access_token;
     let body = {
       "countryCode": "us",
       "addressid": addressId
     }
+    let autherization = "Bearer " + this.userservice.getAuthToken();
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': this.autherization }), body
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': autherization }), body
     };
     return this.http.delete<addressResponse>(this.APIEndpoint + "/user/contact", httpOptions);
   }
@@ -289,16 +289,17 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public getCartlist(): Observable<cartInfo> {
+    let autherization = "Bearer " + this.userservice.getAuthToken();
     if (this.selectedAddressId != null && this.selectedAddressId.length > 0) {
       let body = {
         "countryCode": "us",
         "address_id": this.selectedAddressId,
       }
       return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartInfo",
-        body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+        body, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
     } else {
       return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartdetails/us",
-        { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+        { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
     }
   }
 
@@ -350,8 +351,9 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public saveAddress(addressInfoJson: string) {
+    let autherization = "Bearer " + this.userservice.getAuthToken();
     this.subscriptions.add(this.http.post(this.APIEndpoint + "/user/contact", addressInfoJson,
-      { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } }).subscribe(data => {
+      { headers: { 'Content-Type': 'application/json', 'authorization': autherization } }).subscribe(data => {
         let jsonobj = JSON.parse(JSON.stringify(data));
         if (jsonobj.statusCode == 200) {
           this.cartService.raiseAlert("The address has been saved successfully.");
@@ -381,8 +383,9 @@ export class ProductpurchaseComponent implements OnInit {
     });
     let body = JSON.stringify(this.addProductsArray);
     console.log("BODY", body);
+    let autherization = "Bearer " + this.userservice.getAuthToken();
     return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
-      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+      body, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
   }
 
   public addCartData: any;
@@ -411,9 +414,9 @@ export class ProductpurchaseComponent implements OnInit {
       this.addOrdersArray.push(this.createOrderReq);
     });
     let body = JSON.stringify(this.addOrdersArray);
-
+    let autherization = "Bearer " + this.userservice.getAuthToken();
     return this.http.post<any>(this.APIEndpoint + "/order/create-order",
-      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+      body, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
   }
 
   public createOrder() {
@@ -525,8 +528,9 @@ export class ProductpurchaseComponent implements OnInit {
       "countryCode": "us",
       "coupon_code": this.couponform.controls.couponcode.value,
     }
+    let autherization = "Bearer " + this.userservice.getAuthToken();
     return this.http.post<PromoResponse>(this.APIEndpoint + "/coupon/applypromo",
-      body, { headers: { 'Content-Type': 'application/json', 'authorization': this.autherization } });
+      body, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
   }
 
   ngOnDestroy(): void {
