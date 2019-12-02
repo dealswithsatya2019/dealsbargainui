@@ -22,7 +22,6 @@ export class SignupComponent implements OnInit {
     public userAuth: UserAuth,
     public dialog: MatDialog,
     public userservice: UserService,
-    public matDialogRef: MatDialogRef<SignupComponent>,
     public router: Router,
     public encryptionService: EncryptionService,
     public  whishlistService: WhishlistService,
@@ -33,7 +32,7 @@ export class SignupComponent implements OnInit {
   }
 
   funSignIn() {
-    this.funClose();
+    // this.funClose();
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -42,14 +41,11 @@ export class SignupComponent implements OnInit {
     // this.dialog.open(LoginComponent, dialogConfig);
   }
 
-  funClose() {
-    this.matDialogRef.close();
-  }
 
   loginFacebook() {
     this._socioAuthServ.signIn(FacebookLoginProvider.PROVIDER_ID).then(
       (response) => {
-        this.funClose();
+        // this.funClose();
         this.userservice.response = response;
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
         this.whishlistService.updateWhishlist();
@@ -60,7 +56,7 @@ export class SignupComponent implements OnInit {
   loginGmail() {
     this._socioAuthServ.signIn(GoogleLoginProvider.PROVIDER_ID).then(
       (response) => {
-        this.funClose();
+        // this.funClose();
         this.userservice.response = response;
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
         this.whishlistService.updateWhishlist();
@@ -89,7 +85,7 @@ export class SignupComponent implements OnInit {
             sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
             this.signUpErrorMsg = '';
-            this.funClose();
+            // this.funClose();
             this.whishlistService.updateWhishlist();
           } else {
             //this.userservice.form.setValue({ name: userInfo.name, email: userInfo.email, password: userInfo.password, mobileno: userInfo.mobileno });

@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
               public loginformService : LoginformService,
               public _socioAuthServ: AuthService,
               public userAuth: UserAuth,
-              public matDialogRef: MatDialogRef<LoginComponent>,
+             
               public router: Router,
               public encryptionService: EncryptionService,
               public whishlistService: WhishlistService,
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
   loginFacebook() {
     this._socioAuthServ.signIn(FacebookLoginProvider.PROVIDER_ID).then(
       (response) => {
-        this.funClose();
+        // this.funClose();
         this.loginformService.response = response;
         this.userservice.response = JSON.parse(JSON.stringify(response));
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
@@ -56,15 +56,10 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  
-  funClose() {
-    this.matDialogRef.close();
-  }
-
   loginGmail() {
     this._socioAuthServ.signIn(GoogleLoginProvider.PROVIDER_ID).then(
       (response) => {
-        this.funClose();
+        // this.funClose();
         this.loginformService.response = response;
         this.userservice.response = JSON.parse(JSON.stringify(response));
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
@@ -73,17 +68,17 @@ export class LoginComponent implements OnInit {
     );
   } 
 
-  funSignUp() {
-    this.funClose();
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '400px';
-    dialogConfig.height = '550px';
-    this.dialog.open(SignupComponent, dialogConfig);
-  }
+  // funSignUp() {
+  //   this.funClose();
+  //   const dialogConfig = new MatDialogConfig();
+  //   dialogConfig.disableClose = true;
+  //   dialogConfig.autoFocus = true;
+  //   dialogConfig.width = '400px';
+  //   dialogConfig.height = '550px';
+  //   this.dialog.open(SignupComponent, dialogConfig);
+  // }
   forgotpwd() {
-    this.funClose();
+    // this.funClose();
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -114,7 +109,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
           this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
           this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
-          this.funClose();
+          // this.funClose();
           this.whishlistService.updateWhishlist();
         }else{
           this.loginErrorMsg = authResponse.statusDesc;
