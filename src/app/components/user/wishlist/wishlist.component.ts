@@ -31,7 +31,6 @@ export class WishlistComponent implements OnInit {
 
   public getWhishlist() {
     if (this._userService.getAuthToken() != null) {
-      console.log("getWhishlist :");
       this._whishlistService.callGetWhishlistAPI().subscribe(
         (data: searchreponse) => {
           if (data != undefined && data.responseObjects != undefined) {
@@ -62,6 +61,7 @@ export class WishlistComponent implements OnInit {
   moveToCart(productInfo){
     this._cartService.addToCart(productInfo);
     this._whishlistService.removeFromWhishlist(productInfo);
+    this._whishlistService.raiseAlert('The selected item has been moved from Whishlist to Cart');
   }
 
 }

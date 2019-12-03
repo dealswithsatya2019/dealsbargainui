@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { searchreponse } from 'src/app/models/searchResponse';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from 'src/app/user.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -15,28 +16,37 @@ export class WhishlistService {
   public addWhislistData: any;
   public itemsInWhishslist: Product[] = [];
   public itemsInWhishslistTemp: Product[] = [];
+  public snackBarConfig: MatSnackBarConfig;	  
 
-  constructor(private _httpCommonService: HttCommonService, public _router: Router,public _userService: UserService) {
+  constructor(private _httpCommonService: HttCommonService,private _snackBar: MatSnackBar, public _router: Router,public _userService: UserService) {
+    this.snackBarConfig = new MatSnackBarConfig();
+    this.snackBarConfig.horizontalPosition = "center";
+    this.snackBarConfig.verticalPosition = "top";
+    this.snackBarConfig.duration = 2000;
   }
 
   public setItemsInWhishslist(produt){
     this.itemsInWhishslist.push(produt);
   }
 
+  raiseAlert(message : string){
+    this._snackBar.open(message, "", this.snackBarConfig);
+  }
+
   public addToWhishlist(item: Product) {
     if (this.itemsInWhishslist.some(e => e.item_id === item.item_id)) {
-      alert("This item is already added to Whishlist.");
+      this.raiseAlert("This item is already added to Whishlist");
       return;
-    } else {
-      item.quantity = 1;
-      this.itemsInWhishslist.push(item);
-    }
+    } 
     if (this._userService.getAuthToken() != null && item != null) {
       console.log("addWhishlistProduct :", item);
       this.callAddWhishlistAPI(item).subscribe(
         (data: searchreponse) => {
           if (data.responseObjects && data.statusCode == 200) {
             this.addWhislistData = data
+            item.quantity = 1;
+            this.itemsInWhishslist.push(item);
+            this.raiseAlert("The item has been added to Whishlist")
           }
         },
         (error: HttpErrorResponse) => {
@@ -54,6 +64,7 @@ export class WhishlistService {
       this.callRemoveWhishlistAPI(item).subscribe(
         (data: searchreponse) => {
           if (data.responseObjects && data.statusCode == 200) {
+            this.raiseAlert("The selected item has been removed from Whishlist.");
             //this.itemsInWhishslist = this.itemsInWhishslist.filter(itemLoop => itemLoop.item_id != item.item_id);
           }
         },
