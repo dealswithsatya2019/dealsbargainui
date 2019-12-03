@@ -66,11 +66,11 @@ export class ProductpurchaseComponent implements OnInit {
     mobile_number: new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]),
     zipcode: new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]),
     street: new FormControl('', [Validators.required]),
-    address: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required, Validators.maxLength(25)]),
     city: new FormControl('', [Validators.required]),
     state: new FormControl('', [Validators.required]),
     landmark: new FormControl(''),
-    altphone: new FormControl('', [Validators.required]),
+    altphone: new FormControl(''),
     address_type: new FormControl('', [Validators.required]),
     country: new FormControl('United States', [Validators.required]),
 
@@ -86,7 +86,7 @@ export class ProductpurchaseComponent implements OnInit {
     city: new FormControl('', [Validators.required]),
     state: new FormControl('', [Validators.required]),
     landmark: new FormControl(''),
-    altphone: new FormControl('', [Validators.required]),
+    altphone: new FormControl(''),
     address_id: new FormControl(''),
     country: new FormControl('United States', [Validators.required]),
     address_type: new FormControl('', [Validators.required]),
@@ -198,7 +198,7 @@ export class ProductpurchaseComponent implements OnInit {
               email: null,
               password: null,
               mobileno: null,
-              aggreecbx:false
+              aggreecbx: false
             });
             this.isLogIn = true;
             sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
@@ -232,7 +232,7 @@ export class ProductpurchaseComponent implements OnInit {
 
   funSave() {
     let addressInfo = JSON.parse(JSON.stringify(this.addressform.value));
-    console.log("addressInfo :",addressInfo);
+    console.log("addressInfo :", addressInfo);
     this.saveAddress(addressInfo);
   }
 
@@ -259,34 +259,42 @@ export class ProductpurchaseComponent implements OnInit {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': autherization }), body
     };
+    this.exp1 = true;
+    this.exp2 = false;
+    this.isUpdateAddress = false;
+    this.selectedAddressId = null;
     return this.http.delete<addressResponse>(this.APIEndpoint + "/user/contact", httpOptions);
   }
 
-  public updateAddressService(addressId) {
-    this.addressform.controls.address_id.setValue(addressId);
-    let addressInfo = JSON.parse(JSON.stringify(this.addressform.value));
+  public updateAddressService(addressId: string) {
+    console.log("address id", addressId);
+    this.updateaddressform.controls.address_id.setValue(addressId);
+    let addressInfo = JSON.parse(JSON.stringify(this.updateaddressform.value));
     console.log("addressInfo update :", addressInfo);
-    this.subscriptions.add(this.updateAddress(addressInfo).subscribe(data => this.addressInfo = data));
+    this.subscriptions.add(this.updateAddress(addressInfo).subscribe(data => {
+      this.addressInfo = data;
+      if (this.addressInfo.statusCode == 201) {
+        this.getAddresses();
+        this.cartService.raiseAlert("The selected address has been updated successfully.");
+      } else {
+        this.cartService.raiseAlert("The selected address update has been failed. Please provide proper information");
+      }
+    }));
     this.isUpdateAddress = false;
     this.exp1 = false;
     this.exp2 = false;
-    this.getAddresses();
-    this.cartService.raiseAlert("The selected address has been updated successfully.");
+
   }
 
   public deleteAddressService(addressId: string) {
-    console.log("address seleted 1", new Date());
     this.subscriptions.add(this.deleteAddress(addressId).subscribe(data => {
       this.addressInfo = data;
       if (this.addressInfo.statusCode == 200) {
-        console.log("address seleted 2", new Date());
         this.cartService.raiseAlert("The selected address has been deleted successfully.");
+        this.getAddresses();
       } else {
         this.cartService.raiseAlert("Failed to create the address. Please send a mail");
       }
-      console.log("address seleted 3", new Date());
-      this.getAddresses();
-      console.log("address seleted 4", new Date());
     }));
   }
 
@@ -327,9 +335,9 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public getAddresses() {
-    console.log("getAddresses ", new Date());
     this.subscriptions.add(this.getAddresslist().subscribe(data => {
       this.addressInfo = data;
+      this.selectedAddressId = null;
       if (this.addressInfo.statusCode == 404) {
         this.exp1 = true;
         this.exp2 = false;
@@ -345,11 +353,18 @@ export class ProductpurchaseComponent implements OnInit {
     this.isUpdateAddress = true;
     this.exp1 = false;
     this.exp2 = true;
-    console.log("address id ", addressId);
-    console.log("response objects ", this.addressInfo.responseObjects);
     this.address = (this.addressInfo.responseObjects.filter(itemLoop => itemLoop.address_id == addressId))[0];
-    console.log("address object ", this.address);
-
+    this.updateaddressform.controls.fullname.setValue(this.address.fullname);
+    this.updateaddressform.controls.mobile_number.setValue(this.address.mobile_number);
+    this.updateaddressform.controls.altphone.setValue(this.address.altphone);
+    this.updateaddressform.controls.address.setValue(this.address.address);
+    this.updateaddressform.controls.city.setValue(this.address.city);
+    this.updateaddressform.controls.country.setValue(this.address.country);
+    this.updateaddressform.controls.state.setValue(this.address.state);
+    this.updateaddressform.controls.zipcode.setValue(this.address.zipcode);
+    this.updateaddressform.controls.address_type.setValue(this.address.address_type);
+    this.updateaddressform.controls.landmark.setValue(this.address.landmark);
+    this.updateaddressform.controls.address_id.setValue(this.address.address_id);
   }
 
   public saveAddress(addressInfoJson: string) {
@@ -432,13 +447,13 @@ export class ProductpurchaseComponent implements OnInit {
   public totalCartSize: number = 0;
 
   public calculatePrices() {
-    console.log("calculatePrices",this.shoppingCartItems.length);
+    console.log("calculatePrices", this.shoppingCartItems.length);
     this.shoppingCartItems.forEach(element => {
-      if(element.dealtype!=''){
+      if (element.dealtype != '') {
         this.totalCost = this.totalCost + element.deals_bargain_deal_price;
-      }else if(element.dealtype=='' && element.discount=='0'){
+      } else if (element.dealtype == '' && element.discount == '0') {
         this.totalCost = this.totalCost + element.price;
-      }else if(element.dealtype=='' && element.discount!='0'){
+      } else if (element.dealtype == '' && element.discount != '0') {
         this.totalCost = this.totalCost + element.discount_amount;
       }
       this.deliveryCost = element.ship_cost;
@@ -497,7 +512,7 @@ export class ProductpurchaseComponent implements OnInit {
   validateCoupon() {
     this.subscriptions.add(this.validateCouponHttp().subscribe(data => {
       this.promoResponse = data;
-      console.log("SC ",this.promoResponse.statusCode);
+      console.log("SC ", this.promoResponse.statusCode);
       if (this.promoResponse.statusCode == 302) {
         this.promoResponseModel = this.promoResponse.responseObjects;
         let discountType = this.promoResponseModel.mode_of_value;

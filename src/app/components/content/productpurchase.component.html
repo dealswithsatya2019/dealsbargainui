@@ -8,8 +8,8 @@
     </mat-toolbar-row>
     <div class="" style="display: flex;padding-top: 75px;">
         <div class="left-panel">
-                <!-- #horstepper -->
-            <mat-horizontal-stepper  (selectionChange)="selectionChange($event)" linear>
+            <!-- #horstepper -->
+            <mat-horizontal-stepper (selectionChange)="selectionChange($event)" linear>
                 <mat-step label="LOGIN" completed="{{isLogIn}}">
                     <div class="mb-3">
                         <!-- /#new customer login starts-->
@@ -96,7 +96,8 @@
                                 <ng-container *ngFor="let address of addressInfo.responseObjects">
                                     <div class="add1 my-3">
                                         <mat-radio-button [value]="address.address_id">{{address.name}}
-                                            <span class="px-1">{{address.address_type == 2 ? 'Work' : 'Home'}}</span> {{address.mobile_number}}
+                                            <span class="px-1">{{address.address_type == 2 ? 'Work' : 'Home'}}</span>
+                                            {{address.mobile_number}}
                                         </mat-radio-button>
                                         <div class="pl-3">{{address.address}} ,{{address.city}},{{address.state}}.</div>
                                         <button mat-button class="edit-address"
@@ -117,56 +118,64 @@
                                 class="my-3">
                                 <mat-form-field appearance="outline">
                                     <mat-label>Name</mat-label>
-                                    <input formControlName="fullname" matInput placeholder="Name" 
-                                    [value]="address.fullname">
+                                    <input formControlName="fullname" matInput placeholder="Name">
+                                    <mat-error>fullname is mandatory</mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>Mobile Number</mat-label>
-                                    <input formControlName="mobile_number" matInput placeholder="Placeholder"
-                                        [value]="address.mobile_number">
+                                    <input formControlName="mobile_number" matInput placeholder="Placeholder">
+                                    <mat-error>mobile number is mandatory</mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>Alternate Phone</mat-label>
-                                    <input formControlName="altphone" matInput placeholder="Placeholder"
-                                    value="{{address.altphone ? '' : address.altphone}}">
+                                    <input formControlName="altphone" matInput placeholder="Placeholder">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>Locality</mat-label>
-                                    <input formControlName="street" matInput placeholder="Placeholder"
-                                        [value]="address.street">
+                                    <input formControlName="street" matInput placeholder="Placeholder">
+                                    <mat-error>street is mandatory</mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" style="width:98%">
                                     <mat-label>Address</mat-label>
-                                    <textarea formControlName="address" matInput placeholder="Textarea"
-                                        value="{{address.address ? '' : address.address}}"></textarea>
+                                    <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
+                                    <mat-error>address is mandatory</mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>City/District</mat-label>
-                                    <input formControlName="city" matInput placeholder="Placeholder"
-                                        [value]="address.city">
+                                    <input formControlName="city" matInput placeholder="Placeholder">
+                                    <mat-error>city is mandatory</mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>Country</mat-label>
                                     <mat-select formControlName="country" value="United States">
                                         <mat-option value="United States">United States</mat-option>
                                     </mat-select>
+                                    <mat-error>country is mandatory</mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
-                                    <mat-label>State</mat-label>
-                                    <input formControlName="state" matInput placeholder="Placeholder"
-                                        [value]="address.state">
+                                    <mat-select formControlName="state" placeholder="Placeholder">
+                                        <mat-option *ngFor="let state of statesArr" [value]="state">
+                                            {{state}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>state is mandatory</mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>Pincode</mat-label>
-                                    <input formControlName="zipcode" matInput placeholder="Placeholder"
-                                        [value]="address.zipcode">
+                                    <input formControlName="zipcode" matInput placeholder="Placeholder">
+                                    <mat-error>Zip Code/Postal is mandatory</mat-error>
                                 </mat-form-field>
-                                <mat-radio-group formControlName="address_type" [value] = "address.address_type" aria-label="Select an option">
-                                    <mat-radio-button value="1" [checked] = "address.address_type == 1" class="mr-2">Home ( All Day Delivery )
+                                <mat-radio-group formControlName="address_type" 
+                                    aria-label="Select an option">
+                                    <mat-radio-button value="1" 
+                                        class="mr-2">Home
+                                        ( All Day Delivery )
                                     </mat-radio-button>
-                                    <mat-radio-button value="2" [checked] = "address.address_type == 2">Work (Delivery between 10AM - 5PM)</mat-radio-button>
+                                    <mat-radio-button value="2" >Work
+                                        (Delivery
+                                        between 10AM - 5PM)</mat-radio-button>
                                 </mat-radio-group>
-                                <button mat-raised-button type="submit" [disabled]="addressform.invalid"
+                                <button mat-raised-button type="submit" [disabled]="updateaddressform.invalid"
                                     class=" my-2 w-100 login-login-btn">Update</button>
                             </form>
                         </mat-expansion-panel>
@@ -179,10 +188,12 @@
                             <mat-form-field appearance="outline">
                                 <mat-label>Name</mat-label>
                                 <input formControlName="fullname" matInput placeholder="Name">
+                                <mat-error>fullname is mandatory</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>Mobile Number</mat-label>
                                 <input formControlName="mobile_number" matInput>
+                                <mat-error>mobile number is mandatory</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>Alternate Phone</mat-label>
@@ -191,20 +202,24 @@
                             <mat-form-field appearance="outline">
                                 <mat-label>Locality</mat-label>
                                 <input formControlName="street" matInput placeholder="Placeholder">
+                                <mat-error>street is mandatory</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline" style="width:98%">
                                 <mat-label>Address</mat-label>
                                 <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
+                                <mat-error>address is mandatory</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>City</mat-label>
                                 <input formControlName="city" matInput placeholder="Placeholder">
+                                <mat-error>city is mandatory</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>Country</mat-label>
                                 <mat-select formControlName="country" value="United States">
                                     <mat-option value="United States">United States</mat-option>
                                 </mat-select>
+                                <mat-error>country is mandatory</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>State</mat-label>
@@ -213,12 +228,13 @@
                                         {{state}}
                                     </mat-option>
                                 </mat-select>
+                                <mat-error>state is mandatory</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>Zip Code/Postal</mat-label>
                                 <input formControlName="zipcode" matInput placeholder="Placeholder">
+                                <mat-error>Zip Code/Postal is mandatory</mat-error>
                             </mat-form-field>
-
                             <mat-radio-group aria-label="Select an option" formControlName="address_type">
                                 <mat-radio-button value="1" class="mr-2">Home ( All Day Delivery )</mat-radio-button>
                                 <mat-radio-button value="2">Work (Delivery between 10AM - 5PM)</mat-radio-button>
@@ -330,10 +346,10 @@
                         <div>Price({{totalCartSize}} item)</div>
                         <span>{{totalCost}}</span>
                     </div>
-                    <div class="" style="display: flex;justify-content: space-between;">
-                        <div>Delivery</div>
+                    <!-- <div class="" style="display: flex;justify-content: space-between;">
+                        <div>Transaction Fees</div>
                         <span class="offer">{{(deliveryCost ==0 ? 'FREE' : deliveryCost)}}</span>
-                    </div>
+                    </div> -->
                     <div class="" style="display: flex;justify-content: space-between;">
                         <div>Coupon Discount</div>
                         <span>{{couponDiscountCost}}</span>

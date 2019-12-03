@@ -31,4 +31,5 @@ export class Product {
     display_name_category: string ="";
     display_name_subcategory: string ="";
     display_name_middle_subcategory: string ="";
+    errorCode : number ;
  }

@@ -49,7 +49,7 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
   public addCartData: any;
 
   public addCart(product: Product) {
-    this.subscriptions.add(this.subscriptions.add(this.addProduToCart(product).subscribe(data => this.addCartData = data)));
+    this.subscriptions.add(this.addProduToCart(product).subscribe(data => this.addCartData = data));
   }
 
   public addProduToCart(product: Product): Observable<any> {

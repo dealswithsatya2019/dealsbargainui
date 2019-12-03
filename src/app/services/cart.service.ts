@@ -16,9 +16,9 @@ export class CartService {
   //private autherization: string;
   public addCartData: any;
   private APIEndpoint: string = environment.APIEndpoint;
-  public snackBarConfig: MatSnackBarConfig;	  
+  public snackBarConfig: MatSnackBarConfig;
 
-  constructor(public http: HttpClient,private _snackBar: MatSnackBar,public userService: UserService) { 
+  constructor(public http: HttpClient, private _snackBar: MatSnackBar, public userService: UserService) {
     this.snackBarConfig = new MatSnackBarConfig();
     this.snackBarConfig.horizontalPosition = "center";
     this.snackBarConfig.verticalPosition = "top";
@@ -50,7 +50,7 @@ export class CartService {
     this.raiseAlert("The selected item has been removed from cart.");
   }
 
-  raiseAlert(message : string){
+  raiseAlert(message: string) {
     this._snackBar.open(message, "", this.snackBarConfig);
   }
 
@@ -76,7 +76,7 @@ export class CartService {
       this.itemsInCart.push(item);
       this.raiseAlert("The item has been added to cart.")
     }
-    if (this.userService.getAuthToken()!= null && item != null) {
+    if (this.userService.getAuthToken() != null && item != null) {
       this.addCart(item);
     }
   }
@@ -103,15 +103,19 @@ export class CartService {
 
   public updateItemCountFromCart(item: Product, isAdd: boolean) {
     this.itemsInCartTemp = [];
+    let isLoopReq: boolean = true;
     if (this.itemsInCart.some(e => e.item_id === item.item_id)) {
       this.itemsInCart.forEach(element => {
-        if (element.item_id == item.item_id) {
-          element.quantity = element.quantity >= 0 ? (isAdd ? (element.quantity + 1) : (element.quantity - 1)) : 1;
-          if (this.userService.getAuthToken() != null) {
-            this.updateCart(element);
+        if (isLoopReq) {
+          if (element.item_id == item.item_id) {
+            element.quantity = element.quantity >= 0 ? (isAdd ? (element.quantity + 1) : (element.quantity - 1)) : 1;
+            if (this.userService.getAuthToken() != null) {
+              this.updateCart(element);
+              isLoopReq = false;
+            }
           }
+          this.itemsInCartTemp.push(element);
         }
-        this.itemsInCartTemp.push(element);
       });
       this.itemsInCart = [];
       this.itemsInCart = this.itemsInCartTemp;
