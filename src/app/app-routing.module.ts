@@ -31,6 +31,8 @@ import { AddressesComponent } from 'src/app/components/user/addresses/addresses.
 import { ReviewRatingsComponent } from 'src/app/components/user/review-ratings/review-ratings.component';
 import { ChangePasswordComponent } from 'src/app/components/user/change-password/change-password.component';
 import { UnsubscribeComponent } from 'src/app/components/user/unsubscribe/unsubscribe.component';
+import { LoginComponent } from './components/header/login/login.component';
+import { SignupComponent } from './components/header/signup/signup.component';
 
 const routes: Routes = [
   {
@@ -180,6 +182,14 @@ const routes: Routes = [
   },{
     path: AppRoutes.mycart,
     component: CartdetailsComponent
+  },
+  {
+    path: AppRoutes.Login,
+    component: LoginComponent
+  },
+  {
+    path: AppRoutes.Signup,
+    component: SignupComponent
   }
 ];
 

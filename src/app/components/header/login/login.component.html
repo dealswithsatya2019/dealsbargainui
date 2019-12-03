@@ -1,10 +1,10 @@
 
-<button mat-raised-button color="warn" (click)="funClose()" class="close-btn"><i class="fa fa-close"></i></button>
+<!-- <button mat-raised-button color="warn" (click)="funClose()" class="close-btn"><i class="fa fa-close"></i></button> -->
 <p class="text-center login-title">Login to DealsBargain</p>
 
-<div class="login-container">
+<div class="login-container mb-4">
     <div class="login-btn-container mb-4">
-        <p class="text-center login-info my-3">EASILY USING</p>
+        <p class="text-center login-info mb-3">EASILY USING</p>
 
         <button mat-raised-button (click)="loginFacebook();" class="fb-login login-btn">
             <img src="../../.././../assets/img/facebook.png" class="login-logo">FACEBOOK</button>
@@ -35,7 +35,7 @@
 <div class="login-links mt-2">
     <a mat-button (click)="forgotpwd()">Recover password</a>
     <div class="right-link float-right">
-            New to Deals?<a mat-button (click)="funSignUp()" style="line-height: 17px;">Sign Up</a>
+            New to Deals?<a mat-button [routerLink]="['signup']" style="line-height: 17px;">Sign Up</a>
     </div>
 </div>
 <!-- <p style="color: green;">Need Help ?</p>

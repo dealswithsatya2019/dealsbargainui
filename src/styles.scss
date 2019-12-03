@@ -159,9 +159,12 @@ aside .mat-expansion-panel-header.mat-expanded{
 // ---------------- login-container  --------------------
 
 .login-container{
-    width: 320px;
+    width: 420px;
+    padding: 20px 40px;
+    background-color: #fff;
     margin: auto;
     position: relative;
+    box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.3);
 }
 .login-container .mat-form-field{
     font-size: 14px;

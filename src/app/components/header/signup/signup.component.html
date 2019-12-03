@@ -1,8 +1,8 @@
 
-<button mat-raised-button color="warn" (click)="funClose()" class="close-btn"><i class="fa fa-close"></i></button>
+<!-- <button mat-raised-button color="warn" (click)="funClose()" class="close-btn"><i class="fa fa-close"></i></button> -->
 <p class="text-center login-title">Sign up to DealsBargain</p>
 
-<div class="login-container">
+<div class="login-container mb-4">
      <div class="login-btn-container mb-4">
         <p class="text-center login-info">EASILY USING</p>
 
@@ -44,7 +44,7 @@
 </form>
 
 <div class="login-links mt-3">
-    Already have an account?<a mat-button (click)="funSignIn()" style="line-height: 17px;">Log In</a>
+    Already have an account?<a mat-button [routerLink]="['login']" style="line-height: 17px;">Log In</a>
 </div>
 <!-- <p style="color: green;">Need Help ?</p>
 <div class="policy"> By signing up or logging in, you aggree to the offerUp

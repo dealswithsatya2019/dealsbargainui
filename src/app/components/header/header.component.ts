@@ -152,14 +152,14 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  funSignIn() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '400px';
-    dialogConfig.height = '500px';
-    this.dialog.open(LoginComponent, dialogConfig);
-  }
+  // funSignIn() {
+  //   const dialogConfig = new MatDialogConfig();
+  //   dialogConfig.disableClose = true;
+  //   dialogConfig.autoFocus = true;
+  //   dialogConfig.width = '400px';
+  //   dialogConfig.height = '500px';
+  //   this.dialog.open(LoginComponent, dialogConfig);
+  // }
   signOut(): void {
     this._socioAuthServ.signOut();
     this.userservice.response = null;
