@@ -197,7 +197,8 @@ export class ProductpurchaseComponent implements OnInit {
               name: userInfo.name,
               email: null,
               password: null,
-              mobileno: null
+              mobileno: null,
+              aggreecbx:false
             });
             this.isLogIn = true;
             sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));

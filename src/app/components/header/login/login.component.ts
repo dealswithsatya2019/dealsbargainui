@@ -106,7 +106,8 @@ export class LoginComponent implements OnInit {
             name: userInfo.name,
             email: null,
             password:null,
-            mobileno:null 
+            mobileno:null,
+            aggreecbx:false
           });
           console.log('Success' + JSON.stringify(authResponse));
           sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);

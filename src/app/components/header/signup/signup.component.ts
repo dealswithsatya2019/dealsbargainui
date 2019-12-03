@@ -77,7 +77,7 @@ export class SignupComponent implements OnInit {
       var key3 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
       var rawciphertext = this.encryptionService.encrypt(key2, key3, key1, userInfo.password.toString());
       var ciphertext = CryptoJS.enc.Base64.stringify(rawciphertext);
-      this.userservice.form.setValue({ name: userInfo.name, email: userInfo.email, password: ciphertext, mobileno: userInfo.mobileno });
+      this.userservice.form.setValue({ name: userInfo.name, email: userInfo.email, password: ciphertext, mobileno: userInfo.mobileno,aggreecbx:userInfo.aggreecbx });
       this.userAuth.registerUser(userInfo.name, userInfo.email, userInfo.mobileno, 'us',
         ciphertext, key1, key2, key3).subscribe(
         (authResponse: AuthResopnse) => {
