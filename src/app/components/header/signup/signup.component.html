@@ -20,26 +20,52 @@
 
         <mat-form-field floatLabel="never" class="w-100">
             <input formControlName="name" matInput placeholder="Name *" >
-            <mat-error>This field is mandatory</mat-error>
+            <mat-error *ngFor="let validation of userservice.signup_validation_messages.name">
+                    <mat-error class="error-message" *ngIf="userservice.form.get('name').hasError(validation.type) && (userservice.form.get('name').dirty || userservice.form.get('name').touched)">{{validation.message}}</mat-error>
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field floatLabel="never" class="w-100">
             <input formControlName="email" matInput placeholder="Email address *" >
-            <mat-error>This field is mandatory</mat-error>
+            <mat-error *ngFor="let validation of userservice.signup_validation_messages.email">
+                <mat-error class="error-message" *ngIf="userservice.form.get('email').hasError(validation.type) && (userservice.form.get('email').dirty || userservice.form.get('email').touched)">{{validation.message}}</mat-error>
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field floatLabel="never" class="w-100">
             <input formControlName="password" type="password" matInput placeholder="Password*" >
-            <mat-error>This field is mandatory</mat-error>
+            <mat-error *ngFor="let validation of userservice.signup_validation_messages.password">
+                <mat-error class="error-message" *ngIf="userservice.form.get('password').hasError(validation.type) && (userservice.form.get('password').dirty || userservice.form.get('password').touched)">{{validation.message}}</mat-error>
+            </mat-error>
         </mat-form-field>
-
+        <mat-form-field>
+            <input formControlName="mobilenoperfix" matInput [disabled]="true">
+        </mat-form-field>
+        
         <mat-form-field floatLabel="never" class="w-100">
             <input formControlName="mobileno" matInput placeholder="Mobile No*" >
-            <mat-error>This field is mandatory</mat-error>
+            <mat-error *ngFor="let validation of userservice.signup_validation_messages.mobileno">
+                <mat-error class="error-message" *ngIf="userservice.form.get('mobileno').hasError(validation.type) && (userservice.form.get('mobileno').dirty || userservice.form.get('mobileno').touched)">{{validation.message}}</mat-error>
+            </mat-error>
         </mat-form-field>
+        <!-- https://blog.angular-university.io/angular-debugging/-->
+        <ng-container *ngIf="issentotp===true">
+            <mat-form-field  floatLabel="never" class="w-100">
+                <input formControlName="smsotp" matInput placeholder="Enter OTP*" >
+                <mat-error *ngFor="let validation of userservice.signup_validation_messages.mobileno">
+                    <mat-error class="error-message" *ngIf="userservice.form.get('smsotp').hasError(validation.type) && (userservice.form.get('smsotp').dirty || userservice.form.get('smsotp').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>
+        </ng-container>
+        
                               
     <button mat-raised-button type="submit" [disabled]="userservice.form.invalid" class=" mb-2 w-100 login-login-btn">SIGN UP</button>
     <mat-checkbox formControlName="aggreecbx">I have read and agree to Dealsbargain Terms & Conditions.</mat-checkbox>
+    
+    <mat-error *ngFor="let validation of userservice.signup_validation_messages.aggreecbx">
+            <mat-error class="error-message" *ngIf="userservice.form.get('aggreecbx').hasError(validation.type) && (userservice.form.get('aggreecbx').dirty || userservice.form.get('aggreecbx').touched)">{{validation.message}}</mat-error>
+    </mat-error>
+    
 
 </form>
 
