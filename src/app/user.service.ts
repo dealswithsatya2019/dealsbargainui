@@ -21,13 +21,13 @@ export class UserService {
     email: new FormControl('', [Validators.required,Validators.email]),
     password: new FormControl('',[Validators.required]),
     mobileno: new FormControl('',[Validators.required]),
-    aggreecbx: new FormControl(false,[Validators.requiredTrue])
+    aggreecbx: new FormControl(false,[Validators.requiredTrue]) 
   });
  
   initializeFormGroup() {
     this.form.setValue({
       $key: null,
-      name: 'sdjflsdjfklsdjfsdkl'
+      name: ''
     });
   }
 

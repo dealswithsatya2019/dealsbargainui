@@ -3,7 +3,7 @@ export class AppRoutes{
     static readonly AppLanding = 'applanding';
     static readonly Login='login';
     static readonly Signup='login/signup';
-    static readonly Content='content';
+    static readonly Content='home';
     static readonly ProductList='product/:cname/:scname';
     static readonly ProductDetails='productdetails/:cname/:scname/:pid';
     static readonly DealsList='dealslist/:dealtype';

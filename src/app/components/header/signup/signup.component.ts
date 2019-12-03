@@ -87,6 +87,7 @@ export class SignupComponent implements OnInit {
             this.signUpErrorMsg = '';
             // this.funClose();
             this.whishlistService.updateWhishlist();
+            this.router.navigateByUrl('/home');
           } else {
             //this.userservice.form.setValue({ name: userInfo.name, email: userInfo.email, password: userInfo.password, mobileno: userInfo.mobileno });
             this.signUpErrorMsg = authResponse.statusDesc;

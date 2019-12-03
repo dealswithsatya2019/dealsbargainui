@@ -112,6 +112,7 @@ export class LoginComponent implements OnInit {
           this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
           // this.funClose();
           this.whishlistService.updateWhishlist();
+          this.router.navigateByUrl('/home');
         }else{
           this.loginErrorMsg = authResponse.statusDesc;
           console.log('Failed' + JSON.stringify(authResponse));
