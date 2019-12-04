@@ -1,21 +1,20 @@
-import { Injectable } from '@angular/core';
-import { Product } from '../models/product';
-import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { Observable } from 'rxjs';
 import { UserService } from 'src/app/user.service';
+import { environment } from 'src/environments/environment';
+import { Product } from '../models/product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private itemsInCart: Product[] = [];
-  private itemsInCartTemp: Product[] = [];
-  private addedProduct: Product;
-  //private autherization: string;
+  public itemsInCart: Product[] = [];
+  public itemsInCartTemp: Product[] = [];
+  public addedProduct: Product;
   public addCartData: any;
-  private APIEndpoint: string = environment.APIEndpoint;
+  public APIEndpoint: string = environment.APIEndpoint;
   public snackBarConfig: MatSnackBarConfig;
 
   constructor(public http: HttpClient, private _snackBar: MatSnackBar, public userService: UserService) {
@@ -40,14 +39,6 @@ export class CartService {
 
   public getItems(): Product[] {
     return this.itemsInCart;
-  }
-
-  public removeProduct(item: Product) {
-    this.itemsInCart = this.itemsInCart.filter(itemLoop => itemLoop.item_id != item.item_id);
-    if (this.userService.getAuthToken() != null) {
-      this.removeProductHttp(item.cart_id).subscribe();
-    }
-    this.raiseAlert("The selected item has been removed from cart.");
   }
 
   raiseAlert(message: string) {
@@ -101,32 +92,6 @@ export class CartService {
       body, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
   }
 
-  public updateItemCountFromCart(item: Product, isAdd: boolean) {
-    this.itemsInCartTemp = [];
-    let isLoopReq: boolean = true;
-    if (this.itemsInCart.some(e => e.item_id === item.item_id)) {
-      this.itemsInCart.forEach(element => {
-        if (isLoopReq) {
-          if (element.item_id == item.item_id) {
-            element.quantity = element.quantity >= 0 ? (isAdd ? (element.quantity + 1) : (element.quantity - 1)) : 1;
-            if (this.userService.getAuthToken() != null) {
-              this.updateCart(element);
-              isLoopReq = false;
-            }
-          }
-          this.itemsInCartTemp.push(element);
-        }
-      });
-      this.itemsInCart = [];
-      this.itemsInCart = this.itemsInCartTemp;
-      this.raiseAlert("The item count has been updated to cart.");
-    }
-  }
-
-  public updateCart(product: Product) {
-    this.updateCartHttp(product).subscribe(data => this.addCartData = data);
-  }
-
   public updateCartHttp(product: Product): Observable<any> {
     let body =
     {
@@ -134,6 +99,7 @@ export class CartService {
       "quantity": product.quantity,
       "code": "us",
     }
+    console.log("body :",body);
     let autherization = "Bearer " + this.userService.getAuthToken();
     return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/updateQuantityCartItem/us",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });

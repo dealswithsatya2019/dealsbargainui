@@ -112,9 +112,7 @@ export class ProductpurchaseComponent implements OnInit {
 
 
   ngOnInit() {
-    //let access_token = sessionStorage.getItem("access_token");
     if (this.userservice.getAuthToken() != null) {
-      //this.autherization = "Bearer " + access_token;
       this.loginformService.response = JSON.parse(sessionStorage.getItem("f_login_form"));
       this.isLogIn = true;
     }
@@ -316,17 +314,15 @@ export class ProductpurchaseComponent implements OnInit {
   public getCarts() {
     this.subscriptions.add(this.getCartlist().subscribe(data => {
       this.cartInfo = data;
-      this.shoppingCartItems = [];
       if (this.cartInfo != null && this.cartInfo.responseObject != null) {
         this.isCart = true;
         this.cartService.clearCart();
         this.cartInfo.responseObject.forEach(element => {
-          if (element.quantity == 0) {
-            element.quantity = 1;
-          }
+          element.quantity = element.quantity == 0 ? 1 : element.quantity;
           this.cartService.setItems(element);
-          this.shoppingCartItems.push(element);
         });
+        this.shoppingCartItems = [];
+        this.shoppingCartItems = this.cartService.getItems();
         console.log("shoppingCartItems ", this.shoppingCartItems);
         this.initializeValues();
         this.calculatePrices();
@@ -449,28 +445,22 @@ export class ProductpurchaseComponent implements OnInit {
   public calculatePrices() {
     console.log("calculatePrices", this.shoppingCartItems.length);
     this.shoppingCartItems.forEach(element => {
+      console.log("quantity :", element.quantity);
       if (element.dealtype != '') {
-        this.totalCost = this.totalCost + element.deals_bargain_deal_price;
+        let productcost = element.quantity > 0 ? (element.quantity * element.deals_bargain_deal_price) : element.deals_bargain_deal_price
+        this.totalCost = this.totalCost + productcost;
       } else if (element.dealtype == '' && element.discount == '0') {
-        this.totalCost = this.totalCost + element.price;
+        let productcost = element.quantity > 0 ? (element.quantity * element.price) : element.price
+        this.totalCost = this.totalCost + productcost;
       } else if (element.dealtype == '' && element.discount != '0') {
-        this.totalCost = this.totalCost + element.discount_amount;
+        let productcost = element.quantity > 0 ? (element.quantity * element.discount_amount) : element.discount_amount
+        this.totalCost = this.totalCost + productcost;
       }
-      this.deliveryCost = element.ship_cost;
     });
-    this.totalPaybaleCost = ((this.totalCost + this.deliveryCost) - this.couponDiscountCost)
+    this.totalPaybaleCost = ((this.totalCost + this.deliveryCost) - this.couponDiscountCost);
     if (this.cartInfo != null && this.cartInfo.responseObject != null && this.cartInfo.responseObject.length > 0) {
       this.totalCartSize = this.cartInfo.responseObject.length;
     }
-  }
-
-  public goToPayment() {
-    if (this.cartInfo != null && this.cartInfo.responseObject != null && this.cartInfo.responseObject.length > 0) {
-      this.isCart = true;
-    } else {
-      this.isCart = false;
-    }
-
   }
 
   public initializeValues() {
@@ -481,15 +471,35 @@ export class ProductpurchaseComponent implements OnInit {
     this.totalCartSize = 0;
   }
 
-  public updateItemCountFromCartComp(product: Product, isAdd: boolean) {
-    console.log("updateItemCountFromCartComp value", isAdd);
-    this.cartService.updateItemCountFromCart(product, isAdd);
-    this.shoppingCartItems = this.cartService.getItems();
+  public removeItemFromCartComp(item: Product) {
+    this.cartService.itemsInCart = this.cartService.itemsInCart.filter(itemLoop => itemLoop.item_id != item.item_id);
+    if (this.userservice.getAuthToken() != null) {
+      this.subscriptions.add(this.cartService.removeProductHttp(item.cart_id).subscribe(data => {
+        this.cartService.raiseAlert("The selected item has been removed from cart.");
+        this.getCarts();
+      }));
+    }
   }
 
-  public removeItemFromCartComp(product: Product) {
-    this.cartService.removeProduct(product);
-    this.shoppingCartItems = this.cartService.getItems();
+  public updateItemCountFromCartComp(item: Product, isAdd: boolean) {
+    let isLoopReq: boolean = true;
+    if (this.cartService.itemsInCart.some(e => e.item_id === item.item_id)) {
+      this.cartService.itemsInCart.forEach(element => {
+        if (isLoopReq) {
+          if (element.item_id == item.item_id) {
+            element.quantity = element.quantity >= 0 ? (isAdd ? (element.quantity + 1) : (element.quantity - 1)) : 1;
+            if (this.userservice.getAuthToken() != null) {
+              this.subscriptions.add(this.cartService.updateCartHttp(element).subscribe(data => {
+                this.cartService.raiseAlert("The item count has been updated to cart.");
+                this.addCartData = data;
+                this.getCarts();
+              }));
+              isLoopReq = false;
+            }
+          }
+        }
+      });
+    }
   }
 
   public selectedIndex: number = 0;

@@ -35,10 +35,8 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.shoppingCartItems = [];
-    let access_token = sessionStorage.getItem("access_token");
-    console.log("access_token :", access_token);
     if (this.userService.getAuthToken != null) {
-      //this.autherization = "Bearer " + access_token;
+      this.cartService.clearCart();
       this.getCarts();
     } else {
       this.shoppingCartItems = this.cartService.getItems();
@@ -78,14 +76,34 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
     this._router.navigateByUrl('/mycart');
   }
 
-  public updateItemCountFromCartComp(product: Product, isAdd: boolean) {
-    console.log("updateItemCountFromCartComp value", isAdd);
-    this.cartService.updateItemCountFromCart(product, isAdd);
-    this.shoppingCartItems = this.cartService.getItems();
+  public updateItemCountFromCartComp(item: Product, isAdd: boolean) {
+    this.cartService.itemsInCartTemp = [];
+    if (this.cartService.itemsInCart.some(e => e.item_id === item.item_id)) {
+      this.cartService.itemsInCart.forEach(element => {
+        if (element.item_id == item.item_id) {
+          element.quantity = element.quantity >= 0 ? (isAdd ? (element.quantity + 1) : (element.quantity - 1)) : 1;
+          this.cartService.raiseAlert("The item count has been updated to cart.");
+          if (this.userService.getAuthToken() != null) {
+            this.subscriptions.add(this.cartService.updateCartHttp(element).subscribe(data => {
+              this.addCartData = data;
+            }));
+          }
+        }
+        this.cartService.itemsInCartTemp.push(element);
+      });
+      this.cartService.itemsInCart = [];
+      this.cartService.itemsInCart = this.cartService.itemsInCartTemp;
+      this.shoppingCartItems = this.cartService.getItems();
+    }
   }
 
-  public removeItemFromCartComp(product: Product) {
-    this.cartService.removeProduct(product);
+  public removeItemFromCartComp(item: Product) {
+    this.cartService.itemsInCart = this.cartService.itemsInCart.filter(itemLoop => itemLoop.item_id != item.item_id);
+    if (this.userService.getAuthToken() != null) {
+      this.subscriptions.add(this.cartService.removeProductHttp(item.cart_id).subscribe(data => {
+        this.cartService.raiseAlert("The selected item has been removed from cart.");
+      }));
+    }
     this.shoppingCartItems = this.cartService.getItems();
   }
 
