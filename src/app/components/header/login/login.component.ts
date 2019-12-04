@@ -97,13 +97,7 @@ export class LoginComponent implements OnInit {
     this.userAuth.authenticateUser(userInfo.name, userInfo.password, 'us', key1, key2, key3).subscribe(
       (authResponse: AuthResopnse) => {
         if(authResponse.statusCode === 200){
-          this.userservice.form.setValue({
-            name: userInfo.name,
-            email: null,
-            password:null,
-            mobileno:null,
-            aggreecbx:false
-          });
+          this.userservice.form.controls['name'].setValue(userInfo.name);
           console.log('Success' + JSON.stringify(authResponse));
           sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
           this._userSerive.setAuthToken(authResponse.responseObjects.access_token);
