@@ -1,48 +1,39 @@
-
+<div class="cont">
 <!-- <button mat-raised-button color="warn" (click)="funClose()" class="close-btn"><i class="fa fa-close"></i></button> -->
 <p class="text-center login-title">Sign up to DealsBargain</p>
 
-<div class="login-container mb-4">
-     <div class="login-btn-container mb-4">
-        <p class="text-center login-info">EASILY USING</p>
-
-        <button mat-raised-button (click)="loginFacebook();" class="fb-login login-btn">
-            <img src="../../.././../assets/img/facebook.png" class="login-logo">FACEBOOK</button>
-
-        <button mat-raised-button (click)="loginGmail();" class="gmail-login login-btn">
-            <img src="../../.././../assets/img/search.png" class="login-logo">GOOGLE</button>
-    </div> 
-
-    <p class="text-center login-info">-OR USING MAIL-</p>
-<form [formGroup]="userservice.form" class="normal-form w-100 mt-3" (submit)="funRegister()">
+<div class="login-container">
+    <div class="logo"><img src="../../../../assets/img/DealsBargain-Logo.png" class="img-fluid"></div>
+    <p class="text-center login-info my-2">-USING MAIL-</p>
+    <form [formGroup]="userservice.form" class="normal-form w-100" (submit)="funRegister()">
         {{this.signUpErrorMsg}}
             <!-- <input type="hidden" formControlName="$key"> -->
 
-        <mat-form-field floatLabel="never" class="w-100">
+        <mat-form-field floatLabel="never" class="w-100" appearance="outline">
             <input formControlName="name" matInput placeholder="Name *" >
             <mat-error *ngFor="let validation of userservice.signup_validation_messages.name">
                     <mat-error class="error-message" *ngIf="userservice.form.get('name').hasError(validation.type) && (userservice.form.get('name').dirty || userservice.form.get('name').touched)">{{validation.message}}</mat-error>
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field floatLabel="never" class="w-100">
+        <mat-form-field floatLabel="never" class="w-100" appearance="outline">
             <input formControlName="email" matInput placeholder="Email address *" >
             <mat-error *ngFor="let validation of userservice.signup_validation_messages.email">
                 <mat-error class="error-message" *ngIf="userservice.form.get('email').hasError(validation.type) && (userservice.form.get('email').dirty || userservice.form.get('email').touched)">{{validation.message}}</mat-error>
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field floatLabel="never" class="w-100">
+        <mat-form-field floatLabel="never" class="w-100" appearance="outline">
             <input formControlName="password" type="password" matInput placeholder="Password*" >
             <mat-error *ngFor="let validation of userservice.signup_validation_messages.password">
                 <mat-error class="error-message" *ngIf="userservice.form.get('password').hasError(validation.type) && (userservice.form.get('password').dirty || userservice.form.get('password').touched)">{{validation.message}}</mat-error>
             </mat-error>
         </mat-form-field>
-        <mat-form-field>
+        <!-- <mat-form-field>
             <input formControlName="mobilenoperfix" matInput [disabled]="true">
-        </mat-form-field>
-        
-        <mat-form-field floatLabel="never" class="w-100">
+        </mat-form-field> -->
+
+        <mat-form-field floatLabel="never" class="w-100" appearance="outline">
             <input formControlName="mobileno" matInput placeholder="Mobile No*" >
             <mat-error *ngFor="let validation of userservice.signup_validation_messages.mobileno">
                 <mat-error class="error-message" *ngIf="userservice.form.get('mobileno').hasError(validation.type) && (userservice.form.get('mobileno').dirty || userservice.form.get('mobileno').touched)">{{validation.message}}</mat-error>
@@ -66,12 +57,23 @@
             <mat-error class="error-message" *ngIf="userservice.form.get('aggreecbx').hasError(validation.type) && (userservice.form.get('aggreecbx').dirty || userservice.form.get('aggreecbx').touched)">{{validation.message}}</mat-error>
     </mat-error>
     
+    </form>
 
-</form>
+    <div class="login-btn-container mb-4">
+        <p class="text-center login-info mb-3">-OR-</p>
 
-<div class="login-links mt-3">
-    Already have an account?<a mat-button [routerLink]="['login']" style="line-height: 17px;">Log In</a>
-</div>
+        <button mat-raised-button (click)="loginFacebook();" class="fb-login login-btn">
+            <!-- <img src="../../.././../assets/img/facebook.png" class="login-logo"> -->
+            Login with FACEBOOK</button>
+
+        <button mat-raised-button (click)="loginGmail();" class="gmail-login login-btn">
+            <!-- <img src="../../.././../assets/img/search.png" class="login-logo"> -->
+            Login with GOOGLE</button>
+    </div>
+
+    <div class="login-links mt-3">
+        Already have an account?<a mat-button [routerLink]="['login']" style="line-height: 17px;">Log In</a>
+    </div>
 <!-- <p style="color: green;">Need Help ?</p>
 <div class="policy"> By signing up or logging in, you aggree to the offerUp
     <span style="color: green;">
@@ -81,4 +83,5 @@
 
     <p>Version : 3.34.0(30340002)</p> -->
 
+</div>
 </div>

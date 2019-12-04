@@ -15,6 +15,7 @@ button.mat-menu-item{
     line-height: 30px;
     .mat-button{
         font-size: 13px;font-weight: 400;
+        color: #575555;
     }
 }
 .menu-title{
@@ -27,5 +28,6 @@ button.mat-menu-item{
 mat-toolbar-row{
     justify-content: center;
     height: auto;
-    background: #fff;
+    background: #1b3664;
 }
+.mat-button{color: #fff;}

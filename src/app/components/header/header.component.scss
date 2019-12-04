@@ -18,13 +18,13 @@
     max-height: none !important;
     // top: 220px !important;
   }
- .menu{box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);background: #fff;margin-bottom: 10px;}
+ .menu{box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);background: #1b3664;margin-bottom: 10px;}
   .megaMenu + * .cdk-overlay-pane .mat-menu-panel{
     max-width: none;
     width: calc(100% - 15px) ;
   }
   mat-toolbar{
-    background-color: #ff9600 !important;
+    background-color: #fff !important;
   }
   .top-toolbar{
     max-width: 1330px;
@@ -44,8 +44,8 @@
         right: 0px;
         top: -1px;
         min-width: 35px;
-        // background: #ff9600;
-        color: #666;height: 36px;
+        background: #1b3664;
+        color: #fff;height: 36px;
         border-radius: 0px;
         @media screen and (max-width:575px){
           display: inline-block;
@@ -61,7 +61,7 @@
       vertical-align: middle;
       line-height: 22px;
       font-size: 13px;
-      color: #fff;
+      color: #1b3664;
       i{display: block;}
       .mat-button-ripple{display: none;}
     }
