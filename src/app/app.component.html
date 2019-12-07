@@ -1,1 +1,29 @@
-<app-landing></app-landing>
+<ngContainer *ngIf="!isloader">
+    <ngContainer *ngIf="isWhitelisted">
+        <app-landing></app-landing>
+    </ngContainer>
+    <ngContainer *ngIf="!isWhitelisted">
+        <html>
+        <header class="opensoonheader">
+            <div>
+                <img width="100px" height="70px" src="../../../../assets/img/deals-bargain-logo_new.png"
+                    style="max-width:100%">
+            </div>
+        </header>
+
+        <body>
+            <div class="back">
+                <p>Launching soon for you</p>
+                <span style="margin-left:200px">For shopping, fun and savings</span>
+            </div>
+        </body>
+
+        </html>
+    </ngContainer>
+</ngContainer>
+<ngContainer *ngIf="isloader">
+    <div class="overlay">
+        <mat-progress-spinner class="spinner" [color]="color" [mode]="mode" [value]="value">
+        </mat-progress-spinner>
+    </div>
+</ngContainer>

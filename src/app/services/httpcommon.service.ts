@@ -84,8 +84,8 @@ export class HttCommonService {
   }
 
   getMapsServiceImaps() : Observable<IMaps>{
-    return this.http.get<IMaps>("https://ipapi.co/json");
-  }
+    return this.http.get<IMaps>("http://api.ipapi.com/api/check?access_key="+environment.IPAPIKEY);
+}
 
 
 }

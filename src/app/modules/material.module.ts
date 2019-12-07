@@ -28,6 +28,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatStepperModule} from '@angular/material/stepper'; 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -40,7 +42,7 @@ const MaterialComponents = [
   MatTooltipModule,
   MatSlideToggleModule,MatButtonModule,MatDialogModule,MatFormFieldModule,
   MatInputModule,MatGridListModule,MatRadioModule,MatSelectModule,MatDatepickerModule,
-  MatNativeDateModule,MatCheckboxModule,MatExpansionModule,MatBadgeModule,MatStepperModule,MatProgressBarModule,MatSnackBarModule,
+  MatNativeDateModule,MatCheckboxModule,MatExpansionModule,MatBadgeModule,MatStepperModule,MatProgressBarModule,MatSnackBarModule,MatProgressSpinnerModule,
 ];
 
 @NgModule({
