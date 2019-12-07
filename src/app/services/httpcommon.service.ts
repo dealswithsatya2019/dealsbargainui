@@ -34,6 +34,31 @@ export class HttCommonService {
     }
   }
 
+  getReq(urlAppendParam): Observable<any> {
+    let url: string ="";
+    if (urlAppendParam) {
+      url = this.apiURL + '/' + urlAppendParam;
+    } else {
+      url = this.apiURL;
+    }
+    return this.http.get(
+      url,
+      { headers: { 'Content-Type': 'application/json'} }).pipe(map(this.extractData),catchError(this.handleError));
+  }
+
+  getRequest(urlAppendParam, authToken?): Observable<any> {
+    let url: string ="";
+    if (urlAppendParam) {
+      url = this.apiURL + '/' + urlAppendParam;
+    } else {
+      url = this.apiURL;
+    }
+    return this.http.get(
+      url,
+      { headers: { 'Content-Type': 'application/json','authorization': 'Bearer '+authToken} }).pipe(map(this.extractData),catchError(this.handleError));
+  }
+
+
   postReq(urlAppendParam, body?): Observable<any> {
     let url: string ="";
     if (urlAppendParam) {

@@ -80,17 +80,63 @@ export class SignupComponent implements OnInit {
     try {
       if(this.issentotp === true){
         //Register
-        this.funRegisterUser();
+        this.funVerifyEmailOTP();
+        /*if(this.funVerifyEmailOTP()){
+          this.funRegisterUser();
+        }*/
+
       }else{
         this.issentotp=true;
-        this.raiseAlert("Verification code sent to "+ this.userservice.form.get('mobileno').value);
-        //Call sentsms otp api.
-        this.userservice.form.get('smsotp').setValidators([Validators.required]);
+        this.funSendOTP();
       }
     } catch (error) {
       console.log(error);
     }
 
+  }
+
+  funVerifyEmailOTP() : any{
+    let userInfo = JSON.parse(JSON.stringify(this.userservice.form.value));
+    this.userAuth.verifyEmailOTP(userInfo.email, userInfo.emailotp, 'us','signup').subscribe(
+        (authResponse: AuthResopnse) => {
+          sessionStorage.setItem("authResponse", JSON.stringify(authResponse));
+          if (authResponse.statusCode === 201) {
+            this.funRegisterUser();
+            return true;
+            
+          } else {
+            this.raiseAlert(authResponse.statusDesc);
+            console.log('Failed' + JSON.stringify(authResponse));
+            return false;
+          }
+        },
+        (error : HttpErrorResponse) =>{
+          this.userservice.form.controls['password'].setValue(userInfo.password);
+          console.log(error.error.statusDesc);
+          return false;
+        });
+  }
+  funSendOTP(){
+    let userInfo = JSON.parse(JSON.stringify(this.userservice.form.value));
+    this.userAuth.sendOTP(userInfo.mobileno, userInfo.email, 'us','signup').subscribe(
+        (authResponse: AuthResopnse) => {
+          sessionStorage.setItem("authResponse", JSON.stringify(authResponse));
+          if (authResponse.statusCode === 201) {
+            this.raiseAlert("OTP sent to both mobile number : "+userInfo.mobileno+" and email id"+ userInfo.email);
+            //Call sentsmsemail otp api.
+            this.userservice.form.get('emailotp').setValidators([Validators.required]);
+            this.userservice.form.get('smsotp').setValidators([Validators.required]);
+          } else {
+            this.raiseAlert(authResponse.statusDesc);
+            sessionStorage.setItem("Failure", JSON.stringify(authResponse));
+            console.log('Failed' + JSON.stringify(authResponse));
+          }
+        },
+        (error : HttpErrorResponse) =>{
+          this.userservice.form.controls['password'].setValue(userInfo.password);
+          console.log(error.error.statusDesc);
+        });
+      
   }
 
   funRegisterUser(){

@@ -15,7 +15,16 @@
                     <mat-error class="error-message" *ngIf="userservice.form.get('name').hasError(validation.type) && (userservice.form.get('name').dirty || userservice.form.get('name').touched)">{{validation.message}}</mat-error>
             </mat-error>
         </mat-form-field>
+        <mat-form-field>
+            <input formControlName="mobilenoperfix" matInput [disabled]="true">
+        </mat-form-field>
 
+        <mat-form-field floatLabel="never" class="w-100" appearance="outline">
+            <input formControlName="mobileno" matInput placeholder="Mobile No*" >
+            <mat-error *ngFor="let validation of userservice.signup_validation_messages.mobileno">
+                <mat-error class="error-message" *ngIf="userservice.form.get('mobileno').hasError(validation.type) && (userservice.form.get('mobileno').dirty || userservice.form.get('mobileno').touched)">{{validation.message}}</mat-error>
+            </mat-error>
+        </mat-form-field>
         <mat-form-field floatLabel="never" class="w-100" appearance="outline">
             <input formControlName="email" matInput placeholder="Email address *" >
             <mat-error *ngFor="let validation of userservice.signup_validation_messages.email">
@@ -29,22 +38,19 @@
                 <mat-error class="error-message" *ngIf="userservice.form.get('password').hasError(validation.type) && (userservice.form.get('password').dirty || userservice.form.get('password').touched)">{{validation.message}}</mat-error>
             </mat-error>
         </mat-form-field>
-        <mat-form-field>
-            <input formControlName="mobilenoperfix" matInput [disabled]="true">
-        </mat-form-field>
-
-        <mat-form-field floatLabel="never" class="w-100" appearance="outline">
-            <input formControlName="mobileno" matInput placeholder="Mobile No*" >
-            <mat-error *ngFor="let validation of userservice.signup_validation_messages.mobileno">
-                <mat-error class="error-message" *ngIf="userservice.form.get('mobileno').hasError(validation.type) && (userservice.form.get('mobileno').dirty || userservice.form.get('mobileno').touched)">{{validation.message}}</mat-error>
-            </mat-error>
-        </mat-form-field>
+        
         <!-- https://blog.angular-university.io/angular-debugging/-->
         <ng-container *ngIf="issentotp===true">
             <mat-form-field  floatLabel="never" class="w-100">
-                <input formControlName="smsotp" matInput placeholder="Enter OTP*" >
-                <mat-error *ngFor="let validation of userservice.signup_validation_messages.mobileno">
+                <input formControlName="smsotp" matInput placeholder="Enter sms OTP*" >
+                <mat-error *ngFor="let validation of userservice.signup_validation_messages.smsotp">
                     <mat-error class="error-message" *ngIf="userservice.form.get('smsotp').hasError(validation.type) && (userservice.form.get('smsotp').dirty || userservice.form.get('smsotp').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field  floatLabel="never" class="w-100">
+                <input formControlName="emailotp" matInput placeholder="Enter email OTP*" >
+                <mat-error *ngFor="let validation of userservice.signup_validation_messages.emailotp">
+                    <mat-error class="error-message" *ngIf="userservice.form.get('emailotp').hasError(validation.type) && (userservice.form.get('emailotp').dirty || userservice.form.get('emailotp').touched)">{{validation.message}}</mat-error>
                 </mat-error>
             </mat-form-field>
         </ng-container>

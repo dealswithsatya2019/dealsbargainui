@@ -50,4 +50,36 @@ export class AuthService {
     return this._httpCommonService.postReq('authenticate', authJson);
   }
 
+  public sendOTP(mobile?, email?, countryCode?, action?): Observable<any> {
+    let otpJson = {
+      "mobile":mobile,
+      "email":email,
+      "countryCode": countryCode,
+      "action": action,
+      "emailOTP": "",
+      "smsOTP": ""
+    }
+    return this._httpCommonService.postReq('otp/sendemailotp', otpJson);
+  }
+
+  public verifyEmailOTP(email?, emailOTP?, countryCode?, action?): Observable<any> {
+    let otpJson = {
+      "email":email,
+      "emailOTP":emailOTP,
+      "countryCode": countryCode,
+      "action": action
+    }
+    return this._httpCommonService.postReq('otp/validateemailotp', otpJson);
+  }
+
+  public verifySmsOTP(mobile?, smsOTP?, countryCode?, action?): Observable<any> {
+    let otpJson = {
+      "mobile":mobile,
+      "smsOTP":smsOTP,
+      "countryCode": countryCode,
+      "action": action
+    }
+    return this._httpCommonService.postReq('otp/sendsmsotp', otpJson);
+  }
+
 }

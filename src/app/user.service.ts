@@ -24,7 +24,8 @@ export class UserService {
     mobileno: new FormControl('',[Validators.required,Validators.pattern('[0-9]{10}')]),
     aggreecbx: new FormControl(false,[Validators.requiredTrue]),
     issentotp: new FormControl(false),
-    smsotp: new FormControl('')
+    smsotp: new FormControl(''),
+    emailotp: new FormControl('')
   });
  //https://angular-templates.io/tutorials/about/angular-forms-and-validations
  //Email pattern : Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
@@ -56,7 +57,11 @@ export class UserService {
     ],
     'smsotp': [
       { type: 'required', message: 'OTP must be required' }
+    ],
+    'emailotp': [
+      { type: 'required', message: 'OTP must be required' }
       ]
+
     }
   
   initializeFormGroup() {
