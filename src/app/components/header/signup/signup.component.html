@@ -1,10 +1,15 @@
+<mat-toolbar-row style="height:40px;margin-top: -10px;">
+	<ul>
+		<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
+		<li><a >Sign Up</a></li>
+	</ul>
+</mat-toolbar-row>
 <div class="cont">
 <!-- <button mat-raised-button color="warn" (click)="funClose()" class="close-btn"><i class="fa fa-close"></i></button> -->
-<p class="text-center login-title">Sign up to DealsBargain</p>
 
 <div class="login-container">
-    <div class="logo"><img src="../../../../assets/img/DealsBargain-Logo.png" class="img-fluid"></div>
-    <p class="text-center login-info my-2">-USING MAIL-</p>
+    <p class="text-center login-title">Sign up to DealsBargain</p>
+    <p class="text-center login-info my-2">- Sign up with Email -</p>
     <form [formGroup]="userservice.form" class="normal-form w-100" (submit)="funRegister()">
         {{this.signUpErrorMsg}}
             <!-- <input type="hidden" formControlName="$key"> -->
@@ -15,11 +20,11 @@
                     <mat-error class="error-message" *ngIf="userservice.form.get('name').hasError(validation.type) && (userservice.form.get('name').dirty || userservice.form.get('name').touched)">{{validation.message}}</mat-error>
             </mat-error>
         </mat-form-field>
-        <mat-form-field>
-            <input formControlName="mobilenoperfix" matInput [disabled]="true">
-        </mat-form-field>
+        <mat-form-field class="prefix">
+                <input formControlName="mobilenoperfix" matInput [disabled]="true">
+            </mat-form-field>
 
-        <mat-form-field floatLabel="never" class="w-100" appearance="outline">
+        <mat-form-field floatLabel="never" class="w-100 mobile" appearance="outline">
             <input formControlName="mobileno" matInput placeholder="Mobile No*" >
             <mat-error *ngFor="let validation of userservice.signup_validation_messages.mobileno">
                 <mat-error class="error-message" *ngIf="userservice.form.get('mobileno').hasError(validation.type) && (userservice.form.get('mobileno').dirty || userservice.form.get('mobileno').touched)">{{validation.message}}</mat-error>
@@ -31,7 +36,7 @@
                 <mat-error class="error-message" *ngIf="userservice.form.get('email').hasError(validation.type) && (userservice.form.get('email').dirty || userservice.form.get('email').touched)">{{validation.message}}</mat-error>
             </mat-error>
         </mat-form-field>
-
+    
         <mat-form-field floatLabel="never" class="w-100" appearance="outline">
             <input formControlName="password" type="password" matInput placeholder="Password*" >
             <mat-error *ngFor="let validation of userservice.signup_validation_messages.password">
@@ -60,7 +65,7 @@
     <mat-checkbox formControlName="aggreecbx">I have read and agree to Dealsbargain Terms & Conditions.</mat-checkbox>
     
     <mat-error *ngFor="let validation of userservice.signup_validation_messages.aggreecbx">
-            <mat-error class="error-message" *ngIf="userservice.form.get('aggreecbx').hasError(validation.type) && (userservice.form.get('aggreecbx').dirty || userservice.form.get('aggreecbx').touched)">{{validation.message}}</mat-error>
+        <mat-error class="error-message" *ngIf="userservice.form.get('aggreecbx').hasError(validation.type) && (userservice.form.get('aggreecbx').dirty || userservice.form.get('aggreecbx').touched)">{{validation.message}}</mat-error>
     </mat-error>
     
     </form>
@@ -69,11 +74,11 @@
         <p class="text-center login-info mb-3">-OR-</p>
 
         <button mat-raised-button (click)="loginFacebook();" class="fb-login login-btn">
-            <!-- <img src="../../.././../assets/img/facebook.png" class="login-logo"> -->
+            <img src="../../.././../assets/img/facebook.png" class="login-logo">
             Login with FACEBOOK</button>
 
         <button mat-raised-button (click)="loginGmail();" class="gmail-login login-btn">
-            <!-- <img src="../../.././../assets/img/search.png" class="login-logo"> -->
+            <img src="../../.././../assets/img/search.png" class="login-logo">
             Login with GOOGLE</button>
     </div>
 

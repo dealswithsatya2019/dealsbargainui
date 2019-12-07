@@ -1,18 +1,5 @@
-ul{
-  padding: 0px;list-style: none;
-  li{display: inline;position: relative;padding-right: 25px;font-size: 14px}
-  li::after{
-    content: '>';
-    position: absolute;
-    right: 9px;
-    top: -2px;
-  }
-  li:last-child{
-    &::after{
-      content: '';
-    }
-  }
-}
+
+mat-sidenav{width: 200px;}
 .product{
   min-width: 100px;
   text-align: left;
@@ -26,7 +13,7 @@ ul{
   }
   
 }
-  
+.side-list{display: none;}
 .old_cost{
   font-size: 16px;
   margin-right: 8px;
@@ -39,10 +26,9 @@ ul{
   color: #333;
   font-weight: 600;
 }
-  .product img{
-    height: 180px;
-    object-fit: contain;
-    margin-top: 10px;
+  .product-img{
+    height: 200px;
+    text-align: center;
   }
   
   .margin-top-20{
@@ -57,6 +43,7 @@ ul{
     overflow: hidden;
   }
   .p-cost{
+    margin-top: 15px;
     // padding-bottom: 8px;
   }
   p{margin: 0px;}
@@ -70,7 +57,6 @@ ul{
     // border: 2px solid #ccc;
   }
   .action-btns{
-    
       min-width: 29px;
       margin-right: 10px;
       padding: 0px;
@@ -78,18 +64,20 @@ ul{
       height: 29px;
       line-height: 28px;
       i{font-size: 14px;}
-    
   }
   .img-cursor{
     cursor: pointer;
+    max-width: 100%;
+    height: 100%;
   }
   
   .product-list-page{
-    display: flex;
+    
     aside{flex: 1 1 100%;max-width: 220px;}
     .product-list{flex: 1 1 0%;}
   }
   .productlistcontainer{
+    justify-content: space-between;
     mat-card{
       background-color: #fff;
     }
@@ -141,8 +129,27 @@ ul{
     .product{width:48.5% !important;}
   }
   @media screen and (max-width:767px){
-    .product{width:100% !important;}
+    .productlistcontainer{padding: 0px !important;}
+    .product{width:48.5% !important;}
+    mat-sidenav{
+      display: none;
+    }
+    .side-list{display: block;
+    margin-bottom: 10px;}
+    mat-sidenav-content{
+      margin-left: 0px;
+    }
   }
   @media screen and (max-width:575px){
-    .product{width:100%;}
+    .mat-toolbar-row {
+      padding: 0px 3px;
+    }
+    .product{width:100% !important;}
+    ul{
+      li{padding-right: 13px;font-size: 11px;}
+      li::after{
+        right: 4px;
+      }
+    }
   }
+ 

@@ -225,7 +225,7 @@
 							<!-- <img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails(product.category,product.subcategory,product.item_id)">-->
 						</div>
 						<mat-card-content class="product-desc">
-							<p class="p-title">{{product.item_name}}</p>
+							
 							<p class="p-cost">
 								<ng-container *ngIf="product.dealtype!=''">
 									<span class="old_cost">{{PRICE_PREFIX}}{{product.deals_bargain_supplier_deal_price}}</span>
@@ -238,13 +238,15 @@
 									<span class="old_cost">{{PRICE_PREFIX}}{{product.price}}</span>
 									<span class="new_cost">{{PRICE_PREFIX}}{{product.discount_amount}}</span>
 								</ng-container>
+								<button mat-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
+									Add
+								</button>
 							</p>
+							<p class="p-title">{{product.item_name}}</p>
 						</mat-card-content>
 						<mat-card-actions>
 							<app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
-							<button mat-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
-								Add Cart
-							</button>
+							
 							<button mat-button class="action-btns share">
 								<i class="fa fa-share-alt"></i>
 								<div class="social-share">

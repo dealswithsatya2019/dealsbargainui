@@ -40,14 +40,15 @@ p{margin: 0px;}
 // .fa-share-alt{
 //   color: blue !important;
 // }
-.banner-container,.product {
-  .item-card, .swiper-slide{
+.product {
+  justify-content: space-between;
+  .item-card{
     background-color: #fff;
     border-radius: 0px;
     padding: 20px;
     text-align: left;
-    // min-width: 280px;
-    // max-width: 300px !important;
+    max-width: 280px;
+    position: relative;
     .offer-badge{
       position: absolute;
       top: 0px;
@@ -61,9 +62,8 @@ p{margin: 0px;}
       background: url('../../../assets/img/badge.png') no-repeat;
     }
     .product-img {
-      // width: 130px;
       overflow: hidden;
-      height:210px;
+      height:200px;
       display: block;
       margin: auto;
       text-align: center;
@@ -76,7 +76,7 @@ p{margin: 0px;}
       overflow: hidden;
     }
     .p-cost{
-      // border-bottom: 2px solid #f7f7f7;
+      margin-top: 15px;
       padding-bottom: 5px;
     }
    
@@ -84,10 +84,6 @@ p{margin: 0px;}
       display: block;
       text-align: right;
       padding-top: 5px;
-      // border-top: 2px solid #f7f7f7;
-      // margin-top: 10px;
-      // border: 2px solid #ccc;
-      
     }
   
     app-wishlist{
@@ -105,13 +101,7 @@ p{margin: 0px;}
     }
   }
 }
-.product{
-  justify-content: space-between;
-  mat-card{
-    max-width: 280px;
-    position: relative;
-  }
-}
+
 .social-share{
   display: none;
   width: 50px;
@@ -161,10 +151,6 @@ p{margin: 0px;}
 }
 
 .bg{background-color: #f5f5f5;}
-.product img{
-  height: 180px;
-  object-fit: contain;
-}
 
 .margin-top-20{
   margin-top:20px;
@@ -192,6 +178,7 @@ p{margin: 0px;}
 .img-cursor{
   cursor: pointer;
   height: 100%;
+  max-width: 100%;
 }
 .subtitle{
   border-bottom: 2px solid #ccc;

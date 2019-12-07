@@ -10,13 +10,13 @@
 .cont{
     background: url('../../../../assets/img/71.jpg') no-repeat;
     background-size: cover;
-    margin: -25px -15px -15px -15px;
+    margin: -10px -15px -15px -15px;
     padding: 30px 0px 40px 0px;
 }
 .login-btn{
     width: 100%;
-    // padding: 0px 0px 0px 45px;
-    text-align: center;
+    padding-left: 33%;
+    text-align: left;
     border: 1px solid #ccc;
     margin-bottom: 10px;
     font-weight: 400;
@@ -26,8 +26,36 @@
     width: 120px;
     margin: auto;
 }
-.login-logo{position: absolute;left: 20px;top: 6px;width: 23px;}
+.login-logo{position: absolute;left: 21%;top: 6px;width: 23px;}
 mat-checkbox{
     font-size: 14px;
     white-space: pre-wrap;
+}
+ul{
+    padding: 0px;list-style: none;
+    li{display: inline;position: relative;padding-right: 25px;font-size: 14px}
+    li::after{
+      content: '>';
+      position: absolute;
+      right: 9px;
+      top: 0px;
+    }
+    li:last-child{
+      &::after{
+        content: '';
+      }
+    }
+}
+.prefix{
+  width: 13%;display: inline-block;margin-right: 2%;
+  border: 2px solid#ccc;
+  height: 41px;
+  margin-top: -2px;
+  border-radius: 5px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 25px;
+}
+.mobile{
+  width: 85% !important;display: inline-block;
 }

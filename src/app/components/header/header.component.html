@@ -43,8 +43,9 @@
             <a mat-button [routerLink]="['mycart']"><i class='fa fa-check-square-o'></i><span>Checkout {{cartService.getItems().length > 0 ? "("+cartService.getItems().length+")" : ''}}</span></a>
         </div>
         <!-- /#login & profile options -->
-    </mat-toolbar-row> 
 
+        <button mat-raised-button class="menu-btn" (click)="toggleMenu">Menu</button>
+    </mat-toolbar-row> 
 </mat-toolbar>
 <div class="menu py-2 text-center">
     <app-menu-bar></app-menu-bar>

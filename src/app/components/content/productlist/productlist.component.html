@@ -6,9 +6,8 @@
 		<li><a >{{scdisplayname}}</a></li>
 	</ul>
 </mat-toolbar-row>
-<div class="product-list-page ">
-			
-	<aside class="">
+<mat-sidenav-container>
+	<mat-sidenav mode="side" opened>
 		<mat-accordion [multi]="true">
 			<mat-expansion-panel [expanded]="true">
 				<mat-expansion-panel-header>
@@ -48,72 +47,78 @@
 				</div>
 			</mat-expansion-panel>
 		</mat-accordion>
-	</aside>
-	<div *ngIf="products" class="product-list" style="flex: 1 1 0%">
-		<div class="productlistcontainer pl-3" fxLayout="row wrap">
-			<ng-container *ngFor="let product of products; let i = index">
-				<ng-container
-					*ngIf="fromPrice.value > 0 ?  (product.prepay_price >= fromPrice.value ? true : false): true">
-					<ng-container *ngIf="toPrice.value > 0 ? (product.prepay_price <= toPrice.value): true">
-						<mat-card
-							*ngIf="selectedBrandsArray.length == 0 ? true: selectedBrandsArray.includes(product.brand_name)"
-							class="product" fxLayout="column">
-							<mat-card-subtitle>
-								<ng-container *ngIf="product.discount && product.discount!='0'">
-									<span class="badge badge-danger">{{product.discount}}</span>
-								</ng-container>
-							</mat-card-subtitle>
-							<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo"
-								(click)="showProductDetails({cname:cname,scname:scname,pid:product.item_id})">
-
-							<mat-card-content>
-								
-								<p class="p-cost">
-									<ng-container *ngIf="product.dealtype!=''">
-										<span
-											class="old_cost">{{PRICE_PREFIX}}{{product.deals_bargain_supplier_deal_price}}</span>
-										<span
-											class="new_cost">{{PRICE_PREFIX}}{{product.deals_bargain_deal_price}}</span>
-									</ng-container>
-									<ng-container *ngIf="product.dealtype=='' && product.discount=='0'">
-										<span class="new_cost">{{PRICE_PREFIX}}{{product.price}}</span>
-									</ng-container>
-									<ng-container *ngIf="product.dealtype=='' && product.discount!='0'">
-										<span class="old_cost">{{PRICE_PREFIX}}{{product.price}}</span>
-										<span class="new_cost">{{PRICE_PREFIX}}{{product.discount_amount}}</span>
-									</ng-container>
-									<button mat-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
-										ADD
-									</button>
-									
-								</p>
-								<p class="p-title">{{product.item_name}}</p>
-							</mat-card-content>
-							<mat-card-actions>
-								
-								
-								<button mat-button class="action-btns share">
-									<i class="fa fa-share-alt"></i>
-									<div class="social-share">
-										<a href="http://www.facebook.com/sharer.php?u=https://www.dealsbargain.com/" target="_blank">
-											<i class="fa fa-facebook-official"></i>
-										</a>
-										<a href="http://twitter.com/share?text=dealsbargain&url=https://www.dealsbargain.com/&hashtags=#" target="_blank">
-											<i class="fa fa-twitter-square"></i>
-										</a>
-										<a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.dealsbargain.com/&title=hashtags&source=deals bargain" target="_blank">
-											<i class="fa fa-linkedin-square"></i>
-										</a>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<div class="product-list-page ">
+			<button mat-raised-button class="side-list">Filter</button>
+			<div *ngIf="products" class="product-list" style="flex: 1 1 0%">
+				<div class="productlistcontainer pl-3" fxLayout="row wrap">
+					<ng-container *ngFor="let product of products; let i = index">
+						<ng-container
+							*ngIf="fromPrice.value > 0 ?  (product.prepay_price >= fromPrice.value ? true : false): true">
+							<ng-container *ngIf="toPrice.value > 0 ? (product.prepay_price <= toPrice.value): true">
+								<mat-card
+									*ngIf="selectedBrandsArray.length == 0 ? true: selectedBrandsArray.includes(product.brand_name)"
+									class="product" fxLayout="column">
+									<mat-card-subtitle>
+										<ng-container *ngIf="product.discount && product.discount!='0'">
+											<span class="badge badge-danger">{{product.discount}}</span>
+										</ng-container>
+									</mat-card-subtitle>
+									<div class="product-img">
+										<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo"
+										(click)="showProductDetails({cname:cname,scname:scname,pid:product.item_id})">
 									</div>
-								</button>
-								<app-wishlist [actionType]="'add'" [productInfo]="product"></app-wishlist>
-							</mat-card-actions>
-						</mat-card>
+									<mat-card-content>
+										
+										<p class="p-cost">
+											<ng-container *ngIf="product.dealtype!=''">
+												<span
+													class="old_cost">{{PRICE_PREFIX}}{{product.deals_bargain_supplier_deal_price}}</span>
+												<span
+													class="new_cost">{{PRICE_PREFIX}}{{product.deals_bargain_deal_price}}</span>
+											</ng-container>
+											<ng-container *ngIf="product.dealtype=='' && product.discount=='0'">
+												<span class="new_cost">{{PRICE_PREFIX}}{{product.price}}</span>
+											</ng-container>
+											<ng-container *ngIf="product.dealtype=='' && product.discount!='0'">
+												<span class="old_cost">{{PRICE_PREFIX}}{{product.price}}</span>
+												<span class="new_cost">{{PRICE_PREFIX}}{{product.discount_amount}}</span>
+											</ng-container>
+											<button mat-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
+												ADD
+											</button>
+											
+										</p>
+										<p class="p-title">{{product.item_name}}</p>
+									</mat-card-content>
+									<mat-card-actions>
+										
+										
+										<button mat-button class="action-btns share">
+											<i class="fa fa-share-alt"></i>
+											<div class="social-share">
+												<a href="http://www.facebook.com/sharer.php?u=https://www.dealsbargain.com/" target="_blank">
+													<i class="fa fa-facebook-official"></i>
+												</a>
+												<a href="http://twitter.com/share?text=dealsbargain&url=https://www.dealsbargain.com/&hashtags=#" target="_blank">
+													<i class="fa fa-twitter-square"></i>
+												</a>
+												<a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.dealsbargain.com/&title=hashtags&source=deals bargain" target="_blank">
+													<i class="fa fa-linkedin-square"></i>
+												</a>
+											</div>
+										</button>
+										<app-wishlist [actionType]="'add'" [productInfo]="product"></app-wishlist>
+									</mat-card-actions>
+								</mat-card>
+							</ng-container>
+						</ng-container>
 					</ng-container>
-				</ng-container>
-			</ng-container>
-
-
+		
+		
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>
