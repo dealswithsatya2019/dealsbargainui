@@ -60,11 +60,11 @@ export class CartService {
 
   public addToCart(item: Product) {
     this.itemsInCartTemp = [];
-    if (this.itemsInCart.some(e => e.item_id === item.item_id)) {
+    if (this.getItems().some(e => e.item_id === item.item_id)) {
       this.raiseAlert("This item is already added to cart.")
     } else {
       item.quantity = 1;
-      this.itemsInCart.push(item);
+      this.setItems(item);
       this.raiseAlert("The item has been added to cart.")
     }
     if (this.userService.getAuthToken() != null && item != null) {
@@ -99,7 +99,7 @@ export class CartService {
       "quantity": product.quantity,
       "code": "us",
     }
-    console.log("body :",body);
+    console.log("body :", body);
     let autherization = "Bearer " + this.userService.getAuthToken();
     return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/updateQuantityCartItem/us",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });

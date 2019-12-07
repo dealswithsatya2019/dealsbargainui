@@ -18,7 +18,6 @@ import { UserService } from 'src/app/user.service';
 export class CartdetailsComponent implements OnInit, OnDestroy {
 
   public cartInfo: cartInfo;
-  //public autherization: string;
   public userToken: string;
   public shoppingCartItems: Product[] = [];
   public product: Product;
@@ -35,12 +34,11 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.shoppingCartItems = [];
-    if (this.userService.getAuthToken != null) {
+    if (this.userService.getAuthToken() != null) {
       this.cartService.clearCart();
       this.getCarts();
     } else {
       this.shoppingCartItems = this.cartService.getItems();
-      console.log("Items in cart page ", this.shoppingCartItems);
     }
   }
 
@@ -108,7 +106,6 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
   }
 
   public getCarts() {
-    console.log("get Cart api called...");
     this.subscriptions.add(this.getCartlist().subscribe(data => {
       this.cartInfo = data;
       this.shoppingCartItems = [];
@@ -121,7 +118,6 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
           this.cartService.setItems(element);
           this.shoppingCartItems.push(element);
         });
-        console.log("shoppingCartItems ", this.shoppingCartItems);
       }
     }
     ));

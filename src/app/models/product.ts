@@ -32,4 +32,5 @@ export class Product {
     display_name_subcategory: string ="";
     display_name_middle_subcategory: string ="";
     errorCode : number ;
+    transaction_fees : number;
  }

@@ -31,7 +31,6 @@ declare let paypal: any;
   styleUrls: ['./productpurchase.component.scss']
 })
 export class ProductpurchaseComponent implements OnInit {
-  //public autherization: string;
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
 
   paypalFor: boolean = false;
@@ -437,7 +436,7 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public totalCost: number = 0;
-  public deliveryCost: number = 0;
+  public transactionCostFromDBAPI: number = 0;
   public couponDiscountCost: number = 0;
   public totalPaybaleCost: number = 1;
   public totalCartSize: number = 0;
@@ -456,8 +455,11 @@ export class ProductpurchaseComponent implements OnInit {
         let productcost = element.quantity > 0 ? (element.quantity * element.discount_amount) : element.discount_amount
         this.totalCost = this.totalCost + productcost;
       }
+      if (element.transaction_fees != null && element.transaction_fees != undefined && element.transaction_fees > 0) {
+        this.transactionCostFromDBAPI = element.transaction_fees + this.transactionCostFromDBAPI;
+      }
     });
-    this.totalPaybaleCost = ((this.totalCost + this.deliveryCost) - this.couponDiscountCost);
+    this.totalPaybaleCost = ((this.totalCost + this.transactionCostFromDBAPI) - this.couponDiscountCost);
     if (this.cartInfo != null && this.cartInfo.responseObject != null && this.cartInfo.responseObject.length > 0) {
       this.totalCartSize = this.cartInfo.responseObject.length;
     }
@@ -465,7 +467,7 @@ export class ProductpurchaseComponent implements OnInit {
 
   public initializeValues() {
     this.totalCost = 0;
-    this.deliveryCost = 0;
+    this.transactionCostFromDBAPI = 0;
     this.couponDiscountCost = 0;
     this.totalPaybaleCost = 0;
     this.totalCartSize = 0;

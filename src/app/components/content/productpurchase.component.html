@@ -72,7 +72,8 @@
                                     <div class="" style="flex: 1 1 50%;max-width: 50%;padding: 0 5%;">
                                         <a mat-button class="p-0" (click)="signOut()">Logout and signin with another
                                             account</a>
-                                        <button mat-button matStepperNext class="my-2 w-100 login-login-btn">Continue Checkout</button>
+                                        <button mat-button matStepperNext class="my-2 w-100 login-login-btn">Continue
+                                            Checkout</button>
                                     </div>
                                 </div>
                             </ng-container>
@@ -81,8 +82,7 @@
 
                     </div>
                     <div class="pt-5 text-center">
-                        <button mat-button matStepperNext><i
-                                class="fa fa-chevron-right"></i></button>
+                        <button mat-button matStepperNext><i class="fa fa-chevron-right"></i></button>
                     </div>
                 </mat-step>
 
@@ -162,13 +162,11 @@
                                     <input formControlName="zipcode" matInput placeholder="Placeholder">
                                     <mat-error>Zip Code/Postal is mandatory</mat-error>
                                 </mat-form-field>
-                                <mat-radio-group formControlName="address_type" 
-                                    aria-label="Select an option">
-                                    <mat-radio-button value="1" 
-                                        class="mr-2">Home
+                                <mat-radio-group formControlName="address_type" aria-label="Select an option">
+                                    <mat-radio-button value="1" class="mr-2">Home
                                         ( All Day Delivery )
                                     </mat-radio-button>
-                                    <mat-radio-button value="2" >Work
+                                    <mat-radio-button value="2">Work
                                         (Delivery
                                         between 10AM - 5PM)</mat-radio-button>
                                 </mat-radio-group>
@@ -241,10 +239,8 @@
                         </form>
                     </mat-expansion-panel>
                     <div class="pt-5 text-center">
-                        <button mat-button matStepperPrevious><i
-                                class="fa fa-chevron-left"></i></button>
-                        <button mat-button matStepperNext><i
-                                class="fa fa-chevron-right"></i></button>
+                        <button mat-button matStepperPrevious><i class="fa fa-chevron-left"></i></button>
+                        <button mat-button matStepperNext><i class="fa fa-chevron-right"></i></button>
                     </div>
                 </mat-step>
                 <mat-step label="ORDER SUMMARY" [(completed)]="isCart">
@@ -297,10 +293,8 @@
                         </p>
                     </div>
                     <div class="pt-5 text-center">
-                        <button mat-button matStepperPrevious><i
-                                class="fa fa-chevron-left"></i></button>
-                        <button mat-button matStepperNext><i
-                                class="fa fa-chevron-right"></i></button>
+                        <button mat-button matStepperPrevious><i class="fa fa-chevron-left"></i></button>
+                        <button mat-button matStepperNext><i class="fa fa-chevron-right"></i></button>
                     </div>
                 </mat-step>
 
@@ -319,8 +313,7 @@
                         </mat-radio-group>
                     </div>
                     <div class="pt-5 text-center">
-                        <button mat-button matStepperPrevious ><i
-                                class="fa fa-chevron-left"></i></button>
+                        <button mat-button matStepperPrevious><i class="fa fa-chevron-left"></i></button>
                     </div>
                 </mat-step>
             </mat-horizontal-stepper>
@@ -341,19 +334,17 @@
                 <div class="price-details px-3">
                     <div class="" style="display: flex;justify-content: space-between;">
                         <div>Price({{totalCartSize}} item)</div>
-                        <span>{{totalCost}}</span>
+                        <span>{{PRICE_PREFIX}}{{totalCost}}</span>
                     </div>
-                    <!-- <div class="" style="display: flex;justify-content: space-between;">
-                        <div>Transaction Fees</div>
-                        <span class="offer">{{(deliveryCost ==0 ? 'FREE' : deliveryCost)}}</span>
-                    </div> -->
-                    <div class="" style="display: flex;justify-content: space-between;">
-                        <div>Coupon Discount</div>
-                        <span>{{couponDiscountCost}}</span>
-                    </div>
+                    <ng-container *ngIf="transactionCostFromDBAPI > 0">
+                        <div class="" style="display: flex;justify-content: space-between;">
+                            <div>Transaction Fee</div>
+                            <span>{{PRICE_PREFIX}}{{transactionCostFromDBAPI}}</span>
+                        </div>
+                    </ng-container>
                     <div class="total">
                         <b>Total Payable</b>
-                        <b>{{totalPaybaleCost}}</b>
+                        <b>{{PRICE_PREFIX}}{{totalPaybaleCost}}</b>
                     </div>
                 </div>
                 <div class="divider"></div>
