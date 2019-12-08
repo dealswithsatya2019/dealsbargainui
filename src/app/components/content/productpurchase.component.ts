@@ -51,7 +51,7 @@ export class ProductpurchaseComponent implements OnInit {
   public selectedAddressId: string;
   public isLogIn: boolean = false;
   public isCart: boolean = false;
-  public statesArr: string[] = environment.STATES.split(',');
+  public statesArr = JSON.parse(environment.STATES);
   public shoppingCartItems: Product[] = [];
   subscriptions = new Subscription();
   send_date = new Date();
