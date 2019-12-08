@@ -1,26 +1,27 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import * as CryptoJS from 'crypto-js';
+import { Observable, Subscription } from 'rxjs';
+import { address } from 'src/app/models/address';
+import { addressResponse } from 'src/app/models/addressResponse';
+import { AuthResopnse2 } from 'src/app/models/ApiResponse2';
+import { AuthResopnse } from 'src/app/models/AuthResponse';
+import { cartInfo } from 'src/app/models/cartInfo';
+import { CreateOrederReq } from 'src/app/models/CreateOrederReq';
 import { Product } from 'src/app/models/product';
+import { OrderItenInfo } from 'src/app/modules/OrderItemInfo';
+import { AuthService as UserAuth } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
+import { EncryptionService } from 'src/app/services/encryption.service';
 import { LoginformService } from 'src/app/services/forms/loginform.service';
 import { HttCommonService } from 'src/app/services/httpcommon.service';
 import { ProductService } from 'src/app/services/product.service';
-import { Observable, Subscription } from 'rxjs';
-import { addressResponse } from 'src/app/models/addressResponse';
 import { UserService } from 'src/app/user.service';
-import { AuthService as UserAuth } from 'src/app/services/auth.service';
-import { EncryptionService } from 'src/app/services/encryption.service';
-import { AuthResopnse } from 'src/app/models/AuthResponse';
-import * as CryptoJS from 'crypto-js';
-import { cartInfo } from 'src/app/models/cartInfo';
-import { CartService } from 'src/app/services/cart.service';
-import { AddProductReq } from './addproductreq';
 import { environment } from 'src/environments/environment';
-import { address } from 'src/app/models/address';
-import { delay } from 'q';
-import { CreateOrederReq } from './orderReq';
+import { AddProductReq } from './addproductreq';
 import { PromoResponse } from './promoResponse';
 import { PromoResponseMode } from './promoResponseModel';
 declare let paypal: any;
@@ -146,7 +147,7 @@ export class ProductpurchaseComponent implements OnInit {
           let update_time = orderJson.update_time;
           let dispute_categories = orderJson.dispute_categories;
           let status = orderJson.status;
-          this.createOrder();
+          this.createOrder(orderId);
         },
         onError: err => {
           console.log("Error :", err);
@@ -407,32 +408,58 @@ export class ProductpurchaseComponent implements OnInit {
       this.addCartData = data;
       this.getCarts();
     }));
-
   }
 
-  public addOrdersArray: CreateOrederReq[] = [];
+
   public createOrderReq: CreateOrederReq;
+  public itemsInfo: OrderItenInfo;
+  public addOrdersArray: OrderItenInfo[] = [];
 
-  public createOrderData: any;
 
-  public createOrderHttp(): Observable<any> {
+  public createOrderData: AuthResopnse2;
+
+  public createOrderHttp(OrderId: string): Observable<AuthResopnse2> {
+
+    this.createOrderReq = new CreateOrederReq();
+
     this.shoppingCartItems.forEach(element => {
-      this.createOrderReq = new CreateOrederReq();
-      this.createOrderReq.category = element.category;
-      this.createOrderReq.item_id = element.item_id;
-      this.createOrderReq.master_supplier = element.master_suplier;
-      this.createOrderReq.subcategory = element.subcategory;
-      this.createOrderReq.address_id = this.selectedAddressId;
-      this.addOrdersArray.push(this.createOrderReq);
+      this.itemsInfo = new OrderItenInfo();
+      this.itemsInfo.category = element.category;
+      this.itemsInfo.item_id = element.item_id;
+      this.itemsInfo.master_supplier = element.master_suplier;
+      this.itemsInfo.subcategory = element.subcategory;
+      this.itemsInfo.countryCode = "us";
+      this.itemsInfo.quantity = element.quantity;
+      this.addOrdersArray.push(this.itemsInfo);
     });
-    let body = JSON.stringify(this.addOrdersArray);
+    this.createOrderReq.items_info = this.addOrdersArray;
+    this.createOrderReq.address_id = this.selectedAddressId;
+    this.createOrderReq.coupon_applied = "no";
+    this.createOrderReq.coupon_id = "";
+    this.createOrderReq.net_amount = this.totalPaybaleCost;
+    this.createOrderReq.order_id_by_payment_channel = OrderId;
+    this.createOrderReq.payment_channel = "paypal";
+    this.createOrderReq.transaction_fee = this.transactionCostFromDBAPI;
+    this.createOrderReq.user_payment_request_status = "success";
+
+    let body = JSON.stringify(this.createOrderReq);
     let autherization = "Bearer " + this.userservice.getAuthToken();
-    return this.http.post<any>(this.APIEndpoint + "/order/create-order",
+    return this.http.post<AuthResopnse2>(this.APIEndpoint + "/order/create-order/us",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
   }
 
-  public createOrder() {
-    this.subscriptions.add(this.createOrderHttp().subscribe(data => this.createOrderData = data));
+  public createOrder(orderId: string) {
+    this.subscriptions.add(this.createOrderHttp(orderId).subscribe(data => {
+      this.createOrderData = data;
+      console.log("Order Status :",this.createOrderData.statusCode);
+      if (this.createOrderData != null && this.createOrderData.statusCode == 200) {
+        console.log("Order Status myprofile:",this.createOrderData.statusCode);
+        this._router.navigate(['myprofile', { outlets: { 'profileoutlet': ['orders'] } }]);
+      } else {
+        console.log("Order Status mycart:",this.createOrderData.statusCode);
+        this._router.navigateByUrl("/mycart");
+      }
+    }));
   }
 
   public totalCost: number = 0;
