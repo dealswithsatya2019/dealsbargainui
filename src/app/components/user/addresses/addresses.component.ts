@@ -27,7 +27,7 @@ export class AddressesComponent implements OnInit,OnDestroy {
     public _addressesService: AddressesService,
     public _alertService: AlertService) {
   }
-  public statesArr: string[] = environment.STATES.split(',');
+  public statesArr = JSON.parse(environment.STATES);
   public isUpdateAddress: boolean;
   exp1: boolean = true;
   exp2: boolean = false;

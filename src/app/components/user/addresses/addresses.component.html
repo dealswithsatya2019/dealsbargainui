@@ -79,8 +79,8 @@
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-select formControlName="state" placeholder="Placeholder">
-                            <mat-option *ngFor="let state of statesArr" [value]="state">
-                                {{state}}
+                            <mat-option *ngFor="let state of statesArr" [value]="state.abreviation">
+                                {{state.state}}
                             </mat-option>
                         </mat-select>
                         <mat-error>state is mandatory</mat-error>
@@ -149,8 +149,8 @@
                 <mat-form-field appearance="outline">
                     <mat-label>State</mat-label>
                     <mat-select formControlName="state" placeholder="Placeholder">
-                        <mat-option *ngFor="let state of statesArr" [value]="state">
-                            {{state}}
+                        <mat-option *ngFor="let state of statesArr" [value]="state.abreviation">
+                            {{state.state}}
                         </mat-option>
                     </mat-select>
                     <mat-error>state is mandatory</mat-error>
