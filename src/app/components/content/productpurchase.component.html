@@ -6,7 +6,7 @@
             <li><a>Checkout</a></li>
         </ul>
     </mat-toolbar-row>
-    <div class="" style="display: flex;padding-top: 75px;">
+    <div class="purchase-container">
         <div class="left-panel">
             <!-- #horstepper -->
             <mat-horizontal-stepper (selectionChange)="selectionChange($event)" linear>
@@ -17,8 +17,8 @@
                             <ng-container></ng-container>
                             <div class="new-login mt-3" style="display: flex;">
                                 <!-- login with mail -->
-                                <div class="" style="flex: 1 1 43%;max-width: 45%;padding: 0 5%;">
-                                    <h6 class="text-center">I have an account</h6>
+                                <div class="" style="flex: 1 1 45%;max-width: 45%;padding-right: 5%;">
+                                    <h6 class="text-center mb-3">I have an account</h6>
                                     <form [formGroup]="loginformService.form" class="normal-form w-100"
                                         (submit)="funLogin()">
                                         <mat-form-field floatLabel="never" class="w-100">
@@ -43,8 +43,8 @@
                                 </div>
                                 <!-- /# login with mail -->
                                 <!-- social login -->
-                                <div class="social-login" style="flex: 1 1 53%;max-width: 55%;padding: 0 5%;">
-                                    <h6 class="text-center mb-2">Sign In With Social Account</h6>
+                                <div class="social-login" style="flex: 1 1 53%;max-width: 55%;padding-left: 5%;">
+                                    <h6 class="text-center mb-3">Sign In With Social Account</h6>
 
                                     <button mat-raised-button class="fb-login login-btn" (click)="loginFacebook()">
                                         <img src="../../.././../assets/img/facebook.png" class="social-logo">
@@ -69,7 +69,7 @@
                         <ng-container *ngIf="this.userservice.getAuthToken()">
                             <ng-container *ngIf="loginformService.response">
                                 <div class="existed-login mt-3" style="display: flex;line-height: 30px;">
-                                    <div class="" style="flex: 1 1 50%;max-width: 50%;padding: 0 5%;">
+                                    <div class="" style="flex: 1 1 50%;max-width: 50%;padding-right: 5%;">
                                         <a mat-button class="p-0" (click)="signOut()">Logout and signin with another
                                             account</a>
                                         <button mat-button matStepperNext class="my-2 w-100 login-login-btn">Continue
@@ -98,58 +98,59 @@
                                         </mat-radio-button>
                                         <div class="pl-3">{{address.address}} ,{{address.city}},{{address.state}}.</div>
                                         <button mat-button class="edit-address"
-                                            (click)="showAddressInfo(address.address_id)">Edit</button>
+                                            (click)="showAddressInfo(address.address_id)">Change Address</button>
                                         <button mat-button class="delete-address"
-                                            (click)="deleteAddressService(address.address_id)">Delete</button>
+                                            (click)="deleteAddressService(address.address_id)"><i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
                                     </div>
                                 </ng-container>
                             </ng-container>
                         </mat-radio-group>
                     </div>
                     <ng-container *ngIf="isUpdateAddress">
-                        <mat-expansion-panel class="mb-3" [(expanded)]="exp2">
+                        <mat-expansion-panel class="mb-3" [(expanded)]="exp2" class="address">
                             <mat-expansion-panel-header>
                                 Update Address
                             </mat-expansion-panel-header>
                             <form [formGroup]="updateaddressform" (submit)="updateAddressService(address.address_id)"
                                 class="my-3">
-                                <mat-form-field appearance="outline">
+                                <mat-form-field  floatLabel="never" appearance="outline">
                                     <mat-label>Name</mat-label>
                                     <input formControlName="fullname" matInput placeholder="Name">
                                     <mat-error>fullname is mandatory</mat-error>
                                 </mat-form-field>
-                                <mat-form-field appearance="outline">
+                                <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>Mobile Number</mat-label>
                                     <input formControlName="mobile_number" matInput placeholder="Placeholder">
                                     <mat-error>mobile number is mandatory</mat-error>
                                 </mat-form-field>
-                                <mat-form-field appearance="outline">
+                                <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>Alternate Phone</mat-label>
                                     <input formControlName="altphone" matInput placeholder="Placeholder">
                                 </mat-form-field>
-                                <mat-form-field appearance="outline">
+                                <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>Locality</mat-label>
                                     <input formControlName="street" matInput placeholder="Placeholder">
                                     <mat-error>street is mandatory</mat-error>
                                 </mat-form-field>
-                                <mat-form-field appearance="outline" style="width:98%">
+                                <mat-form-field appearance="outline" style="width:98%" floatLabel="never">
                                     <mat-label>Address</mat-label>
                                     <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
                                     <mat-error>address is mandatory</mat-error>
                                 </mat-form-field>
-                                <mat-form-field appearance="outline">
+                                <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>City/District</mat-label>
                                     <input formControlName="city" matInput placeholder="Placeholder">
                                     <mat-error>city is mandatory</mat-error>
                                 </mat-form-field>
-                                <mat-form-field appearance="outline">
+                                <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>Country</mat-label>
                                     <mat-select formControlName="country" value="United States">
                                         <mat-option value="United States">United States</mat-option>
                                     </mat-select>
                                     <mat-error>country is mandatory</mat-error>
                                 </mat-form-field>
-                                <mat-form-field appearance="outline">
+                                <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-select formControlName="state" placeholder="Placeholder">
                                         <mat-option *ngFor="let state of statesArr" [value]="state.abreviation">
                                             {{state.state}}
@@ -157,7 +158,7 @@
                                     </mat-select>
                                     <mat-error>state is mandatory</mat-error>
                                 </mat-form-field>
-                                <mat-form-field appearance="outline">
+                                <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>Pincode</mat-label>
                                     <input formControlName="zipcode" matInput placeholder="Placeholder">
                                     <mat-error>Zip Code/Postal is mandatory</mat-error>
@@ -243,6 +244,7 @@
                         <button mat-button matStepperNext><i class="fa fa-chevron-right"></i></button>
                     </div>
                 </mat-step>
+
                 <mat-step label="ORDER SUMMARY" [(completed)]="isCart">
                     <div class="mb-3">
                         <ng-container *ngIf="shoppingCartItems">

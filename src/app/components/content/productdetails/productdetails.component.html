@@ -10,14 +10,14 @@
 		</mat-toolbar-row>
 	<div style="display: flex;" class="mb-4 col-flex">
 		<div class="left-details">
-			<div class="swiper-container gallery-thumbs" style="height:450px">
+			<div class="swiper-container gallery-thumbs">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" *ngFor="let listitem of items; index as j">
 						<img src="{{listitem.data.thumb}}" style="max-height:100%">
 					</div>
 				</div>
 			</div>
-			<div class="swiper-container gallery-top" style="height:450px">
+			<div class="swiper-container gallery-top">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" *ngFor="let item of items; index as i">
 						<img [lightbox]="i" [src]="item.data.thumb" style="max-height:100%">

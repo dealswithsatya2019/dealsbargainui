@@ -1,4 +1,18 @@
-
+ul{
+  padding: 0px;list-style: none;
+  li{display: inline;position: relative;padding-right: 25px;font-size: 14px}
+  li::after{
+    content: '>';
+    position: absolute;
+    right: 9px;
+    top: 0px;
+  }
+  li:last-child{
+    &::after{
+      content: '';
+    }
+  }
+}
 mat-sidenav{width: 200px;}
 .product{
   min-width: 100px;

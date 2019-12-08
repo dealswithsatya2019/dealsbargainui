@@ -46,13 +46,13 @@
         
         <!-- https://blog.angular-university.io/angular-debugging/-->
         <ng-container *ngIf="issentotp===true">
-            <mat-form-field  floatLabel="never" class="w-100">
+            <mat-form-field  floatLabel="never" class="w-100" appearance="outline">
                 <input formControlName="smsotp" matInput placeholder="Enter sms OTP*" >
                 <mat-error *ngFor="let validation of userservice.signup_validation_messages.smsotp">
                     <mat-error class="error-message" *ngIf="userservice.form.get('smsotp').hasError(validation.type) && (userservice.form.get('smsotp').dirty || userservice.form.get('smsotp').touched)">{{validation.message}}</mat-error>
                 </mat-error>
             </mat-form-field>
-            <mat-form-field  floatLabel="never" class="w-100">
+            <mat-form-field  floatLabel="never" class="w-100" appearance="outline">
                 <input formControlName="emailotp" matInput placeholder="Enter email OTP*" >
                 <mat-error *ngFor="let validation of userservice.signup_validation_messages.emailotp">
                     <mat-error class="error-message" *ngIf="userservice.form.get('emailotp').hasError(validation.type) && (userservice.form.get('emailotp').dirty || userservice.form.get('emailotp').touched)">{{validation.message}}</mat-error>
@@ -75,11 +75,11 @@
 
         <button mat-raised-button (click)="loginFacebook();" class="fb-login login-btn">
             <img src="../../.././../assets/img/facebook.png" class="login-logo">
-            Login with FACEBOOK</button>
+            Signup with FACEBOOK</button>
 
         <button mat-raised-button (click)="loginGmail();" class="gmail-login login-btn">
             <img src="../../.././../assets/img/search.png" class="login-logo">
-            Login with GOOGLE</button>
+            Signup with GOOGLE</button>
     </div>
 
     <div class="login-links mt-3">
