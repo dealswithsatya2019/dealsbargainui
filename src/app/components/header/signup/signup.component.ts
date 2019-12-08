@@ -63,7 +63,7 @@ export class SignupComponent implements OnInit {
         this.whishlistService.updateWhishlist();
       }
     );
-  }8
+  }
 
   loginGmail() {
     this._socioAuthServ.signIn(GoogleLoginProvider.PROVIDER_ID).then(
