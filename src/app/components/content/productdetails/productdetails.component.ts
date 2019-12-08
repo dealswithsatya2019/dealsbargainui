@@ -60,6 +60,39 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      var swiper = new Swiper('.similar', {
+        autoplay: {
+          delay: 3000,
+        },
+        spaceBetween:20,
+        speed: 500,
+        slidesPerView:5,
+        breakpoints:{
+          0:{
+            slidesPerView: 1,
+          },
+          550:{
+            slidesPerView: 2,
+          },
+          768:{
+            slidesPerView: 3,
+          },
+          1024:{
+            slidesPerView: 4,
+          },
+          1288:{
+            slidesPerView: 5,
+          }
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        }
+      })
+    }, 1000);
+
+    
     this._Activatedroute.paramMap.subscribe((params : ParamMap)=> {  
       this.cname=params.get('cname');  
       this.scname=params.get('scname');  
@@ -176,39 +209,7 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
   
   ngAfterViewInit() {
 
-    setTimeout(() => {
-      var swiper = new Swiper('.similar', {
-        init:true,
-        autoplay: {
-          delay: 3000,
-        },
-        spaceBetween:20,
-        speed: 500,
-        slidesPerView:5,
-        breakpoints:{
-          0:{
-            slidesPerView: 1,
-          },
-          550:{
-            slidesPerView: 2,
-          },
-          768:{
-            slidesPerView: 3,
-          },
-          1024:{
-            slidesPerView: 4,
-          },
-          1288:{
-            slidesPerView: 5,
-          }
-        },
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        }
-      })
-    }, 1000);
-
+  
     //   setTimeout(() => {
     //   var galleryThumbs = new Swiper('.gallery-thumbs', {
     //     spaceBetween: 10,

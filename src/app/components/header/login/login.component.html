@@ -11,7 +11,7 @@
     <p class="text-center login-title">Login to DealsBargain</p>
     <p class="text-center login-info my-2">- Login with Email -</p>
     <form [formGroup]="loginformService.form" class="normal-form w-100" (submit)="funLogin()">
-            {{this.loginErrorMsg}}     
+            <span class="error">{{this.loginErrorMsg}}</span>     
                 <!-- <input type="hidden" formControlName="$key"> -->
             <mat-form-field floatLabel="never" class="w-100" appearance="outline">
                 <input formControlName="name" matInput placeholder="Email address or Mobile number *" >
@@ -40,7 +40,7 @@
 
 
 <div class="login-links mt-2">
-    <a mat-button (click)="forgotpwd()">Recover password</a>
+    <a mat-button (click)="forgotpwd()">Forgot Password ?</a>
     <div class="right-link float-right">
             New to Deals?<a mat-button [routerLink]="['signup']" style="line-height: 17px;">Sign Up</a>
     </div>

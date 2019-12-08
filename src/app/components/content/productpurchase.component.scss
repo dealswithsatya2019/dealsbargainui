@@ -16,7 +16,6 @@ ul{
 .checkout-card{
     width: 310px;
     background-color: #fff;
-    margin-top: -8px;
     .price-details{
         line-height: 45px;
     }
@@ -25,7 +24,7 @@ ul{
     width: 25px;
 }
 .fb-login{
-    margin-right: 10px;
+    margin-right: 2%;
 }
 .login-btn{
     width: 48%;
@@ -40,8 +39,8 @@ form{
     width: 90%;
 }
 .mat-form-field{
-    width: 47%;
-    margin-right: 15px;
+    width: 48%;
+    margin-right: 2%;
 }
 .img-cursor{
     max-height: 110px;
@@ -297,11 +296,29 @@ mat-horizontal-stepper{
     text-decoration: line-through;
     color: #686565;
 }
+.mat-form-field{font-size: 14px;}
 .new_cost{
     font-size: 16px;
     color: #ff9600;
     font-weight: 700;
 }
+.purchase-container{
+    display: flex;padding-top: 75px;
+}
+@media screen and (max-width:991px){
+    .address .mat-form-field{
+        width: 98%;
+    }
+}
+@media screen and (max-width:991px){
+    .purchase-container{
+        flex-direction: column;
+    }
+    .checkout-card{
+        margin-top: 40px;
+    }
+}
+
 @media screen and (max-width:575px){
     ul{
       li{padding-right: 13px;font-size: 11px;}
