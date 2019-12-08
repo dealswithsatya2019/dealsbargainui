@@ -1,5 +1,5 @@
                     <!--- --- ORDERS --------  -->
-                    <h4>Order History</h4>
+                   <!-- <h4>Order History</h4>
                     <div class="order-details py-4" fxLayout="row">
                         <p>Order ID<br> <b>162348148</b></p>
                         <p>Order Date<br> <b>Sunday, September 2019</b></p>
@@ -11,3 +11,26 @@
                     </div>
                     <!--- --- /#ORDERS --------  -->
      
+                    <h4>Order History</h4>
+                    <div class="order-details py-4" fxLayout="row" *ngFor="let orderInfo of ordersListInfo">
+                        <p>Order ID<br> <b>{{orderInfo.order_tracking_id}}</b> </p>
+                        <p>Order Date<br> <b>{{orderInfo.created_on | date}}</b> </p>
+                        <p>Total Quality<br> <b>{{orderInfo.items_info.length}} Items</b> </p>
+                        <p>Amount Paid <br> <b> {{PRICE_PREFIX}} {{orderInfo.net_amount}}</b> </p>
+                        <p>Status <br> <b> </b> </p>
+                        <p>Tracking <br> <b>#</b> </p>
+                        <!--<button mat-button class="view-btn">View Details</button>-->
+                        
+                        <div class="review-order" fxLayout="row" *ngFor="let itemdetails of orderInfo.items_info">
+                            <div class="order-image">
+								<img class="image img-cursor" mat-card-image src="{{itemdetails.image}}" alt="photo"
+										(click)="showProductDetails({cname:itemdetails.category,scname:itemdetails.subcategory,pid:itemdetails.item_id})">
+                                <img src="{{itemdetails.image}}">
+                            </div>
+                            <div class="review-order-details">
+                                <p>{{itemdetails.title}}</p>
+                                <p>Ordered On <br> <b>{{orderInfo.created_on | date}}</b> </p>
+                            </div>
+                        </div>
+                    </div>
+                   

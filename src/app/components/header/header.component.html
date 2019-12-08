@@ -29,10 +29,10 @@
                         class="fa fa-user"></i><span>{{this.userservice.response.name}}</span></button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item style="border-bottom: 1px solid #ccc;">
-                        <a mat-button [routerLink]="['myprofile']"> Profile</a>
+                        <a mat-button [routerLink]="['myprofile']">My Profile</a>
                     </button>
                     <button mat-menu-item style="border-bottom: 1px solid #ccc;">
-                        <a mat-button [routerLink]="['orders']">Orders</a>
+                        <a mat-button [routerLink]="['orders']">My Orders</a>
                     </button>
                     <button mat-menu-item>
                         <a mat-button (click)="signOut()">Logout</a>

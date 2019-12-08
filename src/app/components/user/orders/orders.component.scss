@@ -1,0 +1,17 @@
+.review-order{
+    position: relative;
+    padding-left: 200px;
+    border: 1px solid #ccc;
+}
+.order-image img{max-width: 100%;}
+.order-image{
+    width: 110px;
+    height: 110px;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+.img-cursor{
+    max-width: 100%;
+}
