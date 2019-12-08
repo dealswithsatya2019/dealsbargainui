@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { environment } from 'src/environments/environment';
@@ -81,6 +81,19 @@ export class HttCommonService {
     return this.http.post(
       url, body,
       { headers: { 'Content-Type': 'application/json','authorization': 'Bearer '+authToken} }).pipe(map(this.extractData),catchError(this.handleError));
+  }
+
+  deleteRequest(urlAppendParam, body?, authToken?): Observable<any> {
+    let url: string ="";
+    if (urlAppendParam) {
+      url = this.apiURL + '/' + urlAppendParam;
+    } else {
+      url = this.apiURL;
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': 'Bearer '+authToken }), body
+    };
+    return this.http.delete(url, httpOptions).pipe(map(this.extractData),catchError(this.handleError));
   }
 
   getMapsServiceImaps() : Observable<IMaps>{
