@@ -17,22 +17,35 @@
         <input matInput type="date" formControlName="dob" placeholder="DOB">
     </mat-form-field>
     <h6>Mobile Number
-        <button mat-button>
-            <i class="fa fa-edit"></i>
-        </button>
+            <i class="fa fa-edit" (click)="enableSmsOtp()"></i>
     </h6>
     <mat-form-field appearance="outline">
         <input matInput formControlName="mobile" placeholder="Mobile Number">
     </mat-form-field>
-
+    <ng-container *ngIf="isSMSEdit==true">
+        <i (click)="sendSmsOTP()">Save</i>
+    </ng-container>
+    <ng-container *ngIf="isSMSOtpSent==true">
+        <input matInput  [value]='smsOTP' placeholder="Enter OTP">
+        <button mat-button (click)="verifyAndSaveMobileNumber()">Verify</button>
+    </ng-container>
+        
     <h6>Email Address
-        <button mat-button>
-            <i class="fa fa-edit"></i>
-        </button>
+        <i class="fa fa-edit" (click)="enableEmailOtp()"></i>
     </h6>
     <mat-form-field appearance="outline">
-        <input matInput formControlName="email" placeholder="Email Address">
+        <input matInput formControlName="email" placeholder="Email Address"> 
     </mat-form-field>
+
+    <ng-container *ngIf="isEmailEdit==true">
+        <i (click)="sendEmailOTP()">Save</i>
+    </ng-container>
+    
+
+    <ng-container *ngIf="isEmailOtpSent==true">
+        <input matInput  [value]="emailOTP" (input)="emailOTP=$event.target.value"  placeholder="Enter OTP">
+        <i (click)="verifyAndSaveEmail()">Verify</i>
+    </ng-container>
 
     <button mat-raised-button type="submit" [disabled]="profileform.invalid" class=" my-2 w-100 login-login-btn">Update</button>
 </form>
