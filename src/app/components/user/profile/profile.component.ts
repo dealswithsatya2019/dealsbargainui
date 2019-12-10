@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UserService } from 'src/app/user.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit,AfterViewInit {
 
-  constructor(public userservice : UserService,public _socioAuthServ: AuthService) { }
+  constructor(public userservice : UserService,
+    public _socioAuthServ: AuthService,
+    public _router: Router) { }
   //css : "3px double yellow";
   ngOnInit() {
+    
     /*
     this.router.navigate([
   // NOTE: No relative-path navigation is required because we are accessing
@@ -29,6 +33,11 @@ export class ProfileComponent implements OnInit {
 );
     */
   }
+
+  ngAfterViewInit(){
+    this._router.navigate(['myprofile', { outlets: { 'profileoutlet': ['profileinfo'] } }]);
+  }
+
 
   funUpdate() {
     console.log(JSON.stringify(this.userservice.form.value));

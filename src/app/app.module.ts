@@ -50,7 +50,7 @@ import { RateproductComponent } from './components/content/rateproduct/rateprodu
 import { GalleryModule } from '@ngx-gallery/core';
 import { LightboxModule } from '@ngx-gallery/lightbox';
 import { NgxStarRatingModule } from 'ngx-star-rating';
-import { MyprofileComponent } from './components/content/myprofile/myprofile.component';
+import { MyprofileComponent } from 'src/app/components/user/myprofile/myprofile.component';
 import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
 import { PersonalInfoComponent } from './components/user/personal-info/personal-info.component';
 import { AddressesComponent } from './components/user/addresses/addresses.component';

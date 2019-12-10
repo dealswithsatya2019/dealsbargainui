@@ -33,6 +33,7 @@ import { ChangePasswordComponent } from 'src/app/components/user/change-password
 import { UnsubscribeComponent } from 'src/app/components/user/unsubscribe/unsubscribe.component';
 import { LoginComponent } from './components/header/login/login.component';
 import { SignupComponent } from './components/header/signup/signup.component';
+import { MyprofileComponent } from 'src/app/components/user/myprofile/myprofile.component';
 
 const routes: Routes = [
   {
@@ -57,37 +58,49 @@ const routes: Routes = [
     } ,
     children: [
       {
-        path: AppRoutes.Base,
-        component: WishlistComponent,
+        path: AppRoutes.ProfileInfo,
+        component: MyprofileComponent,
+        canActivate: [AuthGuard],
         pathMatch: 'full'
-      
+      },
+      {
+        path: AppRoutes.ProfileInfo,
+        component: MyprofileComponent,
+        outlet: 'profileoutlet',
+        canActivate: [AuthGuard] 
       },
       {
         path: AppRoutes.UserWhishlist, 
         component: WishlistComponent,
-        outlet: 'profileoutlet'
+        outlet: 'profileoutlet',
+        canActivate: [AuthGuard] 
       },
       //{ path: 'balance', loadChildren: () => import(`./balance/balance.module`).then(m => m.BalanceModule) },
       {
         path: AppRoutes.UserOrders, 
         component: OrdersComponent,
-        outlet: 'profileoutlet'
+        outlet: 'profileoutlet',
+        canActivate: [AuthGuard] 
       },
       { path: AppRoutes.UserAddresses, 
         component: AddressesComponent ,
-        outlet: 'profileoutlet'
+        outlet: 'profileoutlet',
+        canActivate: [AuthGuard]
       },
       { path: AppRoutes.UserReviewAndRatings, 
           component: ReviewRatingsComponent ,
-          outlet: 'profileoutlet'
+          outlet: 'profileoutlet',
+          canActivate: [AuthGuard]
       },
       { path: AppRoutes.UserChangePassword, 
           component: ChangePasswordComponent ,
-          outlet: 'profileoutlet'
+          outlet: 'profileoutlet',
+          canActivate: [AuthGuard]
       },
       { path: AppRoutes.Unsubscribe, 
           component: UnsubscribeComponent ,
-          outlet: 'profileoutlet'
+          outlet: 'profileoutlet',
+          canActivate: [AuthGuard]
       }
     ]
   },

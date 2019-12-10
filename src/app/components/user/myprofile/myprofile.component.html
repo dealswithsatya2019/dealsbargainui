@@ -1,0 +1,38 @@
+<h4>Personal Information</h4>
+<form [formGroup]="profileform" (submit)="updateUserProfile()">
+    <mat-form-field appearance="outline" class="mr-4">
+        <input matInput  formControlName="firstname" placeholder="First Name">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <input matInput formControlName="lastname" placeholder="Last Name">
+    </mat-form-field>
+
+    <!-- <h6>Your Gender</h6>
+     <mat-radio-group aria-label="Select an option" class="p-3">
+         <mat-radio-button value="male" class="mr-4">Male</mat-radio-button>
+         <mat-radio-button value="female">Female</mat-radio-button>
+     </mat-radio-group>
+    -->
+    <mat-form-field appearance="outline">
+        <input matInput type="date" formControlName="dob" placeholder="DOB">
+    </mat-form-field>
+    <h6>Mobile Number
+        <button mat-button>
+            <i class="fa fa-edit"></i>
+        </button>
+    </h6>
+    <mat-form-field appearance="outline">
+        <input matInput formControlName="mobile" placeholder="Mobile Number">
+    </mat-form-field>
+
+    <h6>Email Address
+        <button mat-button>
+            <i class="fa fa-edit"></i>
+        </button>
+    </h6>
+    <mat-form-field appearance="outline">
+        <input matInput formControlName="email" placeholder="Email Address">
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" [disabled]="profileform.invalid" class=" my-2 w-100 login-login-btn">Update</button>
+</form>

@@ -101,7 +101,7 @@ export class WhishlistService {
               this.addToWhishlist(newWhislistProd);
             });
           }
-          console.log("itemsInWhishslist ", this.itemsInWhishslist);
+          //console.log("itemsInWhishslist ", this.itemsInWhishslist);
         }),
         (error) => {
           console.log(error);

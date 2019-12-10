@@ -1,15 +1,5 @@
 .my-profile-box{display: flex;}
-aside{
-    flex:  1 1 25%;
-    max-width: 25%;
-    background-color: #fff;
-}
-.product-list{
-    flex: 1 1 75%;
-    max-width: 75%;
-    background-color: #fff;
-    margin-left: 20px;
-}
+
 .profile-info{
     position: relative;padding: 10px 10px 10px 130px;
     font-size: 14px;

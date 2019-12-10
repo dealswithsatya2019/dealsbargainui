@@ -13,12 +13,12 @@ export class AuthService {
   private authToken: string = '';
 
   constructor(private _httpCommonService: HttCommonService, public dialog: MatDialog) { }
-    public isAuthenticated(): boolean {
-      const access_token = sessionStorage.getItem('access_token');
-      return access_token !== null;
+  public isAuthenticated(): boolean {
+    const access_token = sessionStorage.getItem('access_token');
+    return access_token !== null;
   }
 
-  public setAuthToken(authToken){
+  public setAuthToken(authToken) {
     this.authToken = authToken;
   }
   public funSignIn() {
@@ -30,21 +30,21 @@ export class AuthService {
     this.dialog.open(LoginComponent, dialogConfig);
   }
 
-  public registerUser(userName?,email?, mobile?, countryCode?, password?, key1?,key2?,key3?): Observable<any> {
+  public registerUser(userName?, email?, mobile?, countryCode?, password?, key1?, key2?, key3?): Observable<any> {
     let newUser = new RegisterUser();
     newUser.username = userName;
     newUser.email = email;
     newUser.mobile = mobile;
     newUser.password = password;
-    newUser.key= key1+'#'+key2+'#'+key3
+    newUser.key = key1 + '#' + key2 + '#' + key3
     newUser.countryCode = countryCode;
     return this._httpCommonService.postReq('register', JSON.stringify(newUser));
   }
 
-  public authenticateUser(userName?,password?,countryCode?, key1?,key2?,key3?): Observable<any> {
+  public authenticateUser(userName?, password?, countryCode?, key1?, key2?, key3?): Observable<any> {
     let authJson = {
-      "username":userName,
-      "password":password,
+      "username": userName,
+      "password": password,
       "countryCode": countryCode
     }
     return this._httpCommonService.postReq('authenticate', authJson);
@@ -52,8 +52,8 @@ export class AuthService {
 
   public sendOTP(mobile?, email?, countryCode?, action?): Observable<any> {
     let otpJson = {
-      "mobile":mobile,
-      "email":email,
+      "mobile": mobile,
+      "email": email,
       "countryCode": countryCode,
       "action": action,
       "emailOTP": "",
@@ -64,8 +64,8 @@ export class AuthService {
 
   public verifyEmailOTP(email?, emailOTP?, countryCode?, action?): Observable<any> {
     let otpJson = {
-      "email":email,
-      "emailOTP":emailOTP,
+      "email": email,
+      "emailOTP": emailOTP,
       "countryCode": countryCode,
       "action": action
     }
@@ -74,12 +74,22 @@ export class AuthService {
 
   public verifySmsOTP(mobile?, smsOTP?, countryCode?, action?): Observable<any> {
     let otpJson = {
-      "mobile":mobile,
-      "smsOTP":smsOTP,
+      "mobile": mobile,
+      "smsOTP": smsOTP,
       "countryCode": countryCode,
       "action": action
     }
     return this._httpCommonService.postReq('otp/sendsmsotp', otpJson);
+  }
+
+  public forgotPassword(countryCode?, password?, email?, mobile?): Observable<any> {
+    let body = {
+      "countryCode": countryCode,
+      "password": password,
+      "email": email,
+      "mobile": mobile
+    }
+    return this._httpCommonService.postRequest('otp/forgotpassword', body, this.authToken);
   }
 
 }

@@ -8,6 +8,7 @@ export class AppRoutes{
     static readonly ProductDetails='productdetails/:cname/:scname/:pid';
     static readonly DealsList='dealslist/:dealtype';
     static readonly UserProfile = 'myprofile';
+    static readonly ProfileInfo = 'profileinfo';
     static readonly UserPersonalInfo = 'personalinfo';
     static readonly UserOrders ='orders';
     static readonly UserWhishlist ='wishlist';
