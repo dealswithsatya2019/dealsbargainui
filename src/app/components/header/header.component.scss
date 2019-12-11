@@ -13,12 +13,13 @@
   }
   .container{max-width: 1300px;margin: auto;}
   .megaMenu + * .cdk-overlay-pane {
+    top: 117px !important;
     right: 30px;
     left: 30px !important;
     max-height: none !important;
     // top: 220px !important;
   }
- .menu{box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);background: #1b3664;margin-bottom: 10px;}
+ #menu, #mobile-menu{box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);background: #1b3664;margin-bottom: 10px;display: block;}
   .megaMenu + * .cdk-overlay-pane .mat-menu-panel{
     max-width: none;
     width: calc(100% - 15px) ;
@@ -71,8 +72,10 @@
     }
     .menu-btn{
       position: absolute;
-      bottom: 7px;
+      bottom: 6px;
       display: none;
+      min-width: 40px;
+      color: #1b3664;
     }
   }
   .info-toolbar{height: auto !important;
@@ -122,7 +125,7 @@
     
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     .top-toolbar{padding: 5px 10px;}
     .info-toolbar{
       padding: 10px;
@@ -130,8 +133,10 @@
     .swiper-slide mat-card{
       height: 300px !important;
     }
-    .menu{
+    #menu{
       display: none;
+    }
+    #mobile-menu{
       width: 200px;
       position: absolute;
       z-index: 99;
@@ -147,12 +152,13 @@
         min-width: 30px;
         padding: 0px 5px;
         font-size: 11px;
+        .hide-xs{display: none;}
       }
     }
     .swiper-slide mat-card{
       height: 200px !important;
     }
-    .menu-btn{display: inline-block;}
+    .menu-btn{display: inline-block !important;}
   }
 
   

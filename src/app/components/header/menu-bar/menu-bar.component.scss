@@ -11,11 +11,12 @@
     height: 100%;
 }
 button.mat-menu-item{
-    height: 34px;
+    height: 28px;
     line-height: 30px;
     .mat-button{
         font-size: 13px;font-weight: 400;
         color: #575555;
+        padding: 0px;
     }
 }
 .menu-title{

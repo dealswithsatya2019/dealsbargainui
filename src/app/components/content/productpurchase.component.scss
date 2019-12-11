@@ -14,6 +14,7 @@ ul{
     }
   }
 .checkout-card{
+    margin-top: -8px;
     width: 310px;
     background-color: #fff;
     .price-details{
@@ -166,10 +167,6 @@ form{
     border-radius: 5px;
     box-shadow: 1px 2px 4px 0px rgba(0,0,0,0.6);
 }
-mat-horizontal-stepper{
-    position: relative;
-}
-
 .step{
     padding: 5px 0px;
     flex: 1 1 25%;
@@ -303,7 +300,16 @@ mat-horizontal-stepper{
     font-weight: 700;
 }
 .purchase-container{
-    display: flex;padding-top: 75px;
+    display: flex;padding-top: 60px;
+    position: relative;
+}
+.edit-address{
+    color: blue;
+    padding: 0px 5px;
+}
+.delete-address{
+    color: red;
+    min-width: 40px;
 }
 @media screen and (max-width:991px){
     .address .mat-form-field{

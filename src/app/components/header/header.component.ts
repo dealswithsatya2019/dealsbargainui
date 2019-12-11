@@ -174,6 +174,6 @@ export class HeaderComponent implements OnInit {
     this._router.navigate(['/']);
   }
   toggleMenu() {
-    this.menuFlag = !this.menuFlag;
+   this.menuFlag = !this.menuFlag;
   }
 }

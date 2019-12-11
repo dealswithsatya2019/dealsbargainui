@@ -1,4 +1,31 @@
+.address-action-btn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span{
+        margin: 0px;
+        display: inline-block;
+        font-size: 13px;
+        background: #f7c015;
+        padding: 1px 8px;
+        border-radius: 13px;
+    }
+    .mat-button{
+        margin-left: 10px;
+        padding: 0px;
+        min-width: 40px;
+    }
+    .edit-address{
+        color: blue;
+    }
+    .delete-address{
+        color: red;
+    }
+}
 mat-form-field{
     width: 48%;
     margin-right: 2%;
+}
+.address{
+    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.3);
 }

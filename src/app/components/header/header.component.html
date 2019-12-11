@@ -26,7 +26,7 @@
             <a mat-button [routerLink]="['login']" *ngIf="!this.userservice.response"><i class="fa fa-unlock-alt"></i><span>Login & Signup</span></a>
             <ng-container *ngIf="this.userservice.response">
                 <button mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger"><i
-                        class="fa fa-user"></i><span>{{this.userservice.response.name}}</span></button>
+                        class="fa fa-user"></i><span class="hide-xs">{{this.userservice.response.name}}</span></button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item style="border-bottom: 1px solid #ccc;">
                         <a mat-button [routerLink]="['myprofile']">My Profile</a>
@@ -38,16 +38,19 @@
                         <a mat-button (click)="signOut()">Logout</a>
                     </button>
                 </mat-menu>
-                <a mat-button [routerLink]="['wishlist']"><i class="fa fa-heart"></i><span>Wishlist {{_whishlistService.getItems().length > 0 ? "("+_whishlistService.getItems().length+")" : ''}}</span></a>
+                <a mat-button [routerLink]="['wishlist']"><i class="fa fa-heart"></i><span class="hide-xs">Wishlist {{_whishlistService.getItems().length > 0 ? "("+_whishlistService.getItems().length+")" : ''}}</span></a>
             </ng-container>
-            <a mat-button [routerLink]="['mycart']"><i class='fa fa-check-square-o'></i><span>Checkout {{cartService.getItems().length > 0 ? "("+cartService.getItems().length+")" : ''}}</span></a>
+            <a mat-button [routerLink]="['mycart']"><i class='fa fa-check-square-o'></i><span class="hide-xs">Checkout {{cartService.getItems().length > 0 ? "("+cartService.getItems().length+")" : ''}}</span></a>
         </div>
         <!-- /#login & profile options -->
 
-        <button mat-raised-button class="menu-btn" (click)="toggleMenu">Menu</button>
+        <button mat-raised-button class="menu-btn" (click)="toggleMenu()"><i class="fa fa-bars"></i></button>
     </mat-toolbar-row> 
 </mat-toolbar>
-<div class="menu py-2 text-center">
+<div class="menu py-2 text-center" id="menu">
+    <app-menu-bar></app-menu-bar>
+</div>
+<div id="mobile-menu" *ngIf="menuFlag">
     <app-menu-bar></app-menu-bar>
 </div>
 

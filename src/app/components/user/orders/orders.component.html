@@ -1,52 +1,26 @@
-                    <!--- --- ORDERS --------  -->
-                   <!-- <h4>Order History</h4>
-                    <div class="order-details py-4" fxLayout="row">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Order ID</th>
-                                    <th>Order Date</th>
-                                    <th>Total Quality</th>
-                                    <th>Amount Paid </th>
-                                    <th>Status</th>
-                                    <th>Tracking </th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <td>162348148</td>
-                                <td>Sunday, September 2019</td>
-                                <td>1 Item</td>
-                                <td>4500</td>
-                                <td>Cancelled</td>
-                                <td>#</td>
-                                <td><button mat-button class="view-btn">View Details</button></td>
-                            </tbody>
-                        </table>
-                        
-                    </div>
-                    <!--- --- /#ORDERS --------  -->
-     
-                    <h4>Order History</h4>
-                    <div class="order-details py-4" fxLayout="row" *ngFor="let orderInfo of ordersListInfo">
-                        <p>Order ID<br> <b>{{orderInfo.order_tracking_id}}</b> </p>
-                        <p>Order Date<br> <b>{{orderInfo.created_on | date}}</b> </p>
-                        <p>Total Quality<br> <b>{{orderInfo.items_info.length}} Items</b> </p>
-                        <p>Amount Paid <br> <b> {{PRICE_PREFIX}} {{orderInfo.net_amount}}</b> </p>
-                        <p>Status <br> <b> </b> </p>
-                        <p>Tracking <br> <b>#</b> </p>
-                        <!--<button mat-button class="view-btn">View Details</button>-->
-                        
-                        <div class="review-order" fxLayout="row" *ngFor="let itemdetails of orderInfo.items_info">
-                            <div class="order-image">
-								<img class="image img-cursor" mat-card-image src="{{itemdetails.image}}" alt="photo"
-										(click)="showProductDetails({cname:itemdetails.category,scname:itemdetails.subcategory,pid:itemdetails.item_id})">
-                                <img src="{{itemdetails.image}}">
-                            </div>
-                            <div class="review-order-details">
-                                <p>{{itemdetails.title}}</p>
-                                <p>Ordered On <br> <b>{{orderInfo.created_on | date}}</b> </p>
-                            </div>
-                        </div>
-                    </div>
+
+    <!--- --- /#ORDERS --------  -->
+
+    <h5 class="mb-4">Order History</h5>
+    <div class="order-details py-4" *ngFor="let orderInfo of ordersListInfo">
+        <p class="order-id">Order ID : <b>{{orderInfo.order_tracking_id}}</b> </p>
+        <!-- <p>Order Date<br> <b>{{orderInfo.created_on | date}}</b> </p> -->
+        <!-- <p>Status <br> <b> </b> </p>
+        <p>Tracking <br> <b>#</b> </p> -->
+        <!--<button mat-button class="view-btn">View Details</button>-->
+        
+        <div class="review-order" fxLayout="row" *ngFor="let itemdetails of orderInfo.items_info">
+            <div class="order-image">
+                <img class="image img-cursor" mat-card-image src="{{itemdetails.image}}" alt="photo"
+                        (click)="showProductDetails({cname:itemdetails.category,scname:itemdetails.subcategory,pid:itemdetails.item_id})">
+                <!-- <img src="{{itemdetails.image}}"> -->
+            </div>
+            <div class="review-order-details">
+                <div class="product-name">{{itemdetails.title}}</div>
+                <div class="product-size">Qty : {{orderInfo.items_info.length}} Items </div>
+                <div class="product-price"> {{PRICE_PREFIX}} {{orderInfo.net_amount}} </div>
+                <div class="product-status">Delivered<span>({{orderInfo.created_on | date}})</span></div>
+            </div>
+        </div>
+    </div>
                    

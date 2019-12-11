@@ -91,3 +91,18 @@ mat-form-field{margin-right: 10px;}
     margin-bottom: auto;
     border: 1px solid#ccc;
 }
+@media screen and (max-width:575px){
+    .my-profile-box{flex-wrap: wrap;}
+    aside{
+        flex:  1 1 100%;
+        max-width: 100%;
+    }
+    .product-list{
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin-left: 0px;
+    }
+    .content-container{
+        padding: 0px 6px;
+    }
+}

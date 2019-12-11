@@ -10,7 +10,7 @@
         <div class="left-panel">
             <!-- #horstepper -->
             <mat-horizontal-stepper (selectionChange)="selectionChange($event)" linear>
-                <mat-step label="LOGIN" completed="{{isLogIn}}">
+                <mat-step label="Login" completed="{{isLogIn}}">
                     <div class="mb-3">
                         <!-- /#new customer login starts-->
                         <ng-container *ngIf="!this.userservice.getAuthToken()">
@@ -86,7 +86,7 @@
                     </div>
                 </mat-step>
 
-                <mat-step label="SHIPPING ADDRESS" [(completed)]="selectedAddressId">
+                <mat-step label="Shipping Address" [(completed)]="selectedAddressId">
                     <div class="mb-3">
                         <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedAddressId">
                             <ng-container *ngIf="addressInfo">
@@ -245,7 +245,7 @@
                     </div>
                 </mat-step>
 
-                <mat-step label="ORDER SUMMARY" [(completed)]="isCart">
+                <mat-step label="Order Summary" [(completed)]="isCart">
                     <div class="mb-3">
                         <ng-container *ngIf="shoppingCartItems">
                             <div class="order-1 py-3 mt-3" *ngFor='let cart of shoppingCartItems'>
@@ -300,7 +300,7 @@
                     </div>
                 </mat-step>
 
-                <mat-step label="PAYMENT" completed="false">
+                <mat-step label="Payment" completed="false">
                     <div>
                         <mat-radio-group aria-label="Select an option" class="py-3 d-block">
                             <mat-radio-button value="1" [checked]="true">Paypal</mat-radio-button>

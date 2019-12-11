@@ -4,4 +4,38 @@
 .mat-button{
     margin-right: 15px;
     color: #1b3664;
+    height: 30px;
+    line-height: 30px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+.certified{
+    font-size: 14px;
+    color: #505052;
+}
+.product-name{
+    margin-top: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+    color: #505052;
+    font-weight: 500;
+}
+.review-order{
+    padding-left: 145px;
+    border: 1px solid #ccc;
+    position: relative;
+}
+.order-image{
+    width: 100px;
+    position: absolute;
+    left: 15px;
+    img{max-width: 100%;}
+}
+.edit-btn{
+    color: blue;
+}
+.delete-btn{
+    color: red;
 }

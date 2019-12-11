@@ -1,15 +1,19 @@
 .review-order{
     position: relative;
-    padding-left: 200px;
-    border: 1px solid #ccc;
+    padding: 10px 10px 10px 140px;
+    box-shadow: 1px 1px 2px 2px rgba(0,0,0,0.15);
+    font-size: 15px;
 }
 .order-image img{max-width: 100%;}
 .order-image{
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     position: absolute;
-    top: 30px;
-    left: 30px;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.2);
+    cursor: pointer;
 }
 
 .img-cursor{
@@ -21,4 +25,32 @@
 }
 table{
     width: 100%;
+}
+.product-name{
+    margin-top: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+    color: #505052;
+    font-weight: 500;
+}
+.product-size{
+    color:#706c6c;
+    font-size: 14px;
+    line-height: 26px;
+}
+.product-price{
+    font-weight: 400;
+    color: #1b3664;
+}
+.product-status{
+    span{
+        font-size: 15px;
+        font-weight: 300;
+    }
+}
+.order-id{
+    display: flex;
+    margin-bottom: 10px;
 }

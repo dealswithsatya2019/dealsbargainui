@@ -5,31 +5,34 @@
     <p><b>Dealsbargain <span class="ml-4">9863545757</span></b></p>
     <p class="my-3" style="width: 60%;">Dealsbargain, Hyderabad,500023.</p>
 </div>-->
- 
+ <h5 class="mb-4">Saved Addresses</h5>
         <div class="mb-3">
-                <ng-container *ngIf="addressInfo">
-                    <ng-container *ngFor="let address of addressInfo.responseObjects">
-                        <div class="add1 my-3">
-                            <div class="address p-3">
-                                <h6>{{address.address_type == 2 ? 'Work' : 'Home'}}</h6>
-                                <p><b>{{address.name}} <span class="ml-4">{{address.mobile_number}}</span></b></p>
-                                <p class="my-3" style="width: 60%;">{{address.address}} ,{{address.city}},{{address.state}}.</p>
+            <ng-container *ngIf="addressInfo">
+                <ng-container *ngFor="let address of addressInfo.responseObjects">
+                    <div class="add1 my-3">
+                        <div class="address p-3">
+                            <div class="my-2 address-action-btn">
+                                <span> {{address.address_type == 2 ? 'Work' : 'Home'}}</span>
+                                
+                                <div>
+                                    <button mat-button class="edit-address" (click)="showAddressInfo(address.address_id)">Change Address</button>
+                                    <button mat-button class="delete-address" (click)="deleteAddressService(address.address_id)"><i class="fa fa-trash"></i></button>
+                                </div>
                             </div>
-
-                            <!--<mat-radio-button [value]="address.address_id">{{address.name}}
-                                <span class="px-1">{{address.address_type == 2 ? 'Work' : 'Home'}}</span>
-                                {{address.mobile_number}}
-                            </mat-radio-button>
-         
-                            <div class="pl-3">{{address.address}} ,{{address.city}},{{address.state}}.</div>-->
-                            <button mat-button class="edit-address"
-                                (click)="showAddressInfo(address.address_id)">Edit</button>
-                            <button mat-button class="delete-address"
-                                (click)="deleteAddressService(address.address_id)">Delete</button>
+                            <p>Mobile : <b>{{address.name}} <span class="ml+3">{{address.mobile_number}}</span></b></p>
+                            <p class="my-2" style="width: 60%;">{{address.address}} ,{{address.city}},{{address.state}}.</p>
                         </div>
-                    </ng-container>
+
+                        <!--<mat-radio-button [value]="address.address_id">{{address.name}}
+                            <span class="px-1">{{address.address_type == 2 ? 'Work' : 'Home'}}</span>
+                            {{address.mobile_number}}
+                        </mat-radio-button>
+        
+                        <div class="pl-3">{{address.address}} ,{{address.city}},{{address.state}}.</div>-->
+                        
+                    </div>
                 </ng-container>
-            
+            </ng-container>
         </div>
         <ng-container *ngIf="isUpdateAddress">
             <mat-expansion-panel class="mb-3" [(expanded)]="exp2">

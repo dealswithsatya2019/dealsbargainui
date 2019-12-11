@@ -8,6 +8,12 @@ body{
     background-color: #fafafa;
     font-family: 'Poppins', sans-serif !important;
 }
+@font-face {
+    font-family: 'whitney';
+    font-style: normal;
+    font-weight: 400;
+    src: url('assets/whitney/Whitney-Book.ttf') format('ttf');
+}
 .mat-button{
     font-family: 'Poppins', sans-serif !important;
 }
@@ -53,53 +59,83 @@ h1,h2,h3,h4,h5,h6,p{
     padding-bottom: 10px;
 }
 .mat-horizontal-stepper-header-container{
-    width: 598px;
-    margin: 10px auto 20px auto;
-    border-top: 4px solid #e79f37;
-    border-bottom: 4px solid #e79f37;
-    border-radius: 5px;
-    box-shadow: 1px 2px 4px 0px rgba(0,0,0,0.6);
+    // width: 598px;
+    // border-top: 4px solid #e79f37;
+    // border-bottom: 4px solid #e79f37;
+    // border-radius: 5px;
+    // box-shadow: 1px 2px 4px 0px rgba(0,0,0,0.6);
     position: absolute;
-    top: -85px;
+    top: -10px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #fff;
+    // background-color: #fff;
     height: 48px;
 }
+.mat-horizontal-stepper-header .mat-step-icon{
+    display: none;
+}
+.mat-step-label{
+    font-weight: 600;
+    font-family: poppins;
+    font-size: 17px;
+    text-transform: capitalize;
+}
+.mat-step-label-active{
+    color: #259c25 !important;
+}
 .mat-step-label-selected{
-    background-color: #ff9600;
+    // background-color: #ff9600;
+    color: #d61212 !important;
 }
 .mat-step-header .mat-step-icon-selected{
     background-color: transparent;
     border: 1px solid #333;
     color: #333;
 }
-.mat-step-label-selected::after{
-    content: '';
-    position: absolute;
-    width: 0px;height: 0px;
-    border-left: 15px solid #ff9600;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    right: -13px;
-    top: 15px;
-}
+// .mat-step-label-selected::after{
+//     content: '';
+//     position: absolute;
+//     width: 0px;height: 0px;
+//     border-left: 15px solid #ff9600;
+//     border-top: 10px solid transparent;
+//     border-bottom: 10px solid transparent;
+//     right: -13px;
+//     top: 15px;
+// }
 .mat-horizontal-stepper-header{
     height: 45px !important;
     padding: 0px !important;
 }
-.mat-horizontal-stepper-header .mat-step-icon{
-    margin: auto 0px auto 15px;
-    height: 19px;width: 19px;
-    font-size: 12px;
-}
+// .mat-horizontal-stepper-header .mat-step-icon{
+//     margin: auto 0px auto 15px;
+//     height: 19px;width: 19px;
+//     font-size: 12px;
+// }
 .mat-step-header .mat-step-label, .mat-step-header .mat-step-label.mat-step-label-active{
     height: 40px;
     line-height: 40px;
-    margin-left: -42px;
-    padding-left: 47px;
-    padding-right: 22px;
-    font-size: 13px;
+    // margin-left: -42px;
+    padding-left: 10px;
+    padding-right: 50px;
+    font-size: 16px;
+    &::after{
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 1px;
+        border: 1px dashed #737373;
+        right: 0px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+   
+}
+.mat-step-header:last-child{
+    .mat-step-label{
+        &::after{
+            display: none;
+        }
+    }
 }
 aside .mat-expansion-panel-header.mat-expanded{
     height: 48px !important;
@@ -232,9 +268,26 @@ aside .mat-expansion-panel-header.mat-expanded{
 .mat-form-field-appearance-outline .mat-form-field-label{
     top: 2.24375em;
 }
-@media screen and (min-width:1366px){
+.mat-form-field-appearance-outline .mat-form-field-outline-start{
+    border-radius: 0px !important;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline-end{
+    border-radius: 0px !important;
+}
+.mat-horizontal-content-container{
+    padding: 20px !important;
+}
+@media screen and (max-width:1500px){
     .content-container{
-        max-width: 1330px;
+        max-width: 1400px;
         margin: auto;
+    }
+}
+@media screen and (max-width:1500px){
+    .mat-step-label{
+        font-size: 10px;padding-right: 15px;
+        &::after{
+            width: 13px;
+        }
     }
 }
