@@ -4,6 +4,7 @@ import { FormBuilder , FormGroup } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
 import { UserService } from 'src/app/user.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-rateproduct',
@@ -28,6 +29,7 @@ export class RateproductComponent implements OnInit {
     private dialogRef: MatDialogRef<RateproductComponent>,
     public _productservice: ProductService,
     public userService: UserService,
+    public _alertService: AlertService,
     @Inject(MAT_DIALOG_DATA) data) {
     //this.description = data.description;
     this.comment = this.comment;
@@ -60,13 +62,15 @@ export class RateproductComponent implements OnInit {
         (authResponse: AuthResopnse) => {
           sessionStorage.setItem("authResponse", JSON.stringify(authResponse));
           if (authResponse.statusCode === 200) {
-            console.log('Success' + JSON.stringify(authResponse));
+            this._alertService.raiseAlert("Review successfully submitted.");
             this.close();
           } else {
+            this._alertService.raiseAlert("Unable to submit your review. Try again..");
             console.log('Failed' + JSON.stringify(authResponse));
           }
         });
     } catch (error) {
+      this._alertService.raiseAlert("Unable to submit your review. Try again..");
       console.log(error);
     }
     this.dialogRef.close(this.form.value);
@@ -77,17 +81,3 @@ export class RateproductComponent implements OnInit {
   }
 
 }
-/*
-http://localhost:8082/api/v1/reviews/create-review  
-{
-    "countryCode": "us",
-    "category": "books",
-    "subcategory": "Crafts  &  hobbies",
-    "item_id": "27144044",
-    "rating": "4",
-    "review_title": "good",
-    "comment": "good",
-    "master_suppler": "doba",
-    "product_recommended": "yes"
-}
-*/

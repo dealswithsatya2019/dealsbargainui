@@ -46,7 +46,9 @@ export class WhishlistService {
             this.addWhislistData = data
             item.quantity = 1;
             this.itemsInWhishslist.push(item);
-            this.raiseAlert("The item has been added to Whishlist")
+            this.raiseAlert("The item has been added to whishlist")
+          }else{
+            this.raiseAlert("Unable to add item into whishlist")
           }
         },
         (error: HttpErrorResponse) => {
@@ -66,6 +68,8 @@ export class WhishlistService {
           if (data.responseObjects && data.statusCode == 200) {
             this.raiseAlert("The selected item has been removed from Whishlist.");
             //this.itemsInWhishslist = this.itemsInWhishslist.filter(itemLoop => itemLoop.item_id != item.item_id);
+          }else{
+            this.raiseAlert("Unable to remove from whishlist.");
           }
         },
         (error) => {

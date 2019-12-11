@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ProfileInfo } from 'src/app/models/ProfileInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ export class UserService {
 
   response: any;
   private authToken: string;
+  private profileInfo: ProfileInfo = new ProfileInfo();
 
   constructor() {
     let accessToken = sessionStorage.getItem("access_token");
@@ -77,6 +79,14 @@ export class UserService {
 
   public getAuthToken(){
     return this.authToken;
+  }
+
+  public getProfileInfo(){
+    return this.profileInfo;
+  }
+
+  public setProfileInfo(profileInfo: ProfileInfo){
+    return this.profileInfo.setValues(profileInfo);
   }
 
 }

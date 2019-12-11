@@ -26,10 +26,10 @@
             <a mat-button [routerLink]="['login']" *ngIf="!this.userservice.response"><i class="fa fa-unlock-alt"></i><span>Login & Signup</span></a>
             <ng-container *ngIf="this.userservice.response">
                 <button mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger"><i
-                        class="fa fa-user"></i><span class="hide-xs">{{this.userservice.response.name}}</span></button>
+                        class="fa fa-user"></i><span class="hide-xs">{{this.userservice.getProfileInfo().user_name}}</span></button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item style="border-bottom: 1px solid #ccc;">
-                        <a mat-button [routerLink]="['myprofile']">My Profile</a>
+                        <a mat-button [routerLink]="['myprofile', { outlets: { 'profileoutlet': ['profileinfo'] } }]">My Profile</a>
                     </button>
                     <button mat-menu-item style="border-bottom: 1px solid #ccc;">
                         <a mat-button [routerLink]="['orders']">My Orders</a>
@@ -38,7 +38,7 @@
                         <a mat-button (click)="signOut()">Logout</a>
                     </button>
                 </mat-menu>
-                <a mat-button [routerLink]="['wishlist']"><i class="fa fa-heart"></i><span class="hide-xs">Wishlist {{_whishlistService.getItems().length > 0 ? "("+_whishlistService.getItems().length+")" : ''}}</span></a>
+                <a mat-button [routerLink]="['myprofile', { outlets: { 'profileoutlet': ['wishlist'] } }]"><i class="fa fa-heart"></i><span class="hide-xs">My Wishlist {{_whishlistService.getItems().length > 0 ? "("+_whishlistService.getItems().length+")" : ''}}</span></a>
             </ng-container>
             <a mat-button [routerLink]="['mycart']"><i class='fa fa-check-square-o'></i><span class="hide-xs">Checkout {{cartService.getItems().length > 0 ? "("+cartService.getItems().length+")" : ''}}</span></a>
         </div>

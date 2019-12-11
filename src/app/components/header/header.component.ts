@@ -19,6 +19,7 @@ import { environment } from 'src/environments/environment';
 import { CartService } from 'src/app/services/cart.service';
 import { WhishlistService } from 'src/app/services/whishlist.service';
 import { ProductService } from 'src/app/services/product.service';
+import { MyprofileService } from 'src/app/services/myprofile.service';
 
 
 @Component({
@@ -45,7 +46,8 @@ export class HeaderComponent implements OnInit {
   }
   constructor(public dialog: MatDialog, public userservice: UserService, public _socioAuthServ: AuthService,
     public _router: Router, private http: HttpClient, private renderer: Renderer2, public cartService: CartService,
-    public _whishlistService: WhishlistService, public _productservice: ProductService) { }
+    public _whishlistService: WhishlistService, public _productservice: ProductService,
+    public _profileInfoService: MyprofileService) { }
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   options = { headers: this.headers };
   url = this.APIEndpoint + '/dashboard/fuzzysearch';
@@ -102,6 +104,7 @@ export class HeaderComponent implements OnInit {
       this.userservice.setAuthToken(access_token);
       this._whishlistService.updateWhishlist();
     }
+    this._profileInfoService.funSetUserProfile();
     this.searchMoviesCtrl.valueChanges
       .pipe(
         debounceTime(500),

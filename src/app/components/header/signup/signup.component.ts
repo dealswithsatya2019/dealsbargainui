@@ -10,6 +10,7 @@ import { UserService } from 'src/app/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { WhishlistService } from 'src/app/services/whishlist.service';
 import { Validators } from '@angular/forms';
+import { MyprofileService } from 'src/app/services/myprofile.service';
 
 @Component({
   selector: 'app-signup',
@@ -29,7 +30,8 @@ export class SignupComponent implements OnInit {
     public encryptionService: EncryptionService,
     public  whishlistService: WhishlistService,
     public _userSerive: UserService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public _profileInfoService: MyprofileService,
   ) { 
     this.snackBarConfig = new MatSnackBarConfig();
     this.snackBarConfig.horizontalPosition = "center";
@@ -158,6 +160,7 @@ export class SignupComponent implements OnInit {
             console.log('Success' + JSON.stringify(authResponse));
             sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
+            this._profileInfoService.funSetUserProfile();
             // this.funClose();
             this.whishlistService.updateWhishlist();
             this.issentotp=false;

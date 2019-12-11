@@ -15,6 +15,7 @@ import { AuthResopnse } from 'src/app/models/AuthResponse';
 import { LoginformService } from 'src/app/services/forms/loginform.service';
 import { WhishlistService } from 'src/app/services/whishlist.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { MyprofileService } from 'src/app/services/myprofile.service';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,8 @@ export class LoginComponent implements OnInit {
               public encryptionService: EncryptionService,
               public whishlistService: WhishlistService,
               private _snackBar: MatSnackBar,
-              public _userSerive: UserService
+              public _userSerive: UserService,
+              public _profileInfoService: MyprofileService
             ) { }
 
   ngOnInit() {
@@ -104,7 +106,8 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
           this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
           this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
-          // this.funClose();
+          // this.funClose();\
+          this._profileInfoService.funSetUserProfile();
           this.whishlistService.updateWhishlist();
           this.router.navigateByUrl('/home');
         }else{

@@ -11,14 +11,14 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const expectedRole = next.data.datepropsample;
-    console.log(expectedRole);
+    /*const expectedRole = next.data.datepropsample;
+    console.log(expectedRole);*/
     if (!this.auth.isAuthenticated()) {
       this.auth.funSignIn();
-      console.log('Not Authenicted ....');
+      //console.log('Not Authenicted ....');
       return false;
     }
-    console.log('Authenicted ....');
+   // console.log('Authenicted ....');
     return true;
   }
 

@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit,AfterViewInit {
+export class ProfileComponent implements OnInit{ //,AfterViewInit {
 
   constructor(public userservice : UserService,
     public _socioAuthServ: AuthService,
@@ -34,9 +34,9 @@ export class ProfileComponent implements OnInit,AfterViewInit {
     */
   }
 
-  ngAfterViewInit(){
+  /*ngAfterViewInit(){
     this._router.navigate(['myprofile', { outlets: { 'profileoutlet': ['profileinfo'] } }]);
-  }
+  }*/
 
 
   funUpdate() {

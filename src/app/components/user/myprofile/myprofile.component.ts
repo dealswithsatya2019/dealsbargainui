@@ -9,6 +9,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { AuthService as UserAuth } from 'src/app/services/auth.service';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserService } from 'src/app/user.service';
 @Component({
   selector: 'app-myprofile',
   templateUrl: './myprofile.component.html',
@@ -18,7 +19,8 @@ export class MyprofileComponent implements OnInit, OnDestroy {
 
   constructor(public _profileInfoService: MyprofileService, 
     public _alertService: AlertService,
-    public _userAuth: UserAuth) { }
+    public _userAuth: UserAuth,
+    public _userService: UserService) { }
 
   subscriptions: Subscription = new Subscription();
   updatedMobileNumber = '';
@@ -41,27 +43,11 @@ export class MyprofileComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit() {
-    this.getUserProfile();
+    this.setProfileFormValues(this._userService.getProfileInfo());
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-
-  public getUserProfile() {
-    this.subscriptions.add(this._profileInfoService.getUserProfile('us').subscribe(
-      (data) => {
-        if (data.statusDesc == 'USER_FOUND') {
-          if(data.responseObject && data.responseObject.length >0){
-            this.setProfileFormValues(data.responseObject[0]);
-          }
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    ));
   }
 
   public setProfileFormValues(profileInfo: ProfileInfo) {

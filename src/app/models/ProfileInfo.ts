@@ -15,4 +15,15 @@ export class ProfileInfo {
     login_failures: string = "";
     social_login_type: string = "";
     street: string = ""
+
+    setValues(profileInfo :ProfileInfo){
+        this.user_id = profileInfo.user_id;
+        this.user_name= profileInfo.user_name;
+        this.mobile= profileInfo.mobile;
+        this.email= profileInfo.email;
+        this.first_name= profileInfo.first_name;
+        this.mid_name= profileInfo.mid_name;
+        this.last_name= profileInfo.last_name;
+        this.street= profileInfo.street;
+    }
 }

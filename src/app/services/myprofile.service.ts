@@ -25,5 +25,19 @@ export class MyprofileService {
     return this._httpCommonService.postRequest('user/updateUserProfile', updateProfileJson, this._userService.getAuthToken());
   }
 
+  public funSetUserProfile(){
+    this.getUserProfile('us').subscribe(
+      (data) => {
+        if (data.statusDesc == 'USER_FOUND') {
+          if(data.responseObject && data.responseObject.length >0){
+            this._userService.setProfileInfo(data.responseObject[0]);
+          }
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
   
 }
