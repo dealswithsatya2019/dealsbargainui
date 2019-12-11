@@ -135,7 +135,10 @@ export class ProductpurchaseComponent implements OnInit {
                   value: 0.01,
                 }
               }
-            ]
+            ], application_context: {
+              'shipping_preference': 'NO_SHIPPING',
+              "locale": "en-US",              
+            }
           });
         },
         onApprove: async (data, actions) => {
@@ -451,12 +454,12 @@ export class ProductpurchaseComponent implements OnInit {
   public createOrder(orderId: string) {
     this.subscriptions.add(this.createOrderHttp(orderId).subscribe(data => {
       this.createOrderData = data;
-      console.log("Order Status :",this.createOrderData.statusCode);
+      console.log("Order Status :", this.createOrderData.statusCode);
       if (this.createOrderData != null && this.createOrderData.statusCode == 200) {
-        console.log("Order Status myprofile:",this.createOrderData.statusCode);
+        console.log("Order Status myprofile:", this.createOrderData.statusCode);
         this._router.navigate(['myprofile', { outlets: { 'profileoutlet': ['orders'] } }]);
       } else {
-        console.log("Order Status mycart:",this.createOrderData.statusCode);
+        console.log("Order Status mycart:", this.createOrderData.statusCode);
         this._router.navigateByUrl("/mycart");
       }
     }));
