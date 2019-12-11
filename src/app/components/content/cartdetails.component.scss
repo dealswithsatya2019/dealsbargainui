@@ -47,12 +47,10 @@
     background-color: #fff;
 }
 .remove-btn{
-    color: #ff9600;
-    font-weight: 400;
-    height: 32px;
-    line-height: 27px;
-    padding: 0px 10px;
-    font-size: 13px;
+    color: #1b3664;
+    font-weight: 500;
+    padding: 0px;
+    font-size: 15px;
 }
 
 .old_cost{
@@ -63,6 +61,9 @@
   }
   .new_cost{
     font-size: 16px;
-    color: #ff9600;
+    color: #000;
     font-weight: 700;
+  }
+  .delv-date{
+      font-size: 12px;
   }

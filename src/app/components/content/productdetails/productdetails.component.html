@@ -1,7 +1,7 @@
 <div class="content-container product-details">
 		<mat-toolbar-row>
 			{{result}}
-			<ul>
+			<ul class="breadcrumb">
 				<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
 				<li><a (click)="routeToProductListPage({cname:cname,scname:scname})" routerLinkActive="active">{{productDetails.display_name_category}}</a></li>
 				<li><a >{{productDetails.display_name_middle_subcategory}}</a></li>

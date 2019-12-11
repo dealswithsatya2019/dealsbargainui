@@ -1,18 +1,4 @@
-ul{
-  padding: 0px;list-style: none;
-  li{display: inline;position: relative;padding-right: 25px;font-size: 14px}
-  li::after{
-    content: '>';
-    position: absolute;
-    right: 9px;
-    top: 0px;
-  }
-  li:last-child{
-    &::after{
-      content: '';
-    }
-  }
-}
+
 .left-details{flex: 1 1 45%; box-sizing: border-box; max-width: 45%;display: flex;height: 450px;}
 .right-details{
   flex: 1 1 55%; box-sizing: border-box; max-width: 55%;
@@ -475,10 +461,5 @@ h5{
     opacity: 0.4;
     order: 1;
   }
-  ul{
-    li{padding-right: 13px;font-size: 11px;}
-    li::after{
-      right: 4px;
-    }
-  }
+  
 }

@@ -1,18 +1,4 @@
-ul{
-    padding: 0px;list-style: none;
-    li{display: inline;position: relative;padding-right: 25px;font-size: 14px}
-    li::after{
-      content: '>';
-      position: absolute;
-      right: 9px;
-      top: 0px;
-    }
-    li:last-child{
-      &::after{
-        content: '';
-      }
-    }
-  }
+
 .checkout-card{
     margin-top: -8px;
     width: 310px;
@@ -202,7 +188,7 @@ form{
     form{margin: auto;}
 }
 .pt-5.text-center .mat-button{
-    border: 1px solid #ff9600;
+    border: 1px solid #757370;
     border-radius: 50%;
     width: 40px !important;
     height: 40px;
@@ -283,9 +269,9 @@ form{
     background-color: #fff;
 }
 .remove-btn{
-    color: #ff9600;
-    font-weight: 400;
-    border: 1px solid #ff9600;
+    color: #1b3664;
+    font-weight: 500;
+    padding: 0px;
 }
 .old_cost{
     font-size: 16px;
@@ -296,7 +282,7 @@ form{
 .mat-form-field{font-size: 14px;}
 .new_cost{
     font-size: 16px;
-    color: #ff9600;
+    color: #000;
     font-weight: 700;
 }
 .purchase-container{
@@ -304,11 +290,11 @@ form{
     position: relative;
 }
 .edit-address{
-    color: blue;
+    color: #2d5291;
     padding: 0px 5px;
 }
 .delete-address{
-    color: red;
+    color: #ec4c4c;
     min-width: 40px;
 }
 @media screen and (max-width:991px){
@@ -325,12 +311,4 @@ form{
     }
 }
 
-@media screen and (max-width:575px){
-    ul{
-      li{padding-right: 13px;font-size: 11px;}
-      li::after{
-        right: 4px;
-      }
-    }
-  }
 

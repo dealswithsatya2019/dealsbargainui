@@ -21,7 +21,9 @@ a, a:hover{
     text-decoration: none;
 }
 .content-container{
+    max-width: 1400px;
     padding: 0px 15px;
+    margin: auto;
 }
 h1,h2,h3,h4,h5,h6,p{
     margin: 0px;
@@ -59,76 +61,70 @@ h1,h2,h3,h4,h5,h6,p{
     padding-bottom: 10px;
 }
 .mat-horizontal-stepper-header-container{
-    // width: 598px;
-    // border-top: 4px solid #e79f37;
-    // border-bottom: 4px solid #e79f37;
-    // border-radius: 5px;
-    // box-shadow: 1px 2px 4px 0px rgba(0,0,0,0.6);
+    width: 628px;
+    border-top: 4px solid #9c5f28;
+    border-bottom: 4px solid #9c5f28;
+    border-radius: 5px;
+    box-shadow: 1px 2px 4px 0px rgba(0,0,0,0.6);
     position: absolute;
     top: -10px;
     left: 50%;
     transform: translateX(-50%);
-    // background-color: #fff;
-    height: 48px;
+    background-color: #fff;
+    height: 47px;
+    justify-content: space-around;
 }
-.mat-horizontal-stepper-header .mat-step-icon{
-    display: none;
-}
+// .mat-horizontal-stepper-header .mat-step-icon{
+//     display: none;
+// }
 .mat-step-label{
-    font-weight: 600;
+    font-weight: 400;
     font-family: poppins;
-    font-size: 17px;
+    font-size: 15px;
     text-transform: capitalize;
+    background-color: #fff;
 }
 .mat-step-label-active{
-    color: #259c25 !important;
+    color: #9c5f28 !important;
 }
 .mat-step-label-selected{
-    // background-color: #ff9600;
-    color: #d61212 !important;
+    background-color: #9c5f28;
+    color: #fff !important;
 }
 .mat-step-header .mat-step-icon-selected{
     background-color: transparent;
     border: 1px solid #333;
     color: #333;
 }
-// .mat-step-label-selected::after{
-//     content: '';
-//     position: absolute;
-//     width: 0px;height: 0px;
-//     border-left: 15px solid #ff9600;
-//     border-top: 10px solid transparent;
-//     border-bottom: 10px solid transparent;
-//     right: -13px;
-//     top: 15px;
-// }
+.mat-step-label-selected::after{
+    content: '';
+    position: absolute;
+    width: 7px;height: 47px;
+    // border-left: 15px solid #ff9600;
+    // border-top: 10px solid transparent;
+    // border-bottom: 10px solid transparent;
+    left: -1px;
+    top: 0px;
+    background: #9c5f28;
+}
 .mat-horizontal-stepper-header{
     height: 45px !important;
     padding: 0px !important;
 }
-// .mat-horizontal-stepper-header .mat-step-icon{
-//     margin: auto 0px auto 15px;
-//     height: 19px;width: 19px;
-//     font-size: 12px;
-// }
+.mat-horizontal-stepper-header .mat-step-icon{
+    margin: auto 0px auto 15px;
+    height: 19px;width: 19px;
+    font-size: 11px;
+    color: #fff;
+    border: 1px solid #fff;
+}
 .mat-step-header .mat-step-label, .mat-step-header .mat-step-label.mat-step-label-active{
     height: 40px;
     line-height: 40px;
-    // margin-left: -42px;
-    padding-left: 10px;
-    padding-right: 50px;
     font-size: 16px;
-    &::after{
-        content: "";
-        position: absolute;
-        width: 40px;
-        height: 1px;
-        border: 1px dashed #737373;
-        right: 0px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-   
+    padding: 0px 16px 0px 40px;
+    margin-left: -40px;
+
 }
 .mat-step-header:last-child{
     .mat-step-label{
@@ -277,17 +273,42 @@ aside .mat-expansion-panel-header.mat-expanded{
 .mat-horizontal-content-container{
     padding: 20px !important;
 }
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit{
+    background-color: #9c5f28 !important;
+}
+ul.breadcrumb{
+    padding: 0px;list-style: none;
+    background-color: transparent;
+    li{display: inline;position: relative;padding-right: 25px;font-size: 14px}
+    li::after{
+      content: '>';
+      position: absolute;
+      right: 9px;
+      top: 0px;
+    }
+    li:last-child{
+      &::after{
+        content: '';
+      }
+    }
+}
 @media screen and (max-width:1500px){
     .content-container{
         max-width: 1400px;
         margin: auto;
     }
 }
-@media screen and (max-width:1500px){
+@media screen and (max-width:575px){
     .mat-step-label{
         font-size: 10px;padding-right: 15px;
         &::after{
             width: 13px;
+        }
+    }
+    ul.breadcrumb{
+        li{padding-right: 13px;font-size: 11px;}
+        li::after{
+          right: 4px;
         }
     }
 }

@@ -8,20 +8,9 @@
     font-weight: 400;
     background-color: #f2f2f2;
 }
-.logo{
-    width: 120px;
-    margin: auto;
-}
+
 .login-logo{position: absolute;left: 21%;top: 6px;width: 23px;}
-.close-btn{
-    float: right;
-    min-width: 21px;
-    height: 21px;
-    padding: 0px;
-    line-height: 11px;
-    border-radius: 50%;
-    outline: none;
-}
+
 mat-checkbox{
     font-size: 14px;
     white-space: pre-wrap;
@@ -30,20 +19,5 @@ mat-checkbox{
     background: url('../../../../assets/img/71.jpg') no-repeat;
     background-size: cover;
     margin: -10px -15px -15px -15px;
-    padding: 5% 0px 0px 5%;
-}
-ul{
-    padding: 0px;list-style: none;
-    li{display: inline;position: relative;padding-right: 25px;font-size: 14px}
-    li::after{
-      content: '>';
-      position: absolute;
-      right: 9px;
-      top: 0px;
-    }
-    li:last-child{
-      &::after{
-        content: '';
-      }
-    }
+    padding: 5% 0px 5% 0px;
 }

@@ -1,4 +1,4 @@
-<h4>Personal Information</h4>
+<h5 class="mb-4">Personal Information</h5>
 <form [formGroup]="profileform" (submit)="updateUserProfile()">
     <mat-form-field appearance="outline" class="mr-4">
         <input matInput  formControlName="firstname" placeholder="First Name">
@@ -23,7 +23,7 @@
         <input matInput formControlName="mobile" placeholder="Mobile Number">
     </mat-form-field>
     <ng-container *ngIf="isSMSEdit==true">
-        <i (click)="sendSmsOTP()">Save</i>
+        <i (click)="sendSmsOTP()" class="ml-2">Save</i>
     </ng-container>
     <ng-container *ngIf="isSMSOtpSent==true">
         <input matInput  [value]='smsOTP' placeholder="Enter OTP">
@@ -38,7 +38,7 @@
     </mat-form-field>
 
     <ng-container *ngIf="isEmailEdit==true">
-        <i (click)="sendEmailOTP()">Save</i>
+        <i (click)="sendEmailOTP()" class="ml-2">Save</i>
     </ng-container>
     
 
@@ -47,5 +47,5 @@
         <i (click)="verifyAndSaveEmail()">Verify</i>
     </ng-container>
 
-    <button mat-raised-button type="submit" [disabled]="profileform.invalid" class=" my-2 w-100 login-login-btn">Update</button>
+    <button mat-raised-button type="submit" [disabled]="profileform.invalid" class=" my-2 mx-auto login-login-btn">Update</button>
 </form>
