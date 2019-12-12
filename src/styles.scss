@@ -61,7 +61,7 @@ h1,h2,h3,h4,h5,h6,p{
     padding-bottom: 10px;
 }
 .mat-horizontal-stepper-header-container{
-    width: 628px;
+    width: 567px;
     border-top: 4px solid #9c5f28;
     border-bottom: 4px solid #9c5f28;
     border-radius: 5px;
@@ -103,7 +103,7 @@ h1,h2,h3,h4,h5,h6,p{
     // border-left: 15px solid #ff9600;
     // border-top: 10px solid transparent;
     // border-bottom: 10px solid transparent;
-    left: -1px;
+    left: 0px;
     top: 0px;
     background: #9c5f28;
 }
@@ -119,11 +119,11 @@ h1,h2,h3,h4,h5,h6,p{
     border: 1px solid #fff;
 }
 .mat-step-header .mat-step-label, .mat-step-header .mat-step-label.mat-step-label-active{
-    height: 40px;
+    height: 39px;
     line-height: 40px;
-    font-size: 16px;
+    font-size: 14px;
     padding: 0px 16px 0px 40px;
-    margin-left: -40px;
+    margin-left: -41px;
 
 }
 .mat-step-header:last-child{
