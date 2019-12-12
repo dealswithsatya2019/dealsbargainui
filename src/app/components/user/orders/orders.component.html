@@ -1,7 +1,10 @@
 
     <!--- --- /#ORDERS --------  -->
 
-    <h5 class="mb-4">Order History</h5>
+    <h5 class="mb-4">My Orders</h5>
+    <ng-container *ngIf="ordersListInfo && ordersListInfo.length ==0">
+        Your orders list is empty. 
+    </ng-container>
     <div class="order-details py-4" *ngFor="let orderInfo of ordersListInfo">
         <p class="order-id">Order ID : <b>{{orderInfo.order_tracking_id}}</b> </p>
         <!-- <p>Order Date<br> <b>{{orderInfo.created_on | date}}</b> </p> -->
@@ -20,6 +23,8 @@
                 <div class="product-size">Qty : {{orderInfo.items_info.length}} Items </div>
                 <div class="product-price"> {{PRICE_PREFIX}} {{orderInfo.net_amount}} </div>
                 <div class="product-status">Delivered<span>({{orderInfo.created_on | date}})</span></div>
+                <button mat-button class="view-btn" (click) = "cancelOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Cancel</button>
+                <button mat-button class="view-btn" (click) = "returnOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Return</button>
             </div>
         </div>
     </div>

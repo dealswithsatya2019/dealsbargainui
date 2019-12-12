@@ -22,10 +22,11 @@ export class ForgotpasswordComponent implements OnInit {
     public _userService: UserService) { }
 
   subscriptions: Subscription = new Subscription();
-  emailOrMobile ='';
+  emailOrMobile : string='';
   isEmailOtpSent = false;
   emailOTP = '';
   password = '';
+  errorMsg='';
   
   ngOnInit() {
   }
@@ -40,6 +41,10 @@ export class ForgotpasswordComponent implements OnInit {
 
   
   sendEmailOTP() {
+/*    if(this.emailOrMobile.length ==0){
+      this.errorMsg = "Email or mobile is required.";
+      return;
+    }*/
     this._userAuth.sendOTP('', this.emailOrMobile, 'us', 'forgotpassword').subscribe(
       (authResponse: AuthResopnse) => {
         if (authResponse.statusCode === 201) {
@@ -75,18 +80,18 @@ export class ForgotpasswordComponent implements OnInit {
   public updateNewPassowrd() {
     this.subscriptions.add(this._userAuth.forgotPassword('us',this.password,this.emailOrMobile,'').subscribe(
       (data) => {
-        if (data.statusDesc == 'UPDATE_SUCCESS') {
+        if (data.statusDesc == 'FORGOT_PASSWORD_UPDATE_SUCCESS') {
           this.isEmailOtpSent = false;
           this._alertService.raiseAlert("Password resets successfully.");
           this.funClose();
         } else {
           console.log(data);
-          this._alertService.raiseAlert("Failed to update profile.");
+          this._alertService.raiseAlert("Failed to update new password.");
         }
       },
       (error) => {
         console.log(error);
-        this._alertService.raiseAlert("Failed to update profile.");
+        this._alertService.raiseAlert("Failed to update new password.");
       }
     ));
   }

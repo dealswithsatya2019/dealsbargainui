@@ -4,23 +4,19 @@ import { Observable } from 'rxjs';
 import { MatDialogConfig, MatDialog, _countGroupLabelsBeforeOption } from '@angular/material';
 import { LoginComponent } from 'src/app/components/header/login/login.component';
 import { RegisterUser } from 'src/app/models/RegisterUser';
+import { UserService } from 'src/app/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private authToken: string = '';
-
-  constructor(private _httpCommonService: HttCommonService, public dialog: MatDialog) { }
+  constructor(private _httpCommonService: HttCommonService, public dialog: MatDialog, public _userService: UserService) { }
   public isAuthenticated(): boolean {
     const access_token = sessionStorage.getItem('access_token');
     return access_token !== null;
   }
 
-  public setAuthToken(authToken) {
-    this.authToken = authToken;
-  }
   public funSignIn() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -89,7 +85,18 @@ export class AuthService {
       "email": email,
       "mobile": mobile
     }
-    return this._httpCommonService.postRequest('otp/forgotpassword', body, this.authToken);
+    return this._httpCommonService.postRequest('otp/forgotpassword', body, this._userService.getAuthToken());
+  }
+
+  public changePassword(countryCode?, oldpassword?,newpassword?, email?, mobile?): Observable<any> {
+    let body = {
+      "countryCode": countryCode,
+      "oldpassword": oldpassword,
+      "password": newpassword,
+      "email": email,
+      "mobile": mobile
+    }
+    return this._httpCommonService.postRequest('otp/forgotpassword', body, this._userService.getAuthToken());
   }
 
 }

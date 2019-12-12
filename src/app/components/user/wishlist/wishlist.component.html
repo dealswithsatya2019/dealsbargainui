@@ -1,5 +1,9 @@
 <ng-container *ngIf="actionType=='' || actionType=='list'">
+    <h5 class="mb-4">My Whishlist</h5>
     <div class="content-container mt-4">
+        <ng-container *ngIf="this._whishlistService.itemsInWhishslist && this._whishlistService.itemsInWhishslist.length == 0">
+            Your whish list is empty
+        </ng-container>
         <ng-container *ngIf="this._whishlistService.itemsInWhishslist">
             <div class="order-1 py-3" *ngFor='let product of this._whishlistService.itemsInWhishslist'>
                 <div class="order-item" style="display: flex;">
