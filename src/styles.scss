@@ -54,84 +54,150 @@ h1,h2,h3,h4,h5,h6,p{
     margin: 5px 15px 5px 15px !important;
     height: 20px;
 }
-// .mat-progress-bar-fill::after {
-//     background-color: #3d7f33 !important;
-// }
+
 .add-bottom-padding{
     padding-bottom: 10px;
 }
-.mat-horizontal-stepper-header-container{
-    width: 567px;
-    border-top: 4px solid #9c5f28;
-    border-bottom: 4px solid #9c5f28;
-    border-radius: 5px;
-    box-shadow: 1px 2px 4px 0px rgba(0,0,0,0.6);
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #fff;
-    height: 47px;
-    justify-content: space-around;
-}
-// .mat-horizontal-stepper-header .mat-step-icon{
-//     display: none;
-// }
-.mat-step-label{
-    font-weight: 400;
-    font-family: poppins;
-    font-size: 15px;
-    text-transform: capitalize;
-    background-color: #fff;
-}
-.mat-step-label-active{
-    color: #9c5f28 !important;
-}
-.mat-step-label-selected{
-    background-color: #9c5f28;
-    color: #fff !important;
-}
-.mat-step-header .mat-step-icon-selected{
-    background-color: transparent;
-    border: 1px solid #333;
-    color: #333;
-}
-.mat-step-label-selected::after{
-    content: '';
-    position: absolute;
-    width: 7px;height: 47px;
-    // border-left: 15px solid #ff9600;
-    // border-top: 10px solid transparent;
-    // border-bottom: 10px solid transparent;
-    left: 0px;
-    top: 0px;
-    background: #9c5f28;
-}
-.mat-horizontal-stepper-header{
-    height: 45px !important;
-    padding: 0px !important;
-}
-.mat-horizontal-stepper-header .mat-step-icon{
-    margin: auto 0px auto 15px;
-    height: 19px;width: 19px;
-    font-size: 11px;
-    color: #fff;
-    border: 1px solid #fff;
-}
-.mat-step-header .mat-step-label, .mat-step-header .mat-step-label.mat-step-label-active{
-    height: 39px;
-    line-height: 40px;
-    font-size: 14px;
-    padding: 0px 16px 0px 40px;
-    margin-left: -41px;
-
-}
-.mat-step-header:last-child{
+.purchase-container{
+    .mat-horizontal-stepper-header-container{
+        width: 567px;
+        border-top: 4px solid #9c5f28;
+        border-bottom: 4px solid #9c5f28;
+        border-radius: 5px;
+        box-shadow: 1px 2px 4px 0px rgba(0,0,0,0.6);
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #fff;
+        height: 47px;
+        justify-content: space-around;
+    }
     .mat-step-label{
+        font-weight: 400;
+        font-family: poppins;
+        font-size: 15px;
+        text-transform: capitalize;
+        background-color: #fff;
+    }
+    .mat-step-label-active{
+        color: #9c5f28 !important;
+    }
+    .mat-step-label-selected{
+        background-color: #9c5f28;
+        color: #fff !important;
+    }
+    .mat-step-header .mat-step-icon-selected{
+        background-color: transparent;
+        border: 1px solid #333;
+        color: #333;
+    }
+    .mat-step-label-selected::after{
+        content: '';
+        position: absolute;
+        width: 7px;height: 47px;
+        left: 0px;
+        top: 0px;
+        background: #9c5f28;
+    }
+    .mat-horizontal-stepper-header{
+        height: 45px !important;
+        padding: 0px !important;
+    }
+    .mat-horizontal-stepper-header .mat-step-icon{
+        margin: auto 0px auto 15px;
+        height: 19px;width: 19px;
+        font-size: 11px;
+        color: #fff;
+        border: 1px solid #fff;
+    }
+    .mat-step-header .mat-step-label, .mat-step-header .mat-step-label.mat-step-label-active{
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        padding: 0px 16px 0px 40px;
+        margin-left: -32px;
+    }
+    .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit{
+        background-color: #9c5f28 !important;
+    }
+    .mat-step-header:last-child{
+        .mat-step-label{
+            &::after{
+                display: none;
+            }
+        }
+    }
+}
+.order-cycle{
+    .mat-stepper-label-position-bottom .mat-horizontal-stepper-header{
+        padding: 24px 40px;
+    }
+    .mat-horizontal-stepper-header-container{
+        align-items: baseline;
+    }
+    .mat-step-icon{
+        background-color: rgba(0,0,0,.54);
+        width: 16px;
+        height: 16px;
+    }
+    .mat-step-header .mat-step-icon-selected{
+        background-color: green;
+    }
+    .mat-step-label-selected{
+        color: green !important;
+        font-size: 16px;
+    }
+    .mat-step-label{
+        color: green;
+    }
+    .mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-label{
+        padding: 0px;
+    }
+    .mat-step-icon .mat-icon, .mat-step-icon-content{
+        display: none;
+    }
+    .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,
+    .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after{
+        border-top-width: 3px;
+        top: 31px;
+        width: calc(50% - 10px);
+    }
+}
+.normal-form {
+    .mat-radio-label{
+        position: relative;
+        width: 25px;
         &::after{
+            content: '\2605';
+            font-family: "Font Awesome";
+            position: absolute;
+            top: -15px;
+            left: -2px;
+            font-size: 34px;
+            z-index: -1;
+        }
+        .mat-radio-label-content{
+            font-size: 30px;
+            line-height: 20px;
+            padding-left: 0px;
+        }
+        &:hover{
+            .mat-radio-label-content{
+                color: transparent;
+                z-index: -1;
+            }
+            &::after{
+                z-index: 99;
+                color: #ff9600;
+            }
+        }
+        .mat-radio-container{
+            // visibility: hidden;
             display: none;
         }
     }
+    
 }
 aside .mat-expansion-panel-header.mat-expanded{
     height: 48px !important;
@@ -273,9 +339,7 @@ aside .mat-expansion-panel-header.mat-expanded{
 .mat-horizontal-content-container{
     padding: 20px !important;
 }
-.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit{
-    background-color: #9c5f28 !important;
-}
+
 ul.breadcrumb{
     padding: 0px;list-style: none;
     background-color: transparent;

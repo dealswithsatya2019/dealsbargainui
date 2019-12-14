@@ -2,11 +2,12 @@
 
 <mat-dialog-content [formGroup]="form" class="normal-form w-100">
 
-    <p> Rate this Product </p>
+    <h6 class="mb-3"> Rate this Product </h6>
 
        <mat-radio-group formControlName="productRating">
             <mat-radio-button  class="rate" *ngFor="let rating of ratings" [value]="rating">
-                {{rating}}
+                <!-- {{rating}}  -->
+                &#9734;
            </mat-radio-button>
         </mat-radio-group>
        <!-- <input type="radio" id="star5" name="rate" value="5" />
@@ -20,13 +21,15 @@
         <input type="radio" id="star1" name="rate" value="1" />
         <label for="star1" title="text">1 star</label>
        -->
-    <mat-label>Review Title</mat-label>
-    <mat-form-field appearance="outline" class="d-block mt-2">
+   
+    <mat-form-field floatLabel="never" class="w-100 mt-4" appearance="outline">
+        <mat-label>Review Title</mat-label>
         <input matInput formControlName="reviewTitle" placeholder="Review Title">
         <mat-error>This field is mandatory</mat-error>
     </mat-form-field>
-    <mat-label>Write your review here</mat-label>
-    <mat-form-field appearance="outline" class="d-block">
+    
+    <mat-form-field floatLabel="never" class="w-100" appearance="outline">
+        <mat-label>Write your review here</mat-label>
         <textarea matInput formControlName="comment" placeholder="review"></textarea>
         <mat-error>This field is mandatory</mat-error>
     </mat-form-field>

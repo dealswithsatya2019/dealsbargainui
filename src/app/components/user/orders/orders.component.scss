@@ -54,3 +54,38 @@ table{
     display: flex;
     margin-bottom: 10px;
 }
+.order-cycle{
+    display: flex;
+    justify-content: left;
+    p{
+        display: flex;
+        justify-content: space-between;
+        margin: 5px 0px;
+    }
+    .step{
+        padding: 3px 65px 3px 30px;
+        text-align: center;
+        position: relative;
+        h6{
+            color: green;
+        }
+        p{
+            color: grey;
+            font-size: 14px;
+        }
+        // &::after{
+        //     content: "";
+        //     position: absolute;
+        //     top: 20px;
+        //     right: -18px;
+        //     width: 73px;
+        //     height: 2px;
+        //     background:#ccc;
+        // }
+        &:last-child{
+            &::after{
+                display: none;
+            }
+        }
+    }
+}

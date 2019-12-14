@@ -6,7 +6,6 @@
 
 .rate {
     float: left;
-    // height: 46px;
     padding: 0 10px;
 }
 .rate:not(:checked) > input {
@@ -49,7 +48,7 @@ mat-form-field{
 }
 .mat-dialog-content{
     margin: 0px;
-    font-size: 13px;
+    font-size: 14px;
     max-height: none;
     overflow: hidden;
 }

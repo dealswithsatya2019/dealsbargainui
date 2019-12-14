@@ -194,7 +194,7 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '500px';
-    dialogConfig.height = '425px';
+    dialogConfig.height = '450px';
     dialogConfig.panelClass = 'review-popup';
     dialogConfig.data = {
         id: 1,
