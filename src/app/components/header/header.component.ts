@@ -48,9 +48,8 @@ export class HeaderComponent implements OnInit {
     public _router: Router, private http: HttpClient, private renderer: Renderer2, public cartService: CartService,
     public _whishlistService: WhishlistService, public _productservice: ProductService,
     public _profileInfoService: MyprofileService) { }
-  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  options = { headers: this.headers };
-  url = this.APIEndpoint + '/dashboard/fuzzysearch';
+  
+  url = this.APIEndpoint + '/products/search';
 
   public searchResponseObj: searchreponse;
   public products: Product[] = [];
@@ -100,10 +99,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.userservice.response = JSON.parse(sessionStorage.getItem("f_login_form"));
     let access_token = sessionStorage.getItem("access_token");
-    if(access_token != undefined){
+    if (access_token != undefined) {
       this.userservice.setAuthToken(access_token);
       this._whishlistService.updateWhishlist();
     }
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    let options = { headers: headers };
     this._profileInfoService.funSetUserProfile();
     this.searchMoviesCtrl.valueChanges
       .pipe(
@@ -112,8 +113,8 @@ export class HeaderComponent implements OnInit {
           this.filteredMovies = this.hits;
         }),
         switchMap(value => this.http.post(this.url,
-          { "countryCode": "us", "categoryName": "none", "searchquery": value.title },
-          this.options)
+          { "countryCode": "us", "categoryName": "", "searchquery": 'Filler Paper' ,"pageNo":1,"pageSize":10},
+          options)
           .pipe(
             finalize(() => {
               this.isLoading = false
@@ -122,9 +123,9 @@ export class HeaderComponent implements OnInit {
         )
       )
       .subscribe((data: fuzzysearch) => {
-        this.hitsMain = data.hits;
-        this.filteredMovies = this.hitsMain.hits;
-        console.log(this.filteredMovies);
+        // this.hitsMain = data.hits;
+        // this.filteredMovies = this.hitsMain.hits;
+        console.log("Fuzzy Search API Response",data);
       });
   }
 
@@ -177,6 +178,6 @@ export class HeaderComponent implements OnInit {
     this._router.navigate(['/']);
   }
   toggleMenu() {
-   this.menuFlag = !this.menuFlag;
+    this.menuFlag = !this.menuFlag;
   }
 }

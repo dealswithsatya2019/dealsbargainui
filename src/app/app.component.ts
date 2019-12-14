@@ -32,10 +32,10 @@ export class AppComponent implements OnInit {
           console.log("Result ,", this.listOfWhitelistAPIS.some(e => e === this.imapsObj.ip));
           console.log("Country name ",this.imapsObj.country_name);
           this.isloader = false;
-          if (this.imapsObj.country_name == "United States" || this.imapsObj.country_name == "Canada"
-            || (this.listOfWhitelistAPIS.some(e => e === this.imapsObj.ip))) {
+          // if (this.imapsObj.country_name == "United States" || this.imapsObj.country_name == "Canada"
+          //   || (this.listOfWhitelistAPIS.some(e => e === this.imapsObj.ip))) {
             this.isWhitelisted = true;
-          }
+          // }
         },
         error => this.error = error
       );
