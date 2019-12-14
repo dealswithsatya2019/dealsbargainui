@@ -2,6 +2,32 @@
     <!--- --- /#ORDERS --------  -->
 
     <h5 class="mb-4">My Orders</h5>
+    <div class="order-cycle">
+        <mat-horizontal-stepper #stepper labelPosition="bottom">
+            <mat-step>
+                <ng-template matStepLabel>
+                   <h6>Order placed</h6>
+                </ng-template>
+
+                <p>Delivery <b>by Sun, Dec 15, 2019</b></p>
+                <p>Amount Payable <b>Rs.359</b></p>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>
+                    <h6>Packed</h6>
+                </ng-template>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>
+                    <h6>Shipped</h6>
+                </ng-template>
+                <p>Delivery by <b>Monday,dec 10,2018</b></p>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel><h6>Delivered</h6></ng-template>
+            </mat-step>
+        </mat-horizontal-stepper> 
+    </div>  
     <ng-container *ngIf="ordersListInfo && ordersListInfo.length ==0">
         Your orders list is empty. 
     </ng-container>
@@ -25,7 +51,28 @@
                 <div class="product-status">Delivered<span>({{orderInfo.created_on | date}})</span></div>
                 <button mat-button class="view-btn" (click) = "cancelOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Cancel</button>
                 <button mat-button class="view-btn" (click) = "returnOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Return</button>
+         
+
             </div>
         </div>
     </div>
-                   
+                
+    
+    
+
+     <!-- <div class="step active">
+            <h6>Ordered</h6>
+            <p>12/12/2018</p>
+        </div> 
+        <div class="step">
+            <h6>Order confirmed</h6>
+            <p>12/12/2018</p>
+        </div>
+        <div class="step">
+            <h6>Order Dispatched</h6>
+            <p>12/12/2018</p>
+        </div>
+        <div class="step">
+            <h6>Delivered</h6>
+            <p>12/12/2018</p>
+        </div>       -->

@@ -3,12 +3,17 @@
 	<div class="swiper-wrapper">
 		<div class="swiper-slide">
 			<mat-card>
-				<img src="../../../assets/img/discount-banner.png">
+				<img src="../../../assets/img/dealsfinal.png">
 			</mat-card>
 		</div>
 		<div class="swiper-slide">
 			<mat-card>
-				<img src="../../../assets/img/sales-banner.png">
+				<img src="../../../assets/img/shoppingbanner.png">
+			</mat-card>
+		</div>
+		<div class="swiper-slide">
+			<mat-card>
+				<img src="../../../assets/img/sale.png">
 			</mat-card>
 		</div>
 	</div>
@@ -123,7 +128,7 @@
 <ng-template #dealsContentTemplate let-product="productinfo">
 	<ng-container *ngIf="product.discount && product.discount!='0'">
 		<mat-card-subtitle>
-			<span class="badge offer-badge">{{product.discount}}</span>
+			<span class="badge offer-badge">{{product.discount}}% <br> off</span>
 		</mat-card-subtitle>
 	</ng-container>
 
