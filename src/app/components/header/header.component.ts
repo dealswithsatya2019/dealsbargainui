@@ -34,7 +34,8 @@ export class HeaderComponent implements OnInit {
   // This value will be updated only after debounce
   public debouncedInputValue = this.inputValue;
   searchMoviesCtrl = new FormControl();
-  filteredMovies: hits[];
+  filteredMovies: Product[] = [];
+  public searchResponseObj: searchreponse;
   isLoading = false;
   errorMsg: string;
   classes: string;
@@ -48,14 +49,8 @@ export class HeaderComponent implements OnInit {
     public _router: Router, private http: HttpClient, private renderer: Renderer2, public cartService: CartService,
     public _whishlistService: WhishlistService, public _productservice: ProductService,
     public _profileInfoService: MyprofileService) { }
-  
-  url = this.APIEndpoint + '/products/search';
 
-  public searchResponseObj: searchreponse;
-  public products: Product[] = [];
-  public hits: hits[] = [];
-  public hit: hits;
-  public hitsMain: hitsmain;
+  url = this.APIEndpoint + '/products/search';
 
   /*menus = [
     {
@@ -110,10 +105,18 @@ export class HeaderComponent implements OnInit {
       .pipe(
         debounceTime(500),
         tap(() => {
-          this.filteredMovies = this.hits;
+        //   let p = new Product();
+        // p.item_id =  "H5qdgrzCqObj9ev6lDzjlQ==";
+        // p.item_name =  "7 inches";
+        // p.item_sku =  "D110456~7";
+        // p.master_suplier =  "doba";
+        // p.product_id =  "H5qdgrzCqObj9ev6lDzjlQ==";
+        // p.subcategory =  "Necklaces";
+        // p.category = "fashion";
+          this.filteredMovies = this.searchResponseObj.responseObjects;
         }),
         switchMap(value => this.http.post(this.url,
-          { "countryCode": "us", "categoryName": "", "searchquery": 'Filler Paper' ,"pageNo":1,"pageSize":10},
+          { "countryCode": "us", "categoryName": "", "searchquery": value, "pageNo": 1, "pageSize": 10 },
           options)
           .pipe(
             finalize(() => {
@@ -123,36 +126,48 @@ export class HeaderComponent implements OnInit {
         )
       )
       .subscribe((data: fuzzysearch) => {
-        // this.hitsMain = data.hits;
-        // this.filteredMovies = this.hitsMain.hits;
-        console.log("Fuzzy Search API Response",data);
+        this.filteredMovies = [];
+        this.filteredMovies = data.responseObjects;
+        // this.filteredMovies = new Product[];
+        // let p = new Product();
+        // p.item_id =  "H5qdgrzCqObj9ev6lDzjlQ==";
+        // p.item_name =  "7 inches";
+        // p.item_sku =  "D110456~7";
+        // p.master_suplier =  "doba";
+        // p.product_id =  "H5qdgrzCqObj9ev6lDzjlQ==";
+        // p.subcategory =  "Necklaces";
+        // p.category = "fashion";
+        // this.filteredMovies.push(p);
+        console.log("Fuzzy Search API Response", this.filteredMovies);
       });
   }
 
-  public searchFromOption(hitObj: hits) {
+  public searchFromOption(hitObj: Product) {
     console.log("selected Value : " + hitObj);
     let req = {
-      "cname": hitObj._source.category,
-      "scname": hitObj._source.subcategory,
-      "pid": hitObj._source.item_id
+      "cname": hitObj.category,
+      "scname": hitObj.subcategory,
+      "pid": hitObj.item_id
     }
-    this.searchMoviesCtrl = new FormControl();
+    // this.searchMoviesCtrl = new FormControl();
     this._productservice.routeProductDetails(req);
 
   }
 
-  public search() {
-    this.hit = this.filteredMovies.filter(item => item._source.title == this.searchMoviesCtrl.value)[0];
-    if (this.hit != undefined) {
-      console.log("selected Value : " + this.hit);
-      let req = {
-        "cname": this.hit._source.category,
-        "scname": this.hit._source.subcategory,
-        "pid": this.hit._source.item_id
-      }
-      this.searchMoviesCtrl = new FormControl();
-      this._productservice.routeProductDetails(req);
+  public singleProduct: Product;
 
+  public search() {
+    console.log("filter value ",this.searchMoviesCtrl.value);
+    this.singleProduct = this.filteredMovies.filter(item => item.item_name == this.searchMoviesCtrl.value)[0];
+    if (this.singleProduct != undefined) {
+      console.log("selected Value : " + this.singleProduct);
+      let req = {
+        "cname": this.singleProduct.category,
+        "scname": this.singleProduct.subcategory,
+        "pid": this.singleProduct.item_id
+      }
+      // this.searchMoviesCtrl = new FormControl();
+      this._productservice.routeProductDetails(req);
     }
   }
 
