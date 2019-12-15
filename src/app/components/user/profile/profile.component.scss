@@ -11,6 +11,7 @@ aside{
     margin-left: 20px;
 }
 .profile-info{
+    min-height: 100px;
     position: relative;padding: 25px 10px 25px 130px;
     font-size: 14px;
     h6{font-size: 16px;font-weight: 600;}
@@ -91,11 +92,25 @@ mat-form-field{margin-right: 10px;}
     margin-bottom: auto;
     border: 1px solid#ccc;
 }
+@media screen and (max-width:768px){
+    .my-profile-box{
+        aside{
+            flex: 1 1 35%;
+            max-width: 35%;
+            .mat-expansion-panel-body{
+                padding: 0px 4px 16px;
+            }
+        }
+    }
+}
 @media screen and (max-width:575px){
     .my-profile-box{flex-wrap: wrap;}
-    aside{
-        flex:  1 1 100%;
-        max-width: 100%;
+    .productlistcontainer{padding: 0px !important;}
+    .my-profile-box{
+        aside{
+            flex:  1 1 100%;
+            max-width: 100%;
+        }
     }
     .product-list{
         flex: 1 1 100%;

@@ -1,5 +1,5 @@
 <h5 class="mb-4">Personal Information</h5>
-<form [formGroup]="profileform" (submit)="updateUserProfile()">
+<form [formGroup]="profileform" (submit)="updateUserProfile()" class="profile-form">
     <mat-form-field appearance="outline" class="mr-4">
         <input matInput  formControlName="firstname" placeholder="First Name">
     </mat-form-field>
@@ -23,11 +23,13 @@
         <input matInput formControlName="mobile" placeholder="Mobile Number">
     </mat-form-field>
     <ng-container *ngIf="isSMSEdit==true">
-        <i (click)="sendSmsOTP()" class="ml-2">Save</i>
+        <button mat-button (click)="sendSmsOTP()" class="ml-2">Save</button>
     </ng-container>
     <ng-container *ngIf="isSMSOtpSent==true">
-        <input matInput  [value]='smsOTP' placeholder="Enter OTP">
-        <button mat-button (click)="verifyAndSaveMobileNumber()">Verify</button>
+        <div class="form-group">
+            <input matInput  [value]='smsOTP' placeholder="Enter OTP">
+            <button mat-button (click)="verifyAndSaveMobileNumber()">Verify</button>
+        </div>
     </ng-container>
         
     <h6>Email Address
@@ -38,13 +40,15 @@
     </mat-form-field>
 
     <ng-container *ngIf="isEmailEdit==true">
-        <i (click)="sendEmailOTP()" class="ml-2">Save</i>
+        <button mat-button (click)="sendEmailOTP()" class="ml-2">Save</button>
     </ng-container>
     
 
     <ng-container *ngIf="isEmailOtpSent==true">
-        <input matInput  [value]="emailOTP" (input)="emailOTP=$event.target.value"  placeholder="Enter OTP">
-        <i (click)="verifyAndSaveEmail()">Verify</i>
+        <div class="form-group">
+            <input matInput  [value]="emailOTP" (input)="emailOTP=$event.target.value"  placeholder="Enter OTP">
+            <button mat-button (click)="verifyAndSaveEmail()">Verify</button>
+        </div>
     </ng-container>
 
     <button mat-raised-button type="submit" [disabled]="profileform.invalid" class=" my-2 mx-auto login-login-btn">Update</button>

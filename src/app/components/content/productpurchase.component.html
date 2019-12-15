@@ -1,4 +1,4 @@
-<div class="content-container">
+<div class="">
     <mat-toolbar-row style="height:40px;">
         <ul class="breadcrumb">
             <li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
@@ -17,7 +17,7 @@
                             <ng-container></ng-container>
                             <div class="new-login mt-3" style="display: flex;">
                                 <!-- login with mail -->
-                                <div class="" style="flex: 1 1 45%;max-width: 45%;padding-right: 5%;">
+                                <div class="email-login">
                                     <h6 class="text-center mb-3">I have an account</h6>
                                     <form [formGroup]="loginformService.form" class="normal-form w-100"
                                         (submit)="funLogin()">
@@ -43,7 +43,7 @@
                                 </div>
                                 <!-- /# login with mail -->
                                 <!-- social login -->
-                                <div class="social-login" style="flex: 1 1 53%;max-width: 55%;padding-left: 5%;">
+                                <div class="social-login">
                                     <h6 class="text-center mb-3">Sign In With Social Account</h6>
 
                                     <button mat-raised-button class="fb-login login-btn" (click)="loginFacebook()">
@@ -69,12 +69,12 @@
                         <ng-container *ngIf="this.userservice.getAuthToken()">
                             <ng-container *ngIf="loginformService.response">
                                 <div class="existed-login mt-3" style="display: flex;line-height: 30px;">
-                                    <div class="" style="flex: 1 1 50%;max-width: 50%;padding-right: 5%;">
-                                        <a mat-button class="p-0" (click)="signOut()">Logout and signin with another
-                                            account</a>
-                                        <button mat-button matStepperNext class="my-2 w-100 login-login-btn">Continue
-                                            Checkout</button>
-                                    </div>
+                                   
+                                    <a mat-button class="p-0" (click)="signOut()">Logout and signin with another
+                                        account</a>
+                                    <button mat-button matStepperNext class="my-2 login-login-btn">Continue
+                                        Checkout</button>
+                                    
                                 </div>
                             </ng-container>
                         </ng-container>

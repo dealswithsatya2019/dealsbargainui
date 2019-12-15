@@ -297,17 +297,35 @@ form{
     color: #ec4c4c;
     min-width: 40px;
 }
+.new-login{
+    .email-login{
+        flex: 1 1 45%;max-width: 45%;padding-right: 5%;
+    }
+    .social-login{
+        flex: 1 1 53%;max-width: 55%;padding-left: 5%;
+    }
+}
+.existed-login{
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
+}
 @media screen and (max-width:991px){
     .address .mat-form-field{
         width: 98%;
     }
 }
-@media screen and (max-width:991px){
+@media screen and (max-width:768px){
     .purchase-container{
         flex-direction: column;
     }
     .checkout-card{
         margin-top: 40px;
+    }
+}
+@media screen and (max-width:575px){
+    .existed-login{
+        max-width: 100%;
     }
 }
 

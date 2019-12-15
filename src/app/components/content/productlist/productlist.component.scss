@@ -89,17 +89,18 @@ mat-sidenav{width: 200px;}
   .share{
     position: relative;
     &:hover{
-      .social-share{display: inline-block;
+      .social-share{display: flex;
+        justify-content: space-between;
         i{font-size: 19px;}
       }
     }
   }
   .social-share{
     display: none;
-    width: 50px;
+    width: 65px;
     position: absolute;
-    top: -55px;
-    left: 25px;
+    top: 31px;
+    left: -10px;
     a{
       display: block;
       line-height: 30px;

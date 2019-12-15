@@ -187,6 +187,7 @@ p{margin: 0px;}
   margin-top: 2rem;
   margin-bottom: 1rem;
   color: #1b3664;
+  font-weight: 600;
   a{
     text-decoration: none;
     font-size: 14px;
@@ -247,6 +248,13 @@ p{margin: 0px;}
       &::after{
         display: none;
       }
+    }
+  }
+}
+@media screen and (max-width:1500px){
+  .swiper-slide{
+    mat-card{
+      height: 320px;
     }
   }
 }

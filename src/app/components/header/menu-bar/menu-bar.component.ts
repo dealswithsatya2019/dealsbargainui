@@ -21,6 +21,7 @@ export class MenuBarComponent implements OnInit {
   public menuSubCategories : MenuCategories;
   //constructor(public _productservice: ProductService, public _productListRouteInfo:ProductListRouteInfoService) { }
   subscription : Subscription;
+  public status : boolean = false;
   constructor(public _productservice: ProductService) { }
 
   ngOnInit() {
@@ -147,4 +148,5 @@ export class MenuBarComponent implements OnInit {
     sessionStorage.setItem("product_list", JSON.stringify(productRouteInfo));*/
     this._productservice.routeProductList(params);
   }
+ 
 }

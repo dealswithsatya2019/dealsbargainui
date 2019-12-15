@@ -101,7 +101,7 @@ h1,h2,h3,h4,h5,h6,p{
         background: #9c5f28;
     }
     .mat-horizontal-stepper-header{
-        height: 45px !important;
+        height: 39px !important;
         padding: 0px !important;
     }
     .mat-horizontal-stepper-header .mat-step-icon{
@@ -131,15 +131,15 @@ h1,h2,h3,h4,h5,h6,p{
 }
 .order-cycle{
     .mat-stepper-label-position-bottom .mat-horizontal-stepper-header{
-        padding: 24px 40px;
+        padding: 24px 30px;
     }
     .mat-horizontal-stepper-header-container{
         align-items: baseline;
     }
     .mat-step-icon{
         background-color: rgba(0,0,0,.54);
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
     }
     .mat-step-header .mat-step-icon-selected{
         background-color: green;
@@ -150,6 +150,7 @@ h1,h2,h3,h4,h5,h6,p{
     }
     .mat-step-label{
         color: green;
+        h6{font-size: 14px;}
     }
     .mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-label{
         padding: 0px;
@@ -163,6 +164,9 @@ h1,h2,h3,h4,h5,h6,p{
         top: 31px;
         width: calc(50% - 10px);
     }
+}
+.profile-form .mat-form-field-appearance-outline .mat-form-field-wrapper{
+    margin: 0px;
 }
 .normal-form {
     .mat-radio-label{
@@ -362,6 +366,11 @@ ul.breadcrumb{
         margin: auto;
     }
 }
+@media screen and (max-width:767px){
+    .mat-stepper-horizontal{
+        display: none;
+    }
+}
 @media screen and (max-width:575px){
     .mat-step-label{
         font-size: 10px;padding-right: 15px;
@@ -374,5 +383,23 @@ ul.breadcrumb{
         li::after{
           right: 4px;
         }
+    }
+    .login-container{
+        width: 90%;
+        padding: 15px;
+    }
+    .login-links{
+        flex-wrap: wrap;
+    }
+    .login-title{
+        font-size: 16px;
+    }
+    .login-btn{
+        height: 30px;
+    line-height: 30px;
+    font-size: 13px;
+    }
+    .login-logo{
+        width: 18px;
     }
 }

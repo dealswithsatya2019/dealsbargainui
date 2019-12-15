@@ -3,7 +3,7 @@
 	<div class="swiper-wrapper">
 		<div class="swiper-slide">
 			<mat-card>
-				<img src="../../../assets/img/dealsfinal.png">
+				<img src="../../../assets/img/dealsfamily.png">
 			</mat-card>
 		</div>
 		<div class="swiper-slide">
@@ -85,7 +85,7 @@
 <!-- hotdeals -->
 <div *ngIf="hotDeals && hotDeals.length >0 ">
 	<h5 class="subtitle position-relative">HOT DEALS
-		<a [routerLink]="['/dealslist/h']" class="pl-3">VIEW ALL</a>
+		<a [routerLink]="['/dealslist/h']" class="pl-3 float-right">VIEW ALL</a>
 	</h5>
 	<div class="product" fxLayout="row">
 		<mat-card class="item-card" *ngFor="let product of hotDeals; let i = index">
@@ -101,7 +101,7 @@
 <!-- Today deals -->
 <div *ngIf="todayDeals && todayDeals.length >0">
 	<h5 class="subtitle position-relative">TODAY's DEALS
-		<a [routerLink]="['/dealslist/t']" class="pl-3">VIEW ALL</a>
+		<a [routerLink]="['/dealslist/t']" class="pl-3 float-right">VIEW ALL</a>
 	</h5>
 	<div class="product" fxLayout="row">
 		<mat-card class="item-card" *ngFor="let product of todayDeals; let i = index">
@@ -171,9 +171,9 @@
 				<a href="http://twitter.com/share?text=dealsbargain&url=https://www.dealsbargain.com/&hashtags=#" target="_blank">
 					<i class="fa fa-twitter-square"></i>
 				</a>
-				<a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.dealsbargain.com/&title=hashtags&source=deals bargain" target="_blank">
+				<!-- <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.dealsbargain.com/&title=hashtags&source=deals bargain" target="_blank">
 					<i class="fa fa-linkedin-square"></i>
-				</a>
+				</a> -->
 			</div>
 		</button>
 		<app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>

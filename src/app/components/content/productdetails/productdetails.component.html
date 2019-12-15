@@ -1,4 +1,4 @@
-<div class="content-container product-details">
+<div class="product-details">
 		<mat-toolbar-row>
 			{{result}}
 			<ul class="breadcrumb">
@@ -12,15 +12,15 @@
 		<div class="left-details">
 			<div class="swiper-container gallery-thumbs">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide" *ngFor="let listitem of items; index as j">
-						<img src="{{listitem.data.thumb}}" style="max-height:100%">
+					<div class="swiper-slide text-center p-0" *ngFor="let listitem of items; index as j">
+						<img src="{{listitem.data.thumb}}" style="height:100%; max-width: 100%;">
 					</div>
 				</div>
 			</div>
 			<div class="swiper-container gallery-top">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide" *ngFor="let item of items; index as i">
-						<img [lightbox]="i" [src]="item.data.thumb" style="height:90%; max-width: 100%;padding: 10% 5%;">
+					<div class="swiper-slide text-center p-0" *ngFor="let item of items; index as i">
+						<img [lightbox]="i" [src]="item.data.thumb" style="height:100%; max-width: 100%;">
 					</div>
 				</div>
 			</div>
@@ -33,7 +33,7 @@
 				<mat-card class="zoom-viewer mat-elevation-z18 mat-card ng-star-inserted" style="background-position: 87.4477% 97.493%; display: none; height: 359px; width: 478px;"></mat-card>
 			</div>
 
-			<h5>
+			<h5 class="product-title">
 	
 				{{productDetails.title}}
 				
@@ -70,9 +70,9 @@
 								<a href="http://twitter.com/share?text=dealsbargain&url=https://www.dealsbargain.com/&hashtags=#" target="_blank">
 									<i class="fa fa-twitter-square"></i>
 								</a>
-								<a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.dealsbargain.com/&title=hashtags&source=deals bargain" target="_blank">
+								<!-- <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.dealsbargain.com/&title=hashtags&source=deals bargain" target="_blank">
 									<i class="fa fa-linkedin-square"></i>
-								</a>
+								</a> -->
 							</div>
 						</button>
 					</span>
@@ -282,7 +282,7 @@
 	<div class="reviews">
 		<p class="p-3">Reviews & Ratings</p>
 		<div class="divider"></div>
-		<div class="p-4 rev-content" style="display: flex;justify-content: space-between">
+		<div class="rev-content">
 			<!-- <p>
 				<span class="rating-top px-1">0</span>/
 				<span class="rating-btm px-1">5</span>
