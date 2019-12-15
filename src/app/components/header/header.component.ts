@@ -105,15 +105,17 @@ export class HeaderComponent implements OnInit {
       .pipe(
         debounceTime(500),
         tap(() => {
-        //   let p = new Product();
-        // p.item_id =  "H5qdgrzCqObj9ev6lDzjlQ==";
-        // p.item_name =  "7 inches";
-        // p.item_sku =  "D110456~7";
-        // p.master_suplier =  "doba";
-        // p.product_id =  "H5qdgrzCqObj9ev6lDzjlQ==";
-        // p.subcategory =  "Necklaces";
-        // p.category = "fashion";
-          this.filteredMovies = this.searchResponseObj.responseObjects;
+          //   let p = new Product();
+          // p.item_id =  "H5qdgrzCqObj9ev6lDzjlQ==";
+          // p.item_name =  "7 inches";
+          // p.item_sku =  "D110456~7";
+          // p.master_suplier =  "doba";
+          // p.product_id =  "H5qdgrzCqObj9ev6lDzjlQ==";
+          // p.subcategory =  "Necklaces";
+          // p.category = "fashion";
+          if (this.searchResponseObj != null && this.searchResponseObj != undefined) {
+            this.filteredMovies = this.searchResponseObj.responseObjects;
+          }
         }),
         switchMap(value => this.http.post(this.url,
           { "countryCode": "us", "categoryName": "", "searchquery": value, "pageNo": 1, "pageSize": 10 },
@@ -157,7 +159,7 @@ export class HeaderComponent implements OnInit {
   public singleProduct: Product;
 
   public search() {
-    console.log("filter value ",this.searchMoviesCtrl.value);
+    console.log("filter value ", this.searchMoviesCtrl.value);
     this.singleProduct = this.filteredMovies.filter(item => item.item_name == this.searchMoviesCtrl.value)[0];
     if (this.singleProduct != undefined) {
       console.log("selected Value : " + this.singleProduct);

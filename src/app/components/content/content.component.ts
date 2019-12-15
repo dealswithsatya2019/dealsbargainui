@@ -61,19 +61,19 @@ export class ContentComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    this._productservice.getHttpProductDealsByType('f', 'us', 0, 50).subscribe(
+    this._productservice.getHttpProductDealsByType('f', 'us', 0, 10).subscribe(
       (results: searchreponse) => {
         this.flashDeals = results.responseObjects;
       });
-    this._productservice.getHttpProductDealsByType('h', 'us', 0, 50).subscribe(
+    this._productservice.getHttpProductDealsByType('h', 'us', 0, 10).subscribe(
       (results: searchreponse) => {
         this.hotDeals = results.responseObjects;
       });
-    this._productservice.getHttpProductDealsByType('t', 'us', 0, 50).subscribe(
+    this._productservice.getHttpProductDealsByType('t', 'us', 0, 10).subscribe(
       (results: searchreponse) => {
         this.todayDeals = results.responseObjects;
       });
-    this._productservice.getHttpProductDealsByType('b', 'us', 0, 50).subscribe(
+    this._productservice.getHttpProductDealsByType('b', 'us', 0, 10).subscribe(
       (results: searchreponse) => {
         this.bestSellers = results.responseObjects;
       });

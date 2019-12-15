@@ -1,43 +1,38 @@
 <div *ngIf="hotDeals">
-    <div fxLayout="row wrap" style="justify-content: space-between;">
-        <mat-card *ngFor="let product of hotDeals; let i = index"
-            class="product" fxLayout="column">
-            <!-- <mat-card-subtitle>
-                <span class="badge offer-badge">{{product.discount}}</span>
-            </mat-card-subtitle> -->
-            <div class="product-img">
-                <img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo">
-            </div>
-            
-            <mat-card-content>
-               
-                <p class="p-cost">
-                    <span class="old_cost">${{product.price}}</span>
-                    <span class="new_cost">${{product.deal_price}}</span>
-                    <button mat-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
-                        ADD
-                     </button>
-                </p>
-                <p class="p-title">{{product.item_name}}</p>
-            </mat-card-content>
-            <mat-card-actions>
-                <app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
-                
-                <button mat-button class="action-btns share">
-                    <i class="fa fa-share-alt"></i>
-                    <div class="social-share">
-                        <a href="">
-                            <i class="fa fa-facebook-official"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-twitter-square"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-linkedin-square"></i>
-                        </a>
-                    </div>
-                </button>
-            </mat-card-actions>
-        </mat-card>
-    </div>
+    <cdk-virtual-scroll-viewport itemSize="50" class="product-viewport">
+        <div fxLayout="row wrap" style="justify-content: space-between;">
+            <mat-card *cdkVirtualFor="let product of hotDeals; let i = index" class="product" fxLayout="column">
+                <div class="product-img">
+                    <img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo">
+                </div>
+                <mat-card-content>
+                    <p class="p-cost">
+                        <span class="old_cost">${{product.price}}</span>
+                        <span class="new_cost">${{product.deal_price}}</span>
+                        <button mat-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
+                            ADD
+                        </button>
+                    </p>
+                    <p class="p-title">{{product.item_name}}</p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
+                    <button mat-button class="action-btns share">
+                        <i class="fa fa-share-alt"></i>
+                        <div class="social-share">
+                            <a href="">
+                                <i class="fa fa-facebook-official"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-twitter-square"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-linkedin-square"></i>
+                            </a>
+                        </div>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </cdk-virtual-scroll-viewport>
 </div>

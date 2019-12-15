@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { searchreponse } from 'src/app/models/searchResponse';
 import { ProductService } from 'src/app/services/product.service';
@@ -20,15 +20,17 @@ export class DealslistComponent implements OnInit {
   dealtype: any;
   sub: any;
   public whishlist_action_type: string = 'add';
+  public dealsSize : number;
 
   ngOnInit() {
     this.sub = this._Activatedroute.paramMap.subscribe(params => {
       this.dealtype = params.get('dealtype');
     });
     console.log("deal type ", this.dealtype);
-    this._productservice.getHttpProductDealsByType(this.dealtype, 'us', 0, 100).subscribe(
+    this._productservice.getHttpProductDealsByType(this.dealtype, 'us', 0, 200).subscribe(
       (results: searchreponse) => {
         this.hotDeals = results.responseObjects;
+        this.dealsSize = this.hotDeals.length;
       });
   }
 

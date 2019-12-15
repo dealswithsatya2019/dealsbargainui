@@ -50,7 +50,7 @@ export class ProductService {
         "countryCode": countryCode,
         "categoryName": "deals",
         "dealType": dealType,
-        "pageForm": from, "noOfResults": limit
+        "pageNo": from, "pageSize": limit
       };
     return this._httpCommonService.postReq('products/deals', JSON.stringify(body));
   }
