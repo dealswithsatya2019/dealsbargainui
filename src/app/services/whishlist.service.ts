@@ -13,7 +13,6 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 })
 export class WhishlistService {
 
-  public addWhislistData: any;
   public itemsInWhishslist: Product[] = [];
   public itemsInWhishslistTemp: Product[] = [];
   public snackBarConfig: MatSnackBarConfig;	  
@@ -39,11 +38,9 @@ export class WhishlistService {
       return;
     } 
     if (this._userService.getAuthToken() != null && item != null) {
-      console.log("addWhishlistProduct :", item);
       this.callAddWhishlistAPI(item).subscribe(
         (data: searchreponse) => {
-          if (data.responseObjects && data.statusCode == 200) {
-            this.addWhislistData = data
+          if (data.statusCode == 200) {
             item.quantity = 1;
             this.itemsInWhishslist.push(item);
             this.raiseAlert("The item has been added to whishlist")
@@ -65,7 +62,7 @@ export class WhishlistService {
       console.log("removeWhishlistProduct :", item);
       this.callRemoveWhishlistAPI(item).subscribe(
         (data: searchreponse) => {
-          if (data.responseObjects && data.statusCode == 200) {
+          if (data.statusCode == 200) {
             this.raiseAlert("The selected item has been removed from Whishlist.");
             //this.itemsInWhishslist = this.itemsInWhishslist.filter(itemLoop => itemLoop.item_id != item.item_id);
           }else{

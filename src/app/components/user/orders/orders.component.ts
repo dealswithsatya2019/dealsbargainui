@@ -34,7 +34,7 @@ export class OrdersComponent implements OnInit,OnDestroy {
   public getOrdersList() {
     this.subscriptions.add(this._myordersService.getOrders('us').subscribe(
       (data: searchreponse) => {
-        if(data.statusCode == 404){
+        if(data.responseObjects && data.responseObjects.length>0){
           this.ordersListInfo = data.responseObjects;
         }
       },

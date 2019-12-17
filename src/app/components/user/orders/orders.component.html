@@ -20,6 +20,32 @@
                 <!-- <img src="{{itemdetails.image}}"> -->
             </div>
             <div class="review-order-details">
+                    <div class="order-cycle">
+                            <mat-horizontal-stepper #stepper labelPosition="bottom">
+                                <mat-step>
+                                    <ng-template matStepLabel>
+                                       <h6>Order placed</h6>
+                                    </ng-template>
+                    
+                                    <p>Delivery <b>by Sun, Dec 15, 2019</b></p>
+                                    <p>Amount Payable <b>Rs.359</b></p>
+                                </mat-step>
+                                <mat-step>
+                                    <ng-template matStepLabel>
+                                        <h6>Packed</h6>
+                                    </ng-template>
+                                </mat-step>
+                                <mat-step>
+                                    <ng-template matStepLabel>
+                                        <h6>Shipped</h6>
+                                    </ng-template>
+                                    <p>Delivery by <b>Monday,dec 10,2018</b></p>
+                                </mat-step>
+                                <mat-step>
+                                    <ng-template matStepLabel><h6>Delivered</h6></ng-template>
+                                </mat-step>
+                            </mat-horizontal-stepper> 
+                        </div>
                 <div class="product-name">{{itemdetails.title}}</div>
                 <div class="product-size">Qty : {{orderInfo.items_info.length}} Items </div>
                 <div class="product-price"> {{PRICE_PREFIX}} {{orderInfo.net_amount}} </div>
@@ -27,32 +53,7 @@
                 <button mat-button class="view-btn" (click) = "cancelOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Cancel</button>
                 <button mat-button class="view-btn" (click) = "returnOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Return</button>
             </div>
-            <div class="order-cycle">
-                <mat-horizontal-stepper #stepper labelPosition="bottom">
-                    <mat-step>
-                        <ng-template matStepLabel>
-                           <h6>Order placed</h6>
-                        </ng-template>
-        
-                        <p>Delivery <b>by Sun, Dec 15, 2019</b></p>
-                        <p>Amount Payable <b>Rs.359</b></p>
-                    </mat-step>
-                    <mat-step>
-                        <ng-template matStepLabel>
-                            <h6>Packed</h6>
-                        </ng-template>
-                    </mat-step>
-                    <mat-step>
-                        <ng-template matStepLabel>
-                            <h6>Shipped</h6>
-                        </ng-template>
-                        <p>Delivery by <b>Monday,dec 10,2018</b></p>
-                    </mat-step>
-                    <mat-step>
-                        <ng-template matStepLabel><h6>Delivered</h6></ng-template>
-                    </mat-step>
-                </mat-horizontal-stepper> 
-            </div>  
+              
         </div>
     </div>
                 
