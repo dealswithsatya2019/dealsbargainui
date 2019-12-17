@@ -31,7 +31,7 @@
                         <a mat-button [routerLink]="['myprofile', { outlets: { 'profileoutlet': ['profileinfo'] } }]">My Profile</a>
                     </button>
                     <button mat-menu-item style="border-bottom: 1px solid #ccc;">
-                        <a mat-button [routerLink]="['orders']">My Orders</a>
+                        <a mat-button [routerLink]="['myprofile', { outlets: { 'profileoutlet': ['orders'] } }]">My Orders</a>
                     </button>
                     <button mat-menu-item>
                         <a mat-button (click)="signOut()">Logout</a>

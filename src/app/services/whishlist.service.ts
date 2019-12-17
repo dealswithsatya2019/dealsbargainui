@@ -33,8 +33,11 @@ export class WhishlistService {
   }
 
   public addToWhishlist(item: Product) {
+    if(!this._userService.getAuthToken() || this._userService.getAuthToken().length==0){
+      this.raiseAlert("Please login and add into your whishlist.");
+    }
     if (this.itemsInWhishslist.some(e => e.item_id === item.item_id)) {
-      this.raiseAlert("This item is already added to Whishlist");
+      this.raiseAlert("This item is already added to Whishlist.");
       return;
     } 
     if (this._userService.getAuthToken() != null && item != null) {

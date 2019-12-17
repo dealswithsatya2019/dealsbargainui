@@ -7,6 +7,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { environment } from 'src/environments/environment';
 import { Product } from 'src/app/models/product';
 import { AlertService } from 'src/app/services/alert.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -20,7 +21,8 @@ export class OrdersComponent implements OnInit,OnDestroy {
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
   constructor(public _myordersService: MyordersService, 
     public _productservice: ProductService,
-    public _alertService: AlertService) { }
+    public _alertService: AlertService,
+    public _router: Router) { }
 
   ngOnInit() {
     this.getOrdersList();
@@ -53,6 +55,7 @@ export class OrdersComponent implements OnInit,OnDestroy {
       (data: searchreponse) => {
         if(data.statusCode == 200){
           this._alertService.raiseAlert("Item was successfully cancelled.");
+          this._router.navigate(['myprofile', { outlets: { 'profileoutlet': ['orders'] } }]);
         }else{
           this._alertService.raiseAlert("Unable to cancel the item.");
           console.log(data);
@@ -70,6 +73,7 @@ export class OrdersComponent implements OnInit,OnDestroy {
       (data: searchreponse) => {
         if(data.statusCode == 200){
           this._alertService.raiseAlert("Item was successfully returned.");
+          this._router.navigate(['myprofile', { outlets: { 'profileoutlet': ['orders'] } }]);
         }else{
           this._alertService.raiseAlert("Unable to return the item.");
           console.log(data);
