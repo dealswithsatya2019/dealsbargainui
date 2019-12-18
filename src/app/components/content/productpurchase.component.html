@@ -115,9 +115,14 @@
                             <form [formGroup]="updateaddressform" (submit)="updateAddressService(address.address_id)"
                                 class="my-3">
                                 <mat-form-field  floatLabel="never" appearance="outline">
-                                    <mat-label>Name</mat-label>
-                                    <input formControlName="fullname" matInput placeholder="Name">
-                                    <mat-error>fullname is mandatory</mat-error>
+                                    <mat-label>First Name</mat-label>
+                                    <input formControlName="firstName" matInput placeholder="First Name">
+                                    <mat-error>First Name is mandatory</mat-error>
+                                </mat-form-field>
+                                <mat-form-field  floatLabel="never" appearance="outline">
+                                    <mat-label>Last Name</mat-label>
+                                    <input formControlName="lastName" matInput placeholder="Last Name">
+                                    <mat-error>Last Name is mandatory</mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>Mobile Number</mat-label>
@@ -127,11 +132,6 @@
                                 <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>Alternate Phone</mat-label>
                                     <input formControlName="altphone" matInput placeholder="Placeholder">
-                                </mat-form-field>
-                                <mat-form-field appearance="outline" floatLabel="never">
-                                    <mat-label>Locality</mat-label>
-                                    <input formControlName="street" matInput placeholder="Placeholder">
-                                    <mat-error>street is mandatory</mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" style="width:98%" floatLabel="never">
                                     <mat-label>Address</mat-label>
@@ -182,9 +182,14 @@
                         </mat-expansion-panel-header>
                         <form [formGroup]="addressform" (submit)="funSave()" class="my-3">
                             <mat-form-field appearance="outline">
-                                <mat-label>Name</mat-label>
-                                <input formControlName="fullname" matInput placeholder="Name">
-                                <mat-error>fullname is mandatory</mat-error>
+                                <mat-label>First Name</mat-label>
+                                <input formControlName="firstName" matInput placeholder="First Name">
+                                <mat-error>First Name is mandatory</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Last Name</mat-label>
+                                <input formControlName="lastName" matInput placeholder="Last Name">
+                                <mat-error>Last name is mandatory</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>Mobile Number</mat-label>
@@ -194,11 +199,6 @@
                             <mat-form-field appearance="outline">
                                 <mat-label>Alternate Phone</mat-label>
                                 <input formControlName="altphone" matInput placeholder="Placeholder">
-                            </mat-form-field>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Locality</mat-label>
-                                <input formControlName="street" matInput placeholder="Placeholder">
-                                <mat-error>street is mandatory</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline" style="width:98%">
                                 <mat-label>Address</mat-label>

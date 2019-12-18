@@ -7,15 +7,14 @@ export class address {
     delivery_to: number;
     mobile_number : string = "";
     state : string = "";
-    street : string = "";
     zipcode : string = "";
     created_on : string = "";
     name :string = "";
     countrycode :string = "";
     address : string = "";
-    landmark : string = "";
     altphone :string = "";
-    fullname : string = "";
+    firstName : string = "";
+    lastName : string = "";
     address_type : number;
 
 }

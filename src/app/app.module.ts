@@ -61,6 +61,7 @@ import { ForgotpasswordComponent } from './components/header/forgotpassword/forg
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
+// const facebook_oauth_client_id: string = '824908174620082';
 let config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,

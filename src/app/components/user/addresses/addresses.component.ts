@@ -39,14 +39,13 @@ export class AddressesComponent implements OnInit,OnDestroy {
 
   addressform: FormGroup = new FormGroup({
     countrycode: new FormControl('us'),
-    fullname: new FormControl('', [Validators.required]),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
     mobile_number: new FormControl('', [Validators.required, Validators.pattern('[0-9]{10}')]),
     zipcode: new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]),
-    street: new FormControl(''),
     address: new FormControl('', [Validators.required, Validators.maxLength(25)]),
     city: new FormControl('', [Validators.required]),
     state: new FormControl('', [Validators.required]),
-    landmark: new FormControl(''),
     altphone: new FormControl(''),
     address_type: new FormControl('', [Validators.required]),
     country: new FormControl('United States', [Validators.required]),
@@ -55,14 +54,13 @@ export class AddressesComponent implements OnInit,OnDestroy {
 
   updateaddressform: FormGroup = new FormGroup({
     countrycode: new FormControl('us'),
-    fullname: new FormControl('', [Validators.required]),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
     mobile_number: new FormControl('', [Validators.required, Validators.pattern('[0-9]{10}')]),
     zipcode: new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]),
-    street: new FormControl(''),
     address: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     state: new FormControl('', [Validators.required]),
-    landmark: new FormControl(''),
     altphone: new FormControl(''),
     address_id: new FormControl(''),
     country: new FormControl('United States', [Validators.required]),
@@ -85,7 +83,7 @@ export class AddressesComponent implements OnInit,OnDestroy {
       data => {
         let jsonobj = JSON.parse(JSON.stringify(data));
         if (jsonobj.statusCode == 200) {
-          this._alertService.raiseAlert("The address "+addressInfo.fullname+"has been saved successfully.");
+          this._alertService.raiseAlert("The address "+addressInfo.firstName+"has been saved successfully.");
           this.getAddresses();
           this.exp1 = false;
           this.exp1 = false;
@@ -160,7 +158,8 @@ export class AddressesComponent implements OnInit,OnDestroy {
     this.exp1 = false;
     this.exp2 = true;
     this.address = (this.addressInfo.responseObjects.filter(itemLoop => itemLoop.address_id == addressId))[0];
-    this.updateaddressform.controls.fullname.setValue(this.address.fullname);
+    this.updateaddressform.controls.firstName.setValue(this.address.firstName);
+    this.updateaddressform.controls.lastName.setValue(this.address.lastName);
     this.updateaddressform.controls.mobile_number.setValue(this.address.mobile_number);
     this.updateaddressform.controls.altphone.setValue(this.address.altphone);
     this.updateaddressform.controls.address.setValue(this.address.address);
@@ -169,7 +168,6 @@ export class AddressesComponent implements OnInit,OnDestroy {
     this.updateaddressform.controls.state.setValue(this.address.state);
     this.updateaddressform.controls.zipcode.setValue(this.address.zipcode);
     this.updateaddressform.controls.address_type.setValue(this.address.address_type);
-    this.updateaddressform.controls.landmark.setValue(this.address.landmark);
     this.updateaddressform.controls.address_id.setValue(this.address.address_id);
   }
 }

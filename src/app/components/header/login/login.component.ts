@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
         // this.funClose();
         this.loginformService.response = response;
         this.userservice.response = JSON.parse(JSON.stringify(response));
+        console.log("facebook response :",JSON.stringify(response));
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
         this.whishlistService.updateWhishlist();
       }
@@ -64,6 +65,7 @@ export class LoginComponent implements OnInit {
         // this.funClose();
         this.loginformService.response = response;
         this.userservice.response = JSON.parse(JSON.stringify(response));
+        console.log("gmail response :",JSON.stringify(response));
         sessionStorage.setItem("f_login_form", JSON.stringify(response));
         this.whishlistService.updateWhishlist();
       }
