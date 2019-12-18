@@ -61,16 +61,33 @@ export class MyprofileComponent implements OnInit, OnDestroy {
     this.profileform.get('email').setValidators([Validators.required,  Validators.required, Validators.email]);
 
     this.updatedMobileNumber = profileInfo.mobile;
-    this.updatedMobileNumber = profileInfo.email;
+    this.updatedEmail = profileInfo.email;
+  }
+
+  /**
+   * In form for disabled values while getting form as value then it should be enabled.
+   * @param isEnable 
+   */
+  enableOrDisable(isEnable){
+    if(isEnable){
+      this.profileform.get('mobile').enable();
+      this.profileform.get('email').enable();
+    }else{
+      this.profileform.get('mobile').disable();
+      this.profileform.get('email').disable();
+    }
   }
   public updateUserProfile() {
+    this.enableOrDisable(true);
     this.profileform.controls.mobile.setValue(this.updatedMobileNumber);
-    this.profileform.controls.email.setValue(this.updatedMobileNumber);
+    this.profileform.controls.email.setValue(this.updatedEmail);
     let userInfo = JSON.parse(JSON.stringify(this.profileform.value));
+    this.enableOrDisable(false);
     this.subscriptions.add(this._profileInfoService.updateUserProfile(userInfo).subscribe(
       (data) => {
         if (data.statusDesc == 'UPDATE_SUCCESS') {
           this._alertService.raiseAlert("Pofile updated Successfully.");
+          this._profileInfoService.funSetUserProfile();
         }else{
           console.log(data);
           this._alertService.raiseAlert("Failed to update profile.");
@@ -92,15 +109,33 @@ export class MyprofileComponent implements OnInit, OnDestroy {
     this.profileform.get('email').enable();
   }
 
+  cancelMobileUpdate(){
+    this.isSMSEdit =false;
+    this.isSMSOtpSent =false;
+    this.profileform.controls.mobile.setValue(this.updatedMobileNumber);
+    this.profileform.get('mobile').disable();
+  }
+
+  cancelEmailUpdate(){
+    this.isEmailEdit =false;
+    this.isEmailOtpSent =false;
+    this.profileform.controls.email.setValue(this.updatedEmail);
+    this.profileform.get('email').disable();
+  }  
+  
   sendSmsOTP(){
     this.isSMSEdit =false;
     this.isSMSOtpSent =true;
+    this.enableOrDisable(true);
     let userInfo = JSON.parse(JSON.stringify(this.profileform.value));
+    this.enableOrDisable(false);
     this._alertService.raiseAlert("OTP sent to mobile numnber : "+userInfo.mobile);
   }
 
   sendEmailOTP(){
+    this.enableOrDisable(true);
     let userInfo = JSON.parse(JSON.stringify(this.profileform.value));
+    this.enableOrDisable(false);
     this._userAuth.sendOTP(userInfo.mobile, userInfo.email, 'us','updateemail').subscribe(
         (authResponse: AuthResopnse) => {
           if (authResponse.statusCode === 201) {
@@ -119,18 +154,28 @@ export class MyprofileComponent implements OnInit, OnDestroy {
   }
 
   verifyAndSaveMobileNumber(){
+    this.enableOrDisable(true);
+    let userInfo = JSON.parse(JSON.stringify(this.profileform.value));
+    this.enableOrDisable(false);
     this.isSMSOtpSent =false;
+    this.updatedMobileNumber = userInfo.mobile;
+    this.profileform.get('mobile').disable();
+    this._profileInfoService.funSetUserProfile();
     this._alertService.raiseAlert("Mobile number updated successfully.");
 
   }
 
   verifyAndSaveEmail(){
+    this.enableOrDisable(true);
     let userInfo = JSON.parse(JSON.stringify(this.profileform.value));
+    this.enableOrDisable(false);
     this._userAuth.verifyEmailOTP(userInfo.email, this.emailOTP, 'us','updateemail').subscribe(
         (authResponse: AuthResopnse) => {
           if (authResponse.statusCode === 201) {
             this.isEmailOtpSent =false;
             this.updatedEmail = userInfo.email;
+            this.profileform.get('email').disable();
+            this._profileInfoService.funSetUserProfile();
             this._alertService.raiseAlert("Email id updated successfully.");
           } else {
             this._alertService.raiseAlert(authResponse.statusDesc);

@@ -11,7 +11,7 @@ export class LoginformService {
   constructor() { }
 
   form: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required,Validators.email]),
+    name: new FormControl(''/*, [Validators.required,Validators.email]*/),
     password: new FormControl('',[Validators.required])
   });
  
