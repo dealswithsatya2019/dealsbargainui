@@ -12,14 +12,16 @@
         <!-- <p>Status <br> <b> </b> </p>
         <p>Tracking <br> <b>#</b> </p> -->
         <!--<button mat-button class="view-btn">View Details</button>-->
-        
+        <div class="order-details" *ngIf="orderInfo.user_payment_request_status!='success'">
+                <p> Your order was failed. Please contact customer care</p>
+        </div>
         <div class="review-order" fxLayout="row" *ngFor="let itemdetails of orderInfo.items_info">
             <div class="order-image">
                 <img class="image img-cursor" mat-card-image src="{{itemdetails.image}}" alt="photo"
                         (click)="showProductDetails({cname:itemdetails.category,scname:itemdetails.subcategory,pid:itemdetails.item_id})">
                 <!-- <img src="{{itemdetails.image}}"> -->
             </div>
-            <div class="review-order-details">
+            <div class="review-order-details" *ngIf="orderInfo.user_payment_request_status=='success'">
                     <div class="order-cycle">
                             <mat-horizontal-stepper #stepper labelPosition="bottom">
                                 <mat-step>
@@ -45,16 +47,22 @@
                                     <ng-template matStepLabel><h6>Delivered</h6></ng-template>
                                 </mat-step>
                             </mat-horizontal-stepper> 
-                        </div>d
+                        </div>
                 <div class="product-name">{{itemdetails.title}}</div>
                 <div class="product-size">Qty : {{orderInfo.items_info.length}} Items </div>
-                <div class="product-price"> {{PRICE_PREFIX}} {{orderInfo.net_amount}} </div>
+                <div class="product-price"> {{PRICE_PREFIX}} {{orderInfo.items_info.price}} </div>
                 <div class="product-status">Delivered<span>({{orderInfo.created_on | date}})</span></div>
                 <button mat-button class="view-btn" (click) = "cancelOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Cancel</button>
                 <button mat-button class="view-btn" (click) = "returnOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Return</button>
             </div>
               
         </div>
+        <!-- <p class="order-id">
+            Order Date : {{orderInfo.created_on | date}} 
+            Total : {{orderInfo.net_amount}}
+         </p>-->
+        
+        
     </div>
                 
     

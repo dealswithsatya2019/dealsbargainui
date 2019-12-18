@@ -60,7 +60,11 @@
             </mat-form-field>
         </ng-container>
         
-        <mat-checkbox formControlName="aggreecbx">I have read and agree to Dealsbargain Terms & Conditions.</mat-checkbox>                      
+        <mat-checkbox formControlName="aggreecbx">I have read and agree to Dealsbargain 
+            <a target="_blank" href="../../../../assets/pages/TermsofUse.html">terms & conditions</a>
+             and 
+            <a target="_blank" href="../../../assets/pages/PrivacyPolicy.html">privacy policy</a>.
+        </mat-checkbox>                      
     <button mat-raised-button type="submit" [disabled]="userservice.form.invalid" class=" mb-2 w-100 login-login-btn">SIGN UP</button>
    
     
@@ -82,9 +86,9 @@
             Signup with GOOGLE</button>
     </div>
 
-    <div class="login-links mt-3">
+    <!-- <div class="login-links mt-3">
         Already have an account?<a mat-button [routerLink]="['login']" style="line-height: 17px;">Log In</a>
-    </div>
+    </div>-->
 <!-- <p style="color: green;">Need Help ?</p>
 <div class="policy"> By signing up or logging in, you aggree to the offerUp
     <span style="color: green;">

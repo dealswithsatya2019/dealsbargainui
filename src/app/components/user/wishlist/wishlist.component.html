@@ -13,7 +13,7 @@
                     </div>
                     <div class="order-details pl-3" style="flex: 1 1 40%;max-width: 40%;">
                         <h6>{{product.item_name}}</h6>
-                        <div class="small-cap">{{product.brand_name}}</div>
+                        <div class="small-cap">Brand Name : {{product.brand_name}}</div>
                         <p class="p-cost">
                             <ng-container *ngIf="product.dealtype!=''">
                                 <span class="old_cost">{{PRICE_PREFIX}}{{product.deals_bargain_supplier_deal_price}}</span>
