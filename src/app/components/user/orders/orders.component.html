@@ -24,36 +24,74 @@
             <div class="review-order-details" *ngIf="orderInfo.user_payment_request_status=='success'">
                     <div class="order-cycle">
                             <mat-horizontal-stepper #stepper labelPosition="bottom">
-                                <mat-step>
+                                <mat-step *ngIf="orderInfo.user_payment_request_status=='success'">
                                     <ng-template matStepLabel>
                                        <h6>Order placed</h6>
                                     </ng-template>
                     
-                                    <p>Delivery <b>by Sun, Dec 15, 2019</b></p>
-                                    <p>Amount Payable <b>Rs.359</b></p>
+                                    <p>Order Date  : <b>{{orderInfo.user_payment_request_date | date}}</b></p>
                                 </mat-step>
+                                <mat-step *ngIf="itemdetails.user_cancell_request_status">
+                                    <ng-template matStepLabel>
+                                        <h6>User Cancelled</h6>
+                                    </ng-template>
+                                    <p>User Cancelled Date  : <b>{{itemdetails.user_cancell_request_date | date}}</b></p>
+                                </mat-step>
+                                <mat-step *ngIf="itemdetails.supplier_cancell_request_status">
+                                    <ng-template matStepLabel>
+                                        <h6>Supplier Cancelled</h6>
+                                    </ng-template>
+                                    <p>Supplier Cancelled Date  : <b>{{itemdetails.Supplier_cancell_request_date | date}}</b></p>
+                                </mat-step>
+                                <mat-step *ngIf="itemdetails.user_return_request_status">
+                                    <ng-template matStepLabel>
+                                        <h6>User Returned</h6>
+                                    </ng-template>
+                                    <p>User Returned Date  : <b>{{itemdetails.user_return_request_date | date}}</b></p>
+                                </mat-step>
+                                <mat-step *ngIf="itemdetails.supplier_return_request_status">
+                                    <ng-template matStepLabel>
+                                        <h6>Supplier Returned</h6>
+                                    </ng-template>
+                                    <p>Supplier Returned Date  : <b>{{itemdetails.supplier_return_request_date | date}}</b></p>
+                                </mat-step>
+                              <ng-container *ngIf="!itemdetails.user_cancell_request_status && !itemdetails.supplier_cancell_request_status && !itemdetails.user_return_request_status && !itemdetails.supplier_return_request_status">
                                 <mat-step>
                                     <ng-template matStepLabel>
                                         <h6>Packed</h6>
                                     </ng-template>
+                                    <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='INPROGRESS'">
+                                            <p>Packed Date  : <b>{{itemdetails.supplier_shipping_request_date | date}}</b></p>
+                                    </ng-container>
                                 </mat-step>
                                 <mat-step>
                                     <ng-template matStepLabel>
                                         <h6>Shipped</h6>
                                     </ng-template>
-                                    <p>Delivery by <b>Monday,dec 10,2018</b></p>
+                                    <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='COMPLETED'">
+                                            <p>Shipped Date  : <b>{{itemdetails.supplier_shipping_request_date | date}}</b></p>
+                                    </ng-container>
                                 </mat-step>
                                 <mat-step>
                                     <ng-template matStepLabel><h6>Delivered</h6></ng-template>
+                                    <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_delivered_request_status=='COMPLETED'">
+                                            <p>Delivered Date  : <b>{{itemdetails.supplier_delivered_request_date | date}}</b></p>
+                                    </ng-container>
                                 </mat-step>
+                              </ng-container>    
                             </mat-horizontal-stepper> 
                         </div>
                 <div class="product-name">{{itemdetails.title}}</div>
                 <div class="product-size">Qty : {{orderInfo.items_info.length}} Items </div>
-                <div class="product-price"> {{PRICE_PREFIX}} {{orderInfo.items_info.price}} </div>
+                <div class="product-price"> {{PRICE_PREFIX}} {{itemdetails.price}} </div>
                 <div class="product-status">Delivered<span>({{orderInfo.created_on | date}})</span></div>
-                <button mat-button class="view-btn" (click) = "cancelOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Cancel</button>
-                <button mat-button class="view-btn" (click) = "returnOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Return</button>
+                <ng-container *ngIf="itemdetails.show_cancel_button=='yes'">
+                    <button mat-button class="view-btn" (click) = "cancelOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Cancel</button>
+                </ng-container>
+                <ng-container *ngIf="itemdetails.show_return_button=='yes'">
+                    <button mat-button class="view-btn" (click) = "returnOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Return</button>
+                </ng-container>
+    
             </div>
               
         </div>
