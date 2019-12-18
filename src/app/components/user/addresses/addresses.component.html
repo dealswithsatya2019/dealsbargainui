@@ -66,7 +66,10 @@
                     <mat-form-field appearance="outline" style="width:98%">
                         <mat-label>Address</mat-label>
                         <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
-                        <mat-error>address is mandatory</mat-error>
+                        <mat-error *ngIf="updateaddressform.controls.address.errors.required">address is
+                            mandatory</mat-error>
+                        <mat-error *ngIf="updateaddressform.controls.address.errors.maxlength">address
+                            can enter only 25 characters</mat-error>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>City/District</mat-label>
@@ -135,7 +138,10 @@
                 <mat-form-field appearance="outline" style="width:98%">
                     <mat-label>Address</mat-label>
                     <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
-                    <mat-error>address is mandatory</mat-error>
+                    <mat-error *ngIf="addressform.controls.address.errors.required">address is
+                        mandatory</mat-error>
+                    <mat-error *ngIf="addressform.controls.address.errors.maxlength">address
+                        can enter only 25 characters</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>City</mat-label>

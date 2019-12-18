@@ -58,7 +58,7 @@ export class AddressesComponent implements OnInit,OnDestroy {
     lastName: new FormControl('', [Validators.required]),
     mobile_number: new FormControl('', [Validators.required, Validators.pattern('[0-9]{10}')]),
     zipcode: new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]),
-    address: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required, Validators.maxLength(25)]),
     city: new FormControl('', [Validators.required]),
     state: new FormControl('', [Validators.required]),
     altphone: new FormControl(''),

@@ -69,12 +69,12 @@
                         <ng-container *ngIf="this.userservice.getAuthToken()">
                             <ng-container *ngIf="loginformService.response">
                                 <div class="existed-login mt-3" style="display: flex;line-height: 30px;">
-                                   
+
                                     <a mat-button class="p-0" (click)="signOut()">Logout and signin with another
                                         account</a>
                                     <button mat-button matStepperNext class="my-2 login-login-btn">Continue
                                         Checkout</button>
-                                    
+
                                 </div>
                             </ng-container>
                         </ng-container>
@@ -100,7 +100,8 @@
                                         <button mat-button class="edit-address"
                                             (click)="showAddressInfo(address.address_id)">Change Address</button>
                                         <button mat-button class="delete-address"
-                                            (click)="deleteAddressService(address.address_id)"><i class="fa fa-trash" aria-hidden="true"></i>
+                                            (click)="deleteAddressService(address.address_id)"><i class="fa fa-trash"
+                                                aria-hidden="true"></i>
                                         </button>
                                     </div>
                                 </ng-container>
@@ -114,12 +115,12 @@
                             </mat-expansion-panel-header>
                             <form [formGroup]="updateaddressform" (submit)="updateAddressService(address.address_id)"
                                 class="my-3">
-                                <mat-form-field  floatLabel="never" appearance="outline">
+                                <mat-form-field floatLabel="never" appearance="outline">
                                     <mat-label>First Name</mat-label>
                                     <input formControlName="firstName" matInput placeholder="First Name">
                                     <mat-error>First Name is mandatory</mat-error>
                                 </mat-form-field>
-                                <mat-form-field  floatLabel="never" appearance="outline">
+                                <mat-form-field floatLabel="never" appearance="outline">
                                     <mat-label>Last Name</mat-label>
                                     <input formControlName="lastName" matInput placeholder="Last Name">
                                     <mat-error>Last Name is mandatory</mat-error>
@@ -136,19 +137,15 @@
                                 <mat-form-field appearance="outline" style="width:98%" floatLabel="never">
                                     <mat-label>Address</mat-label>
                                     <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
-                                    <mat-error>address is mandatory</mat-error>
+                                    <mat-error *ngIf="updateaddressform.controls.address.errors.required">address is
+                                        mandatory</mat-error>
+                                    <mat-error *ngIf="updateaddressform.controls.address.errors.maxlength">address
+                                        can enter only 25 characters</mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" floatLabel="never">
-                                    <mat-label>City/District</mat-label>
+                                    <mat-label>City</mat-label>
                                     <input formControlName="city" matInput placeholder="Placeholder">
                                     <mat-error>city is mandatory</mat-error>
-                                </mat-form-field>
-                                <mat-form-field appearance="outline" floatLabel="never">
-                                    <mat-label>Country</mat-label>
-                                    <mat-select formControlName="country" value="United States">
-                                        <mat-option value="United States">United States</mat-option>
-                                    </mat-select>
-                                    <mat-error>country is mandatory</mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-select formControlName="state" placeholder="Placeholder">
@@ -157,6 +154,13 @@
                                         </mat-option>
                                     </mat-select>
                                     <mat-error>state is mandatory</mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" floatLabel="never">
+                                    <mat-label>Country</mat-label>
+                                    <mat-select formControlName="country" value="United States">
+                                        <mat-option value="United States">United States</mat-option>
+                                    </mat-select>
+                                    <mat-error>country is mandatory</mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>Pincode</mat-label>
@@ -180,7 +184,7 @@
                         <mat-expansion-panel-header>
                             Add New Address
                         </mat-expansion-panel-header>
-                        <form [formGroup]="addressform" (submit)="funSave()" class="my-3">
+                        <form [formGroup]="addressform" (ngSubmit)="funSave()" class="my-3">
                             <mat-form-field appearance="outline">
                                 <mat-label>First Name</mat-label>
                                 <input formControlName="firstName" matInput placeholder="First Name">
@@ -203,19 +207,15 @@
                             <mat-form-field appearance="outline" style="width:98%">
                                 <mat-label>Address</mat-label>
                                 <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
-                                <mat-error>address is mandatory</mat-error>
+                                <mat-error *ngIf="addressform.controls.address.errors.required">address is
+                                    mandatory</mat-error>
+                                <mat-error *ngIf="addressform.controls.address.errors.maxlength">address
+                                    can enter only 25 characters</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>City</mat-label>
                                 <input formControlName="city" matInput placeholder="Placeholder">
                                 <mat-error>city is mandatory</mat-error>
-                            </mat-form-field>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Country</mat-label>
-                                <mat-select formControlName="country" value="United States">
-                                    <mat-option value="United States">United States</mat-option>
-                                </mat-select>
-                                <mat-error>country is mandatory</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>State</mat-label>
@@ -225,6 +225,13 @@
                                     </mat-option>
                                 </mat-select>
                                 <mat-error>state is mandatory</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Country</mat-label>
+                                <mat-select formControlName="country" value="United States">
+                                    <mat-option value="United States">United States</mat-option>
+                                </mat-select>
+                                <mat-error>country is mandatory</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>Zip Code/Postal</mat-label>
