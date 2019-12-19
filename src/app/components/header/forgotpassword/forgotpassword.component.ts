@@ -26,7 +26,9 @@ export class ForgotpasswordComponent implements OnInit {
   isEmailOtpSent = false;
   emailOTP = '';
   password = '';
-  errorMsg='';
+  emailOrMobileReqerrorMsg='';
+  emailOTPReqerrorMsg='';
+  passwordReqerrorMsg='';
   
   ngOnInit() {
   }
@@ -41,10 +43,11 @@ export class ForgotpasswordComponent implements OnInit {
 
   
   sendEmailOTP() {
-/*    if(this.emailOrMobile.length ==0){
-      this.errorMsg = "Email or mobile is required.";
+    if(this.emailOrMobile.length ==0){
+      this.emailOrMobileReqerrorMsg = "* Email or mobile number is required.";
       return;
-    }*/
+    }
+    this.emailOrMobileReqerrorMsg = '';
     this._userAuth.sendOTP('', this.emailOrMobile, 'us', 'forgotpassword').subscribe(
       (authResponse: AuthResopnse) => {
         if (authResponse.statusCode === 201) {
@@ -62,6 +65,16 @@ export class ForgotpasswordComponent implements OnInit {
   }
 
   verifyAndSavePassowrd() {
+  if(this.emailOTP.length ==0){
+    this.emailOTPReqerrorMsg = "* OTP required.";
+    return;
+  }  
+  this.emailOTPReqerrorMsg='';
+  if(this.password.length ==0){
+    this.passwordReqerrorMsg = "* Password required.";
+    return;
+  }  
+  this.passwordReqerrorMsg ='';
     this._userAuth.verifyEmailOTP(this.emailOrMobile, this.emailOTP, 'us', 'forgotpassword').subscribe(
       (authResponse: AuthResopnse) => {
         if (authResponse.statusCode === 201) {
