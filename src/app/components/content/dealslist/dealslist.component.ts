@@ -6,6 +6,7 @@ import { MatDialogConfig, MatDialog } from '@angular/material';
 import { SocialshareComponent } from '../socialshare/socialshare.component';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dealslist',
@@ -22,17 +23,18 @@ export class DealslistComponent implements OnInit {
   public whishlist_action_type: string = 'add';
   public dealsSize: number;
   public scrollableCount: number = 1;
+  subscriptions = new Subscription();
 
   ngOnInit() {
     this.sub = this._Activatedroute.paramMap.subscribe(params => {
       this.dealtype = params.get('dealtype');
     });
     console.log("deal type ", this.dealtype);
-    this._productservice.getHttpProductDealsByType(this.dealtype, 'us', this.scrollableCount, 20).subscribe(
+    this.subscriptions.add(this._productservice.getHttpProductDealsByType(this.dealtype, 'us', this.scrollableCount, 20).subscribe(
       (results: searchreponse) => {
         this.hotDeals = results.responseObjects;
         this.dealsSize = this.hotDeals.length;
-      });
+      }));
   }
 
   openShare(event: any) {
@@ -61,7 +63,7 @@ export class DealslistComponent implements OnInit {
     this.scrollableCount = this.scrollableCount + 1;
     let hotDealsNew: Product[] = [];
     if (this.isDataExist) {
-      this._productservice.getHttpProductDealsByType(this.dealtype, 'us', this.scrollableCount, 50).subscribe(
+      this.subscriptions.add(this._productservice.getHttpProductDealsByType(this.dealtype, 'us', this.scrollableCount, 50).subscribe(
         (results: searchreponse) => {
           hotDealsNew = results.responseObjects;
           if (hotDealsNew != null && hotDealsNew.length) {
@@ -73,7 +75,12 @@ export class DealslistComponent implements OnInit {
           } else {
             this.isDataExist = false;
           }
-        });
+        }));
     }
+  }
+
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
