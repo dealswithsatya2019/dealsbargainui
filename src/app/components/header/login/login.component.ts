@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
             ) { }
 
   ngOnInit() {
+    this.loginformService.resetForm();
     // this._snackBar.open(message, action, {
     //   duration: 2000,
     // });
@@ -53,7 +54,6 @@ export class LoginComponent implements OnInit {
         this.loginformService.response = response;
         this.userservice.response = JSON.parse(JSON.stringify(response));
         console.log("facebook response :",JSON.stringify(response));
-        sessionStorage.setItem("f_login_form", JSON.stringify(response));
         this.whishlistService.updateWhishlist();
       }
     );
@@ -66,7 +66,6 @@ export class LoginComponent implements OnInit {
         this.loginformService.response = response;
         this.userservice.response = JSON.parse(JSON.stringify(response));
         console.log("gmail response :",JSON.stringify(response));
-        sessionStorage.setItem("f_login_form", JSON.stringify(response));
         this.whishlistService.updateWhishlist();
       }
     );
@@ -105,7 +104,6 @@ export class LoginComponent implements OnInit {
           console.log('Success' + JSON.stringify(authResponse));
           sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
           this._userSerive.setAuthToken(authResponse.responseObjects.access_token);
-          sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
           this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
           this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
           // this.funClose();\

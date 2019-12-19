@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,6 +24,9 @@ import { environment } from 'src/environments/environment';
 import { AddProductReq } from './addproductreq';
 import { PromoResponse } from './promoResponse';
 import { PromoResponseMode } from './promoResponseModel';
+import { WhishlistService } from 'src/app/services/whishlist.service';
+import { MyprofileService } from 'src/app/services/myprofile.service';
+import { AlertService } from 'src/app/services/alert.service';
 declare let paypal: any;
 
 @Component({
@@ -104,14 +107,17 @@ export class ProductpurchaseComponent implements OnInit {
     public _router: Router,
     public httpService: HttCommonService,
     public http: HttpClient,
-    private cartService: CartService) {
+    private cartService: CartService,
+    public _profileInfoService: MyprofileService,
+    public whishlistService: WhishlistService,
+    public _alertService: AlertService) {
     this.send_date.setHours(this.send_date.getHours() + (this.deliverydate_configurable_days * 24));
   }
 
 
   ngOnInit() {
+    this.loginformService.resetForm();
     if (this.userservice.getAuthToken() != null) {
-      this.loginformService.response = JSON.parse(sessionStorage.getItem("f_login_form"));
       this.isLogIn = true;
     }
     this.shoppingCartItems = this.cartService.getItems();
@@ -161,7 +167,6 @@ export class ProductpurchaseComponent implements OnInit {
     this._socioAuthServ.signIn(FacebookLoginProvider.PROVIDER_ID).then(
       (response) => {
         this.loginformService.response = response;
-        sessionStorage.setItem("f_login_form", JSON.stringify(response));
         this.userName = response.name;
         this.exp1 = false;
         this.exp2 = true;
@@ -173,7 +178,6 @@ export class ProductpurchaseComponent implements OnInit {
     this._socioAuthServ.signIn(GoogleLoginProvider.PROVIDER_ID).then(
       (response) => {
         this.loginformService.response = response;
-        sessionStorage.setItem("f_login_form", JSON.stringify(response));
         this.userName = response.name;
         this.exp1 = false;
         this.exp2 = true;
@@ -192,23 +196,25 @@ export class ProductpurchaseComponent implements OnInit {
       this.subscriptions.add(this.userAuth.authenticateUser(userInfo.name, userInfo.password, 'us', key1, key2, key3).subscribe(
         (authResponse: AuthResopnse) => {
           if (authResponse.statusCode === 200) {
-            this.userservice.form.setValue({
-              name: userInfo.name,
-              email: null,
-              password: null,
-              mobileno: null,
-              aggreecbx: false
-            });
             this.isLogIn = true;
-            sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
+            this.userservice.form.controls['name'].setValue(userInfo.name);
+            this.userservice.setAuthToken(authResponse.responseObjects.access_token);
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
             this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
             sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
+            this.userservice.resetForm();
+            this._profileInfoService.funSetUserProfile();
+            this.whishlistService.updateWhishlist();
             this.addCart();
           } else {
             this.loginErrorMsg = authResponse.statusDesc;
           }
-        }));
+        },
+        (error : HttpErrorResponse) =>{
+          this.loginErrorMsg = error.error.statusDesc;
+        }
+      )
+    );
     } catch (error) {
       this.loginErrorMsg = 'Got issue check in console';
       console.log(error);
@@ -224,7 +230,6 @@ export class ProductpurchaseComponent implements OnInit {
     this.addressInfo = null;
     this.cartService.setItems(null);
     this.shoppingCartItems = null;
-    sessionStorage.removeItem("f_login_form");
     sessionStorage.removeItem("access_token");
     this._router.navigateByUrl("/");
   }

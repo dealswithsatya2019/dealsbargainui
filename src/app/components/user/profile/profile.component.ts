@@ -41,7 +41,6 @@ export class ProfileComponent implements OnInit{ //,AfterViewInit {
 
   funUpdate() {
     console.log(JSON.stringify(this.userservice.form.value));
-    sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
     this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
   }
 }

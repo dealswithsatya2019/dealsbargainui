@@ -92,15 +92,14 @@ export class HeaderComponent implements OnInit {
     }
   ];*/
   ngOnInit() {
-    this.userservice.response = JSON.parse(sessionStorage.getItem("f_login_form"));
     let access_token = sessionStorage.getItem("access_token");
     if (access_token != undefined) {
       this.userservice.setAuthToken(access_token);
+      this._profileInfoService.funSetUserProfile();
       this._whishlistService.updateWhishlist();
     }
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     let options = { headers: headers };
-    this._profileInfoService.funSetUserProfile();
     this.searchMoviesCtrl.valueChanges
       .pipe(
         debounceTime(500),
@@ -182,13 +181,11 @@ export class HeaderComponent implements OnInit {
   //   this.dialog.open(LoginComponent, dialogConfig);
   // }
   signOut(): void {
-    this._socioAuthServ.signOut();
-    this.userservice.response = null;
+    this.userservice.resetDetails();
     this.cartService.clearCart();
-    sessionStorage.removeItem("f_login_form");
-    sessionStorage.removeItem("success");
     sessionStorage.removeItem("access_token");
     this._whishlistService.clearWhislist();
+    this._socioAuthServ.signOut();
     this._router.navigateByUrl("/");
   }
   gotoHomePage() {

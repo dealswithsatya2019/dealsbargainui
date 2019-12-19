@@ -17,14 +17,6 @@ export class AuthService {
     return access_token !== null;
   }
 
-  public funSignIn() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '400px';
-    dialogConfig.height = '600px';
-    this.dialog.open(LoginComponent, dialogConfig);
-  }
 
   public registerUser(userName?, email?, mobile?, countryCode?, password?, key1?, key2?, key3?): Observable<any> {
     let newUser = new RegisterUser();

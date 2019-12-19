@@ -40,6 +40,7 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userservice.resetForm();
   }
   raiseAlert(message : string){
     this._snackBar.open(message, "", this.snackBarConfig);
@@ -61,7 +62,6 @@ export class SignupComponent implements OnInit {
       (response) => {
         // this.funClose();
         this.userservice.response = response;
-        sessionStorage.setItem("f_login_form", JSON.stringify(response));
         this.whishlistService.updateWhishlist();
       }
     );
@@ -72,7 +72,6 @@ export class SignupComponent implements OnInit {
       (response) => {
         // this.funClose();
         this.userservice.response = response;
-        sessionStorage.setItem("f_login_form", JSON.stringify(response));
         this.whishlistService.updateWhishlist();
       }
     );
@@ -158,7 +157,6 @@ export class SignupComponent implements OnInit {
             sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
             this._userSerive.setAuthToken(authResponse.responseObjects.access_token);
             console.log('Success' + JSON.stringify(authResponse));
-            sessionStorage.setItem("f_login_form", JSON.stringify(this.userservice.form.value));
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
             this._profileInfoService.funSetUserProfile();
             // this.funClose();

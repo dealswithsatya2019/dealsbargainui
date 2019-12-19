@@ -18,6 +18,13 @@ export class UserService {
     }
    }
 
+  resetDetails(){
+    this.response = null;
+    this.setAuthToken('');
+    this.profileInfo = null;
+    this.resetForm();
+  }
+
   form: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required,Validators.maxLength(20)]),
     email: new FormControl('', [Validators.required,Validators.email]),
@@ -29,6 +36,18 @@ export class UserService {
     smsotp: new FormControl(''),
     emailotp: new FormControl('')
   });
+
+  resetForm(){
+    this.form.controls['name'].setValue('');
+    this.form.controls['email'].setValue('');
+    this.form.controls['password'].setValue('');
+    this.form.controls['mobilenoperfix'].setValue('+1');
+    this.form.controls['mobileno'].setValue('');
+    this.form.controls['aggreecbx'].setValue(false);
+    this.form.controls['issentotp'].setValue(false);
+    this.form.controls['smsotp'].setValue('');
+    this.form.controls['emailotp'].setValue('');
+  }
  //https://angular-templates.io/tutorials/about/angular-forms-and-validations
  //Email pattern : Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
  //Password pattern: Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') //this is for the letters (both uppercase and lowercase) and numbers validation
@@ -66,12 +85,6 @@ export class UserService {
 
     }
   
-  initializeFormGroup() {
-    this.form.setValue({
-      $key: null,
-      name: ''
-    });
-  }
 
   public setAuthToken(authToken){
     this.authToken = authToken;
