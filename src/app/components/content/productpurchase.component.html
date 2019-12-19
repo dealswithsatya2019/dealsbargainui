@@ -128,19 +128,17 @@
                                 <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>Mobile Number</mat-label>
                                     <input formControlName="mobile_number" matInput placeholder="Placeholder">
-                                    <mat-error>mobile number is mandatory</mat-error>
+                                    <mat-error>mobile number is mandatory and should be numberic</mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>Alternate Phone</mat-label>
                                     <input formControlName="altphone" matInput placeholder="Placeholder">
+                                    <mat-error>phone number should be numeric</mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" style="width:98%" floatLabel="never">
                                     <mat-label>Address</mat-label>
                                     <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
-                                    <mat-error *ngIf="updateaddressform.controls.address.errors.required">address is
-                                        mandatory</mat-error>
-                                    <mat-error *ngIf="updateaddressform.controls.address.errors.maxlength">address
-                                        can enter only 25 characters</mat-error>
+                                    <mat-error>address is mandatory and length can enter only 25 characters </mat-error>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>City</mat-label>
@@ -198,19 +196,17 @@
                             <mat-form-field appearance="outline">
                                 <mat-label>Mobile Number</mat-label>
                                 <input formControlName="mobile_number" matInput>
-                                <mat-error>mobile number is mandatory</mat-error>
+                                <mat-error>mobile number is mandatory and should be numberic</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>Alternate Phone</mat-label>
                                 <input formControlName="altphone" matInput placeholder="Placeholder">
+                                <mat-error>phone number should be numeric</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline" style="width:98%">
                                 <mat-label>Address</mat-label>
                                 <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
-                                <mat-error *ngIf="addressform.controls.address.errors.required">address is
-                                    mandatory</mat-error>
-                                <mat-error *ngIf="addressform.controls.address.errors.maxlength">address
-                                    can enter only 25 characters</mat-error>
+                                <mat-error>address is mandatory and length can enter only 25 characters </mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>City</mat-label>

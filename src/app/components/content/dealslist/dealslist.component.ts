@@ -20,14 +20,15 @@ export class DealslistComponent implements OnInit {
   dealtype: any;
   sub: any;
   public whishlist_action_type: string = 'add';
-  public dealsSize : number;
+  public dealsSize: number;
+  public scrollableCount: number = 1;
 
   ngOnInit() {
     this.sub = this._Activatedroute.paramMap.subscribe(params => {
       this.dealtype = params.get('dealtype');
     });
     console.log("deal type ", this.dealtype);
-    this._productservice.getHttpProductDealsByType(this.dealtype, 'us', 0, 200).subscribe(
+    this._productservice.getHttpProductDealsByType(this.dealtype, 'us', this.scrollableCount, 20).subscribe(
       (results: searchreponse) => {
         this.hotDeals = results.responseObjects;
         this.dealsSize = this.hotDeals.length;
@@ -53,4 +54,26 @@ export class DealslistComponent implements OnInit {
     this.cartService.addToCart(product);
   }
 
+  public isDataExist: boolean = true;
+
+  public onScroll() {
+    console.log("Scrolling downnnnnnnnnnn");
+    this.scrollableCount = this.scrollableCount + 1;
+    let hotDealsNew: Product[] = [];
+    if (this.isDataExist) {
+      this._productservice.getHttpProductDealsByType(this.dealtype, 'us', this.scrollableCount, 50).subscribe(
+        (results: searchreponse) => {
+          hotDealsNew = results.responseObjects;
+          if (hotDealsNew != null && hotDealsNew.length) {
+            console.log("temp array length :",hotDealsNew.length);
+            hotDealsNew.forEach(element => {
+              this.hotDeals.push(element);
+            });
+            console.log("total array length :",this.hotDeals.length);
+          } else {
+            this.isDataExist = false;
+          }
+        });
+    }
+  }
 }

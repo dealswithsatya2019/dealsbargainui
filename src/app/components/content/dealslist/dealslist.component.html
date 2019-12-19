@@ -1,4 +1,5 @@
 <div *ngIf="hotDeals">
+    <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="20" (scrolled)="onScroll()">
     <!-- <cdk-virtual-scroll-viewport itemSize="50" class="product-viewport"> -->
         <div fxLayout="row wrap" style="justify-content: space-between;">
             <mat-card *ngFor="let product of hotDeals; let i = index" class="product" fxLayout="column">
@@ -35,4 +36,5 @@
             </mat-card>
         </div>
     <!-- </cdk-virtual-scroll-viewport> -->
+    </div>
 </div>

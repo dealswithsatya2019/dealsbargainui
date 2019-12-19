@@ -58,6 +58,7 @@ import { ReviewRatingsComponent } from './components/user/review-ratings/review-
 import { ChangePasswordComponent } from './components/user/change-password/change-password.component';
 import { UnsubscribeComponent } from './components/user/unsubscribe/unsubscribe.component';
 import { ForgotpasswordComponent } from './components/header/forgotpassword/forgotpassword.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -121,7 +122,8 @@ export function ProvideConfig() {
     ReviewRatingsComponent,
     ChangePasswordComponent,
     UnsubscribeComponent,
-    ForgotpasswordComponent
+    ForgotpasswordComponent,
+    
   ],
   entryComponents:[LoginComponent,SignupComponent,SocialshareComponent,RateproductComponent,ForgotpasswordComponent],
   imports: [
@@ -141,7 +143,8 @@ export function ProvideConfig() {
     NgxImageZoomModule.forRoot(),
     GalleryModule,
     LightboxModule,
-    NgxStarRatingModule
+    NgxStarRatingModule,
+    InfiniteScrollModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA , NO_ERRORS_SCHEMA],
   providers: [HttCommonService, ProductService, UserService, { provide: AuthServiceConfig, useFactory: ProvideConfig}],

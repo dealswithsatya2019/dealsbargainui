@@ -69,7 +69,7 @@ export class ProductpurchaseComponent implements OnInit {
     address: new FormControl('', [Validators.required, Validators.maxLength(25)]),
     city: new FormControl('', [Validators.required]),
     state: new FormControl('', [Validators.required]),
-    altphone: new FormControl(''),
+    altphone: new FormControl('',[Validators.pattern('[0-9]+')]),
     address_type: new FormControl('', [Validators.required]),
     country: new FormControl('United States', [Validators.required]),
 
@@ -84,7 +84,7 @@ export class ProductpurchaseComponent implements OnInit {
     address: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     state: new FormControl('', [Validators.required]),
-    altphone: new FormControl(''),
+    altphone: new FormControl('',[Validators.pattern('[0-9]+')]),
     address_id: new FormControl(''),
     country: new FormControl('United States', [Validators.required]),
     address_type: new FormControl('', [Validators.required]),
