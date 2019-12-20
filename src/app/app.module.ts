@@ -60,6 +60,7 @@ import { UnsubscribeComponent } from './components/user/unsubscribe/unsubscribe.
 import { ForgotpasswordComponent } from './components/header/forgotpassword/forgotpassword.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CouponsComponent } from './components/content/coupons/coupons.component';
+// import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -146,7 +147,7 @@ export function ProvideConfig() {
     GalleryModule,
     LightboxModule,
     NgxStarRatingModule,
-    InfiniteScrollModule
+    // InfiniteScrollModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA , NO_ERRORS_SCHEMA],
   providers: [HttCommonService, ProductService, UserService, { provide: AuthServiceConfig, useFactory: ProvideConfig}],

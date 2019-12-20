@@ -30,12 +30,21 @@ h5{
   display: none;
   width: 70px;
   position: absolute;
-  top: 40px;
+  bottom: -35px;
   left: 0px;
   padding-top: 20px;
   a{
-    display: block;
+    display: inline-block;
     line-height: 30px;
+    width: 30px;
+  }
+}
+.social-share.btm{
+  width: 50px;
+  bottom: 33px;
+  left: -1px;
+  a{display: block;
+    i{font-size: 16px;}
   }
 }
   .product{

@@ -36,7 +36,7 @@ export class SignupComponent implements OnInit {
     this.snackBarConfig = new MatSnackBarConfig();
     this.snackBarConfig.horizontalPosition = "center";
     this.snackBarConfig.verticalPosition = "top";
-    this.snackBarConfig.duration = 2000;
+    this.snackBarConfig.duration = 200000;
   }
 
   ngOnInit() {

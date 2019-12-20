@@ -17,6 +17,7 @@
                     <p class="p-title">{{product.item_name}}</p>
                 </mat-card-content>
                 <mat-card-actions>
+                    <app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
                     <button mat-button class="action-btns share">
                         <i class="fa fa-share-alt"></i>
                         <div class="social-share">
@@ -31,7 +32,7 @@
                             </a> -->
                         </div>
                     </button>
-                    <app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
+                    
                 </mat-card-actions>
             </mat-card>
         </div>
