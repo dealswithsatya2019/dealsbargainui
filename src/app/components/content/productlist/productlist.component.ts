@@ -6,7 +6,7 @@ import { MatDialogConfig, MatDialog, } from '@angular/material';
 import { searchreponse } from 'src/app/models/searchResponse';
 import { CartService } from 'src/app/services/cart.service';
 import { Product } from 'src/app/models/product';
-import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
 import { ProductDetailsRouteInfoService } from 'src/app/services/routing-services/product-details-route-info.service';
 import { environment } from 'src/environments/environment';
@@ -20,62 +20,77 @@ import { Subscription } from 'rxjs';
 })
 export class ProductlistComponent implements OnInit, OnDestroy {
 
-/*  constructor(private _snackBar: MatSnackBar,private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,private cartService: CartService,
-    public _productListRouteInfo:ProductListRouteInfoService,
-    public _productDetailsRouteInfo:ProductDetailsRouteInfoService
-  ) { }*/
-  constructor(private _snackBar: MatSnackBar,private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,private cartService: CartService,
+  /*  constructor(private _snackBar: MatSnackBar,private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog,private cartService: CartService,
+      public _productListRouteInfo:ProductListRouteInfoService,
+      public _productDetailsRouteInfo:ProductDetailsRouteInfoService
+    ) { }*/
+  constructor(private _snackBar: MatSnackBar, private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, private cartService: CartService,
   ) { }
   subscription: Subscription;
   cname: string = '';
-  cdisplayname: string ='';
-  cmiddledisplayname: string ='';
+  cdisplayname: string = '';
+  cmiddledisplayname: string = '';
   scname: string = '';
-  scdisplayname: string ='';
+  scdisplayname: string = '';
   sub;
   products: any[];
   distinctbrandsArray: Array<string>;
   selectedBrandsArray: Array<string> = [];
   fromPrice: number = 0;
   toPrice: number = 0;
-  public snackBarConfig : MatSnackBarConfig;
+  public snackBarConfig: MatSnackBarConfig;
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
   public showFilter: boolean = false;
+  public scrollableCount: number = 1;
+
+
   ngOnInit() {
-   this.sub = this._Activatedroute.paramMap.subscribe(params => {
+    this.sub = this._Activatedroute.paramMap.subscribe(params => {
       this.cname = params.get('cname');
       this.scname = params.get('scname');
-      
-    /*this.subscription = this._productListRouteInfo.getCart().subscribe(productRouteInfo => {
-      if (productRouteInfo) {
-        this.cname = productRouteInfo.cname;
-        this.scname = productRouteInfo.scname;
-      }
-      let menuClickInfo: ProductRouteInfo = JSON.parse(sessionStorage.getItem("product_list"));
-      this.cname = menuClickInfo.cname;
-      this.scname = menuClickInfo.scname;*/
-      this.subscription = this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
-          (results: searchreponse) => {
-            this.products = results.responseObjects;
-            if(this.products.length >0){
-              this.cdisplayname = this.products[0].display_name_category;
-              this.cmiddledisplayname = this.products[0].display_name_middle_subcategory;
-              this.scdisplayname = this.products[0].display_name_subcategory;
-            }
-            this.getDistinctBrands();
+      this.subscription = this._productservice.getProductlist(this.cname, this.scname, 'us', this.scrollableCount, 50).subscribe(
+        (results: searchreponse) => {
+          this.products = results.responseObjects;
+          if (this.products.length > 0) {
+            this.cdisplayname = this.products[0].display_name_category;
+            this.cmiddledisplayname = this.products[0].display_name_middle_subcategory;
+            this.scdisplayname = this.products[0].display_name_subcategory;
           }
-        
+          this.getDistinctBrands();
+        }
       );
-     // });
     });
-
     this.snackBarConfig = new MatSnackBarConfig();
     this.snackBarConfig.horizontalPosition = "center";
     this.snackBarConfig.verticalPosition = "top";
     this.snackBarConfig.duration = 2000;
   }
 
-  ngOnDestroy(){
+  public isDataExist: boolean = true;
+
+  public onScroll() {
+    console.log("Scrolling downnnnnnnnnnn product list page");
+    this.scrollableCount = this.scrollableCount + 1;
+    let hotDealsNew: Product[] = [];
+    let productstemp: any[];
+    if (this.isDataExist) {
+      this.subscription = this._productservice.getProductlist(this.cname, this.scname, 'us', this.scrollableCount, 20).subscribe(
+        (results: searchreponse) => {
+          productstemp = results.responseObjects;
+          if (productstemp.length > 0) {
+            productstemp.forEach(element => {
+              this.products.push(element);
+            });
+          } else {
+            this.isDataExist = false;
+          }
+          this.getDistinctBrands();
+        }
+      );
+    }
+  }
+
+  ngOnDestroy() {
     this.sub.unsubscribe();
     this.subscription.unsubscribe();
   }
@@ -127,8 +142,8 @@ export class ProductlistComponent implements OnInit, OnDestroy {
     // this._snackBar.open("The item has been added to cart.", "", this.snackBarConfig);
     // this._router.navigateByUrl('/mycart');
   }
-  
-  routeToProductListPage(params){
+
+  routeToProductListPage(params) {
     this._productservice.routeProductList(params);
   }
 }

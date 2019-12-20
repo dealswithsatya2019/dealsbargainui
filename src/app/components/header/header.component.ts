@@ -152,6 +152,7 @@ export class HeaderComponent implements OnInit {
     }
     // this.searchMoviesCtrl = new FormControl();
     this._productservice.routeProductDetails(req);
+    this._router.navigate(['/product',hitObj.category, hitObj.subcategory]);
 
   }
 

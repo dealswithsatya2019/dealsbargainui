@@ -1,9 +1,10 @@
 <mat-toolbar-row style="height:40px">
 	<ul class="breadcrumb">
 		<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
-		<li><a (click)="routeToProductListPage({cname:cname,scname:scname})" routerLinkActive="active">{{cdisplayname}}</a></li>
-		<li><a >{{cmiddledisplayname}}</a></li>
-		<li><a >{{scdisplayname}}</a></li>
+		<li><a (click)="routeToProductListPage({cname:cname,scname:scname})"
+				routerLinkActive="active">{{cdisplayname}}</a></li>
+		<li><a>{{cmiddledisplayname}}</a></li>
+		<li><a>{{scdisplayname}}</a></li>
 	</ul>
 </mat-toolbar-row>
 <mat-sidenav-container>
@@ -16,8 +17,8 @@
 				<div fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex;">
 					<ng-container *ngFor='let brand_name of distinctbrandsArray'>
 						<ng-container *ngIf='brand_name.length > 0'>
-							<mat-checkbox value="brand_name"
-								(change)="refreshBrands($event,brand_name)">{{brand_name}}</mat-checkbox>
+							<mat-checkbox value="brand_name" (change)="refreshBrands($event,brand_name)">{{brand_name}}
+							</mat-checkbox>
 						</ng-container>
 					</ng-container>
 				</div>
@@ -35,88 +36,86 @@
 						[value]="toPrice"></mat-slider>
 				</div>
 			</mat-expansion-panel>
-			<!-- <mat-expansion-panel [expanded]="true">
-				<mat-expansion-panel-header>
-					Discounts
-				</mat-expansion-panel-header>
-				<div fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex;">
-					<mat-checkbox>More than 50%</mat-checkbox>
-					<mat-checkbox>More than 60%</mat-checkbox>
-					<mat-checkbox>More than 65%</mat-checkbox>
-					<mat-checkbox>More than 70%</mat-checkbox>
-				</div>
-			</mat-expansion-panel> -->
+
 		</mat-accordion>
 	</mat-sidenav>
 	<mat-sidenav-content>
 		<div class="product-list-page ">
 			<button mat-raised-button class="side-list">Filter</button>
 			<div *ngIf="products" class="product-list" style="flex: 1 1 0%">
-				<div class="productlistcontainer pl-3" fxLayout="row wrap">
-					<ng-container *ngFor="let product of products; let i = index">
-						<ng-container
-							*ngIf="fromPrice.value > 0 ?  (product.prepay_price >= fromPrice.value ? true : false): true">
-							<ng-container *ngIf="toPrice.value > 0 ? (product.prepay_price <= toPrice.value): true">
-								<mat-card
-									*ngIf="selectedBrandsArray.length == 0 ? true: selectedBrandsArray.includes(product.brand_name)"
-									class="product" fxLayout="column">
-									<mat-card-subtitle>
-										<ng-container *ngIf="product.discount && product.discount!='0'">
-											<span class="badge badge-danger">{{product.discount}}</span>
-										</ng-container>
-									</mat-card-subtitle>
-									<div class="product-img">
-										<img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo"
-										(click)="showProductDetails({cname:cname,scname:scname,pid:product.item_id})">
-									</div>
-									<mat-card-content>
-										
-										<p class="p-cost">
-											<ng-container *ngIf="product.dealtype!=''">
-												<span
-													class="old_cost">{{PRICE_PREFIX}}{{product.deals_bargain_supplier_deal_price}}</span>
-												<span
-													class="new_cost">{{PRICE_PREFIX}}{{product.deals_bargain_deal_price}}</span>
+				<div class="search-results" infiniteScroll [infiniteScrollDistance]="10" [infiniteScrollThrottle]="150"
+					(scrolled)="onScroll()">
+					<div class="productlistcontainer pl-3" fxLayout="row wrap">
+						<ng-container *ngFor="let product of products; let i = index">
+							<ng-container
+								*ngIf="fromPrice.value > 0 ?  (product.prepay_price >= fromPrice.value ? true : false): true">
+								<ng-container *ngIf="toPrice.value > 0 ? (product.prepay_price <= toPrice.value): true">
+									<mat-card
+										*ngIf="selectedBrandsArray.length == 0 ? true: selectedBrandsArray.includes(product.brand_name)"
+										class="product" fxLayout="column">
+										<mat-card-subtitle>
+											<ng-container *ngIf="product.discount && product.discount!='0'">
+												<span class="badge badge-danger">{{product.discount}}</span>
 											</ng-container>
-											<ng-container *ngIf="product.dealtype=='' && product.discount=='0'">
-												<span class="new_cost">{{PRICE_PREFIX}}{{product.price}}</span>
-											</ng-container>
-											<ng-container *ngIf="product.dealtype=='' && product.discount!='0'">
-												<span class="old_cost">{{PRICE_PREFIX}}{{product.price}}</span>
-												<span class="new_cost">{{PRICE_PREFIX}}{{product.discount_amount}}</span>
-											</ng-container>
-											<button mat-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
-												ADD
-											</button>
-											
-										</p>
-										<p class="p-title">{{product.item_name}}</p>
-									</mat-card-content>
-									<mat-card-actions>
-										
-										
-										<button mat-button class="action-btns share">
-											<i class="fa fa-share-alt"></i>
-											<div class="social-share">
-												<a href="http://www.facebook.com/sharer.php?u=https://www.dealsbargain.com/" target="_blank">
-													<i class="fa fa-facebook-official"></i>
-												</a>
-												<a href="http://twitter.com/share?text=dealsbargain&url=https://www.dealsbargain.com/&hashtags=#" target="_blank">
-													<i class="fa fa-twitter-square"></i>
-												</a>
-												<!-- <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.dealsbargain.com/&title=hashtags&source=deals bargain" target="_blank">
+										</mat-card-subtitle>
+										<div class="product-img">
+											<img class="image img-cursor" mat-card-image src="{{product.image}}"
+												alt="photo"
+												(click)="showProductDetails({cname:cname,scname:scname,pid:product.item_id})">
+										</div>
+										<mat-card-content>
+
+											<p class="p-cost">
+												<ng-container *ngIf="product.dealtype!=''">
+													<span
+														class="old_cost">{{PRICE_PREFIX}}{{product.deals_bargain_supplier_deal_price}}</span>
+													<span
+														class="new_cost">{{PRICE_PREFIX}}{{product.deals_bargain_deal_price}}</span>
+												</ng-container>
+												<ng-container *ngIf="product.dealtype=='' && product.discount=='0'">
+													<span class="new_cost">{{PRICE_PREFIX}}{{product.price}}</span>
+												</ng-container>
+												<ng-container *ngIf="product.dealtype=='' && product.discount!='0'">
+													<span class="old_cost">{{PRICE_PREFIX}}{{product.price}}</span>
+													<span
+														class="new_cost">{{PRICE_PREFIX}}{{product.discount_amount}}</span>
+												</ng-container>
+												<button mat-button class="cart" matTooltip="Add To Cart"
+													(click)="addToCart(product)">
+													ADD
+												</button>
+
+											</p>
+											<p class="p-title">{{product.item_name}}</p>
+										</mat-card-content>
+										<mat-card-actions>
+
+
+											<button mat-button class="action-btns share">
+												<i class="fa fa-share-alt"></i>
+												<div class="social-share">
+													<a href="http://www.facebook.com/sharer.php?u=https://dealsbargain.com/productdetails/{{product.category}}/{{product.subcategory}}/{{product.item_id}}"
+														target="_blank">
+														<i class="fa fa-facebook-official"></i>
+													</a>
+													<a href="http://twitter.com/share?text=dealsbargain&url=https://dealsbargain.com/productdetails/{{product.category}}/{{product.subcategory}}/{{product.item_id}}"
+														target="_blank">
+														<i class="fa fa-twitter-square"></i>
+													</a>
+													<!-- <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.dealsbargain.com/&title=hashtags&source=deals bargain" target="_blank">
 													<i class="fa fa-linkedin-square"></i>
 												</a> -->
-											</div>
-										</button>
-										<app-wishlist [actionType]="'add'" [productInfo]="product"></app-wishlist>
-									</mat-card-actions>
-								</mat-card>
+												</div>
+											</button>
+											<app-wishlist [actionType]="'add'" [productInfo]="product"></app-wishlist>
+										</mat-card-actions>
+									</mat-card>
+								</ng-container>
 							</ng-container>
 						</ng-container>
-					</ng-container>
-		
-		
+
+
+					</div>
 				</div>
 			</div>
 		</div>
