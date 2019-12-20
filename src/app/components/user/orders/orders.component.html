@@ -15,78 +15,82 @@
         <div class="order-details" *ngIf="orderInfo.user_payment_request_status!='success'">
                 <p> Your order was failed. Please contact customer care</p>
         </div>
-        <div class="review-order" fxLayout="row" *ngFor="let itemdetails of orderInfo.items_info">
+        <div class="review-order" *ngFor="let itemdetails of orderInfo.items_info">
             <div class="order-image">
                 <img class="image img-cursor" mat-card-image src="{{itemdetails.image}}" alt="photo"
                         (click)="showProductDetails({cname:itemdetails.category,scname:itemdetails.subcategory,pid:itemdetails.item_id})">
                 <!-- <img src="{{itemdetails.image}}"> -->
             </div>
+            <div class="order-cycle">
+                <mat-horizontal-stepper #stepper labelPosition="bottom">
+                    <mat-step *ngIf="orderInfo.user_payment_request_status=='success'">
+                        <ng-template matStepLabel>
+                            <h6>Order placed</h6>
+                        </ng-template>
+        
+                        <p>Order Date  : <b>{{orderInfo.user_payment_request_date | date}}</b></p>
+                    </mat-step>
+                    <mat-step *ngIf="itemdetails.user_cancell_request_status">
+                        <ng-template matStepLabel>
+                            <h6>User Cancelled</h6>
+                        </ng-template>
+                        <p>User Cancelled Date  : <b>{{itemdetails.user_cancell_request_date | date}}</b></p>
+                    </mat-step>
+                    <mat-step *ngIf="itemdetails.supplier_cancell_request_status">
+                        <ng-template matStepLabel>
+                            <h6>Supplier Cancelled</h6>
+                        </ng-template>
+                        <p>Supplier Cancelled Date  : <b>{{itemdetails.Supplier_cancell_request_date | date}}</b></p>
+                    </mat-step>
+                    <mat-step *ngIf="itemdetails.user_return_request_status">
+                        <ng-template matStepLabel>
+                            <h6>User Returned</h6>
+                        </ng-template>
+                        <p>User Returned Date  : <b>{{itemdetails.user_return_request_date | date}}</b></p>
+                    </mat-step>
+                    <mat-step *ngIf="itemdetails.supplier_return_request_status">
+                        <ng-template matStepLabel>
+                            <h6>Supplier Returned</h6>
+                        </ng-template>
+                        <p>Supplier Returned Date  : <b>{{itemdetails.supplier_return_request_date | date}}</b></p>
+                    </mat-step>
+                    <ng-container *ngIf="!itemdetails.user_cancell_request_status && !itemdetails.supplier_cancell_request_status && !itemdetails.user_return_request_status && !itemdetails.supplier_return_request_status">
+                    <mat-step>
+                        <ng-template matStepLabel>
+                            <h6>Packed</h6>
+                        </ng-template>
+                        <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='INPROGRESS'">
+                                <p>Packed Date  : <b>{{itemdetails.supplier_shipping_request_date | date}}</b></p>
+                        </ng-container>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>
+                            <h6>Shipped</h6>
+                        </ng-template>
+                        <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='COMPLETED'">
+                                <p>Shipped Date  : <b>{{itemdetails.supplier_shipping_request_date | date}}</b></p>
+                        </ng-container>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel><h6>Delivered</h6></ng-template>
+                        <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_delivered_request_status=='COMPLETED'">
+                                <p>Delivered Date  : <b>{{itemdetails.supplier_delivered_request_date | date}}</b></p>
+                        </ng-container>
+                    </mat-step>
+                    </ng-container>    
+                </mat-horizontal-stepper> 
+            </div>
             <div class="review-order-details" *ngIf="orderInfo.user_payment_request_status=='success'">
-                    <div class="order-cycle">
-                            <mat-horizontal-stepper #stepper labelPosition="bottom">
-                                <mat-step *ngIf="orderInfo.user_payment_request_status=='success'">
-                                    <ng-template matStepLabel>
-                                       <h6>Order placed</h6>
-                                    </ng-template>
-                    
-                                    <p>Order Date  : <b>{{orderInfo.user_payment_request_date | date}}</b></p>
-                                </mat-step>
-                                <mat-step *ngIf="itemdetails.user_cancell_request_status">
-                                    <ng-template matStepLabel>
-                                        <h6>User Cancelled</h6>
-                                    </ng-template>
-                                    <p>User Cancelled Date  : <b>{{itemdetails.user_cancell_request_date | date}}</b></p>
-                                </mat-step>
-                                <mat-step *ngIf="itemdetails.supplier_cancell_request_status">
-                                    <ng-template matStepLabel>
-                                        <h6>Supplier Cancelled</h6>
-                                    </ng-template>
-                                    <p>Supplier Cancelled Date  : <b>{{itemdetails.Supplier_cancell_request_date | date}}</b></p>
-                                </mat-step>
-                                <mat-step *ngIf="itemdetails.user_return_request_status">
-                                    <ng-template matStepLabel>
-                                        <h6>User Returned</h6>
-                                    </ng-template>
-                                    <p>User Returned Date  : <b>{{itemdetails.user_return_request_date | date}}</b></p>
-                                </mat-step>
-                                <mat-step *ngIf="itemdetails.supplier_return_request_status">
-                                    <ng-template matStepLabel>
-                                        <h6>Supplier Returned</h6>
-                                    </ng-template>
-                                    <p>Supplier Returned Date  : <b>{{itemdetails.supplier_return_request_date | date}}</b></p>
-                                </mat-step>
-                              <ng-container *ngIf="!itemdetails.user_cancell_request_status && !itemdetails.supplier_cancell_request_status && !itemdetails.user_return_request_status && !itemdetails.supplier_return_request_status">
-                                <mat-step>
-                                    <ng-template matStepLabel>
-                                        <h6>Packed</h6>
-                                    </ng-template>
-                                    <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='INPROGRESS'">
-                                            <p>Packed Date  : <b>{{itemdetails.supplier_shipping_request_date | date}}</b></p>
-                                    </ng-container>
-                                </mat-step>
-                                <mat-step>
-                                    <ng-template matStepLabel>
-                                        <h6>Shipped</h6>
-                                    </ng-template>
-                                    <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='COMPLETED'">
-                                            <p>Shipped Date  : <b>{{itemdetails.supplier_shipping_request_date | date}}</b></p>
-                                    </ng-container>
-                                </mat-step>
-                                <mat-step>
-                                    <ng-template matStepLabel><h6>Delivered</h6></ng-template>
-                                    <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_delivered_request_status=='COMPLETED'">
-                                            <p>Delivered Date  : <b>{{itemdetails.supplier_delivered_request_date | date}}</b></p>
-                                    </ng-container>
-                                </mat-step>
-                              </ng-container>    
-                            </mat-horizontal-stepper> 
-                        </div>
+                   
                 <div class="product-name">{{itemdetails.title}}</div>
                 <div class="product-size">Qty : {{orderInfo.items_info.length}} Items </div>
-                <div class="product-price"> {{PRICE_PREFIX}} {{itemdetails.price}} </div>
-                <div class="product-status">Delivered<span>({{orderInfo.created_on | date}})</span></div>
+                <div class="product-price"> 
+                    {{PRICE_PREFIX}} {{itemdetails.price}} 
+                    <div class="product-status">Delivered<span>({{orderInfo.created_on | date}})</span></div>
+                </div>
+                
                 <ng-container *ngIf="itemdetails.show_cancel_button=='yes'">
-                    <button mat-button class="view-btn" (click) = "cancelOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Cancel</button>
+                    <button mat-button color="warn" class="view-btn" (click) = "cancelOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Cancel</button>
                 </ng-container>
                 <ng-container *ngIf="itemdetails.show_return_button=='yes'">
                     <button mat-button class="view-btn" (click) = "returnOrder(orderInfo.order_tracking_id,orderInfo.id,itemdetails)">Return</button>

@@ -19,7 +19,7 @@
     <mat-form-field appearance="outline">
         <input matInput type="date" formControlName="dob"  placeholder="DOB">
     </mat-form-field>
-    <button mat-raised-button type="submit" [disabled]="profileform.invalid" class=" my-2 mx-auto login-login-btn">Update</button>
+   
     <h6>Mobile Number
         <ng-container *ngIf="isSMSEdit==false">
             <i class="fa fa-edit" (click)="enableSmsOtp()"></i>
@@ -64,4 +64,6 @@
             <button mat-button (click)="verifyAndSaveEmail()">Verify</button>
         </div>
     </ng-container>    
+
+    <button mat-raised-button type="submit" [disabled]="profileform.invalid" class=" my-2 mx-auto login-login-btn">Update</button>
 </form>

@@ -6,7 +6,7 @@
 				<img src="../../../assets/img/dealsfamily.png">
 			</mat-card>
 		</div>
-		<div class="swiper-slide">
+		<!-- <div class="swiper-slide">
 			<mat-card>
 				<img src="../../../assets/img/shoppingbanner.png">
 			</mat-card>
@@ -15,10 +15,10 @@
 			<mat-card>
 				<img src="../../../assets/img/sale.png">
 			</mat-card>
-		</div>
+		</div> -->
 	</div>
-	<div class="swiper-button-prev"></div>
-	<div class="swiper-button-next"></div>
+	<!-- <div class="swiper-button-prev"></div>
+	<div class="swiper-button-next"></div> -->
 </div>
 
 <mat-toolbar-row class="info-toolbar my-4">
@@ -162,6 +162,7 @@
 		<!-- <button mat-raised-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
 			Add Cart
 		</button> -->
+		<app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
 		<button mat-button class="action-btns share">
 			<i class="fa fa-share-alt"></i>
 			<div class="social-share">
@@ -176,7 +177,7 @@
 				</a> -->
 			</div>
 		</button>
-		<app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
+		
 	</mat-card-actions>
 
 </ng-template>

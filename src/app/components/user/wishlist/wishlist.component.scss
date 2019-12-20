@@ -47,13 +47,15 @@
     background-color: #fff;
 }
 .remove-btn{
-    color: #ff9600;
+    color: #d22020;
     font-weight: 400;
-    border: 1px solid #ff9600;
     height: 32px;
     line-height: 27px;
     padding: 0px 10px;
     font-size: 13px;
+}
+.remove-btn.cart{
+    color: #234e97;
 }
 .action-btns{
     min-width: 29px;

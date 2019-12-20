@@ -52,7 +52,7 @@
       }
       .action-btns{
         min-width: 29px;
-        margin-right: 10px;
+        margin-left: 10px;
         padding: 0px;
         background:#e1e1e1;
         height: 29px;
@@ -62,20 +62,21 @@
       .share{
         position: relative;
         &:hover{
-          .social-share{display: inline-block;
+          .social-share{display: block;
             i{font-size: 19px;}
           }
         }
       }
       .social-share{
         display: none;
-        width: 50px;
+        width: 30px;
         position: absolute;
-        top: -55px;
-        left: 25px;
+        bottom: 33px;
+        left: -0px;
         a{
           display: block;
           line-height: 30px;
+          width: 30px;
         }
       }
     }

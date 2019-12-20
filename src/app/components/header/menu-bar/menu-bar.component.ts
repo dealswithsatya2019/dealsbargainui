@@ -21,7 +21,6 @@ export class MenuBarComponent implements OnInit {
   public menuSubCategories : MenuCategories;
   //constructor(public _productservice: ProductService, public _productListRouteInfo:ProductListRouteInfoService) { }
   subscription : Subscription;
-  public status : boolean = false;
   constructor(public _productservice: ProductService) { }
 
   ngOnInit() {

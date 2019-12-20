@@ -6,8 +6,8 @@
 }
 .order-image img{max-width: 100%;}
 .order-image{
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 120px;
     position: absolute;
     top: 50%;
     left: 10px;
@@ -28,9 +28,7 @@ table{
 }
 .product-name{
     margin-top: 4px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    line-height: 27px;
     margin-bottom: 4px;
     color: #505052;
     font-weight: 500;
@@ -42,21 +40,34 @@ table{
 }
 .product-price{
     font-weight: 400;
-    color: #1b3664;
+    color: #232323;
+    display: flex;
 }
 .product-status{
+    padding-left: 30px;
+    font-weight: 500;
+    color: green;
     span{
-        font-size: 15px;
-        font-weight: 300;
+        color: #373535;
+        font-size: 14px;
+        font-weight: 400;
     }
 }
 .order-id{
     display: flex;
     margin-bottom: 10px;
 }
+.view-btn{
+    background:#f44336;
+    color:#fff;
+    line-height: 28px;
+    font-size: 12px;
+    padding: 0px 8px;
+    margin: 15px 0px 10px 0px;
+}
 .order-cycle{
     display: flex;
-    justify-content: left;
+    justify-content: center;
     p{
         display: flex;
         justify-content: space-between;

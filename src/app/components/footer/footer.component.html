@@ -11,9 +11,7 @@
                     <li class="mail"><b>Email : </b> info@dealsbargain.com</li>
                     <li>
                         <a><img src="../../../assets/img/facebook.png"></a>
-                        <a><img src="../../../assets/img/twitter-sign.png"></a>
                         <a><img src="../../../assets/img/instagram.png"></a>
-                        <a><img src="../../../assets/img/linkedin.png"></a>
                     </li>
                 </ul>
             </div>
@@ -22,16 +20,15 @@
                 <h6 class="foo-title">About Market</h6>
                 <ul class="p-0 foo-list">
                     <li><a target="_blank" href="../../../assets/pages/AboutUs.html">About Us</a></li>
-                    <li><a target="_blank" [routerLink]="['marketreview']">Market Reviews</a></li>
+                    <!-- <li><a target="_blank" [routerLink]="['marketreview']">Market Reviews</a></li> -->
                     <li><a target="_blank" href="../../../assets/pages/TermsofUse.html">Terms Of Use</a></li>
                     <li><a target="_blank" href="../../../assets/pages/PrivacyPolicy.html">Privacy Policy</a></li>
-                    <li><a target="_blank" [routerLink]="['sitemap']">Site Map</a></li>
+                    <!-- <li><a target="_blank" [routerLink]="['sitemap']">Site Map</a></li> -->
                 </ul>
             </div>
             <div class="col-sm-6 col-md-3 p-3">
                 <h6 class="foo-title">Payment & Shipping</h6>
                 <ul class="p-0 foo-list">
-                    <li><a target="_blank" href="../../../assets/pages/TermsofUse.html">Terms Of Use</a></li>
                     <li><a target="_blank" href="../../../assets/pages/PaymentMethods.html">Payment Methods</a></li>
                     <li><a target="_blank" [routerLink]="['shippingguide']">Shipping Guide</a></li>
                     <li><a target="_blank" href="../../../assets/pages/LocationWeShipTo.html">Location We Ship To</a></li>
@@ -42,7 +39,7 @@
                 <h6 class="foo-title">Customer Service</h6>
                 <ul class="p-0 foo-list">
                     <li><a target="_blank" href="../../../assets/pages/ShippingPolicy.html">Shipping Policy</a></li>
-                    <li><a target="_blank" [routerLink]="['compensation']">Compensation First</a></li>
+                    <!-- <li><a target="_blank" [routerLink]="['compensation']">Compensation First</a></li> -->
                     <li><a target="_blank" [routerLink]="['myprofile', { outlets: { 'profileoutlet': ['profileinfo'] } }]">My Account</a></li>
                     <li><a target="_blank" href="../../../assets/pages/CancellationandReturnPolicy.html">Return Policy</a></li>
                     <li><a target="_blank" href="../../../assets/pages/ContactUs.html">Contact Us</a></li>
@@ -51,15 +48,15 @@
 
            
         </div>
-        <div class="payment-options pb-2">
-        <span>&copy; copyrights reserved</span>
+    </div>
+    <div class="payment-options">
+        <div class="content-container">
+            <span>&copy; copyrights reserved</span>
 
-        
-        <div class="avail-payment">
-            <img src="../../../assets/img/payment.jpg">
+            <div class="avail-payment">
+                <img src="../../../assets/img/payment.jpg">
+            </div>
         </div>
     </div>
-    </div>
-
     
 </footer>
