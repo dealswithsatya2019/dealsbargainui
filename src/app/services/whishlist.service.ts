@@ -87,7 +87,7 @@ export class WhishlistService {
         (data: searchreponse) => {
           if (data != null && data.responseObjects != null) {
             let alreadyWhishlist: Product[] = data.responseObjects;
-            console.log("Before Update whishlist  ", this.itemsInWhishslist);
+            //console.log("Before Update whishlist  ", this.itemsInWhishslist);
             alreadyWhishlist.forEach(alreadyWhishlistItem => {
               if (alreadyWhishlistItem.quantity == undefined || alreadyWhishlistItem.quantity == 0) {
                 alreadyWhishlistItem.quantity = 1;
@@ -99,7 +99,7 @@ export class WhishlistService {
               }
             });
             this.itemsInWhishslist = alreadyWhishlist;
-            console.log("After Update whishlist  ", this.itemsInWhishslist);
+            //console.log("After Update whishlist  ", this.itemsInWhishslist);
           } else if (this.itemsInWhishslist) {
             this.itemsInWhishslist.forEach(newWhislistProd => {
               this.addToWhishlist(newWhislistProd);

@@ -38,16 +38,21 @@
 				{{productDetails.title}}
 				
 			</h5>
-			<p style="clear: both;align-items: center;"><span class="mr-1 rate-product">
-					<ngx-star-rating [ngModel]="product" [id]="'productRating1'" [disabled]="true"></ngx-star-rating>
-				<div class="product-rating">
-					<div class="stars">
-						<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating>
+			<ng-container *ngIf="productRating==0">
+				Be a first reviewer. <a (click)="openDialog()">Rate this product</a>
+			</ng-container>
+			<ng-container *ngIf="productRating>0">
+			<p style="clear: both;align-items: center;">
+				<span class="mr-1 rate-product">
+					<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating>
+					<div class="product-rating">
+						<div class="stars">
+							<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating>
 						<!-- <b>4.1 out of 5</b> -->
-					</div>
+						</div>
 					
 					<div class="product-rating-bar">
-						<p class="mb-2">13 customers ratings</p>
+						<p class="mb-2">{{totalRating}} customers ratings</p>
 						<p class="progress-line">5star <mat-progress-bar mode="determinate" value="{FiveStar}}"></mat-progress-bar> <span>60%</span></p>
 						<p class="progress-line">4star <mat-progress-bar mode="determinate" value="{{FourStar}}"></mat-progress-bar> <span>30%</span></p>
 						<p class="progress-line">3star <mat-progress-bar mode="determinate" value="{{ThreeStar}}"></mat-progress-bar> <span>20%</span></p>
@@ -55,8 +60,8 @@
 						<p class="progress-line">1star <mat-progress-bar mode="determinate" value="{{OneStar}}"></mat-progress-bar> <span>4%</span></p>
 						<a class="py-3 text-center" mat-button >View all Ratings</a>
 					</div>
-				</div>
-			</span>
+					</div>
+				</span>
 					<!--<small class="py-1">
 					 <i class="fa fa-thumbs-up"></i> 8 Recommendations
 					</small> -->
@@ -78,8 +83,8 @@
 							</div>
 						</button>
 					</span>
-				</p>
-			
+			</p>
+			</ng-container>
 
 
 		<!-- 	<p class="py-3">1000 People have viewed this product</p> -->
@@ -149,6 +154,8 @@
 					<li>Cash On Delivery</li>
 				</ul>
 			</div> -->
+		
+		
 		</div>
 	</div>
 

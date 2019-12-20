@@ -1,1 +1,32 @@
-<p>marketreviews works!</p>
+<h2 mat-dialog-title>Write A Review</h2>
+<mat-dialog-content [formGroup]="form" class="normal-form w-100">
+    <h6 class="mb-3"> Rate this site </h6>
+       <mat-radio-group formControlName="productRating">
+            <mat-radio-button  class="rate" *ngFor="let rating of ratings" [value]="rating">
+                <!-- {{rating}}  -->
+                &#9734;
+           </mat-radio-button>
+        </mat-radio-group>
+   
+    <mat-form-field floatLabel="never" class="w-100 mt-4" appearance="outline">
+        <mat-label>Review Title</mat-label>
+        <input matInput formControlName="reviewTitle" placeholder="Review Title">
+        <mat-error>This field is mandatory</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field floatLabel="never" class="w-100" appearance="outline">
+        <mat-label>Write your review here</mat-label>
+        <textarea matInput formControlName="comment" placeholder="review"></textarea>
+        <mat-error>This field is mandatory</mat-error>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="isRecomended">Yes, I recommend this product</mat-checkbox>
+</mat-dialog-content>
+
+
+
+<mat-dialog-actions>
+    <button mat-raised-button class="mr-2" (click)="close()">Close</button>
+    <!-- <button mat-raised-button [mat-dialog-close]="" cdkFocusInitial>Submit</button>-->
+    <button mat-raised-button (click)="funSiteReview()">Submit</button>
+</mat-dialog-actions>

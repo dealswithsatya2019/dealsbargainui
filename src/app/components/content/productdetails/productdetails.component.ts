@@ -53,6 +53,7 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
   subscription : Subscription;
   public whishlist_action_type : string ='add';
   public result: string ='';
+  public totalRating: number =0;
  
   constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService, 
     public _router: Router, public dialog: MatDialog, public gallery: Gallery, 
@@ -60,6 +61,13 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
   }
 
   ngOnInit() {
+//    (5*252 + 4*124 + 3*40 + 2*29 + 1*33) / (252+124+40+29+33) = 4.11 and change
+    this.totalRating = this.FiveStar+this.FourStar+this.ThreeStar+this.TwoStar+this.OneStar;
+    console.log("Total ratings : "+ this.totalRating);
+    //this.productRating = ((5*this.FiveStar)+(4*this.FourStar)+(3*this.ThreeStar)+(2*this.TwoStar)+(1*this.OneStar))/this.totalRating;
+    //this.productRating = Math.round(this.productRating * 100)/10;
+    console.log("productRating : "+ this.productRating);
+    
     setTimeout(() => {
       var swiper = new Swiper('.similar', {
         autoplay: {
