@@ -34,6 +34,7 @@ import { UnsubscribeComponent } from 'src/app/components/user/unsubscribe/unsubs
 import { LoginComponent } from './components/header/login/login.component';
 import { SignupComponent } from './components/header/signup/signup.component';
 import { MyprofileComponent } from 'src/app/components/user/myprofile/myprofile.component';
+import { CouponsComponent } from 'src/app/components/content/coupons/coupons.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,10 @@ const routes: Routes = [
     path: AppRoutes.Content,
     component: ContentComponent
   },
+  {
+    path: AppRoutes.Coupons,
+    component: CouponsComponent,
+  },  
   {
     path: AppRoutes.UserProfile,
     component: ProfileComponent,

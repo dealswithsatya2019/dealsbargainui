@@ -59,6 +59,7 @@ import { ChangePasswordComponent } from './components/user/change-password/chang
 import { UnsubscribeComponent } from './components/user/unsubscribe/unsubscribe.component';
 import { ForgotpasswordComponent } from './components/header/forgotpassword/forgotpassword.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { CouponsComponent } from './components/content/coupons/coupons.component';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -123,6 +124,7 @@ export function ProvideConfig() {
     ChangePasswordComponent,
     UnsubscribeComponent,
     ForgotpasswordComponent,
+    CouponsComponent,
     
   ],
   entryComponents:[LoginComponent,SignupComponent,SocialshareComponent,RateproductComponent,ForgotpasswordComponent],

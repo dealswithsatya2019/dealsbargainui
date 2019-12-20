@@ -1,4 +1,4 @@
-<mat-toolbar-row *ngIf="menuFlag">
+<!-- <mat-toolbar-row *ngIf="menuFlag">-->
 <ng-container *ngFor="let mainMenuCategory of menuCategories">
     <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{mainMenuCategory.category_display_name}}</a>
     <mat-menu #menu="matMenu" panelClass="magaMenu" backdropClass="megaMenu">
@@ -26,5 +26,7 @@
             </ng-container>
         </div>
     </mat-menu>
+
 </ng-container>
-</mat-toolbar-row>
+<a mat-button  [routerLink]="['coupons']">Coupons</a>
+<!-- </mat-toolbar-row> -->

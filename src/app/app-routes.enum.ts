@@ -16,6 +16,7 @@ export class AppRoutes{
     static readonly UserReviewAndRatings ='review-ratings';
     static readonly UserChangePassword ='change-passowrd';
     static readonly UserCheckout = 'checkout';
+    static readonly Coupons = 'coupons';
     static readonly Unsubscribe ='unsubscribe';
     static readonly Aboutus = 'aboutus';
     static readonly MarketReview = 'marketreview';
