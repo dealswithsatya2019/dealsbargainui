@@ -31,7 +31,7 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field floatLabel="never" class="w-100" appearance="outline">
-            <input formControlName="email" matInput placeholder="Email address *" >
+            <input formControlName="email" matInput placeholder="Email *" >
             <mat-error *ngFor="let validation of userservice.signup_validation_messages.email">
                 <mat-error class="error-message" *ngIf="userservice.form.get('email').hasError(validation.type) && (userservice.form.get('email').dirty || userservice.form.get('email').touched)">{{validation.message}}</mat-error>
             </mat-error>
