@@ -72,7 +72,7 @@ export class ProductpurchaseComponent implements OnInit {
     address: new FormControl('', [Validators.required, Validators.maxLength(25)]),
     city: new FormControl('', [Validators.required]),
     state: new FormControl('', [Validators.required]),
-    altphone: new FormControl('',[Validators.pattern('[0-9]+')]),
+    altphone: new FormControl('', [Validators.pattern('[0-9]+')]),
     address_type: new FormControl('', [Validators.required]),
     country: new FormControl('United States', [Validators.required]),
 
@@ -87,7 +87,7 @@ export class ProductpurchaseComponent implements OnInit {
     address: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     state: new FormControl('', [Validators.required]),
-    altphone: new FormControl('',[Validators.pattern('[0-9]+')]),
+    altphone: new FormControl('', [Validators.pattern('[0-9]+')]),
     address_id: new FormControl(''),
     country: new FormControl('United States', [Validators.required]),
     address_type: new FormControl('', [Validators.required]),
@@ -141,7 +141,7 @@ export class ProductpurchaseComponent implements OnInit {
               }
             ], application_context: {
               'shipping_preference': 'NO_SHIPPING',
-              "locale": "en-US",              
+              "locale": "en-US",
             }
           });
         },
@@ -210,11 +210,11 @@ export class ProductpurchaseComponent implements OnInit {
             this.loginErrorMsg = authResponse.statusDesc;
           }
         },
-        (error : HttpErrorResponse) =>{
+        (error: HttpErrorResponse) => {
           this.loginErrorMsg = error.error.statusDesc;
         }
       )
-    );
+      );
     } catch (error) {
       this.loginErrorMsg = 'Got issue check in console';
       console.log(error);
@@ -235,6 +235,14 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   funSave() {
+    let mobilenumber = this.addressform.controls.mobile_number.value;
+    mobilenumber = "1" + mobilenumber;
+    this.addressform.controls['mobile_number'].setValue(mobilenumber);
+    let altphone = this.addressform.controls.altphone.value;
+    if (altphone != null && altphone.length > 0) {
+      altphone = "1" + altphone;
+      this.addressform.controls['altphone'].setValue(altphone);
+    }
     let addressInfo = JSON.parse(JSON.stringify(this.addressform.value));
     console.log("addressInfo :", addressInfo);
     this.saveAddress(addressInfo);
@@ -358,8 +366,8 @@ export class ProductpurchaseComponent implements OnInit {
     this.address = (this.addressInfo.responseObjects.filter(itemLoop => itemLoop.address_id == addressId))[0];
     this.updateaddressform.controls.firstName.setValue(this.address.firstName);
     this.updateaddressform.controls.lastName.setValue(this.address.lastName);
-    this.updateaddressform.controls.mobile_number.setValue(this.address.mobile_number);
-    this.updateaddressform.controls.altphone.setValue(this.address.altphone);
+    this.updateaddressform.controls.mobile_number.setValue(this.address.mobile_number.substr(1));
+    this.updateaddressform.controls.altphone.setValue(this.address.altphone != null ? this.address.altphone.substr(1) : this.address.altphone);
     this.updateaddressform.controls.address.setValue(this.address.address);
     this.updateaddressform.controls.city.setValue(this.address.city);
     this.updateaddressform.controls.country.setValue(this.address.country);

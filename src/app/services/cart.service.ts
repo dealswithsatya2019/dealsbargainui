@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { UserService } from 'src/app/user.service';
 import { environment } from 'src/environments/environment';
 import { Product } from '../models/product';
+import { cartInfo } from '../models/cartInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -109,4 +110,12 @@ export class CartService {
     this.itemsInCart = [];
     this.itemsInCartTemp = [];
   }
+
+  public getCartlist(): Observable<cartInfo> {
+    let autherization = "Bearer " + this.userService.getAuthToken();
+    console.log(autherization);
+    return this.http.post<cartInfo>(this.APIEndpoint + "/user/cart/operation/getCartdetails/us",
+      { "countryCode": "us" }, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
+  }
+
 }

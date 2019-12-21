@@ -11,7 +11,7 @@ import { IMaps } from '../models/IMaps';
 })
 export class HttCommonService {
 
-  private APIEndpoint : string  = environment.APIEndpoint;
+  private APIEndpoint: string = environment.APIEndpoint;
 
   constructor(private http: HttpClient) { }
 
@@ -35,7 +35,7 @@ export class HttCommonService {
   }
 
   getReq(urlAppendParam): Observable<any> {
-    let url: string ="";
+    let url: string = "";
     if (urlAppendParam) {
       url = this.apiURL + '/' + urlAppendParam;
     } else {
@@ -43,11 +43,11 @@ export class HttCommonService {
     }
     return this.http.get(
       url,
-      { headers: { 'Content-Type': 'application/json'} }).pipe(map(this.extractData),catchError(this.handleError));
+      { headers: { 'Content-Type': 'application/json' } }).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   getRequest(urlAppendParam, authToken?): Observable<any> {
-    let url: string ="";
+    let url: string = "";
     if (urlAppendParam) {
       url = this.apiURL + '/' + urlAppendParam;
     } else {
@@ -55,12 +55,12 @@ export class HttCommonService {
     }
     return this.http.get(
       url,
-      { headers: { 'Content-Type': 'application/json','authorization': 'Bearer '+authToken} }).pipe(map(this.extractData),catchError(this.handleError));
+      { headers: { 'Content-Type': 'application/json', 'authorization': 'Bearer ' + authToken } }).pipe(map(this.extractData), catchError(this.handleError));
   }
 
 
   postReq(urlAppendParam, body?): Observable<any> {
-    let url: string ="";
+    let url: string = "";
     if (urlAppendParam) {
       url = this.apiURL + '/' + urlAppendParam;
     } else {
@@ -68,11 +68,11 @@ export class HttCommonService {
     }
     return this.http.post(
       url, body,
-      { headers: { 'Content-Type': 'application/json' } }).pipe(map(this.extractData),catchError(this.handleError));
+      { headers: { 'Content-Type': 'application/json' } }).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   postRequest(urlAppendParam, body?, authToken?): Observable<any> {
-    let url: string ="";
+    let url: string = "";
     if (urlAppendParam) {
       url = this.apiURL + '/' + urlAppendParam;
     } else {
@@ -80,25 +80,25 @@ export class HttCommonService {
     }
     return this.http.post(
       url, body,
-      { headers: { 'Content-Type': 'application/json','authorization': 'Bearer '+authToken} }).pipe(map(this.extractData),catchError(this.handleError));
+      { headers: { 'Content-Type': 'application/json', 'authorization': 'Bearer ' + authToken } }).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   deleteRequest(urlAppendParam, body?, authToken?): Observable<any> {
-    let url: string ="";
+    let url: string = "";
     if (urlAppendParam) {
       url = this.apiURL + '/' + urlAppendParam;
     } else {
       url = this.apiURL;
     }
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': 'Bearer '+authToken }), body
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': 'Bearer ' + authToken }), body
     };
-    return this.http.delete(url, httpOptions).pipe(map(this.extractData),catchError(this.handleError));
+    return this.http.delete(url, httpOptions).pipe(map(this.extractData), catchError(this.handleError));
   }
 
-  getMapsServiceImaps() : Observable<IMaps>{
-    return this.http.get<IMaps>("http://api.ipapi.com/api/check?access_key="+environment.IPAPIKEY);
-}
+  getMapsServiceImaps(): Observable<IMaps> {
+    return this.http.get<IMaps>("http://api.ipapi.com/api/check?access_key=" + environment.IPAPIKEY);
+  }
 
 
 }

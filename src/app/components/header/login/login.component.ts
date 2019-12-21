@@ -14,8 +14,12 @@ import { AuthService as UserAuth } from 'src/app/services/auth.service';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
 import { LoginformService } from 'src/app/services/forms/loginform.service';
 import { WhishlistService } from 'src/app/services/whishlist.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MyprofileService } from 'src/app/services/myprofile.service';
+import { Subscription } from 'rxjs';
+import { CartService } from 'src/app/services/cart.service';
+import { cartInfo } from 'src/app/models/cartInfo';
+
 
 @Component({
   selector: 'app-login',
@@ -25,19 +29,20 @@ import { MyprofileService } from 'src/app/services/myprofile.service';
 export class LoginComponent implements OnInit {
 
   public loginErrorMsg: string;
-  constructor(public dialog: MatDialog, 
-              public userservice : UserService,
-              public loginformService : LoginformService,
-              public _socioAuthServ: AuthService,
-              public userAuth: UserAuth,
-             
-              public router: Router,
-              public encryptionService: EncryptionService,
-              public whishlistService: WhishlistService,
-              private _snackBar: MatSnackBar,
-              public _userSerive: UserService,
-              public _profileInfoService: MyprofileService
-            ) { }
+  subscriptions = new Subscription();
+  constructor(public dialog: MatDialog,
+    public userservice: UserService,
+    public loginformService: LoginformService,
+    public _socioAuthServ: AuthService,
+    public userAuth: UserAuth,
+    public cartService: CartService,
+    public router: Router,
+    public encryptionService: EncryptionService,
+    public whishlistService: WhishlistService,
+    private _snackBar: MatSnackBar,
+    public _userSerive: UserService,
+    public _profileInfoService: MyprofileService
+  ) { }
 
   ngOnInit() {
     this.loginformService.resetForm();
@@ -45,7 +50,7 @@ export class LoginComponent implements OnInit {
     //   duration: 2000,
     // });
   }
-  
+
 
   loginFacebook() {
     this._socioAuthServ.signIn(FacebookLoginProvider.PROVIDER_ID).then(
@@ -53,7 +58,7 @@ export class LoginComponent implements OnInit {
         // this.funClose();
         this.loginformService.response = response;
         this.userservice.response = JSON.parse(JSON.stringify(response));
-        console.log("facebook response :",JSON.stringify(response));
+        console.log("facebook response :", JSON.stringify(response));
         this.whishlistService.updateWhishlist();
       }
     );
@@ -65,11 +70,11 @@ export class LoginComponent implements OnInit {
         // this.funClose();
         this.loginformService.response = response;
         this.userservice.response = JSON.parse(JSON.stringify(response));
-        console.log("gmail response :",JSON.stringify(response));
+        console.log("gmail response :", JSON.stringify(response));
         this.whishlistService.updateWhishlist();
       }
     );
-  } 
+  }
 
   // funSignUp() {
   //   this.funClose();
@@ -99,25 +104,39 @@ export class LoginComponent implements OnInit {
     //this.userservice.form.setValue({ password: ciphertext });
     this.userAuth.authenticateUser(userInfo.name, userInfo.password, 'us', key1, key2, key3).subscribe(
       (authResponse: AuthResopnse) => {
-        if(authResponse.statusCode === 200){
+        if (authResponse.statusCode === 200) {
           this.userservice.form.controls['name'].setValue(userInfo.name);
           console.log('Success' + JSON.stringify(authResponse));
           sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
           this._userSerive.setAuthToken(authResponse.responseObjects.access_token);
           this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
           this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
-          // this.funClose();\
+          this.getCarts();
           this._profileInfoService.funSetUserProfile();
           this.whishlistService.updateWhishlist();
           this.router.navigateByUrl('/home');
-        }else{
+        } else {
           this.loginErrorMsg = authResponse.statusDesc;
           console.log('Failed' + JSON.stringify(authResponse));
         }
       },
-      (error : HttpErrorResponse) =>{
+      (error: HttpErrorResponse) => {
         this.loginErrorMsg = error.error.statusDesc;
       }
     );
   }
+
+  public cartInfo: cartInfo;
+  public getCarts() {
+    this.cartService.getCartlist().subscribe(data => {
+      this.cartInfo = data;
+      if (this.cartInfo != null && this.cartInfo.responseObject != null) {
+        this.cartInfo.responseObject.forEach(element => {
+          this.cartService.setItems(element);
+        });
+      }
+    }
+    );
+  }
+
 }
