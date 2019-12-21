@@ -129,17 +129,28 @@ export class MyprofileComponent implements OnInit, OnDestroy {
     this.enableOrDisable(true);
     let userInfo = JSON.parse(JSON.stringify(this.profileform.value));
     this.enableOrDisable(false);
-    this._alertService.raiseAlert("OTP sent to mobile numnber : "+userInfo.mobile);
+    this._userAuth.sendSmsOTP(userInfo.mobile, 'us','updateemail').subscribe(
+      (authResponse: AuthResopnse) => {
+        if (authResponse.statusCode === 201) {
+          this.isEmailEdit =false;
+          this.isEmailOtpSent =true;
+          this._alertService.raiseAlert("OTP sent to mobile number : "+userInfo.mobile);
+        } else {
+          this._alertService.raiseAlert(authResponse.statusDesc);
+        }
+      },
+      (error : HttpErrorResponse) =>{
+        console.log(error.error.statusDesc);
+      });
   }
 
   sendEmailOTP(){
     this.enableOrDisable(true);
     let userInfo = JSON.parse(JSON.stringify(this.profileform.value));
     this.enableOrDisable(false);
-    this._userAuth.sendOTP(userInfo.mobile, userInfo.email, 'us','updateemail').subscribe(
+    this._userAuth.sendEmailOTP(userInfo.email, 'us','updateemail').subscribe(
         (authResponse: AuthResopnse) => {
           if (authResponse.statusCode === 201) {
-            
             this.isEmailEdit =false;
             this.isEmailOtpSent =true;
             this._alertService.raiseAlert("OTP sent to email : "+userInfo.email);
@@ -150,18 +161,30 @@ export class MyprofileComponent implements OnInit, OnDestroy {
         (error : HttpErrorResponse) =>{
           console.log(error.error.statusDesc);
         });
-      
   }
 
   verifyAndSaveMobileNumber(){
     this.enableOrDisable(true);
     let userInfo = JSON.parse(JSON.stringify(this.profileform.value));
     this.enableOrDisable(false);
-    this.isSMSOtpSent =false;
-    this.updatedMobileNumber = userInfo.mobile;
-    this.profileform.get('mobile').disable();
-    this._profileInfoService.funSetUserProfile();
-    this._alertService.raiseAlert("Mobile number updated successfully.");
+    this._userAuth.verifySmsOTP(userInfo.mobile, this.smsOTP, 'us','updateemail').subscribe(
+        (authResponse: AuthResopnse) => {
+          if (authResponse.statusCode === 201) {
+            this.isSMSOtpSent =false;
+            this.updatedMobileNumber = userInfo.mobile;
+            this.profileform.get('mobile').disable();
+            this._profileInfoService.funSetUserProfile();
+            this._alertService.raiseAlert("Mobile number updated successfully.");
+          } if (authResponse.statusDesc === 'OTP_NOT_MATCHED') {
+            this._alertService.raiseAlert("OTP not matched. Please enter valid OTP.");
+          } else {
+            this._alertService.raiseAlert(authResponse.statusDesc);
+            console.log(authResponse);
+          }
+        },
+        (error : HttpErrorResponse) =>{
+          console.log(error.error.statusDesc);
+        });
 
   }
 

@@ -88,7 +88,9 @@ export class SignupComponent implements OnInit {
 
       }else{
         this.issentotp=true;
-        this.funSendOTP();
+        this.funSendEmailOTP();
+        this.funSendSmsOTP();
+
       }
     } catch (error) {
       console.log(error);
@@ -101,10 +103,10 @@ export class SignupComponent implements OnInit {
     this.userAuth.verifyEmailOTP(userInfo.email, userInfo.emailotp, 'us','signup').subscribe(
         (authResponse: AuthResopnse) => {
           if (authResponse.statusCode === 201) {
-            this.funRegisterUser();
+            this.funVerifySmsOTP();
             return true;
           } if (authResponse.statusDesc === 'OTP_NOT_MATCHED') {
-            this.raiseAlert("OTP not matched. Please enter valid OTP.");
+            this.raiseAlert("OTP not matched. Please enter valid email OTP.");
           } else {
             this.raiseAlert(authResponse.statusDesc);
             console.log('Failed' + JSON.stringify(authResponse));
@@ -117,12 +119,56 @@ export class SignupComponent implements OnInit {
           return false;
         });
   }
-  funSendOTP(){
+
+  funVerifySmsOTP() : any{
     let userInfo = JSON.parse(JSON.stringify(this.userservice.form.value));
-    this.userAuth.sendOTP(userInfo.mobileno, userInfo.email, 'us','signup').subscribe(
+    this.userAuth.verifySmsOTP(userInfo.mobileno, userInfo.smsotp, 'us','signup').subscribe(
         (authResponse: AuthResopnse) => {
           if (authResponse.statusCode === 201) {
-            this.raiseAlert("OTP sent to mobile number : "+userInfo.mobileno+" and email id"+ userInfo.email);
+            this.funRegisterUser();
+            return true;
+          } if (authResponse.statusDesc === 'OTP_NOT_MATCHED') {
+            this.raiseAlert("OTP not matched. Please enter valid sms OTP.");
+          } else {
+            this.raiseAlert(authResponse.statusDesc);
+            console.log('Failed' + JSON.stringify(authResponse));
+            return false;
+          }
+        },
+        (error : HttpErrorResponse) =>{
+          this.userservice.form.controls['password'].setValue(userInfo.password);
+          console.log(error.error.statusDesc);
+          return false;
+        });
+  }
+
+  funSendEmailOTP(){
+    let userInfo = JSON.parse(JSON.stringify(this.userservice.form.value));
+    this.userAuth.sendEmailOTP(userInfo.email, 'us','signup').subscribe(
+        (authResponse: AuthResopnse) => {
+          if (authResponse.statusCode === 201) {
+            this.raiseAlert("OTP sent to email "+ userInfo.email);
+            //Call sentsmsemail otp api.
+            this.userservice.form.get('emailotp').setValidators([Validators.required]);
+            this.userservice.form.get('smsotp').setValidators([Validators.required]);
+          } else {
+            this.raiseAlert("We have faced technical issue. Please try again..");
+            console.log('Failed' + JSON.stringify(authResponse));
+          }
+        },
+        (error : HttpErrorResponse) =>{
+          this.userservice.form.controls['password'].setValue(userInfo.password);
+          console.log(error.error.statusDesc);
+        });
+      
+  }
+
+  funSendSmsOTP(){
+    let userInfo = JSON.parse(JSON.stringify(this.userservice.form.value));
+    this.userAuth.sendSmsOTP(userInfo.mobileno, 'us','signup').subscribe(
+        (authResponse: AuthResopnse) => {
+          if (authResponse.statusCode === 201) {
+            this.raiseAlert("OTP sent to mobile number "+userInfo.mobileno);
             //Call sentsmsemail otp api.
             this.userservice.form.get('emailotp').setValidators([Validators.required]);
             this.userservice.form.get('smsotp').setValidators([Validators.required]);

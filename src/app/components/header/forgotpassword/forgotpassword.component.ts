@@ -22,14 +22,14 @@ export class ForgotpasswordComponent implements OnInit {
     public _userService: UserService) { }
 
   subscriptions: Subscription = new Subscription();
-  emailOrMobile : string='';
+  emailOrMobile: string = '';
   isEmailOtpSent = false;
   emailOTP = '';
   password = '';
-  emailOrMobileReqerrorMsg='';
-  emailOTPReqerrorMsg='';
-  passwordReqerrorMsg='';
-  
+  emailOrMobileReqerrorMsg = '';
+  emailOTPReqerrorMsg = '';
+  passwordReqerrorMsg = '';
+
   ngOnInit() {
   }
 
@@ -41,18 +41,47 @@ export class ForgotpasswordComponent implements OnInit {
   }
 
 
-  
-  sendEmailOTP() {
-    if(this.emailOrMobile.length ==0){
+
+  sendOTP() {
+    if (this.emailOrMobile.length == 0) {
       this.emailOrMobileReqerrorMsg = "* Email or mobile number is required.";
       return;
     }
     this.emailOrMobileReqerrorMsg = '';
-    this._userAuth.sendOTP('', this.emailOrMobile, 'us', 'forgotpassword').subscribe(
+    if (Math.sign(Number(this.emailOrMobile))) {
+        if(Math.sign(Number(this.emailOrMobile))>0 &&  this.emailOrMobile.length == 10){
+          this.funsendSmsOtp();
+        }else{
+          this._alertService.raiseAlert("Please enter valid mobile number.");
+        }
+    } else {
+      this.funsendEmailOtp();
+    }
+  }
+
+  funsendEmailOtp() {
+    this._userAuth.sendEmailOTP(this.emailOrMobile, 'us', 'forgotpassword').subscribe(
       (authResponse: AuthResopnse) => {
         if (authResponse.statusCode === 201) {
           this.isEmailOtpSent = true;
-          this._alertService.raiseAlert("OTP sent to email : " + this.emailOrMobile);
+          this._alertService.raiseAlert("OTP sent " + this.emailOrMobile);
+        } else {
+          this._alertService.raiseAlert("Please try again...");
+          console.log(authResponse.statusDesc)
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.error.statusDesc);
+      });
+
+  }
+
+  funsendSmsOtp() {
+    this._userAuth.sendSmsOTP(this.emailOrMobile, 'us', 'forgotpassword').subscribe(
+      (authResponse: AuthResopnse) => {
+        if (authResponse.statusCode === 201) {
+          this.isEmailOtpSent = true;
+          this._alertService.raiseAlert("OTP sent " + this.emailOrMobile);
         } else {
           this._alertService.raiseAlert("Please try again...");
           console.log(authResponse.statusDesc)
@@ -65,16 +94,25 @@ export class ForgotpasswordComponent implements OnInit {
   }
 
   verifyAndSavePassowrd() {
-  if(this.emailOTP.length ==0){
-    this.emailOTPReqerrorMsg = "* OTP required.";
-    return;
-  }  
-  this.emailOTPReqerrorMsg='';
-  if(this.password.length ==0){
-    this.passwordReqerrorMsg = "* Password required.";
-    return;
-  }  
-  this.passwordReqerrorMsg ='';
+    if (this.emailOTP.length == 0) {
+      this.emailOTPReqerrorMsg = "* OTP required.";
+      return;
+    }
+    this.emailOTPReqerrorMsg = '';
+    if (this.password.length == 0) {
+      this.passwordReqerrorMsg = "* Password required.";
+      return;
+    }
+    this.passwordReqerrorMsg = '';
+    if (Math.sign(Number(this.emailOrMobile)) && Math.sign(Number(this.emailOrMobile))>0 &&  this.emailOrMobile.length == 10){
+      this.verifySmsOtp();
+    }else{
+      this.verifyEmailOtp();
+    }
+
+  }
+
+  public verifyEmailOtp() {
     this._userAuth.verifyEmailOTP(this.emailOrMobile, this.emailOTP, 'us', 'forgotpassword').subscribe(
       (authResponse: AuthResopnse) => {
         if (authResponse.statusCode === 201) {
@@ -87,11 +125,25 @@ export class ForgotpasswordComponent implements OnInit {
       (error: HttpErrorResponse) => {
         console.log(error.error.statusDesc);
       });
+  }
 
+  public verifySmsOtp() {
+    this._userAuth.verifySmsOTP(this.emailOrMobile, this.emailOTP, 'us', 'forgotpassword').subscribe(
+      (authResponse: AuthResopnse) => {
+        if (authResponse.statusCode === 201) {
+          this.updateNewPassowrd();
+        } else {
+          this._alertService.raiseAlert("You entered an invalid OTP");
+          console.log(authResponse);
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.error.statusDesc);
+      });
   }
 
   public updateNewPassowrd() {
-    this.subscriptions.add(this._userAuth.forgotPassword('us',this.password,this.emailOrMobile,'').subscribe(
+    this.subscriptions.add(this._userAuth.forgotPassword('us', this.password, this.emailOrMobile, '').subscribe(
       (data) => {
         if (data.statusDesc == 'FORGOT_PASSWORD_UPDATE_SUCCESS') {
           this.isEmailOtpSent = false;

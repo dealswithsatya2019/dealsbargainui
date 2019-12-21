@@ -22,7 +22,7 @@ export class AuthService {
     let newUser = new RegisterUser();
     newUser.username = userName;
     newUser.email = email;
-    newUser.mobile = mobile;
+    newUser.mobile = '1'+mobile;
     newUser.password = password;
     newUser.key = key1 + '#' + key2 + '#' + key3
     newUser.countryCode = countryCode;
@@ -38,16 +38,22 @@ export class AuthService {
     return this._httpCommonService.postReq('authenticate', authJson);
   }
 
-  public sendOTP(mobile?, email?, countryCode?, action?): Observable<any> {
+  public sendEmailOTP(email?, countryCode?, action?): Observable<any> {
     let otpJson = {
-      "mobile": mobile,
       "email": email,
       "countryCode": countryCode,
-      "action": action,
-      "emailOTP": "",
-      "smsOTP": ""
+      "action": action
     }
     return this._httpCommonService.postReq('otp/sendemailotp', otpJson);
+  }
+
+  public sendSmsOTP(mobile?, countryCode?, action?): Observable<any> {
+    let otpJson = {
+      "mobile": '1'+mobile,
+      "countryCode": countryCode,
+      "action": action
+    }
+    return this._httpCommonService.postReq('otp/sendsmsotp', otpJson);
   }
 
   public verifyEmailOTP(email?, emailOTP?, countryCode?, action?): Observable<any> {
@@ -62,12 +68,12 @@ export class AuthService {
 
   public verifySmsOTP(mobile?, smsOTP?, countryCode?, action?): Observable<any> {
     let otpJson = {
-      "mobile": mobile,
+      "mobile": '1'+mobile,
       "smsOTP": smsOTP,
       "countryCode": countryCode,
       "action": action
     }
-    return this._httpCommonService.postReq('otp/sendsmsotp', otpJson);
+    return this._httpCommonService.postReq('otp/validatesmsotp', otpJson);
   }
 
   public forgotPassword(countryCode?, password?, email?, mobile?): Observable<any> {
@@ -75,7 +81,7 @@ export class AuthService {
       "countryCode": countryCode,
       "password": password,
       "email": email,
-      "mobile": mobile
+      "mobile": '1'+mobile
     }
     return this._httpCommonService.postRequest('otp/forgotpassword', body, this._userService.getAuthToken());
   }
@@ -86,7 +92,7 @@ export class AuthService {
       "oldpassword": oldpassword,
       "password": newpassword,
       "email": email,
-      "mobile": mobile
+      "mobile": '1'+mobile
     }
     return this._httpCommonService.postRequest('otp/forgotpassword', body, this._userService.getAuthToken());
   }
