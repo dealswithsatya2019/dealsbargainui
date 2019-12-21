@@ -43,7 +43,7 @@
 		<div class="product-list-page ">
 			<button mat-raised-button class="side-list">Filter</button>
 			<div *ngIf="products" class="product-list" style="flex: 1 1 0%">
-				<div class="search-results" infiniteScroll [infiniteScrollDistance]="10" [infiniteScrollThrottle]="150"
+				<div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="150"
 					(scrolled)="onScroll()">
 					<div class="productlistcontainer pl-3" fxLayout="row wrap">
 						<ng-container *ngFor="let product of products; let i = index">

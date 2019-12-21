@@ -151,7 +151,7 @@ export function ProvideConfig() {
       
     }),
     NgxStarRatingModule,
-    // InfiniteScrollModule
+    InfiniteScrollModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA , NO_ERRORS_SCHEMA],
   providers: [HttCommonService, ProductService, UserService, { provide: AuthServiceConfig, useFactory: ProvideConfig}],
