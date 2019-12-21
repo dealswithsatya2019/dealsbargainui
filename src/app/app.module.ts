@@ -145,7 +145,11 @@ export function ProvideConfig() {
     ScrollingModule,
     NgxImageZoomModule.forRoot(),
     GalleryModule,
-    LightboxModule,
+    LightboxModule.withConfig({
+      panelClass: 'fullscreen',
+      keyboardShortcuts: true,
+      
+    }),
     NgxStarRatingModule,
     // InfiniteScrollModule
   ],

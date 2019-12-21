@@ -180,6 +180,8 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
 
   loadZoomImagesList() {
     /**
+     * https://github.com/MurhafSousli/ngx-gallery/wiki/Lightbox-Usage
+     * https://murhafsousli.github.io/ngx-gallery/#/getting-started/core
      * thumbPosition: ThumbnailsPosition.Top,
       itemTemplate: this.itemTemplate,
       gestures: false,
@@ -189,8 +191,7 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
      */
     this.gallery.resetAll();
     const config: GalleryConfig = {
-        loadingMode: "indeterminate",
-        imageSize: 'cover'
+        loadingMode: "indeterminate"
     };
     this.gallery.ref().setConfig(config);
     this.gallery.ref().load(this.items);
