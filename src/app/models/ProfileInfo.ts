@@ -19,7 +19,7 @@ export class ProfileInfo {
     setValues(profileInfo :ProfileInfo){
         this.user_id = profileInfo.user_id;
         this.user_name= profileInfo.user_name;
-        this.mobile= profileInfo.mobile;
+        this.mobile= (profileInfo.mobile && profileInfo.mobile.length>10)? profileInfo.mobile.substring(1,11):profileInfo.mobile;
         this.email= profileInfo.email;
         this.first_name= profileInfo.first_name;
         this.mid_name= profileInfo.mid_name;

@@ -6,7 +6,7 @@
                         <img src="../../../../assets/img/default-avatar.png">
                     </div>
                     <h6>{{this.userservice.getProfileInfo().user_name}}</h6>
-                    <p>{{this.userservice.getProfileInfo().mobile}}</p>
+                    <p>{{(this.userservice.getProfileInfo().mobile && this.userservice.getProfileInfo().mobile.length >10)? (this.userservice.getProfileInfo().mobile | slice:1:11) : this.userservice.getProfileInfo().mobile}}</p>
                     <!-- <button mat-button class="edit-btn">Edit</button>-->
                 </div>
                 <!-- <button mat-button class="wishlist-btn"><i class="fa fa-"></i> Wishlist</button> -->
