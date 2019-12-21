@@ -31,7 +31,7 @@ export class UserService {
     password: new FormControl('',[Validators.required,Validators.minLength(8)]),
     mobilenoperfix: new FormControl({value: '+1', disabled: true},[Validators.required]),
     mobileno: new FormControl('',[Validators.required,Validators.pattern('[0-9]{10}')]),
-    aggreecbx: new FormControl(false,[Validators.requiredTrue]),
+    aggreecbx: new FormControl(true),
     issentotp: new FormControl(false),
     smsotp: new FormControl(''),
     emailotp: new FormControl('')
@@ -43,7 +43,7 @@ export class UserService {
     this.form.controls['password'].setValue('');
     this.form.controls['mobilenoperfix'].setValue('+1');
     this.form.controls['mobileno'].setValue('');
-    this.form.controls['aggreecbx'].setValue(false);
+    this.form.controls['aggreecbx'].setValue(true);
     this.form.controls['issentotp'].setValue(false);
     this.form.controls['smsotp'].setValue('');
     this.form.controls['emailotp'].setValue('');

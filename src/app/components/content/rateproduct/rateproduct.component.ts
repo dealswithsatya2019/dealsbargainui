@@ -60,7 +60,6 @@ export class RateproductComponent implements OnInit {
         formJson.productRating, formJson.reviewTitle, formJson.comment,this.masterSuppler, isProductRecommend)
       .subscribe(        
         (authResponse: AuthResopnse) => {
-          sessionStorage.setItem("authResponse", JSON.stringify(authResponse));
           if (authResponse.statusCode === 200) {
             this._alertService.raiseAlert("Review successfully submitted.");
             this.close();

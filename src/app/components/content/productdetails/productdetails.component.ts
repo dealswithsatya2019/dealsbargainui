@@ -268,7 +268,6 @@ export class ProductdetailsComponent implements OnInit , AfterViewInit {
          '', '', '',this.productDetails.master_suplier, isProductRecommend)
        .subscribe(        
          (authResponse: AuthResopnse) => {
-           sessionStorage.setItem("authResponse", JSON.stringify(authResponse));
            if (authResponse.statusCode === 200) {
               this.result = authResponse.statusDesc;
              console.log('Success' + JSON.stringify(authResponse));

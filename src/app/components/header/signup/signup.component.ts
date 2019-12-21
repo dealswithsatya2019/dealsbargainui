@@ -100,7 +100,6 @@ export class SignupComponent implements OnInit {
     let userInfo = JSON.parse(JSON.stringify(this.userservice.form.value));
     this.userAuth.verifyEmailOTP(userInfo.email, userInfo.emailotp, 'us','signup').subscribe(
         (authResponse: AuthResopnse) => {
-          sessionStorage.setItem("authResponse", JSON.stringify(authResponse));
           if (authResponse.statusCode === 201) {
             this.funRegisterUser();
             return true;
@@ -122,7 +121,6 @@ export class SignupComponent implements OnInit {
     let userInfo = JSON.parse(JSON.stringify(this.userservice.form.value));
     this.userAuth.sendOTP(userInfo.mobileno, userInfo.email, 'us','signup').subscribe(
         (authResponse: AuthResopnse) => {
-          sessionStorage.setItem("authResponse", JSON.stringify(authResponse));
           if (authResponse.statusCode === 201) {
             this.raiseAlert("OTP sent to mobile number : "+userInfo.mobileno+" and email id"+ userInfo.email);
             //Call sentsmsemail otp api.
@@ -152,7 +150,6 @@ export class SignupComponent implements OnInit {
       this.userAuth.registerUser(userInfo.name, userInfo.email, userInfo.mobileno, 'us',
         ciphertext, key1, key2, key3).subscribe(
         (authResponse: AuthResopnse) => {
-          sessionStorage.setItem("authResponse", JSON.stringify(authResponse));
           if (authResponse.statusCode === 200) {
             sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
             this._userSerive.setAuthToken(authResponse.responseObjects.access_token);

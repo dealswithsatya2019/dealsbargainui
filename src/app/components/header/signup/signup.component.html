@@ -59,21 +59,18 @@
                 </mat-error>
             </mat-form-field>
         </ng-container>
-        
-        <mat-checkbox formControlName="aggreecbx">I have read and agree to Dealsbargain 
-            <a target="_blank" href="../../../../assets/pages/TermsofUse.html">terms & conditions</a>
+        <p class="w-100 mb-2">By creating this account, you agree to Dealsbargain
+            <a target="_blank" href="../../../../assets/pages/TermsofUse.html">Terms & Conditions</a>
              and 
-            <a target="_blank" href="../../../assets/pages/PrivacyPolicy.html">privacy policy</a>.
+            <a target="_blank" href="../../../assets/pages/PrivacyPolicy.html">Privacy Policy</a>.</p>
             <!-- https://stackoverflow.com/questions/48443397/mat-error-not-displaying-error-message-angular-5/48443703-->
-        </mat-checkbox>                      
-        <mat-error>* You must accept terms and conditions</mat-error>
     <button mat-raised-button type="submit" [disabled]="userservice.form.invalid" class=" mb-2 w-100 login-login-btn">SIGN UP</button>
    
     
-    <mat-error *ngFor="let validation of userservice.signup_validation_messages.aggreecbx">
+  <!--  <mat-error *ngFor="let validation of userservice.signup_validation_messages.aggreecbx">
         <mat-error class="error-message" *ngIf="userservice.form.get('aggreecbx').hasError(validation.type) && (userservice.form.get('aggreecbx').dirty || userservice.form.get('aggreecbx').touched)">{{validation.message}}</mat-error>
     </mat-error>
-    
+--> 
     </form>
 
     <div class="login-btn-container mb-4 mt-2">
