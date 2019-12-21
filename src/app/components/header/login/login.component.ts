@@ -55,38 +55,49 @@ export class LoginComponent implements OnInit {
   loginFacebook() {
     this._socioAuthServ.signIn(FacebookLoginProvider.PROVIDER_ID).then(
       (response) => {
-        // this.funClose();
-        this.loginformService.response = response;
-        this.userservice.response = JSON.parse(JSON.stringify(response));
-        console.log("facebook response :", JSON.stringify(response));
-        this.whishlistService.updateWhishlist();
+        this.setSocialInfo(response);
       }
     );
+  }
+
+  setSocialInfo(response) {
+    let json = {
+      "id": response.id,
+      "name": response.name,
+      "email": response.email,
+      "image_url": response.photoUrl,
+      "firstName": response.firstName,
+      "lastName": response.lastName,
+      "provider": response.provider,
+      "mobile": ""
+    };
+    this.userAuth.authenticateSocialUser(json).subscribe(authResponse => {
+      if (authResponse.statusCode === 200) {
+        this.userservice.form.controls['name'].setValue(response.name);
+        sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
+        this._userSerive.setAuthToken(authResponse.responseObjects.access_token);
+        this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
+        this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
+        this.getCarts();
+        this._profileInfoService.funSetUserProfile();
+        this.whishlistService.updateWhishlist();
+        this.router.navigateByUrl('/home');
+      } else {
+        this.loginErrorMsg = authResponse.statusDesc;
+        console.log('Failed' + JSON.stringify(authResponse));
+      }
+    });
   }
 
   loginGmail() {
     this._socioAuthServ.signIn(GoogleLoginProvider.PROVIDER_ID).then(
       (response) => {
-        // this.funClose();
-        this.loginformService.response = response;
-        this.userservice.response = JSON.parse(JSON.stringify(response));
-        console.log("gmail response :", JSON.stringify(response));
-        this.whishlistService.updateWhishlist();
+        this.setSocialInfo(response);
       }
     );
   }
 
-  // funSignUp() {
-  //   this.funClose();
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = true;
-  //   dialogConfig.autoFocus = true;
-  //   dialogConfig.width = '400px';
-  //   dialogConfig.height = '550px';
-  //   this.dialog.open(SignupComponent, dialogConfig);
-  // }
   forgotpwd() {
-    // this.funClose();
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -101,7 +112,6 @@ export class LoginComponent implements OnInit {
     var key3 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
 
     var ciphertext = this.encryptionService.encrypt(key2, key3, key1, userInfo.password);
-    //this.userservice.form.setValue({ password: ciphertext });
     this.userAuth.authenticateUser(userInfo.name, userInfo.password, 'us', key1, key2, key3).subscribe(
       (authResponse: AuthResopnse) => {
         if (authResponse.statusCode === 200) {

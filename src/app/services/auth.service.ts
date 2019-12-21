@@ -38,6 +38,10 @@ export class AuthService {
     return this._httpCommonService.postReq('authenticate', authJson);
   }
 
+  public authenticateSocialUser(userJson): Observable<any> {
+    return this._httpCommonService.postSocialReq(userJson);
+  }  
+
   public sendEmailOTP(email?, countryCode?, action?): Observable<any> {
     let otpJson = {
       "email": email,

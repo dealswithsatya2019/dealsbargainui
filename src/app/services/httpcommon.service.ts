@@ -71,6 +71,12 @@ export class HttCommonService {
       { headers: { 'Content-Type': 'application/json' } }).pipe(map(this.extractData), catchError(this.handleError));
   }
 
+  postSocialReq(body): Observable<any> {
+    return this.http.post(
+      this.APIEndpoint + "/socail/us", body,
+      { headers: { 'Content-Type': 'application/json' } }).pipe(map(this.extractData), catchError(this.handleError));
+  }
+
   postRequest(urlAppendParam, body?, authToken?): Observable<any> {
     let url: string = "";
     if (urlAppendParam) {
