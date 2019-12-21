@@ -47,6 +47,10 @@ export class MarketreviewsComponent implements OnInit {
   funSiteReview() {
     try {
      let formJson = JSON.parse(JSON.stringify(this.form.value));
+     if(formJson!=true){
+      this._alertService.raiseAlert('Site reveiw under development.');
+       return;
+     }
      let isProductRecommend = formJson.isRecomended? 'yes' : 'no';
       this._productservice.submitReview(this.userService.getAuthToken(),this.cname, this.scname, this.itemId, 'us',
         formJson.productRating, formJson.reviewTitle, formJson.comment,this.masterSuppler, isProductRecommend)
