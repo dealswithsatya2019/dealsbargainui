@@ -177,6 +177,8 @@ export class MyprofileComponent implements OnInit, OnDestroy {
             this.profileform.get('email').disable();
             this._profileInfoService.funSetUserProfile();
             this._alertService.raiseAlert("Email id updated successfully.");
+          } if (authResponse.statusDesc === 'OTP_NOT_MATCHED') {
+            this._alertService.raiseAlert("OTP not matched. Please enter valid OTP.");
           } else {
             this._alertService.raiseAlert(authResponse.statusDesc);
             console.log(authResponse);

@@ -36,7 +36,7 @@ export class SignupComponent implements OnInit {
     this.snackBarConfig = new MatSnackBarConfig();
     this.snackBarConfig.horizontalPosition = "center";
     this.snackBarConfig.verticalPosition = "top";
-    this.snackBarConfig.duration = 200000;
+    this.snackBarConfig.duration = 5000;
   }
 
   ngOnInit() {
@@ -104,7 +104,8 @@ export class SignupComponent implements OnInit {
           if (authResponse.statusCode === 201) {
             this.funRegisterUser();
             return true;
-            
+          } if (authResponse.statusDesc === 'OTP_NOT_MATCHED') {
+            this.raiseAlert("OTP not matched. Please enter valid OTP.");
           } else {
             this.raiseAlert(authResponse.statusDesc);
             console.log('Failed' + JSON.stringify(authResponse));
@@ -123,13 +124,12 @@ export class SignupComponent implements OnInit {
         (authResponse: AuthResopnse) => {
           sessionStorage.setItem("authResponse", JSON.stringify(authResponse));
           if (authResponse.statusCode === 201) {
-            this.raiseAlert("OTP sent to both mobile number : "+userInfo.mobileno+" and email id"+ userInfo.email);
+            this.raiseAlert("OTP sent to mobile number : "+userInfo.mobileno+" and email id"+ userInfo.email);
             //Call sentsmsemail otp api.
             this.userservice.form.get('emailotp').setValidators([Validators.required]);
             this.userservice.form.get('smsotp').setValidators([Validators.required]);
           } else {
-            this.raiseAlert(authResponse.statusDesc);
-            sessionStorage.setItem("Failure", JSON.stringify(authResponse));
+            this.raiseAlert("We have faced technical issue. Please try again..");
             console.log('Failed' + JSON.stringify(authResponse));
           }
         },

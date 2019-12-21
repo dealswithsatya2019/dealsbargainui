@@ -63,7 +63,7 @@ export class ProductlistComponent implements OnInit, OnDestroy {
     this.snackBarConfig = new MatSnackBarConfig();
     this.snackBarConfig.horizontalPosition = "center";
     this.snackBarConfig.verticalPosition = "top";
-    this.snackBarConfig.duration = 2000;
+    this.snackBarConfig.duration = 5000;
   }
 
   public isDataExist: boolean = true;
