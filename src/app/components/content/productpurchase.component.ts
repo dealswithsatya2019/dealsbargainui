@@ -427,7 +427,7 @@ export class ProductpurchaseComponent implements OnInit {
       this.productReq = new AddProductReq();
       this.productReq.category = element.category;
       this.productReq.countryCode = "us";
-      this.productReq.count = element.quantity + "";
+      this.productReq.quantity = element.quantity + "";
       this.productReq.item_id = element.item_id;
       this.productReq.master_supplier = element.master_suplier;
       this.productReq.subcategory = element.subcategory;

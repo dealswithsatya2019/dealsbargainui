@@ -85,7 +85,7 @@ export class CartService {
         "subcategory": product.subcategory,
         "item_id": product.item_id,
         "master_supplier": product.master_suplier,
-        "count": "1"
+        "quantity": "1"
       },
     ]
     let autherization = "Bearer " + this.userService.getAuthToken();
