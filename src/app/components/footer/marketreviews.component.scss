@@ -1,6 +1,6 @@
 .mat-raised-button{
     min-width: auto;
-    padding: 0px 10px;
+    padding: 0px 15px;
     box-shadow: none;
 }
 
@@ -41,10 +41,12 @@
 mat-form-field{
     clear: both;
 }
+textarea{resize: none;}
 .mat-dialog-title{
     padding: 13px 24px;
-    background-color: #333;
+    background-color: #a69f9f;
     color: #fff;
+    margin: 0px;
 }
 .mat-dialog-content{
     margin: 0px;
@@ -53,11 +55,17 @@ mat-form-field{
     overflow: hidden;
 }
 .mat-dialog-actions{
-    margin-top: 10px;
+    display: block;
+    text-align: center;
+    margin: 10px 0px 20px;
     padding: 0px 24px;
     .mat-raised-button{
-        width: 48%;
-        border: 1px solid #ff9600;
+        background-color: #214c94;
+        color: #fff;
+        &.close-btn{
+            background-color: #e32424;
+            color: #fff;
+        }
     }
 }
 .mat-error{
@@ -81,21 +89,8 @@ mat-form-field{
   }
   
   .login-logo{position: absolute;left: 21%;top: 6px;width: 23px;}
-  mat-checkbox{
-      font-size: 14px;
-      white-space: pre-wrap;
-  }
-  
-  .prefix{
-    width: 13%;display: inline-block;margin-right: 2%;
-    margin-top: 3px;
-    border: 2px solid#ccc;
-    height: 41px;
-    border-radius: 0px;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 25px;
-  }
-  .mobile{
-    width: 85% !important;display: inline-block;
-  }
+
+mat-checkbox{
+    display: block;
+}
+

@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
   loginFacebook() {
     this._socioAuthServ.signIn(FacebookLoginProvider.PROVIDER_ID).then(
       (response) => {
+        console.log("Facebook Provider ",response);
         this.setSocialInfo(response);
       }
     );
@@ -78,9 +79,9 @@ export class LoginComponent implements OnInit {
         this._userSerive.setAuthToken(authResponse.responseObjects.sn);
         this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
         this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
-        this.getCarts();
         this._profileInfoService.funSetUserProfile();
         this.whishlistService.updateWhishlist();
+        this.getCarts();
         this.router.navigateByUrl('/home');
       } else {
         this.loginErrorMsg = authResponse.statusDesc;
@@ -92,6 +93,7 @@ export class LoginComponent implements OnInit {
   loginGmail() {
     this._socioAuthServ.signIn(GoogleLoginProvider.PROVIDER_ID).then(
       (response) => {
+        console.log("Gmail Provider ",response);
         this.setSocialInfo(response);
       }
     );
@@ -117,8 +119,13 @@ export class LoginComponent implements OnInit {
         if (authResponse.statusCode === 200 && authResponse.statusDesc ) {
           this.userservice.form.controls['name'].setValue(userInfo.name);
           console.log('Success' + JSON.stringify(authResponse));
+<<<<<<< HEAD
           sessionStorage.setItem("sn", authResponse.responseObjects.sn);
           this._userSerive.setAuthToken(authResponse.responseObjects.sn);
+=======
+          this._userSerive.setAuthToken(authResponse.responseObjects.sn);
+          sessionStorage.setItem("access_token", this._userSerive.getAuthToken());
+>>>>>>> 642a1e52457144c907eafdc55e700656b13030c7
           this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
           this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
           this.getCarts();

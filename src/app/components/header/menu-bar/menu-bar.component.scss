@@ -37,24 +37,7 @@ mat-toolbar-row{
     box-sizing: border-box; display: flex;
     flex: 1 1 16.3%; max-width: 16.3%;
 }
-@media screen and (max-width:767px){
-    mat-toolbar-row{
-        flex-direction: column;
-        justify-content: left;
-        align-items: flex-start;
-    }
-    .mat-button{text-align: left;}
-    .sub-category{
-        flex: 1 1 49%;
-        max-width: 49%;
-    }
+@media screen and (max-width:991px){
+    .mat-button{font-size: 12px;}
 }
-@media screen and (max-width:500px){
-    .menu-container{
-        flex-direction: column !important;
-        .sub-category{
-            flex: 1 1 100%;
-            max-width: 100%;
-        }
-    }
-}
+

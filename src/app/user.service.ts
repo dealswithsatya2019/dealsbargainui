@@ -13,16 +13,21 @@ export class UserService {
   private profileInfo: ProfileInfo = new ProfileInfo();
 
   constructor() {
+<<<<<<< HEAD
     let accessToken = sessionStorage.getItem("sn");
     if(accessToken !== null){
+=======
+    let accessToken = sessionStorage.getItem("access_token");
+    if (accessToken !== null) {
+>>>>>>> 642a1e52457144c907eafdc55e700656b13030c7
       this.authToken = accessToken;
     }
-   }
+  }
 
-  resetDetails(){
+  resetDetails() {
     this.response = null;
     this.setAuthToken('');
-    this.profileInfo = null;
+    this.profileInfo = new ProfileInfo();
     this.uid=null;
     this.resetForm();
   }
@@ -65,9 +70,9 @@ export class UserService {
     });
   
   }
- //https://angular-templates.io/tutorials/about/angular-forms-and-validations
- //Email pattern : Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
- //Password pattern: Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') //this is for the letters (both uppercase and lowercase) and numbers validation
+  //https://angular-templates.io/tutorials/about/angular-forms-and-validations
+  //Email pattern : Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+  //Password pattern: Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') //this is for the letters (both uppercase and lowercase) and numbers validation
   signup_validation_messages = {
     'name': [
       { type: 'required', message: 'Username is required' },
@@ -98,25 +103,34 @@ export class UserService {
     ],
     'emailotp': [
       { type: 'required', message: 'OTP must be required' }
-      ]
+    ]
 
-    }
-  
+  }
 
+<<<<<<< HEAD
   public setAuthToken(authToken){
     let authVal = authToken.split(':',-2);
     if(authVal.length==2){
       this.setUid(authVal[0]);
       this.authToken = authVal[1];
     }else{
+=======
+
+  public setAuthToken(authToken) {
+    if (authToken != null && authToken != undefined && authToken.indexOf(":") > 0) {
+      let token = authToken.split(":")[1];
+      this.authToken = token;
+    } else {
+>>>>>>> 642a1e52457144c907eafdc55e700656b13030c7
       this.authToken = authToken;
     }
   }
 
-  public getAuthToken(){
+  public getAuthToken() {
     return this.authToken;
   }
 
+<<<<<<< HEAD
   
   public getUid(){
     return this.authToken;
@@ -127,10 +141,13 @@ export class UserService {
   }
 
   public getProfileInfo(){
+=======
+  public getProfileInfo() {
+>>>>>>> 642a1e52457144c907eafdc55e700656b13030c7
     return this.profileInfo;
   }
 
-  public setProfileInfo(profileInfo: ProfileInfo){
+  public setProfileInfo(profileInfo: ProfileInfo) {
     return this.profileInfo.setValues(profileInfo);
   }
 

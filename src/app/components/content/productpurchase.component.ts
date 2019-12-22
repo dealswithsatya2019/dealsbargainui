@@ -166,8 +166,7 @@ export class ProductpurchaseComponent implements OnInit {
   loginFacebook() {
     this._socioAuthServ.signIn(FacebookLoginProvider.PROVIDER_ID).then(
       (response) => {
-        this.loginformService.response = response;
-        this.userName = response.name;
+        this.setSocialInfo(response);
         this.exp1 = false;
         this.exp2 = true;
       }
@@ -177,12 +176,38 @@ export class ProductpurchaseComponent implements OnInit {
   loginGmail() {
     this._socioAuthServ.signIn(GoogleLoginProvider.PROVIDER_ID).then(
       (response) => {
-        this.loginformService.response = response;
-        this.userName = response.name;
+        this.setSocialInfo(response);
         this.exp1 = false;
         this.exp2 = true;
       }
     );
+  }
+
+  setSocialInfo(response) {
+    let json = {
+      "id": response.id,
+      "name": response.name,
+      "email": response.email,
+      "image_url": response.photoUrl,
+      "firstName": response.firstName,
+      "lastName": response.lastName,
+      "provider": response.provider,
+      "mobile": ""
+    };
+    this.userAuth.authenticateSocialUser(json).subscribe(authResponse => {
+      if (authResponse.statusCode === 200) {
+        this.userservice.setAuthToken(authResponse.responseObjects.sn);
+        sessionStorage.setItem("access_token", this.userservice.getAuthToken());
+        this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
+        this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
+        this._profileInfoService.funSetUserProfile();
+        this.whishlistService.updateWhishlist();
+        this.getCarts();
+      } else {
+        this.loginErrorMsg = authResponse.statusDesc;
+        console.log('Failed' + JSON.stringify(authResponse));
+      }
+    });
   }
 
   funLogin() {
@@ -594,6 +619,8 @@ export class ProductpurchaseComponent implements OnInit {
           this.couponDiscountCost = this.promoResponseModel.value;
         }
         this.calculatePrices();
+      }else{
+        this.cartService.raiseAlert("Please enter a valid Promotional or Voucher Code");
       }
     }));
   }

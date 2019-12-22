@@ -115,39 +115,51 @@
                                 Update Address
                             </mat-expansion-panel-header>
                             <form [formGroup]="updateaddressform" (submit)="updateAddressService(address.address_id)"
-                                class="my-3">
+                                class="my-3 address-form">
                                 <mat-form-field floatLabel="never" appearance="outline">
                                     <mat-label>First Name</mat-label>
                                     <input formControlName="firstName" matInput placeholder="First Name">
                                     <mat-error>First Name is mandatory</mat-error>
                                 </mat-form-field>
+
                                 <mat-form-field floatLabel="never" appearance="outline">
                                     <mat-label>Last Name</mat-label>
                                     <input formControlName="lastName" matInput placeholder="Last Name">
                                     <mat-error>Last Name is mandatory</mat-error>
                                 </mat-form-field>
-                                <input style="height: 38px;width: 25px;" type="text" value="+1" disabled>
-                                <mat-form-field appearance="outline" floatLabel="never">
+
+                                <mat-form-field class="prefix">
+                                    <input formControlName="mobilenoperfix" matInput value="+1" disabled>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="never" style="width: 39%;">
                                     <mat-label>Mobile Number</mat-label>
                                     <input formControlName="mobile_number" matInput placeholder="Placeholder">
                                     <mat-error>mobile number is mandatory and should be numberic</mat-error>
+                                </mat-form-field> 
+
+                                <mat-form-field class="prefix">
+                                    <input formControlName="mobilenoperfix" matInput value="+1" disabled>
                                 </mat-form-field>
-                                <input style="height: 38px;width: 25px;" type="text" value="+1" disabled>
-                                <mat-form-field appearance="outline" floatLabel="never">
+
+                                <mat-form-field appearance="outline" floatLabel="never" style="width: 39%;">
                                     <mat-label>Alternate Phone</mat-label>
                                     <input formControlName="altphone" matInput placeholder="Placeholder">
                                     <mat-error>phone number should be numeric</mat-error>
                                 </mat-form-field>
+
                                 <mat-form-field appearance="outline" style="width:98%" floatLabel="never">
                                     <mat-label>Address</mat-label>
                                     <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
                                     <mat-error>address is mandatory and length can enter only 25 characters </mat-error>
                                 </mat-form-field>
+
                                 <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>City</mat-label>
                                     <input formControlName="city" matInput placeholder="Placeholder">
                                     <mat-error>city is mandatory</mat-error>
                                 </mat-form-field>
+
                                 <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-select formControlName="state" placeholder="Placeholder">
                                         <mat-option *ngFor="let state of statesArr" [value]="state.abreviation">
@@ -156,6 +168,7 @@
                                     </mat-select>
                                     <mat-error>state is mandatory</mat-error>
                                 </mat-form-field>
+
                                 <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>Country</mat-label>
                                     <mat-select formControlName="country" value="United States">
@@ -163,11 +176,13 @@
                                     </mat-select>
                                     <mat-error>country is mandatory</mat-error>
                                 </mat-form-field>
+
                                 <mat-form-field appearance="outline" floatLabel="never">
                                     <mat-label>Pincode</mat-label>
                                     <input formControlName="zipcode" matInput placeholder="Placeholder">
                                     <mat-error>Zip Code/Postal is mandatory</mat-error>
                                 </mat-form-field>
+
                                 <mat-radio-group formControlName="address_type" aria-label="Select an option">
                                     <mat-radio-button value="1" class="mr-2">Home
                                         ( All Day Delivery )
@@ -176,48 +191,63 @@
                                         (Delivery
                                         between 10AM - 5PM)</mat-radio-button>
                                 </mat-radio-group>
+
                                 <button mat-raised-button type="submit" [disabled]="updateaddressform.invalid"
-                                    class=" my-2 w-100 login-login-btn">Update</button>
+                                    class=" my-2 w-100 login-login-btn">Update
+                                </button>
                             </form>
                         </mat-expansion-panel>
                     </ng-container>
+
                     <mat-expansion-panel class="mb-3" [(expanded)]="exp1" [completed]="false">
                         <mat-expansion-panel-header>
                             Add New Address
                         </mat-expansion-panel-header>
-                        <form [formGroup]="addressform" (ngSubmit)="funSave()" class="my-3">
+                        <form [formGroup]="addressform" (ngSubmit)="funSave()" class="my-3 address-form">
                             <mat-form-field appearance="outline">
                                 <mat-label>First Name</mat-label>
                                 <input formControlName="firstName" matInput placeholder="First Name">
                                 <mat-error>First Name is mandatory</mat-error>
                             </mat-form-field>
+
                             <mat-form-field appearance="outline">
                                 <mat-label>Last Name</mat-label>
                                 <input formControlName="lastName" matInput placeholder="Last Name">
                                 <mat-error>Last name is mandatory</mat-error>
                             </mat-form-field>
-                            <input style="height: 38px;width: 25px;" type="text" value="+1" disabled>
-                            <mat-form-field appearance="outline">
+
+                            <mat-form-field class="prefix">
+                                <input formControlName="mobilenoperfix" matInput value="+1" disabled>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" style="width: 39%;">
                                 <mat-label>Mobile Number</mat-label>
                                 <input formControlName="mobile_number" matInput>
                                 <mat-error>mobile number is mandatory and should be numberic</mat-error>
                             </mat-form-field>
-                            <input style="height: 38px;width: 25px;" type="text" value="+1" disabled>
-                            <mat-form-field appearance="outline">
+
+                            <mat-form-field class="prefix">
+                                <input formControlName="mobilenoperfix" matInput value="+1" disabled>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" style="width: 39%;">
                                 <mat-label>Alternate Phone</mat-label>
                                 <input formControlName="altphone" matInput placeholder="Placeholder">
                                 <mat-error>phone number should be numeric</mat-error>
                             </mat-form-field>
+
                             <mat-form-field appearance="outline" style="width:98%">
                                 <mat-label>Address</mat-label>
                                 <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
                                 <mat-error>address is mandatory and length can enter only 25 characters </mat-error>
                             </mat-form-field>
+
                             <mat-form-field appearance="outline">
                                 <mat-label>City</mat-label>
                                 <input formControlName="city" matInput placeholder="Placeholder">
                                 <mat-error>city is mandatory</mat-error>
                             </mat-form-field>
+
                             <mat-form-field appearance="outline">
                                 <mat-label>State</mat-label>
                                 <mat-select formControlName="state" placeholder="Placeholder">
@@ -227,6 +257,7 @@
                                 </mat-select>
                                 <mat-error>state is mandatory</mat-error>
                             </mat-form-field>
+
                             <mat-form-field appearance="outline">
                                 <mat-label>Country</mat-label>
                                 <mat-select formControlName="country" value="United States">
@@ -234,17 +265,21 @@
                                 </mat-select>
                                 <mat-error>country is mandatory</mat-error>
                             </mat-form-field>
+
                             <mat-form-field appearance="outline">
                                 <mat-label>Zip Code/Postal</mat-label>
                                 <input formControlName="zipcode" matInput placeholder="Placeholder">
                                 <mat-error>Zip Code/Postal is mandatory</mat-error>
                             </mat-form-field>
+
                             <mat-radio-group aria-label="Select an option" formControlName="address_type">
                                 <mat-radio-button value="1" class="mr-2">Home ( All Day Delivery )</mat-radio-button>
                                 <mat-radio-button value="2">Work (Delivery between 10AM - 5PM)</mat-radio-button>
                             </mat-radio-group>
+
                             <button mat-raised-button type="submit" [disabled]="addressform.invalid"
-                                class=" my-2 w-100 login-login-btn">Save</button>
+                                class=" my-2 w-100 login-login-btn">Save
+                            </button>
                         </form>
                     </mat-expansion-panel>
                     <div class="pt-5 text-center">

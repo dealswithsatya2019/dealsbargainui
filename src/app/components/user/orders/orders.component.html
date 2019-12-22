@@ -22,7 +22,8 @@
                 <img src="{{itemdetails.image}}">
             </div>
             <div class="order-cycle">
-                <mat-horizontal-stepper #stepper labelPosition="bottom">
+
+                <!-- <mat-horizontal-stepper #stepper labelPosition="bottom">
                     <mat-step *ngIf="orderInfo.user_payment_request_status=='success'">
                         <ng-template matStepLabel>
                             <h6>Order placed</h6>
@@ -78,7 +79,7 @@
                         </ng-container>
                     </mat-step>
                     </ng-container>    
-                </mat-horizontal-stepper> 
+                </mat-horizontal-stepper>  -->
             </div>
             <div class="review-order-details" *ngIf="orderInfo.user_payment_request_status=='success'">
                    
@@ -109,20 +110,25 @@
                 
     
     
-
-     <!-- <div class="step active">
-            <h6>Ordered</h6>
+    <!-- <div class="order-cycle">
+        <div class="step active">
+            <div class="dot"></div>
             <p>12/12/2018</p>
+            <h6>Placed</h6>
         </div> 
         <div class="step">
-            <h6>Order confirmed</h6>
+            <div class="dot"></div>
             <p>12/12/2018</p>
+            <h6>Packed</h6>
         </div>
         <div class="step">
-            <h6>Order Dispatched</h6>
+            <div class="dot"></div>
             <p>12/12/2018</p>
+            <h6>Shipped</h6>
         </div>
         <div class="step">
+            <div class="dot"></div>
+            <p>12/12/2018</p>
             <h6>Delivered</h6>
-            <p>12/12/2018</p>
-        </div>       -->
+        </div> 
+    </div>      -->

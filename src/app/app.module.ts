@@ -60,7 +60,7 @@ import { UnsubscribeComponent } from './components/user/unsubscribe/unsubscribe.
 import { ForgotpasswordComponent } from './components/header/forgotpassword/forgotpassword.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CouponsComponent } from './components/content/coupons/coupons.component';
-// import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MobileMenuComponent } from './components/header/mobile-menu/mobile-menu.component';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -126,6 +126,7 @@ export function ProvideConfig() {
     UnsubscribeComponent,
     ForgotpasswordComponent,
     CouponsComponent,
+    MobileMenuComponent,
     
   ],
   entryComponents:[LoginComponent,SignupComponent,SocialshareComponent,RateproductComponent,ForgotpasswordComponent],
@@ -148,7 +149,6 @@ export function ProvideConfig() {
     LightboxModule.withConfig({
       panelClass: 'fullscreen',
       keyboardShortcuts: true,
-      
     }),
     NgxStarRatingModule,
     InfiniteScrollModule

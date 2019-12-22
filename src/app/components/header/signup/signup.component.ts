@@ -60,19 +60,41 @@ export class SignupComponent implements OnInit {
   loginFacebook() {
     this._socioAuthServ.signIn(FacebookLoginProvider.PROVIDER_ID).then(
       (response) => {
-        // this.funClose();
-        this.userservice.response = response;
-        this.whishlistService.updateWhishlist();
+        this.setSocialInfo(response);
       }
     );
+  }
+
+  setSocialInfo(response) {
+    let json = {
+      "id": response.id,
+      "name": response.name,
+      "email": response.email,
+      "image_url": response.photoUrl,
+      "firstName": response.firstName,
+      "lastName": response.lastName,
+      "provider": response.provider,
+      "mobile": ""
+    };
+    this.userAuth.authenticateSocialUser(json).subscribe(authResponse => {
+      if (authResponse.statusCode === 200) {
+        this._userSerive.setAuthToken(authResponse.responseObjects.sn);
+        sessionStorage.setItem("access_token", this._userSerive.getAuthToken());
+        this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
+        this.userservice.form.controls['name'].setValue(response.name);
+        this._profileInfoService.funSetUserProfile();
+        this.whishlistService.updateWhishlist();
+        this.router.navigateByUrl('/home');
+      } else {
+        console.log('Failed' + JSON.stringify(authResponse));
+      }
+    });
   }
 
   loginGmail() {
     this._socioAuthServ.signIn(GoogleLoginProvider.PROVIDER_ID).then(
       (response) => {
-        // this.funClose();
-        this.userservice.response = response;
-        this.whishlistService.updateWhishlist();
+        this.setSocialInfo(response);
       }
     );
   }
@@ -198,19 +220,17 @@ export class SignupComponent implements OnInit {
         ciphertext, key1, key2, key3).subscribe(
         (authResponse: AuthResopnse) => {
           if (authResponse.statusCode === 200) {
-            sessionStorage.setItem("sn", authResponse.responseObjects.sn);
             this._userSerive.setAuthToken(authResponse.responseObjects.sn);
+            sessionStorage.setItem("sn", authResponse.responseObjects.sn);
             console.log('Success' + JSON.stringify(authResponse));
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
             this._profileInfoService.funSetUserProfile();
-            // this.funClose();
             this.whishlistService.updateWhishlist();
             this.issentotp=false;
             this.userservice.form.get('smsotp').clearValidators();
             this.router.navigateByUrl('/home');
           } else {
             this.userservice.form.controls['password'].setValue(userInfo.password);
-            //this.userservice.form.setValue({ name: userInfo.name, email: userInfo.email, password: userInfo.password, mobileno: userInfo.mobileno });
             this.raiseAlert(authResponse.statusDesc);
             sessionStorage.setItem("Failure", JSON.stringify(authResponse));
             console.log('Failed' + JSON.stringify(authResponse));

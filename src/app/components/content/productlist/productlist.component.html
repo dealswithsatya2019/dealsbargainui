@@ -90,7 +90,6 @@
 										</mat-card-content>
 										<mat-card-actions>
 
-											<app-wishlist [actionType]="'add'" [productInfo]="product"></app-wishlist>
 											<button mat-button class="action-btns share">
 												<i class="fa fa-share-alt"></i>
 												<div class="social-share">
@@ -102,11 +101,19 @@
 														target="_blank">
 														<i class="fa fa-twitter-square"></i>
 													</a>
-													<!-- <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.dealsbargain.com/&title=hashtags&source=deals bargain" target="_blank">
-													<i class="fa fa-linkedin-square"></i>
-												</a> -->
+													<a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.dealsbargain.com/&title=hashtags&source=deals bargain" target="_blank">
+														<i class="fa fa-linkedin-square"></i>
+													</a>
+													<a href="#!">
+														<i class="fa fa-instagram"></i>
+													</a>
+													<a href="#!">
+														<i class="fa fa-google-plus-square" aria-hidden="true"></i>
+													</a>
 												</div>
 											</button>
+											
+											<app-wishlist [actionType]="'add'" [productInfo]="product"></app-wishlist>
 										
 										</mat-card-actions>
 									</mat-card>

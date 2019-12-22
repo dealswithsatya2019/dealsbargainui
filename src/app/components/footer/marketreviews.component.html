@@ -1,10 +1,10 @@
 <mat-toolbar-row style="height:40px;margin-top: -10px;">
-        <ul class="breadcrumb">
-            <li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
-            <li><a >Site Review</a></li>
-        </ul>
-    </mat-toolbar-row>
-    <div class="cont">
+    <ul class="breadcrumb">
+        <li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
+        <li><a >Site Review</a></li>
+    </ul>
+</mat-toolbar-row>
+<div class="cont">
     <div class="login-container">
         <p class="text-center login-title">Write A Review</p>
         <mat-dialog-content [formGroup]="form" class="normal-form w-100">
@@ -30,9 +30,9 @@
         
             <mat-checkbox formControlName="isRecomended">Yes, I recommend this product</mat-checkbox>
         </mat-dialog-content>
-        <button mat-raised-button (click)="funSiteReview()" class=" mb-2 w-100 login-login-btn">SUBMI REVIEW</button>
-        </div>
+        <button mat-raised-button (click)="funSiteReview()" class="mt-2 mb-3 w-100 login-login-btn">SUBMIT REVIEW</button>
     </div>
+</div>
 
 
 
