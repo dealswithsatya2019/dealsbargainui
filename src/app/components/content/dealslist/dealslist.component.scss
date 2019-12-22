@@ -52,7 +52,7 @@
       }
       .action-btns{
         min-width: 29px;
-        margin-left: 10px;
+        margin-right: 10px;
         padding: 0px;
         background:#e1e1e1;
         height: 29px;
@@ -62,21 +62,37 @@
       .share{
         position: relative;
         &:hover{
-          .social-share{display: block;
+          .social-share{display: inline-block;
             i{font-size: 19px;}
           }
         }
       }
       .social-share{
         display: none;
-        width: 30px;
         position: absolute;
-        bottom: 33px;
-        left: -0px;
+        bottom: 35px;
+        left: 50%;
+        z-index: 999;
+        background:#fff;
+        padding: 5px 5px 5px 10px;
+        transform: translateX(-50%);
+        box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.2);
+        border-radius: 5px;
+          &::before{
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 10px solid white;
+            position: absolute;
+            bottom: -9px;
+            left: 50%;
+            transform: translateX(-50%);
+          }
         a{
-          display: block;
-          line-height: 30px;
-          width: 30px;
+          display: inline-block;
+          margin-right: 8px;
         }
       }
     }

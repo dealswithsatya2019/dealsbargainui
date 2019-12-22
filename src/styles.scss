@@ -20,6 +20,10 @@ body{
 a, a:hover{
     text-decoration: none;
 }
+.fa-google-plus-square{
+    color: #dd4b39;
+}
+.fa-instagram{color: #e4405f;}
 .content-container{
     max-width: 1400px;
     padding: 0px 15px;
@@ -262,6 +266,7 @@ aside .mat-expansion-panel-header.mat-expanded{
     margin-bottom: 5px;
     // border-bottom: 1px solid #666;
 }
+.address-form .mat-form-field-underline{display: none;}
 .mat-menu-content{padding: 0px !important;}
 .fa-facebook-official{color: #3b5998 !important;}
 .fa-twitter-square{color: #38A1f3 !important;}

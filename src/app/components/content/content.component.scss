@@ -22,7 +22,7 @@ p{margin: 0px;}
 }
 .item-card{
   width: 19.8%;padding-top: 20px;
-  margin-right: 1px;
+  margin-right: 2px;
   &:hover{
     box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.15);
   }
@@ -41,7 +41,7 @@ p{margin: 0px;}
 //   color: blue !important;
 // }
 .product {
-  justify-content: space-between;
+  justify-content: left;
   .item-card{
     background-color: #fff;
     border-radius: 0px;
@@ -106,13 +106,30 @@ p{margin: 0px;}
 
 .social-share{
   display: none;
-  width: 50px;
   position: absolute;
-  bottom: 33px;
-  left: -11px;
+  bottom: 35px;
+  left: 50%;
+  z-index: 999;
+  background:#fff;
+  padding: 5px 5px 5px 10px;
+  transform: translateX(-50%);
+  box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.2);
+  border-radius: 5px;
+    &::before{
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 10px solid white;
+      position: absolute;
+      bottom: -9px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   a{
-    display: block;
-    line-height: 30px;
+    display: inline-block;
+    margin-right: 8px;
   }
 }
 .deal-timer{
@@ -239,8 +256,8 @@ p{margin: 0px;}
     .info-content{
       font-size: 13px;
       line-height: 21px;
-        font-weight: 500;
-        color: #1b3664;
+      font-weight: 500;
+      color: #194c9d;
     }
   }
   .info-div:last-child{
@@ -274,13 +291,14 @@ p{margin: 0px;}
       display: none;
     }
   }
+  .product{justify-content: center;}
   .info-div{flex: 1 1 50% !important;max-width:50% !important;}
   .item-card{width: 49%;}
   .swiper-slide mat-card{height: 300px;}
 }
 @media screen and (max-width:575px){
-  .product{justify-content: center;}
-  .swiper-slide mat-card{height: 220px;}
+  // .product{justify-content: center;}
+  .swiper-slide mat-card{height: 160px;}
   .item-card{width: 100%;}
 }
 @media screen and (max-width:475px){
@@ -300,7 +318,7 @@ p{margin: 0px;}
 }
 .action-btns{
   min-width: 29px;
-  margin-left: 10px;
+  margin-right: 10px;
   padding: 0px;
   background:#e1e1e1;
   height: 29px;

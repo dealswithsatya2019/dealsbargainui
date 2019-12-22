@@ -116,26 +116,33 @@
   .verticalCategories{
     position: relative;
   }
+
+  @media screen and (max-width:1024px){
+    .top-toolbar{
+      .logo{max-width: 95px;}
+    }
+  }  
   @media screen and (max-width: 991px) {
     .search-toolbar{
       .search{
         max-width: 100%;
       }
     }
-    
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 768px) {
     .top-toolbar{padding: 5px 10px;}
+    .logo{margin-left: 50px;}
     .info-toolbar{
       padding: 10px;
     }
     .swiper-slide mat-card{
       height: 300px !important;
     }
-    #menu{
+    .menu#menu{
       display: none;
     }
+    .menu-btn{display: inline-block !important;}
     #mobile-menu{
       width: 200px;
       position: absolute;
@@ -145,20 +152,20 @@
   
   @media screen and (max-width: 575px) {
     .top-toolbar{
-      .logo{max-width: 28%;order: 1;}
+      .logo{max-width: 90px;order: 1;margin-left: 0px;}
       mat-form-field{order: 3;width: 100%;margin-left: 3rem;margin-top: 10px;}
       .profile-options{order: 2;}
       .mat-button{
         min-width: 30px;
         padding: 0px 5px;
         font-size: 11px;
-        .hide-xs{display: none;}
+        // .hide-xs{display: none;}
       }
     }
     .swiper-slide mat-card{
-      height: 200px !important;
+      height: 150px !important;
     }
-    .menu-btn{display: inline-block !important;}
+    
   }
 
   

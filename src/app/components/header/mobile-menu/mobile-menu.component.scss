@@ -1,0 +1,35 @@
+a.mat-button{
+    display: block;
+    text-align: left;
+    color: #fff;
+    font-size: 13px;
+    &:hover{
+        color: #fff;
+    }
+}
+.sub-category{
+    .mat-button{
+        color: #000;
+        height: 28px;
+        line-height: 30px;
+    }
+}
+button.mat-menu-item{
+    height: 30px;
+}
+@media screen and (max-width:767px){
+
+    .mat-button{text-align: left;}
+    .sub-category{
+        flex: 1 1 49%;
+        max-width: 49%;
+    }
+}
+@media screen and (max-width:500px){
+    
+    .sub-category{
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+    
+}
