@@ -17,6 +17,7 @@ export class MyprofileService {
     let body = {
       "countryCode": countryCode
     }
+    console.log("user token ",this._userService.getAuthToken());
     return this._httpCommonService.postRequest('user/getuserprofile', body, this._userService.getAuthToken());
   }
 

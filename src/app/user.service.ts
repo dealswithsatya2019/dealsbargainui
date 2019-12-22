@@ -13,31 +13,31 @@ export class UserService {
 
   constructor() {
     let accessToken = sessionStorage.getItem("access_token");
-    if(accessToken !== null){
+    if (accessToken !== null) {
       this.authToken = accessToken;
     }
-   }
+  }
 
-  resetDetails(){
+  resetDetails() {
     this.response = null;
     this.setAuthToken('');
-    this.profileInfo = null;
+    this.profileInfo = new ProfileInfo();
     this.resetForm();
   }
 
   form: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required,Validators.maxLength(20)]),
-    email: new FormControl('', [Validators.required,Validators.email]),
-    password: new FormControl('',[Validators.required,Validators.minLength(8)]),
-    mobilenoperfix: new FormControl({value: '+1', disabled: true},[Validators.required]),
-    mobileno: new FormControl('',[Validators.required,Validators.pattern('[0-9]{10}')]),
+    name: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    mobilenoperfix: new FormControl({ value: '+1', disabled: true }, [Validators.required]),
+    mobileno: new FormControl('', [Validators.required, Validators.pattern('[0-9]{10}')]),
     aggreecbx: new FormControl(true),
     issentotp: new FormControl(false),
     smsotp: new FormControl(''),
     emailotp: new FormControl('')
   });
 
-  resetForm(){
+  resetForm() {
     this.form.controls['name'].setValue('');
     this.form.controls['email'].setValue('');
     this.form.controls['password'].setValue('');
@@ -48,9 +48,9 @@ export class UserService {
     this.form.controls['smsotp'].setValue('');
     this.form.controls['emailotp'].setValue('');
   }
- //https://angular-templates.io/tutorials/about/angular-forms-and-validations
- //Email pattern : Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
- //Password pattern: Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') //this is for the letters (both uppercase and lowercase) and numbers validation
+  //https://angular-templates.io/tutorials/about/angular-forms-and-validations
+  //Email pattern : Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+  //Password pattern: Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') //this is for the letters (both uppercase and lowercase) and numbers validation
   signup_validation_messages = {
     'name': [
       { type: 'required', message: 'Username is required' },
@@ -81,24 +81,29 @@ export class UserService {
     ],
     'emailotp': [
       { type: 'required', message: 'OTP must be required' }
-      ]
+    ]
 
-    }
-  
-
-  public setAuthToken(authToken){
-    this.authToken = authToken;
   }
 
-  public getAuthToken(){
+
+  public setAuthToken(authToken) {
+    if (authToken != null && authToken != undefined && authToken.indexOf(":") > 0) {
+      let token = authToken.split(":")[1];
+      this.authToken = token;
+    } else {
+      this.authToken = authToken;
+    }
+  }
+
+  public getAuthToken() {
     return this.authToken;
   }
 
-  public getProfileInfo(){
+  public getProfileInfo() {
     return this.profileInfo;
   }
 
-  public setProfileInfo(profileInfo: ProfileInfo){
+  public setProfileInfo(profileInfo: ProfileInfo) {
     return this.profileInfo.setValues(profileInfo);
   }
 

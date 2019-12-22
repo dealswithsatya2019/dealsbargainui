@@ -1,4 +1,5 @@
 export class AuthTokenInfo {
-    access_token: string;
-    token_type: string;
+    public access_token: string;
+    public token_type: string;
+    public sn:string;
 }
