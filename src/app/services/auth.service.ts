@@ -13,7 +13,7 @@ export class AuthService {
 
   constructor(private _httpCommonService: HttCommonService, public dialog: MatDialog, public _userService: UserService) { }
   public isAuthenticated(): boolean {
-    const access_token = sessionStorage.getItem('access_token');
+    const access_token = sessionStorage.getItem('sn');
     return access_token !== null;
   }
 

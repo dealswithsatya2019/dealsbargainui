@@ -79,6 +79,7 @@ export class SignupComponent implements OnInit {
 
   funRegister() {
     try {
+      //this.userservice.form.markAsTouched();
       if(this.issentotp === true){
         //Register
         this.funVerifyEmailOTP();
@@ -197,8 +198,8 @@ export class SignupComponent implements OnInit {
         ciphertext, key1, key2, key3).subscribe(
         (authResponse: AuthResopnse) => {
           if (authResponse.statusCode === 200) {
-            sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
-            this._userSerive.setAuthToken(authResponse.responseObjects.access_token);
+            sessionStorage.setItem("sn", authResponse.responseObjects.sn);
+            this._userSerive.setAuthToken(authResponse.responseObjects.sn);
             console.log('Success' + JSON.stringify(authResponse));
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
             this._profileInfoService.funSetUserProfile();

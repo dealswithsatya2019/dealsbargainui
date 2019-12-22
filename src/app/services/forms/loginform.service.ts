@@ -16,8 +16,8 @@ export class LoginformService {
   });
 
   resetForm(){
-    this.form.controls['name'].setValue('');
-    this.form.controls['password'].setValue('');
+    this.form.controls['name'].reset('');
+    this.form.controls['password'].reset('');
   }
   
  

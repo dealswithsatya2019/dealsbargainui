@@ -198,10 +198,10 @@ export class ProductpurchaseComponent implements OnInit {
           if (authResponse.statusCode === 200) {
             this.isLogIn = true;
             this.userservice.form.controls['name'].setValue(userInfo.name);
-            this.userservice.setAuthToken(authResponse.responseObjects.access_token);
+            this.userservice.setAuthToken(authResponse.responseObjects.sn);
             this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
             this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
-            sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
+            sessionStorage.setItem("sn", authResponse.responseObjects.sn);
             this.userservice.resetForm();
             this._profileInfoService.funSetUserProfile();
             this.whishlistService.updateWhishlist();
@@ -230,7 +230,7 @@ export class ProductpurchaseComponent implements OnInit {
     this.addressInfo = null;
     this.cartService.setItems(null);
     this.shoppingCartItems = null;
-    sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("sn");
     this._router.navigateByUrl("/");
   }
 

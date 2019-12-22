@@ -9,10 +9,11 @@ export class UserService {
 
   response: any;
   private authToken: string;
+  private uid: string;
   private profileInfo: ProfileInfo = new ProfileInfo();
 
   constructor() {
-    let accessToken = sessionStorage.getItem("access_token");
+    let accessToken = sessionStorage.getItem("sn");
     if(accessToken !== null){
       this.authToken = accessToken;
     }
@@ -22,6 +23,7 @@ export class UserService {
     this.response = null;
     this.setAuthToken('');
     this.profileInfo = null;
+    this.uid=null;
     this.resetForm();
   }
 
@@ -31,22 +33,37 @@ export class UserService {
     password: new FormControl('',[Validators.required,Validators.minLength(8)]),
     mobilenoperfix: new FormControl({value: '+1', disabled: true},[Validators.required]),
     mobileno: new FormControl('',[Validators.required,Validators.pattern('[0-9]{10}')]),
-    aggreecbx: new FormControl(true),
+    //aggreecbx: new FormControl(true),
     issentotp: new FormControl(false),
     smsotp: new FormControl(''),
     emailotp: new FormControl('')
   });
 
   resetForm(){
-    this.form.controls['name'].setValue('');
-    this.form.controls['email'].setValue('');
-    this.form.controls['password'].setValue('');
+ /*   this.form.controls['name'].reset();
+    this.form.controls['email'].reset();
+    this.form.controls['password'].reset();
+    this.form.controls['mobilenoperfix'].reset();
     this.form.controls['mobilenoperfix'].setValue('+1');
-    this.form.controls['mobileno'].setValue('');
-    this.form.controls['aggreecbx'].setValue(true);
-    this.form.controls['issentotp'].setValue(false);
-    this.form.controls['smsotp'].setValue('');
-    this.form.controls['emailotp'].setValue('');
+    this.form.controls['mobileno'].reset();
+    //this.form.controls['aggreecbx'].reset();
+    //this.form.controls['aggreecbx'].setValue(true);
+    this.form.controls['issentotp'].reset();
+    this.form.controls['smsotp'].reset();
+    this.form.controls['emailotp'].reset();
+    this.form.invalid;*/
+    this.form = new FormGroup({
+      name: new FormControl('', [Validators.required,Validators.maxLength(20)]),
+      email: new FormControl('', [Validators.required,Validators.email]),
+      password: new FormControl('',[Validators.required,Validators.minLength(8)]),
+      mobilenoperfix: new FormControl({value: '+1', disabled: true},[Validators.required]),
+      mobileno: new FormControl('',[Validators.required,Validators.pattern('[0-9]{10}')]),
+      //aggreecbx: new FormControl(true),
+      issentotp: new FormControl(false),
+      smsotp: new FormControl(''),
+      emailotp: new FormControl('')
+    });
+  
   }
  //https://angular-templates.io/tutorials/about/angular-forms-and-validations
  //Email pattern : Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
@@ -87,11 +104,26 @@ export class UserService {
   
 
   public setAuthToken(authToken){
-    this.authToken = authToken;
+    let authVal = authToken.split(':',-2);
+    if(authVal.length==2){
+      this.setUid(authVal[0]);
+      this.authToken = authVal[1];
+    }else{
+      this.authToken = authToken;
+    }
   }
 
   public getAuthToken(){
     return this.authToken;
+  }
+
+  
+  public getUid(){
+    return this.authToken;
+  }
+
+  public setUid(uid){
+    this.uid =uid;
   }
 
   public getProfileInfo(){

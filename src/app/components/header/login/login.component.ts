@@ -74,8 +74,8 @@ export class LoginComponent implements OnInit {
     this.userAuth.authenticateSocialUser(json).subscribe(authResponse => {
       if (authResponse.statusCode === 200) {
         this.userservice.form.controls['name'].setValue(response.name);
-        sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
-        this._userSerive.setAuthToken(authResponse.responseObjects.access_token);
+        sessionStorage.setItem("sn", authResponse.responseObjects.sn);
+        this._userSerive.setAuthToken(authResponse.responseObjects.sn);
         this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
         this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
         this.getCarts();
@@ -114,11 +114,11 @@ export class LoginComponent implements OnInit {
     var ciphertext = this.encryptionService.encrypt(key2, key3, key1, userInfo.password);
     this.userAuth.authenticateUser(userInfo.name, userInfo.password, 'us', key1, key2, key3).subscribe(
       (authResponse: AuthResopnse) => {
-        if (authResponse.statusCode === 200) {
+        if (authResponse.statusCode === 200 && authResponse.statusDesc ) {
           this.userservice.form.controls['name'].setValue(userInfo.name);
           console.log('Success' + JSON.stringify(authResponse));
-          sessionStorage.setItem("access_token", authResponse.responseObjects.access_token);
-          this._userSerive.setAuthToken(authResponse.responseObjects.access_token);
+          sessionStorage.setItem("sn", authResponse.responseObjects.sn);
+          this._userSerive.setAuthToken(authResponse.responseObjects.sn);
           this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
           this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
           this.getCarts();
@@ -126,7 +126,7 @@ export class LoginComponent implements OnInit {
           this.whishlistService.updateWhishlist();
           this.router.navigateByUrl('/home');
         } else {
-          this.loginErrorMsg = authResponse.statusDesc;
+          this.loginErrorMsg = authResponse.statusDesc? authResponse.statusDesc: 'Invalid credentials.';
           console.log('Failed' + JSON.stringify(authResponse));
         }
       },

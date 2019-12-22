@@ -4,19 +4,20 @@ import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { LoginComponent } from 'src/app/components/header/login/login.component';
+import { UserService } from 'src/app/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(public auth: AuthService, public router: Router,
+  constructor(public auth: AuthService, public router: Router,public userservice: UserService,
     public dialog: MatDialog) { }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     /*const expectedRole = next.data.datepropsample;
     console.log(expectedRole);*/
-    if (!this.auth.isAuthenticated()) {
+    if (!this.userservice.getAuthToken()) {
       this.funSignIn();
       //console.log('Not Authenicted ....');
       return false;

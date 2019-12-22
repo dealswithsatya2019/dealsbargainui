@@ -92,7 +92,7 @@ export class HeaderComponent implements OnInit {
     }
   ];*/
   ngOnInit() {
-    let access_token = sessionStorage.getItem("access_token");
+    let access_token = sessionStorage.getItem("sn");
     if (access_token != undefined) {
       this.userservice.setAuthToken(access_token);
       this._profileInfoService.funSetUserProfile();
@@ -184,7 +184,7 @@ export class HeaderComponent implements OnInit {
   signOut(): void {
     this.userservice.resetDetails();
     this.cartService.clearCart();
-    sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("sn");
     this._whishlistService.clearWhislist();
     this._socioAuthServ.signOut();
     this._router.navigateByUrl("/");
