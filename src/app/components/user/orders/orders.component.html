@@ -23,7 +23,7 @@
             </div>
             <div class="order-cycle">
 
-                <!-- <mat-horizontal-stepper #stepper labelPosition="bottom">
+                <mat-horizontal-stepper #stepper labelPosition="bottom">
                     <mat-step *ngIf="orderInfo.user_payment_request_status=='success'">
                         <ng-template matStepLabel>
                             <h6>Order placed</h6>
@@ -79,7 +79,7 @@
                         </ng-container>
                     </mat-step>
                     </ng-container>    
-                </mat-horizontal-stepper>  -->
+                </mat-horizontal-stepper>
             </div>
             <div class="review-order-details" *ngIf="orderInfo.user_payment_request_status=='success'">
                    
