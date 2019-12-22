@@ -13,13 +13,8 @@ export class UserService {
   private profileInfo: ProfileInfo = new ProfileInfo();
 
   constructor() {
-<<<<<<< HEAD
     let accessToken = sessionStorage.getItem("sn");
     if(accessToken !== null){
-=======
-    let accessToken = sessionStorage.getItem("access_token");
-    if (accessToken !== null) {
->>>>>>> 642a1e52457144c907eafdc55e700656b13030c7
       this.authToken = accessToken;
     }
   }
@@ -107,21 +102,13 @@ export class UserService {
 
   }
 
-<<<<<<< HEAD
-  public setAuthToken(authToken){
-    let authVal = authToken.split(':',-2);
-    if(authVal.length==2){
-      this.setUid(authVal[0]);
-      this.authToken = authVal[1];
-    }else{
-=======
 
   public setAuthToken(authToken) {
     if (authToken != null && authToken != undefined && authToken.indexOf(":") > 0) {
-      let token = authToken.split(":")[1];
-      this.authToken = token;
+      let authVal = authToken.split(':',-2);
+      this.setUid(authVal[0]);
+      this.authToken = authVal[1];
     } else {
->>>>>>> 642a1e52457144c907eafdc55e700656b13030c7
       this.authToken = authToken;
     }
   }
@@ -130,7 +117,6 @@ export class UserService {
     return this.authToken;
   }
 
-<<<<<<< HEAD
   
   public getUid(){
     return this.authToken;
@@ -141,9 +127,6 @@ export class UserService {
   }
 
   public getProfileInfo(){
-=======
-  public getProfileInfo() {
->>>>>>> 642a1e52457144c907eafdc55e700656b13030c7
     return this.profileInfo;
   }
 
