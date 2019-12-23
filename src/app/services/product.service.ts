@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
 })
 export class ProductService {
 
+  public apiType : number = 0;
+
   constructor(private _httpCommonService: HttCommonService, public _router: Router) { }
   
   routeProductDetails(params) {
@@ -31,8 +33,8 @@ export class ProductService {
         "countryCode": countryCode,
         "categoryName": categoryName,
         "subCategoryName": subCategoryName,
-        "pageForm": from,
-        "noOfResults": limit
+        "pageNo": from,
+        "pageSize": limit
       };
     return this._httpCommonService.postReq('products/' + categoryName, JSON.stringify(body));
   }

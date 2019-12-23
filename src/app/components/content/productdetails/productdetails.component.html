@@ -3,7 +3,7 @@
 			{{result}}
 			<ul class="breadcrumb">
 				<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
-				<li><a (click)="routeToProductListPage({cname:cname,scname:scname})" routerLinkActive="active">{{productDetails.display_name_category}}</a></li>
+				<li><a (click)="routeToProductListPage(cname,scname,pid)" routerLinkActive="active">{{productDetails.display_name_category}}</a></li>
 				<li><a >{{productDetails.display_name_middle_subcategory}}</a></li>
 				<li><a >{{productDetails.display_name_subcategory}}</a></li>
 			</ul>
@@ -234,7 +234,7 @@
 	<div *ngIf="similarProducts && similarProducts.length >0">
 <h5 class="subtitle position-relative"> SIMILAR PRODUCTS
 		<!-- <a [routerLink]="['productlist',cname.toLowerCase(),scname]" routerLinkActive="active" class="pl-3">VIEW ALL</a> -->
-		<a (click)="routeToProductListPage(prodListRouteInfo)"  class="pl-3">VIEW ALL</a>
+		<a (click)="routeToProductListPage(cname,scname,pid)"  class="pl-3 float-right">VIEW ALL</a>
 	</h5>
 	
 		<div class="swiper-container similar">
