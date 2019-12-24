@@ -14,12 +14,12 @@ import { Router } from '@angular/router';
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss']
 })
-export class OrdersComponent implements OnInit,OnDestroy {
+export class OrdersComponent implements OnInit, OnDestroy {
 
-  subscriptions : Subscription = new Subscription();
-  public ordersListInfo : Array<GetOrederReq> = [];
+  subscriptions: Subscription = new Subscription();
+  public ordersListInfo: Array<GetOrederReq> = [];
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
-  constructor(public _myordersService: MyordersService, 
+  constructor(public _myordersService: MyordersService,
     public _productservice: ProductService,
     public _alertService: AlertService,
     public _router: Router) { }
@@ -36,11 +36,11 @@ export class OrdersComponent implements OnInit,OnDestroy {
   public getOrdersList() {
     this.subscriptions.add(this._myordersService.getOrders('us').subscribe(
       (data: searchreponse) => {
-        if(data.responseObjects && data.responseObjects.length>0){
+        if (data.responseObjects && data.responseObjects.length > 0) {
           this.ordersListInfo = data.responseObjects;
         }
       },
-      (error) =>{
+      (error) => {
         console.log(error);
       }
     ));
@@ -50,40 +50,47 @@ export class OrdersComponent implements OnInit,OnDestroy {
     this._productservice.routeProductDetails(params);
   }
 
-  public cancelOrder(orderTrackingId, orderDetailsId, productInfo : Product){
-    this.subscriptions.add(this._myordersService.cancelOrReturn(orderTrackingId, orderDetailsId, productInfo.category, productInfo.subcategory, productInfo.item_id, productInfo.master_suplier,'us','cancelled').subscribe(
+  public cancelOrder(orderTrackingId, orderDetailsId, productInfo: Product) {
+    this.subscriptions.add(this._myordersService.cancelOrReturn(orderTrackingId, orderDetailsId, productInfo.category, productInfo.subcategory, productInfo.item_id, productInfo.master_suplier, 'us', 'cancelled').subscribe(
       (data: searchreponse) => {
-        if(data.statusCode == 200){
+        if (data.statusCode == 200) {
           this._alertService.raiseAlert("Item was successfully cancelled.");
           this._router.navigate(['myprofile', { outlets: { 'profileoutlet': ['orders'] } }]);
-        }else{
+        } else {
           this._alertService.raiseAlert("Unable to cancel the item.");
           console.log(data);
         }
       },
-      (error) =>{
+      (error) => {
         this._alertService.raiseAlert("Unable to cancel the item.");
         console.log(error);
       }
     ));
   }
 
-  public returnOrder(orderTrackingId, orderDetailsId,productInfo : Product){
-    this.subscriptions.add(this._myordersService.cancelOrReturn(orderTrackingId, orderDetailsId, productInfo.category, productInfo.subcategory, productInfo.item_id, productInfo.master_suplier,'us','return').subscribe(
+  public returnOrder(orderTrackingId, orderDetailsId, productInfo: Product) {
+    this.subscriptions.add(this._myordersService.cancelOrReturn(orderTrackingId, orderDetailsId, productInfo.category, productInfo.subcategory, productInfo.item_id, productInfo.master_suplier, 'us', 'return').subscribe(
       (data: searchreponse) => {
-        if(data.statusCode == 200){
+        if (data.statusCode == 200) {
           this._alertService.raiseAlert("Item was successfully returned.");
           this._router.navigate(['myprofile', { outlets: { 'profileoutlet': ['orders'] } }]);
-        }else{
+        } else {
           this._alertService.raiseAlert("Unable to return the item.");
           console.log(data);
         }
       },
-      (error) =>{
+      (error) => {
         this._alertService.raiseAlert("Unable to return the item.");
         console.log(error);
       }
     ));
   }
-  
+
+  showOrderDetails(index: number, orderDetails: GetOrederReq) {
+    if (orderDetails != null && orderDetails != undefined && orderDetails.items_info != null && orderDetails.items_info.length >= index) {
+      let product: Product = orderDetails.items_info[index];
+      let id = orderDetails.order_id_by_payment_channel + "_" + product.item_id + "_" + product.category + "_" + product.subcategory + "_" + orderDetails.user_id;
+      this._router.navigate(['/odp', id, "us"]);
+    }
+  }
 }

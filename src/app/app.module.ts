@@ -61,6 +61,7 @@ import { ForgotpasswordComponent } from './components/header/forgotpassword/forg
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CouponsComponent } from './components/content/coupons/coupons.component';
 import { MobileMenuComponent } from './components/header/mobile-menu/mobile-menu.component';
+import { OrderItemDetailsComponent } from './order-item-details/order-item-details.component';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -127,6 +128,7 @@ export function ProvideConfig() {
     ForgotpasswordComponent,
     CouponsComponent,
     MobileMenuComponent,
+    OrderItemDetailsComponent,
     
   ],
   entryComponents:[LoginComponent,SignupComponent,SocialshareComponent,RateproductComponent,ForgotpasswordComponent],

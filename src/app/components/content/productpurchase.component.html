@@ -85,15 +85,15 @@
                     </div>
                 </mat-step>
 
-                <mat-step label="Shipping Address" [(completed)]="selectedAddressId">
+                <mat-step label="Shipping Address" (click)="CheckAddress()" [(completed)]="selectedAddressId">
                     <div class="mb-3">
                         <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedAddressId">
                             <ng-container *ngIf="addressInfo">
                                 <ng-container *ngFor="let address of addressInfo.responseObjects">
                                     <div class="add1 my-3">
-                                        <mat-radio-button [value]="address.address_id">{{address.name}}
-                                            <span class="px-1">{{address.address_type == 2 ? 'Work' : 'Home'}}</span>
-                                            {{address.mobile_number}}
+                                        <mat-radio-button [value]="address.address_id">
+                                            <b>{{address.mobile_number}}</b>
+                                            &nbsp;{{address.firstName}}&nbsp;{{address.lastName}}
                                         </mat-radio-button>
                                         <div class="pl-3">{{address.address}} ,{{address.city}},{{address.state}}.</div>
                                         <button mat-button class="edit-address"
@@ -136,12 +136,6 @@
                                     <mat-error>mobile number is mandatory and should be numberic</mat-error>
                                 </mat-form-field> 
 
-                                <mat-form-field appearance="outline" floatLabel="never" style="width: 39%;">
-                                    <mat-label>Alternate Phone</mat-label>
-                                    <input formControlName="altphone" matInput placeholder="Placeholder">
-                                    <mat-error>phone number should be numeric</mat-error>
-                                </mat-form-field>
-
                                 <mat-form-field appearance="outline" style="width:98%" floatLabel="never">
                                     <mat-label>Address</mat-label>
                                     <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
@@ -176,15 +170,6 @@
                                     <input formControlName="zipcode" matInput placeholder="Placeholder">
                                     <mat-error>Zip Code/Postal is mandatory</mat-error>
                                 </mat-form-field>
-
-                                <mat-radio-group formControlName="address_type" aria-label="Select an option">
-                                    <mat-radio-button value="1" class="mr-2">Home
-                                        ( All Day Delivery )
-                                    </mat-radio-button>
-                                    <mat-radio-button value="2">Work
-                                        (Delivery
-                                        between 10AM - 5PM)</mat-radio-button>
-                                </mat-radio-group>
 
                                 <button mat-raised-button type="submit" [disabled]="updateaddressform.invalid"
                                     class=" my-2 w-100 login-login-btn">Update
@@ -224,12 +209,6 @@
                                 <input matInput value="+1" disabled>
                             </mat-form-field>
 
-                            <mat-form-field appearance="outline" style="width: 39%;">
-                                <mat-label>Alternate Phone</mat-label>
-                                <input formControlName="altphone" matInput placeholder="Placeholder">
-                                <mat-error>phone number should be numeric</mat-error>
-                            </mat-form-field>
-
                             <mat-form-field appearance="outline" style="width:98%">
                                 <mat-label>Address</mat-label>
                                 <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
@@ -265,11 +244,6 @@
                                 <input formControlName="zipcode" matInput placeholder="Placeholder">
                                 <mat-error>Zip Code/Postal is mandatory</mat-error>
                             </mat-form-field>
-
-                            <mat-radio-group aria-label="Select an option" formControlName="address_type">
-                                <mat-radio-button value="1" class="mr-2">Home ( All Day Delivery )</mat-radio-button>
-                                <mat-radio-button value="2">Work (Delivery between 10AM - 5PM)</mat-radio-button>
-                            </mat-radio-group>
 
                             <button mat-raised-button type="submit" [disabled]="addressform.invalid"
                                 class=" my-2 w-100 login-login-btn">Save

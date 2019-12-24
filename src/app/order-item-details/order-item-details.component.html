@@ -1,0 +1,273 @@
+<div class="product-details">
+    <mat-toolbar-row>
+        {{result}}
+        <ul class="breadcrumb">
+            <li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
+            <li><a (click)="routeToProductListPage(cname,scname,pid)"
+                    routerLinkActive="active">{{productDetails.display_name_category}}</a></li>
+            <li><a>{{productDetails.display_name_middle_subcategory}}</a></li>
+            <li><a>{{productDetails.display_name_subcategory}}</a></li>
+        </ul>
+    </mat-toolbar-row>
+    <div style="display: flex;" class="mb-4 col-flex">
+        <div class="left-details">
+            <div class="swiper-container gallery-thumbs">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide text-center p-0" *ngFor="let listitem of items; index as j">
+                        <img src="{{listitem.data.thumb}}" style="height:100%; max-width: 100%;">
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-container gallery-top">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide text-center p-0" *ngFor="let item of items; index as i">
+                        <img [lightbox]="i" [src]="item.data.thumb" style="height:100%; max-width: 100%;">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="right-details pl-3">
+            <div>
+                <mat-card class="zoom-viewer mat-elevation-z18 mat-card ng-star-inserted"
+                    style="background-position: 87.4477% 97.493%; display: none; height: 359px; width: 478px;">
+                </mat-card>
+            </div>
+
+            <h5 class="product-title">
+                {{productDetails.title}}
+            </h5>
+            <ng-container *ngIf="productRating==0">
+                Be a first reviewer. <a (click)="openDialog()">Rate this product</a>
+            </ng-container>
+            <ng-container *ngIf="productRating>0">
+                <p style="clear: both;align-items: center;">
+                    <span class="mr-1 rate-product">
+                        <ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true">
+                        </ngx-star-rating>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true">
+                                </ngx-star-rating>
+                                <!-- <b>4.1 out of 5</b> -->
+                            </div>
+
+                            <div class="product-rating-bar">
+                                <p class="mb-2">{{totalRating}} customers ratings</p>
+                                <p class="progress-line">5star <mat-progress-bar mode="determinate" value="{FiveStar}}">
+                                    </mat-progress-bar> <span>60%</span></p>
+                                <p class="progress-line">4star <mat-progress-bar mode="determinate"
+                                        value="{{FourStar}}"></mat-progress-bar> <span>30%</span></p>
+                                <p class="progress-line">3star <mat-progress-bar mode="determinate"
+                                        value="{{ThreeStar}}"></mat-progress-bar> <span>20%</span></p>
+                                <p class="progress-line">2star <mat-progress-bar mode="determinate" value="{{TwoStar}}">
+                                    </mat-progress-bar> <span>6%</span></p>
+                                <p class="progress-line">1star <mat-progress-bar mode="determinate" value="{{OneStar}}">
+                                    </mat-progress-bar> <span>4%</span></p>
+                                <a class="py-3 text-center" mat-button>View all Ratings</a>
+                            </div>
+                        </div>
+                    </span>
+                    <span class="float-right">
+                        <app-wishlist [actionType]="whishlist_action_type" [productInfo]="productDetails">
+                        </app-wishlist>
+                        <button mat-button class="action-btns share">
+                            <i class="fa fa-share-alt"></i>
+                            <div class="social-share">
+                                <a href="http://www.facebook.com/sharer.php?u=https://www.dealsbargain.com/"
+                                    target="_blank">
+                                    <i class="fa fa-facebook-official"></i>
+                                </a>
+                                <a href="http://twitter.com/share?text=dealsbargain&url=https://www.dealsbargain.com/&hashtags=#"
+                                    target="_blank">
+                                    <i class="fa fa-twitter-square"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.dealsbargain.com/&title=hashtags&source=deals bargain"
+                                    target="_blank">
+                                    <i class="fa fa-linkedin-square"></i>
+                                </a>
+                                <a href="#!">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                                <a href="#!">
+                                    <i class="fa fa-google-plus-square" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </button>
+                    </span>
+                </p>
+            </ng-container>
+            <h4>
+                <ng-container *ngIf="productDetails.dealtype!=''">
+                    {{PRICE_PREFIX}}{{productDetails.deals_bargain_deal_price}}<span
+                        class="px-3 stike-off">{{PRICE_PREFIX}}{{productDetails.deals_bargain_supplier_deal_price}}</span>
+                </ng-container>
+                <ng-container *ngIf="productDetails.dealtype=='' && productDetails.discount=='0'">
+                    <span class="new_cost">{{PRICE_PREFIX}}{{productDetails.price}}</span>
+                </ng-container>
+                <ng-container *ngIf="productDetails.dealtype=='' && productDetails.discount!='0'">
+                    {{PRICE_PREFIX}}{{productDetails.discount_amount}}<span
+                        class="px-3 stike-off">{{PRICE_PREFIX}}{{productDetails.price}}</span>
+                </ng-container>
+                <ng-container *ngIf="productDetails.discount && productDetails.discount!='0'">
+                    <span class="px-3 discount">({{productDetails.discount}}% off)</span>
+                </ng-container>
+
+            </h4>
+            <p style="color: #232323;font-weight: 500;">Brand Name : {{productDetails.brand_name}}</p>
+            <h6>Item SKU : {{productDetails.item_sku}}</h6>
+            <h6>Condition : {{productDetails.condition}}</h6>
+            <h6>Warranty : {{productDetails.warranty ===''? 'No' : productDetails.warranty}}</h6>
+            <h6 *ngFor="let keyValPair of product_attributes">
+                {{keyValPair.key}} : {{keyValPair.value}}
+            </h6>
+            <div class="py-3 mt-4 lh">
+                <ng-container *ngIf="isProductAvailable; else outofstock">
+                    <a mat-button class="quick-buy" (click)="quickBuy(productDetails)">Quick Buy</a>
+                    <a mat-button class="add-bag" (click)="addToCart(productDetails)">ADD TO BAG</a>
+                </ng-container>
+                <ng-template #outofstock>
+                    <a mat-button class="add-bag">OUT OF STOCK</a>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    <mat-accordion class="w-100">
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+                <p class="text-center">PRODUCT DETAILS</p>
+            </mat-expansion-panel-header>
+            <p>PRODUCT DESCRIPTION</p>
+            <p [innerHTML]="productDetails.description"></p>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <p class="text-center">SHIPPING</p>
+            </mat-expansion-panel-header>
+            <p>This product is specially handcrafted for each customer and ships in 7 to 12 days. We assure the
+                authenticity and quality of our products before delivery and ensure that each exquisite piece meets your
+                expectations.</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <p class="text-center">RETURN POLICY</p>
+            </mat-expansion-panel-header>
+            <p>Our return policy may vary based on products. Please read our policy by clicking here for more details.We
+                are always there to help and you can write to us at support@dealsbargain.com if you are not happy with
+                the product you have received.</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <p class="text-center">ADDITIONAL INFO</p>
+            </mat-expansion-panel-header>
+            <mat-grid>
+                <p *ngFor="let keyValPair of product_attributes">
+                    {{keyValPair.key}} : {{keyValPair.value}}
+                </p>
+            </mat-grid>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <p class="text-center">DISCLAIMER</p>
+            </mat-expansion-panel-header>
+            <mat-grid>
+            </mat-grid>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <!-- Similar Products -->
+    <div *ngIf="similarProducts && similarProducts.length >0">
+        <h5 class="subtitle position-relative"> SIMILAR PRODUCTS
+            <!-- <a [routerLink]="['productlist',cname.toLowerCase(),scname]" routerLinkActive="active" class="pl-3">VIEW ALL</a> -->
+            <a (click)="routeToProductListPage(cname,scname,pid)" class="pl-3 float-right">VIEW ALL</a>
+        </h5>
+
+        <div class="swiper-container similar">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" *ngFor="let product of similarProducts; let i = index">
+                    <mat-card>
+                        <ng-container *ngIf="product.discount && product.discount!='0'">
+                            <mat-card-subtitle>
+                                <span class="badge offer-badge">{{product.discount}}</span>
+                            </mat-card-subtitle>
+                        </ng-container>
+                        <div class="product-img">
+                            <img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo"
+                                (click)="showProductDetails({cname:product.category,scname:product.subcategory,pid:product.item_id})">
+                            <!-- <img class="image img-cursor" mat-card-image src="{{product.image}}" alt="photo" (click)="showProductDetails(product.category,product.subcategory,product.item_id)">-->
+                        </div>
+                        <mat-card-content class="product-desc">
+
+                            <p class="p-cost">
+                                <ng-container *ngIf="product.dealtype!=''">
+                                    <span
+                                        class="old_cost">{{PRICE_PREFIX}}{{product.deals_bargain_supplier_deal_price}}</span>
+                                    <span class="new_cost">{{PRICE_PREFIX}}{{product.deals_bargain_deal_price}}</span>
+                                </ng-container>
+                                <ng-container *ngIf="product.dealtype=='' && product.discount=='0'">
+                                    <span class="new_cost">{{PRICE_PREFIX}}{{product.price}}</span>
+                                </ng-container>
+                                <ng-container *ngIf="product.dealtype=='' && product.discount!='0'">
+                                    <span class="old_cost">{{PRICE_PREFIX}}{{product.price}}</span>
+                                    <span class="new_cost">{{PRICE_PREFIX}}{{product.discount_amount}}</span>
+                                </ng-container>
+                                <button mat-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
+                                    Add
+                                </button>
+                            </p>
+                            <p class="p-title">{{product.item_name}}</p>
+                        </mat-card-content>
+                        <mat-card-actions>
+
+                            <button mat-button class="action-btns share">
+                                <i class="fa fa-share-alt"></i>
+                                <div class="social-share btm">
+                                    <a href="http://www.facebook.com/sharer.php?u=https://dealsbargain.com/productdetails/{{product.category}}/{{product.subcategory}}/{{product.item_id}}"
+                                        target="_blank">
+                                        <i class="fa fa-facebook-official"></i>
+                                    </a>
+                                    <a href="http://twitter.com/share?text=dealsbargain&url=https://dealsbargain.com/productdetails/{{product.category}}/{{product.subcategory}}/{{product.item_id}}"
+                                        target="_blank">
+                                        <i class="fa fa-twitter-square"></i>
+                                    </a>
+                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.dealsbargain.com/&title=hashtags&source=deals bargain"
+                                        target="_blank">
+                                        <i class="fa fa-linkedin-square"></i>
+                                    </a>
+                                    <a href="#!">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>
+                                    <a href="#!">
+                                        <i class="fa fa-google-plus-square" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </button>
+                            <app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next swiper-button-white"></div>
+            <div class="swiper-button-prev swiper-button-white"></div>
+        </div>
+    </div>
+    <div class="reviews">
+        <p class="p-3">Reviews & Ratings</p>
+        <div class="divider"></div>
+        <div class="rev-content">
+            <p>Do you recommend this product?
+                <a mat-raised-button class="ml-4" (click)="isRecommendThisProduct(true)">
+                    <i class="fa fa-thumbs-up"></i>
+                </a>
+                <a mat-raised-button class="ml-3">
+                    <i class="fa fa-thumbs-down" (click)="isRecommendThisProduct(false)"></i>
+                </a>
+            </p>
+            <ng-container *ngIf="this.userservice.getAuthToken()">
+                <a mat-raised-button class="dialog-btn" (click)="openDialog()">Rate this product</a>
+            </ng-container>
+        </div>
+    </div>
+</div>

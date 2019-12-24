@@ -34,5 +34,6 @@ export class AppRoutes{
     static readonly mycart = 'mycart';
     static readonly LocationWeShip = 'locationweship';
     static readonly EstimatedDeliverytime = 'estimateddeliverytime';
+    static readonly OrderItemDetails = 'odp/:orderid/:countryname';
     
 }

@@ -34,6 +34,7 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.shoppingCartItems = [];
+    // console.log("Cart details ",this.userService.getAuthToken());
     if (this.userService.getAuthToken() != null) {
       this.cartService.clearCart();
       this.getCarts();
@@ -79,12 +80,17 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
     if (this.cartService.itemsInCart.some(e => e.item_id === item.item_id)) {
       this.cartService.itemsInCart.forEach(element => {
         if (element.item_id == item.item_id) {
-          element.quantity = element.quantity >= 0 ? (isAdd ? (element.quantity + 1) : (element.quantity - 1)) : 1;
-          this.cartService.raiseAlert("The item count has been updated to cart.");
-          if (this.userService.getAuthToken() != null) {
-            this.subscriptions.add(this.cartService.updateCartHttp(element).subscribe(data => {
-              this.addCartData = data;
-            }));
+          let quantity = element.quantity >= 0 ? (isAdd ? (element.quantity + 1) : (element.quantity - 1)) : 1;
+          if (quantity > 0) {
+            element.quantity = quantity;
+            this.cartService.raiseAlert("The item count has been updated to cart.");
+            if (this.userService.getAuthToken() != null) {
+              this.subscriptions.add(this.cartService.updateCartHttp(element).subscribe(data => {
+                this.addCartData = data;
+              }));
+            }
+          } else {
+            this.cartService.raiseAlert("The Product quantity should be greater than one.")
           }
         }
         this.cartService.itemsInCartTemp.push(element);

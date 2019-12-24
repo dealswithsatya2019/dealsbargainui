@@ -72,8 +72,6 @@ export class ProductpurchaseComponent implements OnInit {
     address: new FormControl('', [Validators.required, Validators.maxLength(25)]),
     city: new FormControl('', [Validators.required]),
     state: new FormControl('', [Validators.required]),
-    altphone: new FormControl('', [Validators.pattern('[0-9]+')]),
-    address_type: new FormControl('', [Validators.required]),
     country: new FormControl('United States', [Validators.required]),
 
   });
@@ -87,10 +85,8 @@ export class ProductpurchaseComponent implements OnInit {
     address: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     state: new FormControl('', [Validators.required]),
-    altphone: new FormControl('', [Validators.pattern('[0-9]+')]),
     address_id: new FormControl(''),
     country: new FormControl('United States', [Validators.required]),
-    address_type: new FormControl('', [Validators.required]),
   });
 
   couponform: FormGroup = new FormGroup({
@@ -202,7 +198,7 @@ export class ProductpurchaseComponent implements OnInit {
         this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
         this._profileInfoService.funSetUserProfile();
         this.whishlistService.updateWhishlist();
-        this.getCarts();
+        this.addCart();
       } else {
         this.loginErrorMsg = authResponse.statusDesc;
         console.log('Failed' + JSON.stringify(authResponse));
@@ -263,11 +259,6 @@ export class ProductpurchaseComponent implements OnInit {
     let mobilenumber = this.addressform.controls.mobile_number.value;
     mobilenumber = "1" + mobilenumber;
     this.addressform.controls['mobile_number'].setValue(mobilenumber);
-    let altphone = this.addressform.controls.altphone.value;
-    if (altphone != null && altphone.length > 0) {
-      altphone = "1" + altphone;
-      this.addressform.controls['altphone'].setValue(altphone);
-    }
     let addressInfo = JSON.parse(JSON.stringify(this.addressform.value));
     console.log("addressInfo :", addressInfo);
     this.saveAddress(addressInfo);
@@ -370,9 +361,9 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public getAddresses() {
+    console.log("address selected .......");
     this.subscriptions.add(this.getAddresslist().subscribe(data => {
       this.addressInfo = data;
-      this.selectedAddressId = null;
       if (this.addressInfo.statusCode == 404) {
         this.exp1 = true;
         this.exp2 = false;
@@ -392,13 +383,11 @@ export class ProductpurchaseComponent implements OnInit {
     this.updateaddressform.controls.firstName.setValue(this.address.firstName);
     this.updateaddressform.controls.lastName.setValue(this.address.lastName);
     this.updateaddressform.controls.mobile_number.setValue(this.address.mobile_number.substr(1));
-    this.updateaddressform.controls.altphone.setValue(this.address.altphone != null ? this.address.altphone.substr(1) : this.address.altphone);
     this.updateaddressform.controls.address.setValue(this.address.address);
     this.updateaddressform.controls.city.setValue(this.address.city);
     this.updateaddressform.controls.country.setValue(this.address.country);
     this.updateaddressform.controls.state.setValue(this.address.state);
     this.updateaddressform.controls.zipcode.setValue(this.address.zipcode);
-    this.updateaddressform.controls.address_type.setValue(this.address.address_type);
     this.updateaddressform.controls.address_id.setValue(this.address.address_id);
   }
 
@@ -555,18 +544,30 @@ export class ProductpurchaseComponent implements OnInit {
       this.cartService.itemsInCart.forEach(element => {
         if (isLoopReq) {
           if (element.item_id == item.item_id) {
-            element.quantity = element.quantity >= 0 ? (isAdd ? (element.quantity + 1) : (element.quantity - 1)) : 1;
-            if (this.userservice.getAuthToken() != null) {
-              this.subscriptions.add(this.cartService.updateCartHttp(element).subscribe(data => {
-                this.cartService.raiseAlert("The item count has been updated to cart.");
-                this.addCartData = data;
-                this.getCarts();
-              }));
-              isLoopReq = false;
+            let quantity = element.quantity >= 0 ? (isAdd ? (element.quantity + 1) : (element.quantity - 1)) : 1;
+            if (quantity > 0) {
+              element.quantity = quantity;
+              if (this.userservice.getAuthToken() != null) {
+                this.subscriptions.add(this.cartService.updateCartHttp(element).subscribe(data => {
+                  this.cartService.raiseAlert("The item count has been updated to cart.");
+                  this.addCartData = data;
+                  this.getCarts();
+                }));
+                isLoopReq = false;
+              }
+            }else{
+              this.cartService.raiseAlert("The Product quantity should be greater than one.")
             }
           }
         }
       });
+    }
+  }
+
+  public CheckAddress() {
+    console.log("Shiiping address ");
+    if (this.selectedAddressId == null || this.selectedAddressId == undefined || this.selectedAddressId.length == 0) {
+      this.cartService.raiseAlert("Please select the shipping address");
     }
   }
 
@@ -619,7 +620,7 @@ export class ProductpurchaseComponent implements OnInit {
           this.couponDiscountCost = this.promoResponseModel.value;
         }
         this.calculatePrices();
-      }else{
+      } else {
         this.cartService.raiseAlert("Please enter a valid Promotional or Voucher Code");
       }
     }));

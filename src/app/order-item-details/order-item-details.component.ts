@@ -1,13 +1,12 @@
-import { Component, OnInit,  AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Product } from 'src/app/models/product';
 import { searchreponse } from 'src/app/models/searchResponse';
-import { RateproductComponent } from '../rateproduct/rateproduct.component';
 import { Swiper, Navigation, Pagination, Scrollbar, Autoplay, Thumbs } from 'swiper/js/swiper.esm.js';
 import { ProductDetails } from 'src/app/models/ProductDetails';
-import { Gallery, GalleryItem, ImageItem,  GalleryConfig } from '@ngx-gallery/core';
+import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize, GalleryConfig } from '@ngx-gallery/core';
 import { UserService } from 'src/app/user.service';
 import { CartService } from 'src/app/services/cart.service';
 import { KeyValuePair } from 'src/app/models/KeyValuePair';
@@ -15,18 +14,15 @@ import { ProductRouteInfo } from 'src/app/models/ProductRouteInfo';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
+import { RateproductComponent } from '../components/content/rateproduct/rateproduct.component';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
-
 @Component({
-  selector: 'app-productdetails',
-  templateUrl: './productdetails.component.html',
-  styleUrls: ['./productdetails.component.scss']
+  selector: 'app-order-item-details',
+  templateUrl: './order-item-details.component.html',
+  styleUrls: ['./order-item-details.component.scss']
 })
-export class ProductdetailsComponent implements OnInit, AfterViewInit {
-
-  //https://ngx-gallery-cors-error.stackblitz.io
-  //Using loadingMode: 'indeterminate' on the GalleryModule's config worked.
+export class OrderItemDetailsComponent implements OnInit {
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
 
   paidFor: boolean = false;
@@ -59,13 +55,7 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    //    (5*252 + 4*124 + 3*40 + 2*29 + 1*33) / (252+124+40+29+33) = 4.11 and change
     this.totalRating = this.FiveStar + this.FourStar + this.ThreeStar + this.TwoStar + this.OneStar;
-    console.log("Total ratings : " + this.totalRating);
-    //this.productRating = ((5*this.FiveStar)+(4*this.FourStar)+(3*this.ThreeStar)+(2*this.TwoStar)+(1*this.OneStar))/this.totalRating;
-    //this.productRating = Math.round(this.productRating * 100)/10;
-    console.log("productRating : " + this.productRating);
-
     setTimeout(() => {
       var swiper = new Swiper('.similar', {
         autoplay: {
@@ -97,23 +87,11 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
         }
       })
     }, 1000);
-
-
     this._Activatedroute.paramMap.subscribe((params: ParamMap) => {
-      this.cname = params.get('cname');
-      this.scname = params.get('scname');
-      this.pid = params.get('pid');
-      /*this.subscription = this._productListRouteInfo.getCart().subscribe(productRouteInfo => {
-        if (productRouteInfo) {
-          this.cname = productRouteInfo.cname;
-          this.scname = productRouteInfo.scname;
-          this.pid = productRouteInfo.productId;
-        }
-      this.prodListRouteInfo = JSON.parse(sessionStorage.getItem("product_details"));
-      this.cname = this.prodListRouteInfo.cname;
-      this.scname = this.prodListRouteInfo.scname;
-      this.pid = this.prodListRouteInfo.pid;*/
-
+      let orderId = params.get('orderid').split("_")[0];
+      this.cname = params.get('orderid').split("_")[2];
+      this.scname = params.get('orderid').split("_")[3];
+      this.pid = params.get('orderid').split("_")[1];
       this.getProductDetailsByid();
       this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
         (results: searchreponse) => {
@@ -177,16 +155,6 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
 
 
   loadZoomImagesList() {
-    /**
-     * https://github.com/MurhafSousli/ngx-gallery/wiki/Lightbox-Usage
-     * https://murhafsousli.github.io/ngx-gallery/#/getting-started/core
-     * thumbPosition: ThumbnailsPosition.Top,
-      itemTemplate: this.itemTemplate,
-      gestures: false,
-      imageSize: 'cover',
-      loadingMode: "indeterminate",
-      loadingIcon: 'Loading...'
-     */
     this.gallery.resetAll();
     const config: GalleryConfig = {
       loadingMode: "indeterminate"
@@ -214,31 +182,8 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
     this.dialog.open(RateproductComponent, dialogConfig);
   }
 
-  ngAfterViewInit() {
-
-
-    //   setTimeout(() => {
-    //   var galleryThumbs = new Swiper('.gallery-thumbs', {
-    //     spaceBetween: 10,
-    //     slidesPerView: 4,
-    //     freeMode: true,
-    //     watchSlidesVisibility: true,
-    //     watchSlidesProgress: true,
-    //   });
-    //   var galleryTop = new Swiper('.gallery-top', {
-    //     spaceBetween: 10,
-    //     thumbs: {
-    //       swiper: galleryThumbs
-    //     }
-    //   });
-    // }, 1000);
-  }
-
   showProductDetails(params) {
-    /*let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
-    sessionStorage.setItem("product_details", JSON.stringify(productRouteInfo));*/
-    //this._productListRouteInfo.addToCart(productRouteInfo);
-    // this._productservice.routeProductDetails(params);
+
   }
 
   routeToProductListPage(cname, scname, pid) {
@@ -246,12 +191,7 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
     let params = {
       "cname": cname,
       "scname": scname
-      //  "" :pid
     }
-    /*let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
-   /* this._productListRouteInfo.cname = cname;
-    this._productListRouteInfo.scname = scname;
-    sessionStorage.setItem("product_list", JSON.stringify(productRouteInfo));*/
     this._productservice.routeProductList(params);
   }
 
@@ -310,5 +250,4 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
     this.product.others = produt.other;
     return this.product;
   }
-
 }
