@@ -12,10 +12,11 @@
                 <!-- <button mat-button class="wishlist-btn"><i class="fa fa-"></i> Wishlist</button> -->
                 <mat-accordion [multi]="true">
                     <mat-expansion-panel [expanded]="true">
-                        <mat-expansion-panel-header>
+<!--                        <mat-expansion-panel-header>
                            Profile
-                        </mat-expansion-panel-header>
+                        </mat-expansion-panel-header>-->
                         <div class="list-box">
+                                <a mat-button [routerLink]="['/myprofile', { outlets: {  'profileoutlet': ['profileinfo'] } }]" routerLinkActive="active">My Profile</a>
                             <!-- <a mat-button [routerLink]="['/wishlist']" routerLinkActive="active">Whishlist</a>-->
                             <a mat-button [routerLink]="['/myprofile', { outlets: {  'profileoutlet': ['wishlist'] } }]" routerLinkActive="active">My Whishlist</a>
                             <a mat-button [routerLink]="['/myprofile', { outlets: {  'profileoutlet': ['orders'] } }]" routerLinkActive="active">My Orders</a>

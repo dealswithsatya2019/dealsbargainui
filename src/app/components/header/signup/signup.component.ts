@@ -112,7 +112,7 @@ export class SignupComponent implements OnInit {
       }else{
         this.issentotp=true;
         this.funSendEmailOTP();
-        this.funSendSmsOTP();
+        //this.funSendSmsOTP();
 
       }
     } catch (error) {
@@ -126,7 +126,8 @@ export class SignupComponent implements OnInit {
     this.userAuth.verifyEmailOTP(userInfo.email, userInfo.emailotp, 'us','signup').subscribe(
         (authResponse: AuthResopnse) => {
           if (authResponse.statusCode === 201) {
-            this.funVerifySmsOTP();
+            //this.funVerifySmsOTP();
+            this.funRegisterUser();//If sms otp enabled then remove this stament. This is available in funVerifySmsOTP method.
             return true;
           } if (authResponse.statusDesc === 'OTP_NOT_MATCHED') {
             this.raiseAlert("OTP not matched. Please enter valid email OTP.");
@@ -173,7 +174,7 @@ export class SignupComponent implements OnInit {
             this.raiseAlert("OTP sent to email "+ userInfo.email);
             //Call sentsmsemail otp api.
             this.userservice.form.get('emailotp').setValidators([Validators.required]);
-            this.userservice.form.get('smsotp').setValidators([Validators.required]);
+            //this.userservice.form.get('smsotp').setValidators([Validators.required]);
           } else {
             this.raiseAlert("We have faced technical issue. Please try again..");
             console.log('Failed' + JSON.stringify(authResponse));

@@ -7,6 +7,7 @@ import { MyprofileService } from 'src/app/services/myprofile.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { UserService } from 'src/app/user.service';
 import { AuthService as UserAuth } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgotpassword',
@@ -18,6 +19,7 @@ export class ForgotpasswordComponent implements OnInit {
   constructor(public matDialogRef: MatDialogRef<ForgotpasswordComponent>,
     public _profileInfoService: MyprofileService,
     public _alertService: AlertService,
+    public _router: Router,
     public _userAuth: UserAuth,
     public _userService: UserService) { }
 
@@ -149,6 +151,7 @@ export class ForgotpasswordComponent implements OnInit {
           this.isEmailOtpSent = false;
           this._alertService.raiseAlert("Password resets successfully.");
           this.funClose();
+          this._router.navigateByUrl('/login');
         } else {
           console.log(data);
           this._alertService.raiseAlert("Failed to update new password.");

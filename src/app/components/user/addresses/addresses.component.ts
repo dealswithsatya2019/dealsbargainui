@@ -47,7 +47,7 @@ export class AddressesComponent implements OnInit,OnDestroy {
     city: new FormControl('', [Validators.required]),
     state: new FormControl('', [Validators.required]),
     altphone: new FormControl('',[Validators.pattern('[0-9]+')]),
-    address_type: new FormControl('', [Validators.required]),
+    address_type: new FormControl('Home', [Validators.required]),
     country: new FormControl('United States', [Validators.required]),
 
   });
@@ -64,7 +64,7 @@ export class AddressesComponent implements OnInit,OnDestroy {
     altphone: new FormControl('',[Validators.pattern('[0-9]+')]),
     address_id: new FormControl(''),
     country: new FormControl('United States', [Validators.required]),
-    address_type: new FormControl('', [Validators.required]),
+    address_type: new FormControl('Home', [Validators.required]),
   });
 
 
@@ -79,7 +79,7 @@ export class AddressesComponent implements OnInit,OnDestroy {
       city: new FormControl('', [Validators.required]),
       state: new FormControl('', [Validators.required]),
       altphone: new FormControl('',[Validators.pattern('[0-9]+')]),
-      address_type: new FormControl('', [Validators.required]),
+      address_type: new FormControl('Home', [Validators.required]),
       country: new FormControl('United States', [Validators.required]),
   
     });
@@ -96,7 +96,7 @@ export class AddressesComponent implements OnInit,OnDestroy {
       altphone: new FormControl('',[Validators.pattern('[0-9]+')]),
       address_id: new FormControl(''),
       country: new FormControl('United States', [Validators.required]),
-      address_type: new FormControl('', [Validators.required]),
+      address_type: new FormControl('Home', [Validators.required]),
     });
     
   }
@@ -117,8 +117,9 @@ export class AddressesComponent implements OnInit,OnDestroy {
       data => {
         let jsonobj = JSON.parse(JSON.stringify(data));
         if (jsonobj.statusCode == 200) {
-          this._alertService.raiseAlert("The address "+addressInfo.firstName+"has been saved successfully.");
+          this._alertService.raiseAlert("The address "+addressInfo.firstName+" has been saved successfully.");
           this.getAddresses();
+          this.funresetForms();
           this.exp1 = false;
           this.exp1 = false;
         } else {
@@ -150,6 +151,8 @@ export class AddressesComponent implements OnInit,OnDestroy {
     console.log("address id", addressId);
     this.updateaddressform.controls.address_id.setValue(addressId);
     let addressInfo = JSON.parse(JSON.stringify(this.updateaddressform.value));
+    addressInfo.mobile_number = '1'+addressInfo.mobile_number;
+    addressInfo.altphone = '1'+addressInfo.altphone;
     console.log("addressInfo update :", addressInfo);
     this.subscriptions.add(this._addressesService.updateAddress(addressInfo).subscribe(data => {
       this.addressInfo = data;
@@ -194,8 +197,8 @@ export class AddressesComponent implements OnInit,OnDestroy {
     this.address = (this.addressInfo.responseObjects.filter(itemLoop => itemLoop.address_id == addressId))[0];
     this.updateaddressform.controls.firstName.setValue(this.address.firstName);
     this.updateaddressform.controls.lastName.setValue(this.address.lastName);
-    this.updateaddressform.controls.mobile_number.setValue(this.address.mobile_number);
-    this.updateaddressform.controls.altphone.setValue(this.address.altphone);
+    this.updateaddressform.controls.mobile_number.setValue(this.address.mobile_number? this.address.mobile_number.substring(1,11):this.address.mobile_number);
+    this.updateaddressform.controls.altphone.setValue(this.address.altphone? this.address.altphone.substring(1,11):this.address.altphone);
     this.updateaddressform.controls.address.setValue(this.address.address);
     this.updateaddressform.controls.city.setValue(this.address.city);
     this.updateaddressform.controls.country.setValue(this.address.country);

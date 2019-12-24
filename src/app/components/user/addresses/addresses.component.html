@@ -12,14 +12,15 @@
                     <div class="add1 my-3">
                         <div class="address p-3">
                             <div class="my-2 address-action-btn">
-                                <span> {{address.address_type == 2 ? 'Work' : 'Home'}}</span>
+                                <!-- <span> {{address.address_type == 2 ? 'Work' : 'Home'}}</span>-->
+                                <span>{{address.mobile_number? address.mobile_number.substring(1,11):address.mobile_number}}</span>
                                 
                                 <div>
                                     <button mat-button class="edit-address" (click)="showAddressInfo(address.address_id)">Change Address</button>
                                     <button mat-button class="delete-address" (click)="deleteAddressService(address.address_id)"><i class="fa fa-trash"></i></button>
                                 </div>
                             </div>
-                            <p>Mobile : <b>{{address.name}} <span class="ml+3">{{address.mobile_number}}</span></b></p>
+                            <p>Mobile : <b>{{address.name}} <span class="ml+3">{{address.mobile_number? address.mobile_number.substring(1,11):address.mobile_number}}</span></b></p>
                             <p class="my-2" style="width: 60%;">{{address.address}} ,{{address.city}},{{address.state}}.</p>
                         </div>
 
@@ -59,7 +60,7 @@
                     <mat-form-field appearance="outline" style="width:39%">
                         <mat-label>Mobile Number</mat-label>
                         <input formControlName="mobile_number" matInput placeholder="Placeholder">
-                        <mat-error>mobile number is mandatory and should be numberic</mat-error>
+                        <mat-error>Mobile number is mandatory and should be numberic</mat-error>
                     </mat-form-field>
 
                     <mat-form-field class="prefix">
@@ -101,14 +102,14 @@
                         <input formControlName="zipcode" matInput placeholder="Placeholder">
                         <mat-error>Zip Code/Postal is mandatory</mat-error>
                     </mat-form-field>
-                    <mat-radio-group formControlName="address_type" aria-label="Select an option">
+                   <!-- <mat-radio-group formControlName="address_type" aria-label="Select an option">
                         <mat-radio-button value="1" class="mr-2">Home
                             ( All Day Delivery )
                         </mat-radio-button>
                         <mat-radio-button value="2">Work
                             (Delivery
                             between 10AM - 5PM)</mat-radio-button>
-                    </mat-radio-group>
+                    </mat-radio-group>-->
                     <button mat-raised-button type="submit" [disabled]="updateaddressform.invalid"
                         class=" my-2 w-100 login-login-btn">Update</button>
                     <button mat-button class="edit-address"
@@ -183,10 +184,10 @@
                     <input formControlName="zipcode" matInput placeholder="Placeholder">
                     <mat-error>Zip Code/Postal is mandatory</mat-error>
                 </mat-form-field>
-                <mat-radio-group aria-label="Select an option" formControlName="address_type">
+               <!-- <mat-radio-group aria-label="Select an option" formControlName="address_type">
                     <mat-radio-button value="1" class="mr-2">Home ( All Day Delivery )</mat-radio-button>
                     <mat-radio-button value="2">Work (Delivery between 10AM - 5PM)</mat-radio-button>
-                </mat-radio-group>
+                </mat-radio-group>-->
                 <button mat-raised-button type="submit" [disabled]="addressform.invalid"
                     class=" my-2 w-100 login-login-btn">Save</button>
             </form>

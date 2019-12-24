@@ -87,7 +87,7 @@ export class AuthService {
       "email": email,
       "mobile": '1'+mobile
     }
-    return this._httpCommonService.postRequest('otp/forgotpassword', body, this._userService.getAuthToken());
+    return this._httpCommonService.postReq('otp/recoveraccount', body);
   }
 
   public changePassword(countryCode?, oldpassword?,newpassword?, email?, mobile?): Observable<any> {
@@ -98,7 +98,7 @@ export class AuthService {
       "email": email,
       "mobile": '1'+mobile
     }
-    return this._httpCommonService.postRequest('otp/forgotpassword', body, this._userService.getAuthToken());
+    return this._httpCommonService.postRequest('otp/recoveraccount', body, this._userService.getAuthToken());
   }
 
 }

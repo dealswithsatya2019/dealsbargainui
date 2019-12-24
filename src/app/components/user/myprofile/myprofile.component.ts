@@ -169,13 +169,13 @@ export class MyprofileComponent implements OnInit, OnDestroy {
     this.enableOrDisable(false);
     this._userAuth.verifySmsOTP(userInfo.mobile, this.smsOTP, 'us','updateemail').subscribe(
         (authResponse: AuthResopnse) => {
-          if (authResponse.statusCode === 201) {
+          if (authResponse.statusDesc === 'OTP_MATCHED') {
             this.isSMSOtpSent =false;
             this.updatedMobileNumber = userInfo.mobile;
             this.profileform.get('mobile').disable();
             this._profileInfoService.funSetUserProfile();
             this._alertService.raiseAlert("Mobile number updated successfully.");
-          } if (authResponse.statusDesc === 'OTP_NOT_MATCHED') {
+          } else if (authResponse.statusDesc === 'OTP_NOT_MATCHED') {
             this._alertService.raiseAlert("OTP not matched. Please enter valid OTP.");
           } else {
             this._alertService.raiseAlert(authResponse.statusDesc);
@@ -194,13 +194,13 @@ export class MyprofileComponent implements OnInit, OnDestroy {
     this.enableOrDisable(false);
     this._userAuth.verifyEmailOTP(userInfo.email, this.emailOTP, 'us','updateemail').subscribe(
         (authResponse: AuthResopnse) => {
-          if (authResponse.statusCode === 201) {
+          if (authResponse.statusDesc === 'OTP_MATCHED') {
             this.isEmailOtpSent =false;
             this.updatedEmail = userInfo.email;
             this.profileform.get('email').disable();
             this._profileInfoService.funSetUserProfile();
             this._alertService.raiseAlert("Email id updated successfully.");
-          } if (authResponse.statusDesc === 'OTP_NOT_MATCHED') {
+          } else if (authResponse.statusDesc === 'OTP_NOT_MATCHED') {
             this._alertService.raiseAlert("OTP not matched. Please enter valid OTP.");
           } else {
             this._alertService.raiseAlert(authResponse.statusDesc);

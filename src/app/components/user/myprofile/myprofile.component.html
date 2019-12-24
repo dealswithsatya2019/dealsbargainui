@@ -32,12 +32,12 @@
         <input matInput formControlName="mobile" placeholder="Mobile Number">
     </mat-form-field>
     <ng-container *ngIf="isSMSEdit==true">
-        <button mat-button (click)="sendSmsOTP()" class="ml-2">Save</button>
+        <a (click)="sendSmsOTP()" class="ml-2">Save</a>
     </ng-container>
     <ng-container *ngIf="isSMSOtpSent==true">
         <div class="form-group">
-            <input matInput  [value]='smsOTP' placeholder="Enter OTP">
-            <button mat-button (click)="verifyAndSaveMobileNumber()">Verify</button>
+            <input matInput  [value]='smsOTP' (input)="smsOTP=$event.target.value" placeholder="Enter OTP">
+            <a (click)="verifyAndSaveMobileNumber()">Verify</a>
         </div>
     </ng-container>
         
@@ -54,14 +54,14 @@
     </mat-form-field>
 
     <ng-container *ngIf="isEmailEdit==true">
-        <button mat-button (click)="sendEmailOTP()" class="ml-2">Save</button>
+        <a (click)="sendEmailOTP()" class="ml-2">Save</a>
     </ng-container>
     
 
     <ng-container *ngIf="isEmailOtpSent==true">
         <div class="form-group">
             <input matInput  [value]="emailOTP" (input)="emailOTP=$event.target.value"  placeholder="Enter OTP">
-            <button mat-button (click)="verifyAndSaveEmail()">Verify</button>
+            <a (click)="verifyAndSaveEmail()">Verify</a>
         </div>
     </ng-container>    
 

@@ -25,7 +25,7 @@
         </mat-form-field>
 
         <mat-form-field floatLabel="never" class="w-100 mobile" appearance="outline">
-            <input formControlName="mobileno" matInput placeholder="Mobile No*" >
+            <input formControlName="mobileno" matInput placeholder="Mobile Number*" >
             <mat-error *ngFor="let validation of userservice.signup_validation_messages.mobileno">
                 <mat-error class="error-message" *ngIf="userservice.form.get('mobileno').hasError(validation.type) && (userservice.form.get('mobileno').dirty || userservice.form.get('mobileno').touched)">{{validation.message}}</mat-error>
             </mat-error>
@@ -46,18 +46,23 @@
         
         <!-- https://blog.angular-university.io/angular-debugging/-->
         <ng-container *ngIf="issentotp===true">
-            <mat-form-field  floatLabel="never" class="w-100" appearance="outline">
+        <!--    <mat-form-field  floatLabel="never" class="w-100" appearance="outline">
                 <input formControlName="smsotp" matInput placeholder="Enter sms OTP*" >
                 <mat-error *ngFor="let validation of userservice.signup_validation_messages.smsotp">
                     <mat-error class="error-message" *ngIf="userservice.form.get('smsotp').hasError(validation.type) && (userservice.form.get('smsotp').dirty || userservice.form.get('smsotp').touched)">{{validation.message}}</mat-error>
                 </mat-error>
-            </mat-form-field>
+            </mat-form-field>-->
             <mat-form-field  floatLabel="never" class="w-100" appearance="outline">
                 <input formControlName="emailotp" matInput placeholder="Enter email OTP*" >
                 <mat-error *ngFor="let validation of userservice.signup_validation_messages.emailotp">
                     <mat-error class="error-message" *ngIf="userservice.form.get('emailotp').hasError(validation.type) && (userservice.form.get('emailotp').dirty || userservice.form.get('emailotp').touched)">{{validation.message}}</mat-error>
                 </mat-error>
+
             </mat-form-field>
+            <span>
+                    <a mat-button (click)="funSendEmailOTP()">Resend</a>
+            </span>
+                
         </ng-container>
         <p class="w-100 mb-3" style="font-size: 13px;">By creating this account, you agree to Dealsbargain
             <a target="_blank" href="../../../../assets/pages/TermsofUse.html">Terms & Conditions</a>

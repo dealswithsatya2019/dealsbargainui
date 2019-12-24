@@ -15,7 +15,8 @@
         <p> Your order was failed. Please contact customer care</p>
     </div>
     <div class="review-order" *ngFor="let itemdetails of orderInfo.items_info;let i = index">
-        <div class="order-image" (click)=showOrderDetails(i,orderInfo)>
+        <!-- <div class="order-image" (click)=showOrderDetails(i,orderInfo)>-->
+        <div class="order-image">
             <img src="{{itemdetails.image}}">
         </div>
         <div class="order-cycle">
@@ -87,10 +88,10 @@
         <div class="review-order-details" *ngIf="orderInfo.user_payment_request_status=='success'">
 
             <div class="product-name">{{itemdetails.title}}</div>
-            <div class="product-size">Qty : {{orderInfo.items_info.length}} Items </div>
+            <div class="product-size">Qty : {{itemdetails.quantity}} Items </div>
             <div class="product-price">
                 {{PRICE_PREFIX}} {{itemdetails.price}}
-                <div class="product-status">Delivered<span>({{orderInfo.created_on | date}})</span></div>
+                <div class="product-status">Delivered : <span>{{orderInfo.created_on | date}}</span></div>
             </div>
 
             <ng-container *ngIf="itemdetails.show_cancel_button=='yes'">
