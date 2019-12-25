@@ -67,6 +67,22 @@ export class AddressesComponent implements OnInit,OnDestroy {
     address_type: new FormControl('Home', [Validators.required]),
   });
 
+  address_validation_messages = {
+    'mobile_number': [
+      { type: 'required', message: 'Mobile number is mandatory and should be numberic' },
+      { type: 'pattern', message: 'Enter valid 10 digits mobile number' }
+    ],
+    'altphone': [
+      { type: 'required', message: 'Mobile number is mandatory and should be numberic' },
+      { type: 'pattern', message: 'Enter valid 10 digits mobile number' }
+    ],
+    'address': [
+      { type: 'required', message: 'Address is required' },
+      { type: 'pattern', message: 'Address allowed maximum 25 characters' }
+    ]
+  }
+
+
 
   funresetForms(){
     this.addressform = new FormGroup({
@@ -158,6 +174,7 @@ export class AddressesComponent implements OnInit,OnDestroy {
       this.addressInfo = data;
       if (this.addressInfo.statusCode == 201) {
         this.getAddresses();
+        this.funresetForms();
         this._alertService.raiseAlert("The selected address has been updated successfully.");
       } else {
         this._alertService.raiseAlert("The selected address update has been failed. Please provide proper information");
@@ -179,6 +196,7 @@ export class AddressesComponent implements OnInit,OnDestroy {
       if (this.addressInfo.statusCode == 200) {
         this._alertService.raiseAlert("The selected address has been deleted successfully.");
         this.getAddresses();
+        this.funresetForms();
       } else {
         this._alertService.raiseAlert("Failed to delete the address. Please send a mail");
       }
