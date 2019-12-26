@@ -79,4 +79,8 @@ export class RateproductComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  prepareRatingValues(event){
+    console.log(event);
+  }
+
 }
