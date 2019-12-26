@@ -47,7 +47,7 @@ export class AddressesComponent implements OnInit,OnDestroy {
     city: new FormControl('', [Validators.required]),
     state: new FormControl('', [Validators.required]),
     altphone: new FormControl('',[Validators.pattern('[0-9]+')]),
-    address_type: new FormControl('Home', [Validators.required]),
+    address_type: new FormControl('Home'),
     country: new FormControl('United States', [Validators.required]),
 
   });
@@ -64,7 +64,7 @@ export class AddressesComponent implements OnInit,OnDestroy {
     altphone: new FormControl('',[Validators.pattern('[0-9]+')]),
     address_id: new FormControl(''),
     country: new FormControl('United States', [Validators.required]),
-    address_type: new FormControl('Home', [Validators.required]),
+    address_type: new FormControl('Home'),
   });
 
   address_validation_messages = {
@@ -95,7 +95,7 @@ export class AddressesComponent implements OnInit,OnDestroy {
       city: new FormControl('', [Validators.required]),
       state: new FormControl('', [Validators.required]),
       altphone: new FormControl('',[Validators.pattern('[0-9]+')]),
-      address_type: new FormControl('Home', [Validators.required]),
+      address_type: new FormControl('Home'),
       country: new FormControl('United States', [Validators.required]),
   
     });
@@ -112,7 +112,7 @@ export class AddressesComponent implements OnInit,OnDestroy {
       altphone: new FormControl('',[Validators.pattern('[0-9]+')]),
       address_id: new FormControl(''),
       country: new FormControl('United States', [Validators.required]),
-      address_type: new FormControl('Home', [Validators.required]),
+      address_type: new FormControl('Home'),
     });
     
   }
