@@ -342,6 +342,8 @@ export class ProductpurchaseComponent implements OnInit {
   }
 
   public getCarts() {
+    let isValidAddress = true;
+    let errorMsg = "";
     this.subscriptions.add(this.getCartlist().subscribe(data => {
       this.cartInfo = data;
       if (this.cartInfo != null && this.cartInfo.responseObject != null) {
@@ -350,12 +352,20 @@ export class ProductpurchaseComponent implements OnInit {
         this.cartInfo.responseObject.forEach(element => {
           element.quantity = element.quantity == 0 ? 1 : element.quantity;
           this.cartService.setItems(element);
+          if(element.errorCode != 200 && isValidAddress){
+            isValidAddress = false;
+            errorMsg = (element.errorMsg == null || element.errorMsg.length  ==  0) ? "Please select valid shipping address" : element.errorMsg ;
+          }
         });
         this.shoppingCartItems = [];
         this.shoppingCartItems = this.cartService.getItems();
         console.log("shoppingCartItems ", this.shoppingCartItems);
         this.initializeValues();
         this.calculatePrices();
+        if(!isValidAddress){
+          this.cartService.raiseAlert(errorMsg);
+          this.isCart = false;
+        }
       }
     }));
   }
