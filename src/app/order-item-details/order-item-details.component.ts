@@ -1,19 +1,19 @@
-import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { ProductService } from 'src/app/services/product.service';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Product } from 'src/app/models/product';
-import { searchreponse } from 'src/app/models/searchResponse';
-import { Swiper, Navigation, Pagination, Scrollbar, Autoplay, Thumbs } from 'swiper/js/swiper.esm.js';
-import { ProductDetails } from 'src/app/models/ProductDetails';
-import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize, GalleryConfig } from '@ngx-gallery/core';
-import { UserService } from 'src/app/user.service';
-import { CartService } from 'src/app/services/cart.service';
-import { KeyValuePair } from 'src/app/models/KeyValuePair';
-import { ProductRouteInfo } from 'src/app/models/ProductRouteInfo';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Gallery, GalleryConfig, GalleryItem, ImageItem } from '@ngx-gallery/core';
 import { Subscription } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
+import { KeyValuePair } from 'src/app/models/KeyValuePair';
+import { Product } from 'src/app/models/product';
+import { ProductDetails } from 'src/app/models/ProductDetails';
+import { ProductRouteInfo } from 'src/app/models/ProductRouteInfo';
+import { searchreponse } from 'src/app/models/searchResponse';
+import { CartService } from 'src/app/services/cart.service';
+import { ProductService } from 'src/app/services/product.service';
+import { UserService } from 'src/app/user.service';
+import { environment } from 'src/environments/environment';
+import { Autoplay, Navigation, Pagination, Scrollbar, Swiper, Thumbs } from 'swiper/js/swiper.esm.js';
 import { RateproductComponent } from '../components/content/rateproduct/rateproduct.component';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
@@ -92,7 +92,7 @@ export class OrderItemDetailsComponent implements OnInit {
       this.cname = params.get('orderid').split("_")[2];
       this.scname = params.get('orderid').split("_")[3];
       this.pid = params.get('orderid').split("_")[1];
-      this.getProductDetailsByid();
+      this.getProductDetailsByid(params.get('orderid'));
       this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
         (results: searchreponse) => {
           this.similarProducts = results.responseObjects;
@@ -103,8 +103,8 @@ export class OrderItemDetailsComponent implements OnInit {
     });
   }
 
-  getProductDetailsByid() {
-    this._productservice.getHttpProductDetailsById(this.cname, this.scname, this.pid, 'us').subscribe(
+  getProductDetailsByid(orderId :string) {
+    this._productservice.getOrderItemDEtails(orderId).subscribe(
       (results: searchreponse) => {
         if (results.statusDesc !== 'Unavailable') {
           this.isProductAvailable = true;

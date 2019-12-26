@@ -103,4 +103,14 @@ export class ProductService {
       return this._httpCommonService.postRequest('reviews/create-review', JSON.stringify(body), authToken);
     }
 
+
+    public getOrderItemDEtails(orderId :string): Observable<any> {
+      const body =
+        {
+          "countryCode ": "us",
+          "ordereID" : orderId
+        }
+       return this._httpCommonService.postReq('myaccount/myorder', JSON.stringify(body));
+    }
+
 }
