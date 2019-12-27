@@ -62,6 +62,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CouponsComponent } from './components/content/coupons/coupons.component';
 import { MobileMenuComponent } from './components/header/mobile-menu/mobile-menu.component';
 import { OrderItemDetailsComponent } from './order-item-details/order-item-details.component';
+import { DatePipe } from '@angular/common';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -156,7 +157,7 @@ export function ProvideConfig() {
     InfiniteScrollModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA , NO_ERRORS_SCHEMA],
-  providers: [HttCommonService, ProductService, UserService, { provide: AuthServiceConfig, useFactory: ProvideConfig}],
+  providers: [HttCommonService, ProductService, UserService,DatePipe, { provide: AuthServiceConfig, useFactory: ProvideConfig}],
   bootstrap: [AppComponent]
 })
 //providers: [HttCommonService, ProductService, UserService,ProductListRouteInfoService, { provide: AuthServiceConfig, useFactory: ProvideConfig}],

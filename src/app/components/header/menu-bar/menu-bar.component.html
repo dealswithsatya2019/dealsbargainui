@@ -1,8 +1,12 @@
 <mat-toolbar-row>
 <ng-container *ngFor="let mainMenuCategory of menuCategories">
-    <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{mainMenuCategory.category_display_name}}</a>
-    <mat-menu #menu="matMenu" panelClass="magaMenu" backdropClass="megaMenu">
-        <div class="menu-container" fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+    <ng-container *ngIf="mainMenuCategory.category==='Coupons'">
+            <a mat-button  [routerLink]="['coupons']">Coupons</a>
+    </ng-container>
+    <ng-container *ngIf="mainMenuCategory.category!=='Coupons'">
+        <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{mainMenuCategory.category_display_name}}</a>
+        <mat-menu #menu="matMenu" panelClass="magaMenu" backdropClass="megaMenu">
+            <div class="menu-container" fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
            <!-- <div class="p-2" fxflex="25" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 25%; max-width: 25%;">
                 <div class="rel-img">
                     <img src="../../../../assets/img/banner5.jpg" class="img-fluid">
@@ -24,9 +28,10 @@
                     </ng-container>
                 </div>
             </ng-container>
-        </div>
+            </div>
+        
     </mat-menu>
 
 </ng-container>
-<a mat-button  [routerLink]="['coupons']">Coupons</a>
+</ng-container>
 </mat-toolbar-row>

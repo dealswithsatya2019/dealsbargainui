@@ -10,6 +10,7 @@ import { AuthService as UserAuth } from 'src/app/services/auth.service';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from 'src/app/user.service';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-myprofile',
   templateUrl: './myprofile.component.html',
@@ -20,7 +21,8 @@ export class MyprofileComponent implements OnInit, OnDestroy {
   constructor(public _profileInfoService: MyprofileService, 
     public _alertService: AlertService,
     public _userAuth: UserAuth,
-    public _userService: UserService) { }
+    public _userService: UserService,
+    public datepipe: DatePipe) { }
 
   subscriptions: Subscription = new Subscription();
   updatedMobileNumber = '';
@@ -42,12 +44,41 @@ export class MyprofileComponent implements OnInit, OnDestroy {
     mobile: new FormControl({value: '', disabled: true})
   });
 
+  doboldvalue: string = '';
+  minFromDate : Date= new Date();//[min]="minFromDate" 
+
   ngOnInit() {
-    this.setProfileFormValues(this._userService.getProfileInfo());
+    /*let currentDate = new Date();
+    this.minFromDate.setYear(currentDate.getFullYear()-18);
+    this.minFromDate.setYear(currentDate.getMonth()-18);
+    this.minFromDate.setYear(currentDate.getDate()-18);
+    this.setProfileFormValues(this._userService.getProfileInfo());*/
+    //this.doboldvalue = this.profileform.get('dob').value;
+    this.profileform
+   .controls["dob"]
+   .valueChanges
+   .subscribe(selectedValue => {
+     this.doboldvalue=this.profileform.value['dob'];
+        //console.log('New Value: ', selectedValue);       // New value
+        //console.log('Old Value: ', this.doboldvalue); // old value 
+   });
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  date(e) {
+    //var convertDate = new Date(e.target.value).toISOString().substring(0, 10);
+    var convertDate = this.datepipe.transform(e.target.value, 'yyyy-MM-dd');
+    /*const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    let firstDate:any = new Date();
+    let secondDate:any = new Date(convertDate);
+    let diffDays = Math.abs((firstDate - secondDate) / oneDay);
+    console.log(diffDays);*/
+    this.profileform.get('dob').setValue(convertDate, {
+      onlyself: true
+    })
   }
 
   public setProfileFormValues(profileInfo: ProfileInfo) {
@@ -55,6 +86,13 @@ export class MyprofileComponent implements OnInit, OnDestroy {
     this.profileform.get('firstname').setValidators([Validators.required, Validators.maxLength(25)]);
     this.profileform.controls.lastname.setValue(profileInfo.last_name);
     this.profileform.get('lastname').setValidators([Validators.required, Validators.maxLength(25)]);
+    console.log(profileInfo.created_on);
+    if(profileInfo.dob){
+      //var convertDate = new Date(profileInfo.dob).toISOString().substring(0, 10);
+      var convertDate = this.datepipe.transform(profileInfo.dob, 'yyyy-MM-dd');
+      //console.log(this.datepipe.transform(date, 'dd/MM/yyyy'));
+      this.profileform.controls.dob.setValue(convertDate, {onlyself : true});
+    }
     this.profileform.controls.mobile.setValue(profileInfo.mobile);
     this.profileform.get('mobile').setValidators([Validators.required, Validators.pattern('[0-9]{10}')]);
     this.profileform.controls.email.setValue(profileInfo.email);

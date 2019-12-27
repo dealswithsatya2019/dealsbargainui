@@ -14,7 +14,9 @@ export class ProfileInfo {
     work_phone: string = "";
     login_failures: string = "";
     social_login_type: string = "";
-    street: string = ""
+    street: string = "";
+    dob: string = "";
+    created_on: string = "";
 
     setValues(profileInfo :ProfileInfo){
         this.user_id = profileInfo.user_id;
@@ -25,5 +27,8 @@ export class ProfileInfo {
         this.mid_name= profileInfo.mid_name;
         this.last_name= profileInfo.last_name;
         this.street= profileInfo.street;
+        this.dob=profileInfo.dob;
+        this.created_on = profileInfo.created_on;
+
     }
 }

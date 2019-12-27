@@ -117,6 +117,10 @@ export class MenuBarComponent implements OnInit {
       this.subscription = this._productservice.getCategoryMenuInfo('','us').subscribe(
         (authResponse: searchreponse) => {
           this.menuCategories = authResponse.responseObjects;
+          let couponMenuCategory= new MenuCategories();
+          couponMenuCategory.category='Coupons';
+          this.menuCategories.push(couponMenuCategory);
+          console.log(this.menuCategories);
         }
      //,
       //error =>{
