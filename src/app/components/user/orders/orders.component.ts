@@ -19,6 +19,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
   public ordersListInfo: Array<GetOrederReq> = [];
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
+  private deliverydate_configurable_days = environment.DeliveryDate_Configurable_days;
   constructor(public _myordersService: MyordersService,
     public _productservice: ProductService,
     public _alertService: AlertService,
@@ -93,5 +94,13 @@ export class OrdersComponent implements OnInit, OnDestroy {
       let id = product.order_details_id
       this._router.navigate(['/odp', id, "us"]);
     }
+  }
+
+  getDeliveredDate(orderInfo : GetOrederReq) : Date{
+    let createdDate = new Date(orderInfo.created_on);
+    //var convertDate = this.datepipe.transform(e.target.value, 'yyyy-MM-dd');
+    console.log(createdDate);
+    createdDate.setHours(createdDate.getHours() + (this.deliverydate_configurable_days * 24));
+    return createdDate;
   }
 }

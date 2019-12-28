@@ -20,7 +20,7 @@
         <div class="order-image" (click)=showOrderDetails(i,orderInfo)>
             <img src="{{itemdetails.image}}">
         </div>
-        <div class="order-cycle">
+        <!--<div class="order-cycle">
 
             <mat-horizontal-stepper #stepper labelPosition="bottom">
                 <mat-step *ngIf="orderInfo.user_payment_request_status=='success'">
@@ -85,6 +85,66 @@
                     </mat-step>
                 </ng-container>
             </mat-horizontal-stepper>
+        </div>-->
+        <!-- ==============================================================-->
+        <div class="order-cycle">
+            <div class="step {{orderInfo.user_payment_request_status=='success'?'active':''}}">
+                    <div class="dot"></div>
+                    <h6>Ordered</h6>
+                    <p><b>{{orderInfo.user_payment_request_date | date}}</b></p>
+            </div>
+            <ng-container *ngIf="itemdetails.user_cancell_request_status">
+                <div class="step active">
+                    <div class="dot"></div>
+                    <h6>User Cancelled</h6>
+                    <p><b>{{itemdetails.user_cancell_request_date | date}}</b></p>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="itemdetails.supplier_cancell_request_status">
+                <div class="step active">
+                    <div class="dot"></div>
+                    <h6>Supplier Cancelled</h6>
+                    <p><b>{{itemdetails.Supplier_cancell_request_date | date}}</b></p>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="itemdetails.user_return_request_status">
+                <div class="step active">
+                    <div class="dot"></div>
+                    <h6>User Returned</h6>
+                    <p><b>{{itemdetails.user_return_request_date | date}}</b></p>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="itemdetails.supplier_return_request_status">
+                <div class="step active">
+                    <div class="dot"></div>
+                    <h6>Supplier Returned</h6>
+                    <p>Supplier Returned Date : <b>{{itemdetails.supplier_return_request_date | date}}</b></p>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!itemdetails.user_cancell_request_status && !itemdetails.supplier_cancell_request_status && !itemdetails.user_return_request_status && !itemdetails.supplier_return_request_status">
+                <div class="step {{itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='INPROGRESS'?'active':''}}">
+                    <div class="dot"></div>
+                    <h6>Packed</h6>
+                    <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='INPROGRESS'">
+                        <p><b>{{itemdetails.supplier_shipping_request_date | date}}</b></p>
+                    </ng-container>
+                </div>
+                <div class="step {{itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='COMPLETED'?'active':''}}">
+                    <div class="dot"></div>
+                    <h6>Shipped</h6>
+                    <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='COMPLETED'">
+                        <p><b>{{itemdetails.supplier_shipping_request_date | date}}</b></p>
+                    </ng-container>
+                </div>
+                <div class="step {{itemdetails.supplier_shipping_request_status && itemdetails.supplier_delivered_request_status=='COMPLETED'?'active':''}}">
+                    <div class="dot"></div>
+                    <h6>Delivered</h6>
+                    <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_delivered_request_status=='COMPLETED'">
+                            <p><b>{{itemdetails.supplier_delivered_request_date | date}}</b></p>
+                    </ng-container>
+                </div>
+            </ng-container>
+            
         </div>
         <div class="review-order-details" *ngIf="orderInfo.user_payment_request_status=='success'">
 
@@ -102,7 +162,13 @@
                     <!-- <span class="old_cost">{{PRICE_PREFIX}}{{itemdetails.price}}</span>-->
                     {{PRICE_PREFIX}}{{itemdetails.discount_amount}}
                 </ng-container>
-                <div class="product-status">Delivered : <span>{{orderInfo.created_on | date}}</span></div>
+                <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_delivered_request_status!=='COMPLETED'">
+                    <div class="product-status">Delivered on : <span>{{itemdetails.supplier_delivered_request_date | date}}</span></div>
+                </ng-container>
+                <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_delivered_request_status==='COMPLETED'">
+                    <div class="product-status">Delivery Date : <span>{{this.getDeliveredDate(orderInfo) | date}}</span></div>
+                </ng-container>
+                
             </div>
 
             <ng-container *ngIf="itemdetails.show_cancel_button=='yes'">
