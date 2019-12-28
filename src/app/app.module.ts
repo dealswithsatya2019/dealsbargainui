@@ -24,7 +24,6 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttCommonService } from 'src/app/services/httpcommon.service';
 import { OrdersComponent } from 'src/app/components/user/orders/orders.component';
 import { CheckoutComponent } from './components/user/checkout/checkout.component';
-import { DealslistComponent } from './components/content/dealslist/dealslist.component';
 import { SocialshareComponent } from './components/content/socialshare/socialshare.component';
 import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -51,7 +50,6 @@ import { GalleryModule } from '@ngx-gallery/core';
 import { LightboxModule } from '@ngx-gallery/lightbox';
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import { MyprofileComponent } from 'src/app/components/user/myprofile/myprofile.component';
-import { ProductListRouteInfoService } from 'src/app/services/routing-services/product-list-route-info.service';
 import { PersonalInfoComponent } from './components/user/personal-info/personal-info.component';
 import { AddressesComponent } from './components/user/addresses/addresses.component';
 import { ReviewRatingsComponent } from './components/user/review-ratings/review-ratings.component';
@@ -100,7 +98,6 @@ export function ProvideConfig() {
     ProductlistComponent,
     ProductdetailsComponent,
     CheckoutComponent,
-    DealslistComponent,
     SocialshareComponent,
     SignupComponent,
     AboutusComponent,

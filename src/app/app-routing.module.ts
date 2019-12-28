@@ -9,7 +9,6 @@ import { ProfileComponent } from 'src/app/components/user/profile/profile.compon
 import { WishlistComponent } from 'src/app/components/user/wishlist/wishlist.component';
 import { OrdersComponent } from 'src/app/components/user/orders/orders.component';
 import { CheckoutComponent } from 'src/app/components/user/checkout/checkout.component';
-import { DealslistComponent } from 'src/app/components/content/dealslist/dealslist.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
 import { AboutusComponent } from './components/footer/aboutus.component';
 import { MarketreviewsComponent } from './components/footer/marketreviews.component';
@@ -136,7 +135,7 @@ const routes: Routes = [
   },
   {
     path: AppRoutes.DealsList,
-    component: DealslistComponent
+    component: ProductlistComponent
   },
   {
     path: AppRoutes.Aboutus,
