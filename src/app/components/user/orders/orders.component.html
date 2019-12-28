@@ -6,7 +6,8 @@
     Your orders list is empty.
 </ng-container>
 <div class="order-details py-4" *ngFor="let orderInfo of ordersListInfo">
-    <p class="order-id">Order ID : <b>{{orderInfo.order_tracking_id}}</b> </p>
+    <p class="order-id">Order ID : <b> {{orderInfo.order_tracking_id}}</b> </p>
+    <p class="order-id">Net amount : {{PRICE_PREFIX}}{{orderInfo.net_amount}} </p>
     <!-- <p>Order Date<br> <b>{{orderInfo.created_on | date}}</b> </p> -->
     <!-- <p>Status <br> <b> </b> </p>
         <p>Tracking <br> <b>#</b> </p> -->
@@ -90,7 +91,17 @@
             <div class="product-name">{{itemdetails.title}}</div>
             <div class="product-size">Qty : {{itemdetails.quantity}} Items </div>
             <div class="product-price">
-                {{PRICE_PREFIX}} {{itemdetails.price}}
+                <ng-container *ngIf="itemdetails.dealtype!=''">
+                    <!-- <span class="old_cost"></span>{{PRICE_PREFIX}}{{itemdetails.deals_bargain_supplier_deal_price}}</span>-->
+                    {{PRICE_PREFIX}}{{itemdetails.deals_bargain_deal_price}}
+                </ng-container>
+                <ng-container *ngIf="itemdetails.dealtype=='' && itemdetails.discount=='0'">
+                    {{PRICE_PREFIX}}{{itemdetails.price}}
+                </ng-container>
+                <ng-container *ngIf="itemdetails.dealtype=='' && itemdetails.discount!='0'">
+                    <!-- <span class="old_cost">{{PRICE_PREFIX}}{{itemdetails.price}}</span>-->
+                    {{PRICE_PREFIX}}{{itemdetails.discount_amount}}
+                </ng-container>
                 <div class="product-status">Delivered : <span>{{orderInfo.created_on | date}}</span></div>
             </div>
 

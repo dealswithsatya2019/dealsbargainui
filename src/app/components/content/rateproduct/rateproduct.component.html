@@ -3,8 +3,8 @@
 <mat-dialog-content [formGroup]="form" class="normal-form w-100">
 
     <h6 class="mb-3"> Rate this Product </h6>
-
-       <mat-radio-group formControlName="productRating" >
+    <!-- https://stackblitz.com/edit/radio-binding?file=app%2Fapp.component.html -->
+       <mat-radio-group formControlName="productRating">
             <mat-radio-button  class="rate" *ngFor="let rating of ratings" [value]="rating" (click)="prepareRatingValues(this)">
                 <!-- {{rating}}  -->
                 &#9734;

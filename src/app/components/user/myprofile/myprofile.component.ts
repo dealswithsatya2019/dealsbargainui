@@ -11,6 +11,7 @@ import { AuthResopnse } from 'src/app/models/AuthResponse';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from 'src/app/user.service';
 import { DatePipe } from '@angular/common';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-myprofile',
   templateUrl: './myprofile.component.html',
@@ -45,22 +46,14 @@ export class MyprofileComponent implements OnInit, OnDestroy {
   });
 
   doboldvalue: string = '';
-  minFromDate : Date= new Date();//[min]="minFromDate" 
+  minFromDate= new Date();//[min]="minFromDate" 
+  private MIN_AGE_RULE = environment.MIN_AGE_RULE;
 
   ngOnInit() {
-    /*let currentDate = new Date();
-    this.minFromDate.setYear(currentDate.getFullYear()-18);
-    this.minFromDate.setYear(currentDate.getMonth()-18);
-    this.minFromDate.setYear(currentDate.getDate()-18);
-    this.setProfileFormValues(this._userService.getProfileInfo());*/
-    //this.doboldvalue = this.profileform.get('dob').value;
-    this.profileform
-   .controls["dob"]
-   .valueChanges
-   .subscribe(selectedValue => {
+    console.log(this._userService.getProfileInfo());
+    this.setProfileFormValues(this._userService.getProfileInfo());
+    this.profileform.controls["dob"].valueChanges.subscribe(selectedValue => {
      this.doboldvalue=this.profileform.value['dob'];
-        //console.log('New Value: ', selectedValue);       // New value
-        //console.log('Old Value: ', this.doboldvalue); // old value 
    });
   }
 
@@ -71,12 +64,17 @@ export class MyprofileComponent implements OnInit, OnDestroy {
   date(e) {
     //var convertDate = new Date(e.target.value).toISOString().substring(0, 10);
     var convertDate = this.datepipe.transform(e.target.value, 'yyyy-MM-dd');
-    /*const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-    let firstDate:any = new Date();
-    let secondDate:any = new Date(convertDate);
-    let diffDays = Math.abs((firstDate - secondDate) / oneDay);
-    console.log(diffDays);*/
-    this.profileform.get('dob').setValue(convertDate, {
+    var minAge=new Date();
+    minAge.setFullYear(minAge.getFullYear() - this.MIN_AGE_RULE);
+    minAge.setHours(0);minAge.setMinutes(0);minAge.setSeconds(0);
+    let newvalue: any;
+    if(minAge < e.target.value){
+      this._alertService.raiseAlert("Age per terms & conditions your age should be greather than or equals to "+this.MIN_AGE_RULE);
+      newvalue='';
+    }else{
+      newvalue = convertDate;
+    }
+    this.profileform.get('dob').setValue(newvalue, {
       onlyself: true
     })
   }
