@@ -1,11 +1,18 @@
 <mat-toolbar-row style="height:40px">
-	<ul class="breadcrumb">
+	<ng-container *ngIf="isProductList">
+		<ul class="breadcrumb">
+			<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
+			<li><a (click)="routeToProductListPage({cname:cname,scname:scname})"
+					routerLinkActive="active">{{cdisplayname}}</a></li>
+			<li><a>{{cmiddledisplayname}}</a></li>
+			<li><a>{{scdisplayname}}</a></li>
+		</ul>
+	</ng-container>
+	<ng-container *ngIf="!isProductList">
 		<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
-		<li><a (click)="routeToProductListPage({cname:cname,scname:scname})"
-				routerLinkActive="active">{{cdisplayname}}</a></li>
-		<li><a>{{cmiddledisplayname}}</a></li>
-		<li><a>{{scdisplayname}}</a></li>
-	</ul>
+	    <li>&nbsp;{{dealtypeDisplayName}}</li>
+	</ng-container>
+	
 </mat-toolbar-row>
 <mat-sidenav-container>
 	<mat-sidenav *ngIf="isProductList" mode="side" opened>
@@ -61,7 +68,7 @@
 										<div class="product-img">
 											<img class="image img-cursor" mat-card-image src="{{product.image}}"
 												alt="photo"
-												(click)="showProductDetails({cname:cname,scname:scname,pid:product.item_id})">
+												(click)="showProductDetails({cname:product.category,scname:product.subcategory,pid:product.item_id})">
 										</div>
 										<mat-card-content>
 
