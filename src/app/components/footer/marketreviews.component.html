@@ -9,14 +9,18 @@
         <p class="text-center login-title">Write A Review</p>
         <mat-dialog-content [formGroup]="form" class="normal-form w-100">
             <h6 class="mb-3"> Rate this site </h6>
-               <mat-radio-group formControlName="productRating">
-                    <mat-radio-button  class="rate" *ngFor="let rating of ratings" [value]="rating">
-                        <!-- {{rating}}  -->
-                        &#9734;
-                   </mat-radio-button>
-                </mat-radio-group>
-           
+            <mat-radio-group formControlName="productRating">
+                <mat-radio-button  class="rate" *ngFor="let rating of ratings" [value]="rating">
+                    <!-- {{rating}}  -->
+                    &#9734;
+                </mat-radio-button>
+            </mat-radio-group>
             <mat-form-field floatLabel="never" class="w-100 mt-4" appearance="outline">
+                <mat-label>Email/Mobile Number</mat-label>
+                <input matInput formControlName="email" placeholder="Email/Mobile Number">
+                <mat-error>This field is mandatory</mat-error>
+            </mat-form-field>
+            <mat-form-field floatLabel="never" class="w-100" appearance="outline">
                 <mat-label>Review Title</mat-label>
                 <input matInput formControlName="reviewTitle" placeholder="Review Title">
                 <mat-error>This field is mandatory</mat-error>
@@ -28,7 +32,7 @@
                 <mat-error>This field is mandatory</mat-error>
             </mat-form-field>
         
-            <mat-checkbox formControlName="isRecomended">Yes, I recommend this product</mat-checkbox>
+            <!-- <mat-checkbox formControlName="isRecomended">Yes, I recommend this product</mat-checkbox> -->
         </mat-dialog-content>
         <button mat-raised-button (click)="funSiteReview()" class="mt-2 mb-3 w-100 login-login-btn">SUBMIT REVIEW</button>
     </div>

@@ -1,5 +1,13 @@
 .my-profile-box{display: flex;}
-
+.prefix{
+    width: 38px;display: inline-block;margin-right: 2%;
+    border: 1px solid#ccc;
+    height: 46px;
+    border-radius: 0px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 31px;
+}
 .profile-info{
     position: relative;padding: 10px 10px 10px 130px;
     font-size: 14px;
@@ -78,3 +86,9 @@ mat-form-field{margin-right: 10px;}
     color: green;
     margin-right: 10px;
 }
+.form-group{
+    display: flex;align-items: baseline;
+    a{font-size: 14px;color: #1b3664;margin-left: 15px;}
+}
+.save{background-color: green;color: white !important;font-size: 11px;padding: 2px 8px;border-radius: 10px;}
+.cancel{background-color: red;color: white !important;font-size: 11px;padding: 2px 8px;border-radius: 10px;}

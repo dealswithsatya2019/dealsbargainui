@@ -41,6 +41,7 @@ export class ProductlistComponent implements OnInit, OnDestroy {
   public scrollableCount: number = 1;
   public isProductList: boolean = true;
   public dealtype: string;
+  public dealtypeDisplayName :string;
 
 
   ngOnInit() {
@@ -48,6 +49,7 @@ export class ProductlistComponent implements OnInit, OnDestroy {
       this.isProductList = params.get('dealtype') == null ? true : false;
       if (!this.isProductList) {
         this.dealtype = params.get('dealtype');
+        this.dealtypeDisplayName = this.dealtype ==  'f' ? 'Flash deals' : (this.dealtype ==  'h' ? 'Hot deals' : (this.dealtype ==  't' ? 'Today deals' : ''));
         this.subscription = this._productservice.getHttpProductDealsByType(this.dealtype, 'us', this.scrollableCount, 50).subscribe(
           (results: searchreponse) => {
             this.products = results.responseObjects;

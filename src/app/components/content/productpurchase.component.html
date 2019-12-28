@@ -21,7 +21,7 @@
                                     <h6 class="text-center mb-3">I have an account</h6>
                                     <form [formGroup]="loginformService.form" class="normal-form w-100"
                                         (submit)="funLogin()">
-                                        <span class="error">{{this.loginErrorMsg}}</span>     
+                                        <span class="error">{{this.loginErrorMsg}}</span>
                                         <mat-form-field floatLabel="never" class="w-100">
                                             <input formControlName="name" matInput
                                                 placeholder="Email or Mobile number*">
@@ -37,7 +37,7 @@
                                             [disabled]="loginformService.form.invalid"
                                             class=" my-2 w-100 login-login-btn">LOGIN</button>
                                     </form>
-                                   <!--  <div class="login-links mt-3">
+                                    <!--  <div class="login-links mt-3">
                                         <a href="#">Forgot password?</a>
                                     </div> -->
                                 </div>
@@ -55,7 +55,7 @@
                                     </button>
 
                                     <p class="mt-3 m-0 text-center">Don't have an account?</p>
-                                    <p class="mt-2 m-0 text-center">Join Deals Today</p>
+                                    <p class="mt-2 m-0 text-center">Join Dealsbargain Today</p>
                                     
                                     <button mat-raised-button class=" my-2 w-100 checkout-login-btn">
                                         <a mat-button [routerLink]="['/login']">Sign Up</a>
@@ -68,14 +68,14 @@
                         <!-- /#new customer login ends-->
                         <!-- Already login user -->
                         <ng-container *ngIf="this.userservice.getAuthToken()">
-                                <div class="existed-login mt-3" style="display: flex;line-height: 30px;">
+                            <div class="existed-login mt-3" style="display: flex;line-height: 30px;">
 
-                                    <a mat-button class="p-0" (click)="signOut()">Logout and signin with another
-                                        account</a>
-                                    <button mat-button matStepperNext class="my-2 login-login-btn">Continue
-                                        Checkout</button>
+                                <a mat-button class="p-0" (click)="signOut()">Logout and signin with another
+                                    account</a>
+                                <button mat-button matStepperNext class="my-2 login-login-btn">Continue
+                                    Checkout</button>
 
-                                </div>
+                            </div>
                         </ng-container>
                         <!--/# Already login user ends-->
 
@@ -126,16 +126,6 @@
                                     <mat-error>Last Name is mandatory</mat-error>
                                 </mat-form-field>
 
-                                <mat-form-field class="prefix">
-                                    <input matInput value="+1" disabled>
-                                </mat-form-field>
-
-                                <mat-form-field appearance="outline" floatLabel="never" style="width: 39%;">
-                                    <mat-label>Mobile Number</mat-label>
-                                    <input formControlName="mobile_number" matInput placeholder="Placeholder">
-                                    <mat-error>mobile number is mandatory and should be numberic</mat-error>
-                                </mat-form-field> 
-
                                 <mat-form-field appearance="outline" style="width:98%" floatLabel="never">
                                     <mat-label>Address</mat-label>
                                     <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
@@ -171,6 +161,16 @@
                                     <mat-error>Zip Code/Postal is mandatory</mat-error>
                                 </mat-form-field>
 
+                                <mat-form-field class="prefix">
+                                    <input matInput value="+1" disabled>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="never" style="width: 39%;" class="mobile">
+                                    <mat-label>Mobile Number</mat-label>
+                                    <input formControlName="mobile_number" matInput placeholder="Placeholder">
+                                    <mat-error>mobile number is mandatory and should be numberic</mat-error>
+                                </mat-form-field> 
+
                                 <button mat-raised-button type="submit" [disabled]="updateaddressform.invalid"
                                     class=" my-2 w-100 login-login-btn">Update
                                 </button>
@@ -193,16 +193,6 @@
                                 <mat-label>Last Name</mat-label>
                                 <input formControlName="lastName" matInput placeholder="Last Name">
                                 <mat-error>Last name is mandatory</mat-error>
-                            </mat-form-field>
-
-                            <mat-form-field class="prefix">
-                                <input matInput value="+1" disabled>
-                            </mat-form-field>
-
-                            <mat-form-field appearance="outline" style="width: 39%;">
-                                <mat-label>Mobile Number</mat-label>
-                                <input formControlName="mobile_number" matInput>
-                                <mat-error>mobile number is mandatory and should be numberic</mat-error>
                             </mat-form-field>
 
                             <mat-form-field appearance="outline" style="width:98%">
@@ -241,6 +231,16 @@
                                 <mat-error>Zip Code/Postal is mandatory</mat-error>
                             </mat-form-field>
 
+                            <mat-form-field class="prefix">
+                                <input matInput value="+1" disabled>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" style="width: 39%;" class="mobile">
+                                <mat-label>Mobile Number</mat-label>
+                                <input formControlName="mobile_number" matInput>
+                                <mat-error>mobile number is mandatory and should be numberic</mat-error>
+                            </mat-form-field>
+                            
                             <button mat-raised-button type="submit" [disabled]="addressform.invalid"
                                 class=" my-2 w-100 login-login-btn">Save
                             </button>
@@ -280,7 +280,8 @@
                                         </p>
                                     </div>
                                     <div class="" style="flex: 1 1 25%;max-width: 25%;">
-                                        <div class="exp-del">Expected Delivery by <br> <strong>{{send_date | date}}</strong></div>
+                                        <div class="exp-del">Expected Delivery by <br>
+                                            <strong>{{send_date | date}}</strong></div>
                                     </div>
                                 </div>
                                 <div class="options" style="display: flex;">
@@ -314,7 +315,7 @@
                             <mat-toolbar-row>
                                 <div *ngIf="!paypalFor">
                                 </div>
-                               
+
                                 <div #paypal></div>
                                 <div *ngIf="paypalFor">
                                     <p>Your transaction is success</p>
@@ -330,6 +331,11 @@
         </div>
         <div class="pl-4">
             <div class="checkout-card">
+                <div class="w-100 mb-3" style="font-size: 13px;">
+                    &nbsp;&nbsp;&nbsp;&nbsp;By placing your order, you agree to dealsbargain.com's <a target="_blank" href="../../../assets/pages/PrivacyPolicy.html">privacy notice,</a>
+                    <a target="_blank" href="../../../../assets/pages/TermsofUse.html">conditions of use </a>and all of the terms found
+                    <a target="_blank" href="../../../../assets/pages/TermsofUse.html">here</a>
+                </div>
                 <h6 class="px-3 pt-3 text-center">ORDER SUMMARY</h6>
                 <div class="promocode-section">
                     <form class="my-3" [formGroup]="couponform" (submit)="validateCoupon()">
@@ -341,9 +347,10 @@
                     </form>
                 </div>
                 <div class="divider"></div>
+                
                 <div class="price-details px-3">
                     <div class="" style="display: flex;justify-content: space-between;">
-                        <div>Price({{totalCartSize}} item)</div>
+                        <div>Items({{totalCartSize}})</div>
                         <span>{{PRICE_PREFIX}}{{totalCost}}</span>
                     </div>
                     <ng-container *ngIf="transactionCostFromDBAPI > 0">
@@ -352,13 +359,26 @@
                             <span>{{PRICE_PREFIX}}{{transactionCostFromDBAPI}}</span>
                         </div>
                     </ng-container>
+                    <div class="" style="display: flex;justify-content: space-between;">
+                        <div>Shipping & handling:</div>
+                        <span>{{PRICE_PREFIX}}0</span>
+                    </div>
+                    <div class="" style="display: flex;justify-content: space-between;">
+                        <div>Total before tax:</div>
+                        <span>{{PRICE_PREFIX}}0</span>
+                    </div>
+                    <div class="" style="display: flex;justify-content: space-between;">
+                        <div>Estimated tax to be collected:</div>
+                        <span>{{PRICE_PREFIX}}0</span>
+                    </div>
                     <div class="total">
-                        <b>Total Payable</b>
+                        <b>Order Total:</b>
                         <b>{{PRICE_PREFIX}}{{totalPaybaleCost}}</b>
                     </div>
                 </div>
                 <div class="divider"></div>
             </div>
+
         </div>
     </div>
-</div>
+</div>  

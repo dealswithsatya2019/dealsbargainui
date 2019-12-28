@@ -27,9 +27,8 @@ export class AppRoutes{
     static readonly Compensation = 'compensation';
     static readonly MyAccount = 'myaccount';
     static readonly ReturnPolicy = 'returnpolicy';
-    static readonly Contactus = 'contactus';
     static readonly PaymentMethods = 'paymentmethods';
-    static readonly ShippingGuide = 'shippingguide';
+    static readonly ShippingGuide = 'contactus';
     static readonly productpurchase = 'productpurchase';
     static readonly mycart = 'mycart';
     static readonly LocationWeShip = 'locationweship';

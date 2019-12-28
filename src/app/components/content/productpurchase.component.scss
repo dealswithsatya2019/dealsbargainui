@@ -1,14 +1,14 @@
 
 .prefix{
-    width: 10px;display: inline-block;margin-right: 2%;
+    width: 39px;display: inline-block;margin-right: 3px;
     margin-top: 3px;
     border: 2px solid#ccc;
-    height: 41px;
+    height: 46px;
     border-radius: 0px;
     text-align: center;
     vertical-align: middle;
     line-height: 25px;
-  }
+}
 .checkout-card{
     margin-top: -8px;
     width: 310px;
@@ -35,7 +35,7 @@
 form{
     width: 90%;
 }
-.mat-form-field{
+.address-form .mat-form-field{
     width: 48%;
     margin-right: 2%;
 }
@@ -325,7 +325,7 @@ form{
     max-width: 50%;
 }
 .prefix{
-    width: 8%;display: inline-block;margin-right: 1%;
+    width: 7% !important;display: inline-block;margin-right: 1%;
     border: 2px solid#ccc;
     height: 41px;
     border-radius: 0px;
@@ -334,8 +334,11 @@ form{
     line-height: 25px;
 }
 @media screen and (max-width:991px){
-    .address .mat-form-field{
+    .address-form .mat-form-field{
         width: 98%;
+    }
+    .address-form .mobile{
+        width: 89% !important;
     }
 }
 @media screen and (max-width:768px){
@@ -345,6 +348,8 @@ form{
     .checkout-card{
         margin-top: 40px;
     }
+    .edit-address{position: relative;right: auto;top: auto;}
+    form{width: 100%;}
 }
 @media screen and (max-width:575px){
     .existed-login{
