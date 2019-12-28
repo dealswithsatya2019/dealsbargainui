@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ProductService } from 'src/app/services/product.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SocialshareComponent } from '../socialshare/socialshare.component';
-import { MatDialogConfig, MatDialog, } from '@angular/material';
+import { Subscription } from 'rxjs';
+import { Product } from 'src/app/models/product';
 import { searchreponse } from 'src/app/models/searchResponse';
 import { CartService } from 'src/app/services/cart.service';
-import { Product } from 'src/app/models/product';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { ProductService } from 'src/app/services/product.service';
 import { environment } from 'src/environments/environment';
-import { Subscription } from 'rxjs';
+import { SocialshareComponent } from '../socialshare/socialshare.component';
 
 @Component({
   selector: 'app-productlist',
@@ -143,9 +143,11 @@ export class ProductlistComponent implements OnInit, OnDestroy {
   }
 
   updateFromPrice(event) {
+    console.log("From Price ",event.value);
     this.fromPrice = event.value;
   }
   updateToPrice(event) {
+    console.log("To Price ",event.value);
     this.toPrice = event.value;
   }
 

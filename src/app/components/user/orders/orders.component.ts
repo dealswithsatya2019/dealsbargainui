@@ -90,7 +90,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     if (orderDetails != null && orderDetails != undefined && orderDetails.items_info != null && orderDetails.items_info.length >= index) {
       let product: Product = orderDetails.items_info[index];
       // let id = orderDetails.order_id_by_payment_channel + "_" + product.item_id + "_" + product.category + "_" + product.subcategory + "_" + orderDetails.user_id;
-      let id = orderDetails.order_id_by_payment_channel + "_" + product.item_id + "_" + orderDetails.user_id;
+      let id = product.order_details_id
       this._router.navigate(['/odp', id, "us"]);
     }
   }

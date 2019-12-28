@@ -107,8 +107,8 @@ export class ProductService {
     public getOrderItemDEtails(orderId :string): Observable<any> {
       const body =
         {
-          "countryCode ": "us",
-          "ordereID" : orderId
+          "countryCode": "us",
+          "orderID" : orderId
         }
        return this._httpCommonService.postReq('myaccount/myorder', JSON.stringify(body));
     }

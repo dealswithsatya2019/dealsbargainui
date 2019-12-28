@@ -34,7 +34,7 @@ import { LoginComponent } from './components/header/login/login.component';
 import { SignupComponent } from './components/header/signup/signup.component';
 import { MyprofileComponent } from 'src/app/components/user/myprofile/myprofile.component';
 import { CouponsComponent } from 'src/app/components/content/coupons/coupons.component';
-import { OrderItemDetailsComponent } from './order-item-details/order-item-details.component';
+import { OrderItemDetailsComponent } from './components/content/order-item-details/order-item-details.component';
 
 const routes: Routes = [
   {

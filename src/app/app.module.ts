@@ -59,7 +59,7 @@ import { ForgotpasswordComponent } from './components/header/forgotpassword/forg
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CouponsComponent } from './components/content/coupons/coupons.component';
 import { MobileMenuComponent } from './components/header/mobile-menu/mobile-menu.component';
-import { OrderItemDetailsComponent } from './order-item-details/order-item-details.component';
+import { OrderItemDetailsComponent } from './components/content/order-item-details/order-item-details.component';
 import { DatePipe } from '@angular/common';
 
 

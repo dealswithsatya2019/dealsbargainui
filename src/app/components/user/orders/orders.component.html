@@ -16,7 +16,7 @@
     </div>
     <div class="review-order" *ngFor="let itemdetails of orderInfo.items_info;let i = index">
         <!-- <div class="order-image" (click)=showOrderDetails(i,orderInfo)>-->
-        <div class="order-image" >
+        <div class="order-image" (click)=showOrderDetails(i,orderInfo)>
             <img src="{{itemdetails.image}}">
         </div>
         <div class="order-cycle">
