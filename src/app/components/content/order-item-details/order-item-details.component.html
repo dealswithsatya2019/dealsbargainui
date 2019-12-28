@@ -70,8 +70,6 @@
                         </div>
                     </span>
                     <span class="float-right">
-                        <app-wishlist [actionType]="whishlist_action_type" [productInfo]="productDetails">
-                        </app-wishlist>
                         <button mat-button class="action-btns share">
                             <i class="fa fa-share-alt"></i>
                             <div class="social-share">
@@ -121,7 +119,6 @@
             </h6>
             <div class="py-3 mt-4 lh">
                 <ng-container *ngIf="isProductAvailable; else outofstock">
-                    <a mat-button class="quick-buy" (click)="quickBuy(productDetails)">Quick Buy</a>
                     <a mat-button class="add-bag" (click)="addToCart(productDetails)">ADD TO BAG</a>
                 </ng-container>
                 <ng-template #outofstock>
@@ -209,14 +206,10 @@
                                     <span class="old_cost">{{PRICE_PREFIX}}{{product.price}}</span>
                                     <span class="new_cost">{{PRICE_PREFIX}}{{product.discount_amount}}</span>
                                 </ng-container>
-                                <button mat-button class="cart" matTooltip="Add To Cart" (click)="addToCart(product)">
-                                    Add
-                                </button>
                             </p>
                             <p class="p-title">{{product.item_name}}</p>
                         </mat-card-content>
                         <mat-card-actions>
-
                             <button mat-button class="action-btns share">
                                 <i class="fa fa-share-alt"></i>
                                 <div class="social-share">
@@ -237,7 +230,6 @@
                                     </a>
                                 </div>
                             </button>
-                            <app-wishlist [actionType]="whishlist_action_type" [productInfo]="product"></app-wishlist>
                         </mat-card-actions>
                     </mat-card>
                 </div>

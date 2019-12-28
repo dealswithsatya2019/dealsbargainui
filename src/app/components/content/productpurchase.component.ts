@@ -525,8 +525,8 @@ export class ProductpurchaseComponent implements OnInit {
       }
     });
     this.totalPaybaleCost = ((this.totalCost + this.transactionCostFromDBAPI) - this.couponDiscountCost);
-    if (this.cartInfo != null && this.cartInfo.responseObject != null && this.cartInfo.responseObject.length > 0) {
-      this.totalCartSize = this.cartInfo.responseObject.length;
+    if (this.shoppingCartItems != null && this.shoppingCartItems.length > 0) {
+      this.totalCartSize = this.shoppingCartItems.length;
     }
   }
 

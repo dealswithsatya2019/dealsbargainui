@@ -34,4 +34,5 @@ export class Product {
     errorCode : number ;
     errorMsg : string = "";
     transaction_fees : number;
+    order_details_id :string;
  }

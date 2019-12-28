@@ -14,7 +14,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { UserService } from 'src/app/user.service';
 import { environment } from 'src/environments/environment';
 import { Autoplay, Navigation, Pagination, Scrollbar, Swiper, Thumbs } from 'swiper/js/swiper.esm.js';
-import { RateproductComponent } from '../components/content/rateproduct/rateproduct.component';
+import { RateproductComponent } from '../rateproduct/rateproduct.component';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
 @Component({
@@ -88,18 +88,20 @@ export class OrderItemDetailsComponent implements OnInit {
       })
     }, 1000);
     this._Activatedroute.paramMap.subscribe((params: ParamMap) => {
-      let orderId = params.get('orderid').split("_")[0];
-      this.cname = params.get('orderid').split("_")[2];
-      this.scname = params.get('orderid').split("_")[3];
-      this.pid = params.get('orderid').split("_")[1];
+      console.log("OrderId ",params.get('orderid'))
+      // let orderId = params.get('orderid').split("_")[0];
+      // this.cname = params.get('orderid').split("_")[2];
+      // this.scname = params.get('orderid').split("_")[3];
+      // this.pid = params.get('orderid').split("_")[1];
       this.getProductDetailsByid(params.get('orderid'));
-      this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
-        (results: searchreponse) => {
-          this.similarProducts = results.responseObjects;
-          if (this.similarProducts) {
-            this.similarProducts = this.similarProducts.filter(item => item.item_id !== this.pid);
-          }
-        });
+
+      // this._productservice.getProductlist(this.cname, this.scname, 'us', 0, 20).subscribe(
+      //   (results: searchreponse) => {
+      //     this.similarProducts = results.responseObjects;
+      //     if (this.similarProducts) {
+      //       this.similarProducts = this.similarProducts.filter(item => item.item_id !== this.pid);
+      //     }
+      //   });
     });
   }
 
