@@ -174,10 +174,6 @@ const routes: Routes = [
     component: ReturnpolicyComponent,
     
   },{
-    path: AppRoutes.Contactus,
-    component: ContactusComponent,
-    
-  },{
     path: AppRoutes.PaymentMethods,
     component: PaymentmethodsComponent,
     

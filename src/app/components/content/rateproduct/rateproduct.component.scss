@@ -43,7 +43,7 @@ mat-form-field{
 }
 .mat-dialog-title{
     padding: 13px 24px;
-    background-color: #333;
+    background-color: #1b3664;
     color: #fff;
 }
 .mat-dialog-content{
@@ -56,7 +56,9 @@ mat-form-field{
     margin-top: 10px;
     padding: 0px 24px;
     .mat-raised-button{
-        width: 48%;
-        border: 1px solid #ff9600;
+        width: 46%;
+        border: 1px solid #1b3664;
+        color: #1b3664;
     }
+    .cancel{ border: 1px solid red;color: red;}
 }

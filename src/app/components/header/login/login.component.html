@@ -9,7 +9,7 @@
 
 <div class="login-container">
     <p class="text-center login-title">Login to Dealsbargain</p>
-    <!-- <p class="text-center login-info my-2">- Login with Email -</p> -->
+    <p class="text-center login-info my-2">I have an account</p>
     <form [formGroup]="loginformService.form" class="normal-form w-100" (submit)="funLogin()">
             <span class="error">{{this.loginErrorMsg}}</span>     
                 <!-- <input type="hidden" formControlName="$key"> -->
@@ -30,11 +30,15 @@
         <!-- <p class="text-center login-info mb-3">-OR-</p> -->
 
         <button mat-raised-button (click)="loginFacebook();" class="fb-login login-btn">
-            <img src="../../.././../assets/img/facebook.png" class="login-logo">
+            <span class="login-logo">
+                <i class="fa fa-facebook"></i>
+            </span>
             Login with FACEBOOK</button>
 
         <button mat-raised-button (click)="loginGmail();" class="gmail-login login-btn">
-            <img src="../../.././../assets/img/search.png" class="login-logo">
+            <span class="login-logo">
+                <i class="fa fa-google-plus"></i>
+            </span>
             Login with GOOGLE</button>
     </div>
 

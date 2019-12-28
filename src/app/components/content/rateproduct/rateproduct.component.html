@@ -6,7 +6,7 @@
     <!-- https://stackblitz.com/edit/radio-binding?file=app%2Fapp.component.html -->
        <mat-radio-group formControlName="productRating">
             <mat-radio-button  class="rate" *ngFor="let rating of ratings" [value]="rating" (click)="prepareRatingValues(this)">
-                <!-- {{rating}}  -->
+                <!-- {{rating}} -->
                 &#9734;
            </mat-radio-button>
         </mat-radio-group>
@@ -40,7 +40,7 @@
 
 
 <mat-dialog-actions>
-    <button mat-raised-button class="mr-2" (click)="close()">Close</button>
+    <button mat-raised-button class="mr-2 cancel" (click)="close()">Close</button>
     <!-- <button mat-raised-button [mat-dialog-close]="" cdkFocusInitial>Submit</button>-->
     <button mat-raised-button (click)="funSubmitReview()">Submit</button>
 </mat-dialog-actions>

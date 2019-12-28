@@ -175,40 +175,69 @@ h1,h2,h3,h4,h5,h6,p{
 .profile-form .mat-form-field-appearance-outline .mat-form-field-wrapper{
     margin: 0px;
 }
+
 .normal-form {
-    .mat-radio-label{
-        position: relative;
-        width: 25px;
-        &::after{
-            content: '\2605';
-            font-family: "Font Awesome";
-            position: absolute;
-            top: -15px;
-            left: -2px;
-            font-size: 34px;
-            z-index: -1;
-        }
-        .mat-radio-label-content{
-            font-size: 30px;
-            line-height: 20px;
-            padding-left: 0px;
-        }
-        &:hover{
-            .mat-radio-label-content{
-                color: transparent;
+   .mat-radio-button{
+        .mat-radio-label{
+            position: relative;
+            width: 25px;
+            &::after{
+                content: '\2605';
+                font-family: "Font Awesome";
+                position: absolute;
+                top: -15px;
+                left: -2px;
+                font-size: 34px;
                 z-index: -1;
             }
-            &::after{
-                z-index: 99;
-                color: #ff9600;
+        
+            .mat-radio-label-content{
+                font-size: 30px;
+                line-height: 20px;
+                padding-left: 0px;
+            }
+            &:hover{
+                .mat-radio-label-content{
+                    color: transparent;
+                    z-index: -1;
+                    position: relative;
+                }
+                &::after{
+                    z-index: 99;
+                    color: #ff9600;
+                }
+            }
+            .mat-radio-container{
+                // visibility: hidden;
+                display: none;
             }
         }
-        .mat-radio-container{
-            // visibility: hidden;
-            display: none;
+        ~ .mat-radio-label{
+            position: relative;
+            width: 25px;
+            &::after{
+                content: '\2605';
+                font-family: "Font Awesome";
+                position: absolute;
+                top: -15px;
+                left: -2px;
+                font-size: 34px;
+                z-index: -1;
+                color: #ff9600;
+            }
+        
+            .mat-radio-label-content{
+                font-size: 30px;
+                line-height: 20px;
+                padding-left: 0px;
+                color: transparent;
+                z-index: -1;
+                position: relative;
+            }
+                
+            
         }
     }
-    
 }
 aside .mat-expansion-panel-header.mat-expanded{
     height: 48px !important;
@@ -307,12 +336,22 @@ aside .mat-expansion-panel-header.mat-expanded{
     color: #fff !important;
     letter-spacing: 1px;
 }
+
 .login-links{
     font-size: 13px;display: flex;justify-content: space-between;
     align-items: center;
     .mat-button{padding: 0px;}
 }
-.login-logo{position: absolute;left: 20px;top: 6px;width: 23px;}
+.login-logo{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 70px;
+    background-color:#335292;
+}
+.gmail-login .login-logo{
+    background-color: #c64636;
+}
 .policy{
     font-size: 14px;
     line-height: 25px;
@@ -372,6 +411,9 @@ ul.breadcrumb{
     background: #c76969 !important;
     color: #fff !important;
 }
+// common css
+
+
 @media screen and (max-width:1500px){
     .content-container{
         max-width: 1400px;
@@ -384,6 +426,9 @@ ul.breadcrumb{
     }
 }
 @media screen and (max-width:575px){
+    .purchase-container .mat-horizontal-stepper-header-container{
+        display: none;
+    }
     .mat-step-label{
         font-size: 10px;padding-right: 15px;
         &::after{
@@ -408,8 +453,8 @@ ul.breadcrumb{
     }
     .login-btn{
         height: 30px;
-    line-height: 30px;
-    font-size: 13px;
+        line-height: 30px;
+        font-size: 13px;
     }
     .login-logo{
         width: 18px;
