@@ -55,8 +55,8 @@
 					<div class="productlistcontainer pl-3" fxLayout="row wrap">
 						<ng-container *ngFor="let product of products; let i = index">
 							<ng-container
-								*ngIf="fromPrice > 0 ?  (product.prepay_price >= fromPrice ? true : false): true">
-								<ng-container *ngIf="toPrice > 0 ? (product.prepay_price <= toPrice): true">
+								*ngIf="fromPrice > 0 ?  (product.price >= fromPrice ? true : false): true">
+								<ng-container *ngIf="toPrice > 0 ? (product.price <= toPrice): true">
 									<mat-card
 										*ngIf="selectedBrandsArray.length == 0 ? true: selectedBrandsArray.includes(product.brand_name)"
 										class="product" fxLayout="column">
