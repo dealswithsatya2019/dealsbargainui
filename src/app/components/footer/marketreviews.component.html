@@ -1,4 +1,4 @@
-<mat-toolbar-row style="height:40px;margin-top: -10px;">
+<mat-toolbar-row class="breadcrumb-row">
     <ul class="breadcrumb">
         <li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
         <li><a >Site Review</a></li>
@@ -9,7 +9,7 @@
         <p class="text-center login-title">Write A Review</p>
         <mat-dialog-content [formGroup]="form" class="normal-form w-100">
             <h6 class="mb-3"> Rate this site </h6>
-            <mat-radio-group formControlName="productRating">
+            <mat-radio-group formControlName="productRating" class="productRating">
                 <mat-radio-button  class="rate" *ngFor="let rating of ratings" [value]="rating">
                     <!-- {{rating}}  -->
                     &#9734;

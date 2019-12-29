@@ -1,4 +1,4 @@
-<mat-toolbar-row style="height:40px">
+<mat-toolbar-row class="breadcrumb-row">
 	<ng-container *ngIf="isProductList">
 		<ul class="breadcrumb">
 			<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
@@ -9,8 +9,10 @@
 		</ul>
 	</ng-container>
 	<ng-container *ngIf="!isProductList">
-		<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
-	    <li>&nbsp;{{dealtypeDisplayName}}</li>
+		<ul class="breadcrumb">
+			<li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
+			<li>&nbsp;{{dealtypeDisplayName}}</li>
+		</ul>
 	</ng-container>
 	
 </mat-toolbar-row>
@@ -48,7 +50,7 @@
 	</mat-sidenav>
 	<mat-sidenav-content>
 		<div class="product-list-page ">
-			<button mat-raised-button class="side-list">Filter</button>
+			<!-- <button mat-raised-button class="side-list">Filter</button> -->
 			<div *ngIf="products" class="product-list" style="flex: 1 1 0%">
 				<div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="150"
 					(scrolled)="onScroll()">

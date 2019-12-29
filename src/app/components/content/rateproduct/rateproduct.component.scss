@@ -2,42 +2,15 @@
     min-width: auto;
     padding: 0px 10px;
     box-shadow: none;
+    line-height: 39px;
 }
 
 .rate {
-    float: left;
+    unicode-bidi: bidi-override;
+    direction: rtl;
     padding: 0 10px;
 }
-.rate:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
-}
-.rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:#ccc;
-}
-.rate:not(:checked) > label:before {
-    content: '★ ';
-}
-.rate > input:checked ~ label {
-    color: #ffc700;    
-}
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-    color: #deb217;  
-}
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-    color: #c59b08;
-}
+
 mat-form-field{
     clear: both;
 }
@@ -55,6 +28,7 @@ mat-form-field{
 .mat-dialog-actions{
     margin-top: 10px;
     padding: 0px 24px;
+    justify-content: center;
     .mat-raised-button{
         width: 46%;
         border: 1px solid #1b3664;
