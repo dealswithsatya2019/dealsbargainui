@@ -6,6 +6,7 @@ export class AppRoutes{
     static readonly Content='home';
     static readonly ProductList='product/:cname/:scname';
     static readonly ProductDetails='productdetails/:cname/:scname/:pid';
+    static readonly ProductRatingsList= 'productratingslist/:pid';
     static readonly DealsList='dealslist/:dealtype';
     static readonly UserProfile = 'myprofile';
     static readonly ProfileInfo = 'profileinfo';

@@ -39,7 +39,7 @@
 				
 			</h5>
 			<ng-container *ngIf="productRating==0">
-				Be a first reviewer. <a (click)="openDialog()">Rate this product</a>
+				Be a first reviewer. <a class="pseudolink" (click)="openDialog()">Rate this product</a>
 			</ng-container>
 			<ng-container *ngIf="productRating>0">
 			<p style="clear: both;align-items: center;">
@@ -53,12 +53,12 @@
 					
 					<div class="product-rating-bar">
 						<p class="mb-2">{{totalRating}} customers ratings</p>
-						<p class="progress-line">5star <mat-progress-bar mode="determinate" value="{FiveStar}}"></mat-progress-bar> <span>60%</span></p>
-						<p class="progress-line">4star <mat-progress-bar mode="determinate" value="{{FourStar}}"></mat-progress-bar> <span>30%</span></p>
-						<p class="progress-line">3star <mat-progress-bar mode="determinate" value="{{ThreeStar}}"></mat-progress-bar> <span>20%</span></p>
-						<p class="progress-line">2star <mat-progress-bar mode="determinate" value="{{TwoStar}}"></mat-progress-bar> <span>6%</span></p>
-						<p class="progress-line">1star <mat-progress-bar mode="determinate" value="{{OneStar}}"></mat-progress-bar> <span>4%</span></p>
-						<a class="py-3 text-center" mat-button >View all Ratings</a>
+						<p class="progress-line">5star <mat-progress-bar mode="determinate" value="{FiveStar}}"></mat-progress-bar> <span>{{FiveStarPercent}}%</span></p>
+						<p class="progress-line">4star <mat-progress-bar mode="determinate" value="{{FourStar}}"></mat-progress-bar> <span>{{FourStarPercent}}%</span></p>
+						<p class="progress-line">3star <mat-progress-bar mode="determinate" value="{{ThreeStar}}"></mat-progress-bar> <span>{{ThreeStarPercent}}%</span></p>
+						<p class="progress-line">2star <mat-progress-bar mode="determinate" value="{{TwoStar}}"></mat-progress-bar> <span>{{TwoStarPercent}}%</span></p>
+						<p class="progress-line">1star <mat-progress-bar mode="determinate" value="{{OneStar}}"></mat-progress-bar> <span>{{OneStarPercent}}%</span></p>
+						<a class="py-3 text-center" mat-button (click)="funViewReviewRatings()">View all Ratings</a>
 					</div>
 					</div>
 				</span>

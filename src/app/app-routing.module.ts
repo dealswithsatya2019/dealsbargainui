@@ -35,6 +35,7 @@ import { SignupComponent } from './components/header/signup/signup.component';
 import { MyprofileComponent } from 'src/app/components/user/myprofile/myprofile.component';
 import { CouponsComponent } from 'src/app/components/content/coupons/coupons.component';
 import { OrderItemDetailsComponent } from './components/content/order-item-details/order-item-details.component';
+import { ProductRatingsListComponent } from 'src/app/components/content/product-ratings-list/product-ratings-list.component';
 
 const routes: Routes = [
   {
@@ -132,6 +133,10 @@ const routes: Routes = [
   {
     path: AppRoutes.ProductDetails,
     component: ProductdetailsComponent
+  },
+  {
+    path: AppRoutes.ProductRatingsList,
+    component: ProductRatingsListComponent
   },
   {
     path: AppRoutes.DealsList,

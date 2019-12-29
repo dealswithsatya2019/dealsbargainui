@@ -39,6 +39,27 @@ export class ProductService {
     return this._httpCommonService.postReq('products/' + categoryName, JSON.stringify(body));
   }
 
+  public getProductReviewANdRatingsById(pid?, countryCode?, from?, limit?): Observable<any> {
+    const body =
+      {
+        "countryCode": countryCode,
+        "productId": pid,
+        "pageNo": from,
+        "pageSize": limit
+      };
+    return this._httpCommonService.postReq('reviews/get-review', JSON.stringify(body));
+  }
+
+  public getReviewRagtingsCount(pid?, countryCode?): Observable<any> {
+    const body =
+      {
+        "countryCode": countryCode,
+        "productId": pid
+      };
+    return this._httpCommonService.postReq('reviews/get-review-count', JSON.stringify(body));
+  }
+
+
   /**
    * 
    * @param dealType f-flash deals, h-hot deals, t-today deals

@@ -61,6 +61,7 @@ import { CouponsComponent } from './components/content/coupons/coupons.component
 import { MobileMenuComponent } from './components/header/mobile-menu/mobile-menu.component';
 import { OrderItemDetailsComponent } from './components/content/order-item-details/order-item-details.component';
 import { DatePipe } from '@angular/common';
+import { ProductRatingsListComponent } from './components/content/product-ratings-list/product-ratings-list.component';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -129,6 +130,7 @@ export function ProvideConfig() {
     CouponsComponent,
     MobileMenuComponent,
     OrderItemDetailsComponent,
+    ProductRatingsListComponent,
     
   ],
   entryComponents:[LoginComponent,SignupComponent,SocialshareComponent,RateproductComponent,ForgotpasswordComponent],

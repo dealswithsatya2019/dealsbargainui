@@ -15,6 +15,7 @@ import { ProductRouteInfo } from 'src/app/models/ProductRouteInfo';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
+import { AuthResopnse2 } from 'src/app/models/ApiResponse2';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
 
@@ -41,12 +42,17 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
   public pid: string;
   items: Array<GalleryItem> = [];
   product_attributes: Array<KeyValuePair> = [];
-  productRating: number = 5;
-  public FiveStar: number = 80;
-  public FourStar: number = 40;
-  public ThreeStar: number = 30;
-  public TwoStar: number = 20;
-  public OneStar: number = 10;
+  productRating: number = 0;
+  public FiveStar: number = 0;
+  public FourStar: number = 0;
+  public ThreeStar: number = 0;
+  public TwoStar: number = 0;
+  public OneStar: number = 0;
+  public FiveStarPercent: number =0;
+  public FourStarPercent: number =0;
+  public ThreeStarPercent: number =0;
+  public TwoStarPercent: number =0;
+  public OneStarPercent: number =0;
   public isProductAvailable: boolean = false;
   subscription: Subscription;
   public whishlist_action_type: string = 'add';
@@ -59,13 +65,6 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    //    (5*252 + 4*124 + 3*40 + 2*29 + 1*33) / (252+124+40+29+33) = 4.11 and change
-    this.totalRating = this.FiveStar + this.FourStar + this.ThreeStar + this.TwoStar + this.OneStar;
-    console.log("Total ratings : " + this.totalRating);
-    //this.productRating = ((5*this.FiveStar)+(4*this.FourStar)+(3*this.ThreeStar)+(2*this.TwoStar)+(1*this.OneStar))/this.totalRating;
-    //this.productRating = Math.round(this.productRating * 100)/10;
-    console.log("productRating : " + this.productRating);
-
     setTimeout(() => {
       var swiper = new Swiper('.similar', {
         autoplay: {
@@ -125,6 +124,48 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  getProductReviewRatingsById(){
+    this._productservice.getProductReviewANdRatingsById(this.pid, 'us', 0, 20).subscribe(
+      (results: searchreponse) => {
+        this.similarProducts = results.responseObjects;
+        if (this.similarProducts) {
+          this.similarProducts = this.similarProducts.filter(item => item.item_id !== this.pid);
+        }
+      });
+  }
+
+  getProductReviewRatingsCount(){
+    this._productservice.getReviewRagtingsCount(this.pid, 'us').subscribe(
+      (results: AuthResopnse2) => {
+        if(results.statusCode == 404){
+          //404 means till now rating for this product.
+          return;
+        }
+        let productReviewRatingCount = results.responseObjects;
+        let countsJson: any = JSON.stringify(productReviewRatingCount);
+        this.OneStar = countsJson.one? countsJson.one: 0;
+        this.TwoStar = countsJson.two? countsJson.two:0;
+        this.ThreeStar = countsJson.three? countsJson.three: 0;
+        this.FourStar = countsJson.four? countsJson.four:0;
+        this.FiveStar = countsJson.five? countsJson.five:0;
+
+        this.OneStarPercent = countsJson.one? this.getRatingPercentage(1, countsJson.one): 0;
+        this.TwoStarPercent = countsJson.two? this.getRatingPercentage(2, countsJson.two):0;
+        this.ThreeStarPercent = countsJson.three? this.getRatingPercentage(3, countsJson.three): 0;
+        this.FourStarPercent = countsJson.four? this.getRatingPercentage(1, countsJson.four):0;
+        this.FiveStarPercent = countsJson.five? this.getRatingPercentage(1, countsJson.five):0;
+            //    (5*252 + 4*124 + 3*40 + 2*29 + 1*33) / (252+124+40+29+33) = 4.11 and change
+        this.totalRating = this.FiveStar + this.FourStar + this.ThreeStar + this.TwoStar + this.OneStar;
+        let tempRating : any= ((5*this.FiveStar)+(4*this.FourStar)+(3*this.ThreeStar)+(2*this.TwoStar)+(1*this.OneStar))/this.totalRating;
+        this.productRating = tempRating.toFixed(2);
+      });
+  }
+
+  getRatingPercentage(rating, count) : any{
+    let ratingPercent : number= (count*100)/this.totalRating;
+    return ratingPercent.toFixed(2);
+  }
+
   getProductDetailsByid() {
     this._productservice.getHttpProductDetailsById(this.cname, this.scname, this.pid, 'us').subscribe(
       (results: searchreponse) => {
@@ -160,7 +201,8 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
           if (!this.productDetails.dealtype) {
             this.productDetails.dealtype = '';
           }
-          console.log(this.productDetails);
+          //console.log(this.productDetails);
+          this.getProductReviewRatingsCount();
         } else {
           console.log('Product is unavailable' + results);
         }
@@ -198,7 +240,6 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '500px';
@@ -216,8 +257,6 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-
-
     //   setTimeout(() => {
     //   var galleryThumbs = new Swiper('.gallery-thumbs', {
     //     spaceBetween: 10,
@@ -241,9 +280,10 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
     //this._productListRouteInfo.addToCart(productRouteInfo);
     // this._productservice.routeProductDetails(params);
   }
-
+  funViewReviewRatings(){
+    this._router.navigate(['/productratingslist', this.pid ]);
+  }
   routeToProductListPage(cname, scname, pid) {
-
     let params = {
       "cname": cname,
       "scname": scname

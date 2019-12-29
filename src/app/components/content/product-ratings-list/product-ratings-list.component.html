@@ -1,0 +1,6 @@
+<p>Customer Reviews</p>
+<div class="review-order py-4" *ngFor="let productReview of reviewsList">
+    <p class="my-1">Review Author : {{productReview.review_author}}</p>
+    <p class="my-1">Rating : {{productReview.rating}} star </p>
+    <p class="my-1">Product Recomended : {{productReview.product_recommended}}</p>
+</div>
