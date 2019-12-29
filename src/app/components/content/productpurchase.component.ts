@@ -508,6 +508,7 @@ export class ProductpurchaseComponent implements OnInit {
 
   public calculatePrices() {
     console.log("calculatePrices", this.shoppingCartItems.length);
+    console.log("totalCost",this.totalCost);
     this.shoppingCartItems.forEach(element => {
       console.log("quantity :", element.quantity);
       if (element.dealtype != '') {

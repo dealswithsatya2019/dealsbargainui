@@ -135,6 +135,7 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
           this.items = [];
           //if(results.statusCode ===200){
           this.productDetails = results.responseObject[0];
+          this.product = results.responseObject[0];
           if (this.productDetails) {
             let arr = this.productDetails.thumbnail_image;
             if (arr) {
@@ -256,12 +257,12 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
   }
 
   public addToCart(produt: ProductDetails) {
-    this.product = this.getProductFromDetails(produt);
+    // this.product = this.getProductFromDetails(produt);
     this.cartService.addToCart(this.product);
   }
 
   public quickBuy(produt: ProductDetails) {
-    this.product = this.getProductFromDetails(produt);
+    // this.product = this.getProductFromDetails(produt);
     this.cartService.addToCart(this.product);
     this._router.navigateByUrl('/productpurchase');
   }
