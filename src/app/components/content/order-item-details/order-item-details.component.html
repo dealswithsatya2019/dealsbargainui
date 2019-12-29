@@ -117,14 +117,6 @@
             <h6 *ngFor="let keyValPair of product_attributes">
                 {{keyValPair.key}} : {{keyValPair.value}}
             </h6>
-            <div class="py-3 mt-4 lh">
-                <ng-container *ngIf="isProductAvailable; else outofstock">
-                    <a mat-button class="add-bag" (click)="addToCart(productDetails)">ADD TO BAG</a>
-                </ng-container>
-                <ng-template #outofstock>
-                    <a mat-button class="add-bag">OUT OF STOCK</a>
-                </ng-template>
-            </div>
         </div>
     </div>
     <mat-accordion class="w-100">
