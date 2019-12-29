@@ -1,5 +1,5 @@
 <div class="">
-    <mat-toolbar-row style="height:40px;">
+    <mat-toolbar-row class="breadcrumb-row">
         <ul class="breadcrumb">
             <li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
             <li><a [routerLink]="['/mycart']" routerLinkActive="active">Products</a></li>
@@ -331,12 +331,12 @@
         </div>
         <div class="pl-4">
             <div class="checkout-card">
-                <div class="w-100 mb-3" style="font-size: 13px;">
+                <h6 class="px-3 pt-3 text-center">ORDER SUMMARY</h6>
+                <div class="my-3 px-3" style="font-size: 13px;">
                     &nbsp;&nbsp;&nbsp;&nbsp;By placing your order, you agree to dealsbargain.com's <a target="_blank" href="../../../assets/pages/PrivacyPolicy.html">privacy notice,</a>
                     <a target="_blank" href="../../../../assets/pages/TermsofUse.html">conditions of use </a>and all of the terms found
                     <a target="_blank" href="../../../../assets/pages/TermsofUse.html">here</a>
                 </div>
-                <h6 class="px-3 pt-3 text-center">ORDER SUMMARY</h6>
                 <div class="promocode-section">
                     <form class="my-3" [formGroup]="couponform" (submit)="validateCoupon()">
                         <mat-form-field class="cpnid">

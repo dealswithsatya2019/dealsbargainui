@@ -23,7 +23,7 @@ export class MarketreviewsComponent implements OnInit {
   public reviewTitle: string;
   public isRecomended: string;
   public productRating: any;
-  ratings: string[] = ["1","2","3","4","5"];
+  ratings: string[] = ["5","4","3","2","1"];
 
   constructor(
     private fb: FormBuilder,

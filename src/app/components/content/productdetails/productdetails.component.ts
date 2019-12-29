@@ -277,8 +277,8 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
   showProductDetails(params) {
     /*let productRouteInfo: ProductRouteInfo = new ProductRouteInfo(params);
     sessionStorage.setItem("product_details", JSON.stringify(productRouteInfo));*/
-    //this._productListRouteInfo.addToCart(productRouteInfo);
-    // this._productservice.routeProductDetails(params);
+    // this._productListRouteInfo.addToCart(productRouteInfo);
+    this._productservice.routeProductDetails(params);
   }
   funViewReviewRatings(){
     this._router.navigate(['/productratingslist', this.pid ]);
