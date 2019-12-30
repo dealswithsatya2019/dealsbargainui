@@ -142,20 +142,20 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
           return;
         }
         let productReviewRatingCount = results.responseObjects;
-        let countsJson: any = JSON.stringify(productReviewRatingCount);
+        let countsJson: any = productReviewRatingCount;
         this.OneStar = countsJson.one? countsJson.one: 0;
         this.TwoStar = countsJson.two? countsJson.two:0;
         this.ThreeStar = countsJson.three? countsJson.three: 0;
         this.FourStar = countsJson.four? countsJson.four:0;
         this.FiveStar = countsJson.five? countsJson.five:0;
 
+        //    (5*252 + 4*124 + 3*40 + 2*29 + 1*33) / (252+124+40+29+33) = 4.11 and change
+        this.totalRating = this.FiveStar + this.FourStar + this.ThreeStar + this.TwoStar + this.OneStar;
         this.OneStarPercent = countsJson.one? this.getRatingPercentage(1, countsJson.one): 0;
         this.TwoStarPercent = countsJson.two? this.getRatingPercentage(2, countsJson.two):0;
         this.ThreeStarPercent = countsJson.three? this.getRatingPercentage(3, countsJson.three): 0;
-        this.FourStarPercent = countsJson.four? this.getRatingPercentage(1, countsJson.four):0;
-        this.FiveStarPercent = countsJson.five? this.getRatingPercentage(1, countsJson.five):0;
-            //    (5*252 + 4*124 + 3*40 + 2*29 + 1*33) / (252+124+40+29+33) = 4.11 and change
-        this.totalRating = this.FiveStar + this.FourStar + this.ThreeStar + this.TwoStar + this.OneStar;
+        this.FourStarPercent = countsJson.four? this.getRatingPercentage(4, countsJson.four):0;
+        this.FiveStarPercent = countsJson.five? this.getRatingPercentage(5, countsJson.five):0;
         let tempRating : any= ((5*this.FiveStar)+(4*this.FourStar)+(3*this.ThreeStar)+(2*this.TwoStar)+(1*this.OneStar))/this.totalRating;
         this.productRating = tempRating.toFixed(2);
       });
