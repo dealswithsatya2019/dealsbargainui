@@ -2,8 +2,8 @@
     <mat-toolbar-row class="top-toolbar">
         <!-- logo -->
         <div class="logo">
-            <img class="img-fluid img-cursor" mat-card-image src="../../assets/img/DealsBargain-Logo.png"
-                alt="photo" (click)=gotoHomePage()>
+            <img class="img-fluid img-cursor" mat-card-image src="../../../assets/img/DB-Logo.png"
+                alt="photo" (click)="gotoHomePage()">
         </div>
         <!-- /#logo -->
 
@@ -25,7 +25,7 @@
             <a mat-button [routerLink]="['login']" *ngIf="!this.userservice.getAuthToken()"><i class="fa fa-unlock-alt"></i><span>Login & Signup</span></a>
             <ng-container *ngIf="this.userservice.getAuthToken()">
                 <button mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger"><i
-                        class="fa fa-user"></i><span class="hide-xs">{{this.userservice.getProfileInfo().user_name}}</span></button>
+                        class="fa fa-user"></i><span>{{this.userservice.getProfileInfo().user_name}}</span></button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item style="border-bottom: 1px solid #ccc;">
                         <a mat-button [routerLink]="['myprofile', { outlets: { 'profileoutlet': ['profileinfo'] } }]">My Profile</a>

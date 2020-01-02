@@ -20,11 +20,16 @@ footer{
     list-style-type: none;
     color: #fff;
 }
-.get-in-touch li{
-    margin-bottom: 8px;
-    position: relative;
-    padding-left: 24px;
-    font-size: 14px
+.get-in-touch {
+    li{
+        margin-bottom: 8px;
+        position: relative;
+        padding-left: 24px;
+        font-size: 14px;
+        b{
+            margin-right: 8px;
+        }
+    }
 }
 .get-in-touch li a {
     display: inline-block;
