@@ -584,7 +584,6 @@ export class ProductpurchaseComponent implements OnInit {
 
   public selectedIndex: number = 0;
   public selectionChange(event) {
-    console.log("Event Obj :", event);
     if (event.selectedIndex == 0) {
     } else if (event.selectedIndex == 1) {
       this.getAddresses();

@@ -56,7 +56,10 @@ export class OrdersComponent implements OnInit, OnDestroy {
       (data: searchreponse) => {
         if (data.statusCode == 200) {
           this._alertService.raiseAlert("Item was successfully cancelled.");
-          this._router.navigate(['myprofile', { outlets: { 'profileoutlet': ['orders'] } }]);
+          this._router.navigate(['myprofile', { outlets: { 'profileoutlet': ['orders'] } }])
+          .then(() => {
+            window.location.reload();
+          });
         } else {
           this._alertService.raiseAlert("Unable to cancel the item.");
           console.log(data);
@@ -74,7 +77,10 @@ export class OrdersComponent implements OnInit, OnDestroy {
       (data: searchreponse) => {
         if (data.statusCode == 200) {
           this._alertService.raiseAlert("Item was successfully returned.");
-          this._router.navigate(['myprofile', { outlets: { 'profileoutlet': ['orders'] } }]);
+          this._router.navigate(['myprofile', { outlets: { 'profileoutlet': ['orders'] } }])
+          .then(() => {
+            window.location.reload();
+          });
         } else {
           this._alertService.raiseAlert("Unable to return the item.");
           console.log(data);
