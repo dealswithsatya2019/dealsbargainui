@@ -46,6 +46,7 @@ export class ProductlistComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this._Activatedroute.paramMap.subscribe(params => {
+      this.scrollableCount = 1;
       this.isProductList = params.get('dealtype') == null ? true : false;
       if (!this.isProductList) {
         this.dealtype = params.get('dealtype');
@@ -147,10 +148,13 @@ export class ProductlistComponent implements OnInit, OnDestroy {
   updateFromPrice(event) {
     console.log("From Price ",event.value);
     this.fromPrice = event.value;
+    this.isProductList = true;
   }
+
   updateToPrice(event) {
     console.log("To Price ",event.value);
     this.toPrice = event.value;
+    this.isProductList = true;
   }
 
   openShare(event: any) {
