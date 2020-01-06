@@ -9,30 +9,42 @@
         <p class="text-center login-title">Write A Review</p>
         <mat-dialog-content [formGroup]="form" class="normal-form w-100">
             <h6 class="mb-3"> Rate this site </h6>
-            <mat-radio-group formControlName="productRating" class="productRating">
+            <mat-radio-group formControlName="siteRating" class="productRating">
                 <mat-radio-button  class="rate" *ngFor="let rating of ratings" [value]="rating">
                     <!-- {{rating}}  -->
                     &#9734;
                 </mat-radio-button>
             </mat-radio-group>
             <mat-form-field floatLabel="never" class="w-100 mt-4" appearance="outline">
-                <mat-label>Email/Mobile Number</mat-label>
-                <input matInput formControlName="email" placeholder="Email/Mobile Number">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" placeholder="First Name">
                 <mat-error>This field is mandatory</mat-error>
             </mat-form-field>
             <mat-form-field floatLabel="never" class="w-100" appearance="outline">
-                <mat-label>Review Title</mat-label>
-                <input matInput formControlName="reviewTitle" placeholder="Review Title">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" placeholder="Last Name">
                 <mat-error>This field is mandatory</mat-error>
             </mat-form-field>
             
             <mat-form-field floatLabel="never" class="w-100" appearance="outline">
-                <mat-label>Write your review here</mat-label>
-                <textarea matInput formControlName="comment" placeholder="review"></textarea>
+                <mat-label>Title</mat-label>
+                <textarea matInput formControlName="title" placeholder="Title"></textarea>
                 <mat-error>This field is mandatory</mat-error>
             </mat-form-field>
         
-            <!-- <mat-checkbox formControlName="isRecomended">Yes, I recommend this product</mat-checkbox> -->
+            <mat-form-field floatLabel="never" class="w-100" appearance="outline">
+                <mat-label>Comment</mat-label>
+                <textarea matInput formControlName="comment" placeholder="Comment"></textarea>
+                <mat-error>This field is mandatory</mat-error>
+            </mat-form-field>
+ 
+            <mat-form-field floatLabel="never" class="w-100" appearance="outline">
+                <mat-label>Address</mat-label>
+                <textarea matInput formControlName="address" placeholder="Email Or Mobile Number"></textarea>
+                <mat-error>This field is mandatory</mat-error>
+            </mat-form-field>
+        
+
         </mat-dialog-content>
         <button mat-raised-button (click)="funSiteReview()" class="mt-2 mb-3 w-100 login-login-btn">SUBMIT REVIEW</button>
     </div>

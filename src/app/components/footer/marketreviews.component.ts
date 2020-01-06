@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { ProductService } from 'src/app/services/product.service';
 import { UserService } from 'src/app/user.service';
@@ -12,17 +12,7 @@ import { AuthResopnse } from 'src/app/models/AuthResponse';
   styleUrls: ['./marketreviews.component.scss']
 })
 export class MarketreviewsComponent implements OnInit {
-
-  cname: string;
-  scname: string;
-  itemId: string;
-  masterSuppler: string;
   form: FormGroup;
-  public comment: string;
-  //public description:string;
-  public reviewTitle: string;
-  public isRecomended: string;
-  public productRating: any;
   ratings: string[] = ["5","4","3","2","1"];
 
   constructor(
@@ -36,24 +26,19 @@ export class MarketreviewsComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-        comment : this.comment,
-        reviewTitle: this.reviewTitle,
-        isRecomended: this.isRecomended,
-        productRating: this.productRating
-        //description: [this.description, []]
+      firstName : new FormControl(''),
+      lastName: new FormControl(''),
+      siteRating: new FormControl(''),
+      title: new FormControl(''),
+      comment: new FormControl(''),
+      address: new FormControl('')
     });
   }
 
   funSiteReview() {
     try {
      let formJson = JSON.parse(JSON.stringify(this.form.value));
-     if(formJson!=true){
-      this._alertService.raiseAlert('Site reveiw under development.');
-       return;
-     }
-     let isProductRecommend = formJson.isRecomended? 'yes' : 'no';
-      this._productservice.submitReview(this.userService.getAuthToken(),this.cname, this.scname, this.itemId, 'us',
-        formJson.productRating, formJson.reviewTitle, formJson.comment,this.masterSuppler, isProductRecommend)
+      this._productservice.submitSiteReview(formJson.firstName,formJson.lastName,formJson.siteRating, formJson.title, formJson.comment, formJson.address)
       .subscribe(        
         (authResponse: AuthResopnse) => {
           if (authResponse.statusCode === 200) {

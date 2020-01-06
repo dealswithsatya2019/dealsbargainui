@@ -124,6 +124,18 @@ export class ProductService {
       return this._httpCommonService.postRequest('reviews/create-review', JSON.stringify(body), authToken);
     }
 
+    public submitSiteReview(firstName?, lastName?, rating?, title?,comment?,address?): Observable<any>
+    {
+      const body ={
+      "first_name": firstName,
+      "last_name": lastName,
+      "rating": rating,
+      "title": title,
+      "comment": comment,
+      "address": address
+    };
+      return this._httpCommonService.postReq('customer-reviews', JSON.stringify(body));
+    }
 
     public getOrderItemDEtails(orderId :string): Observable<any> {
       const body =
