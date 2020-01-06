@@ -53,29 +53,19 @@
                         <mat-error>Last Name is mandatory</mat-error>
                     </mat-form-field>
 
-                    <mat-form-field class="prefix">
+                   
+
+                    <!-- <mat-form-field class="prefix">
                         <input matInput value="+1" disabled>
-                    </mat-form-field>
+                    </mat-form-field> -->
 
-                    <mat-form-field appearance="outline" style="width:39%" class="mobile">
-                        <mat-label>Mobile Number</mat-label>
-                        <input formControlName="mobile_number" matInput placeholder="Placeholder">
-                        <mat-error *ngFor="let validation of address_validation_messages.mobile_number">
-                            <mat-error class="error-message" *ngIf="updateaddressform.get('mobile_number').hasError(validation.type) && (updateaddressform.get('mobile_number').dirty || updateaddressform.get('mobile_number').touched)">{{validation.message}}</mat-error>
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field class="prefix">
-                        <input matInput value="+1" disabled>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline" style="width:39%" class="mobile">
+                    <!-- <mat-form-field appearance="outline" style="width:39%" class="mobile">
                         <mat-label>Alternate Phone</mat-label>
                         <input formControlName="altphone" matInput placeholder="Placeholder">
                         <mat-error *ngFor="let validation of address_validation_messages.altphone">
                             <mat-error class="error-message" *ngIf="updateaddressform.get('altphone').hasError(validation.type) && (updateaddressform.get('altphone').dirty || updateaddressform.get('altphone').touched)">{{validation.message}}</mat-error>
                         </mat-error>
-                    </mat-form-field>
+                    </mat-form-field> -->
                     <mat-form-field appearance="outline" style="width:98%">
                         <mat-label>Address</mat-label>
                         <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
@@ -105,6 +95,18 @@
                         <mat-label>Pincode</mat-label>
                         <input formControlName="zipcode" matInput placeholder="Placeholder">
                         <mat-error>Zip Code/Postal is mandatory</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="prefix">
+                        <input matInput value="+1" disabled>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" style="width:39%" class="mobile">
+                        <mat-label>Mobile Number</mat-label>
+                        <input formControlName="mobile_number" matInput placeholder="Placeholder">
+                        <mat-error *ngFor="let validation of address_validation_messages.mobile_number">
+                            <mat-error class="error-message" *ngIf="updateaddressform.get('mobile_number').hasError(validation.type) && (updateaddressform.get('mobile_number').dirty || updateaddressform.get('mobile_number').touched)">{{validation.message}}</mat-error>
+                        </mat-error>
                     </mat-form-field>
                    <!-- <mat-radio-group formControlName="address_type" aria-label="Select an option">
                         <mat-radio-button value="1" class="mr-2">Home
@@ -139,20 +141,7 @@
                     <mat-error>Last Name is mandatory</mat-error>
                 </mat-form-field>
                 
-                <mat-form-field class="prefix">
-                    <input matInput value="+1" disabled>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" style="width: 39%;" class="mobile">
-                    <mat-label>Mobile Number</mat-label>
-                    <input formControlName="mobile_number" matInput>
-                    <mat-error *ngFor="let validation of address_validation_messages.mobile_number">
-                        <mat-error class="error-message" *ngIf="addressform.get('mobile_number').hasError(validation.type) && (addressform.get('mobile_number').dirty || addressform.get('mobile_number').touched)">{{validation.message}}</mat-error>
-                    </mat-error>
-                </mat-form-field>
-
-                
-                <mat-form-field class="prefix">
+                <!-- <mat-form-field class="prefix">
                     <input matInput value="+1" disabled>
                 </mat-form-field>
 
@@ -162,7 +151,7 @@
                     <mat-error *ngFor="let validation of address_validation_messages.altphone">
                         <mat-error class="error-message" *ngIf="addressform.get('altphone').hasError(validation.type) && (addressform.get('altphone').dirty || addressform.get('altphone').touched)">{{validation.message}}</mat-error>
                     </mat-error>
-                </mat-form-field>
+                </mat-form-field> -->
                 <mat-form-field appearance="outline" style="width:98%">
                     <mat-label>Address</mat-label>
                     <textarea formControlName="address" matInput placeholder="Textarea"></textarea>
@@ -194,6 +183,19 @@
                     <input formControlName="zipcode" matInput placeholder="Placeholder">
                     <mat-error>Zip Code/Postal is mandatory</mat-error>
                 </mat-form-field>
+
+                <mat-form-field class="prefix">
+                    <input matInput value="+1" disabled>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" style="width: 39%;" class="mobile">
+                    <mat-label>Mobile Number</mat-label>
+                    <input formControlName="mobile_number" matInput>
+                    <mat-error *ngFor="let validation of address_validation_messages.mobile_number">
+                        <mat-error class="error-message" *ngIf="addressform.get('mobile_number').hasError(validation.type) && (addressform.get('mobile_number').dirty || addressform.get('mobile_number').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>
+
                <!-- <mat-radio-group aria-label="Select an option" formControlName="address_type">
                     <mat-radio-button value="1" class="mr-2">Home ( All Day Delivery )</mat-radio-button>
                     <mat-radio-button value="2">Work (Delivery between 10AM - 5PM)</mat-radio-button>

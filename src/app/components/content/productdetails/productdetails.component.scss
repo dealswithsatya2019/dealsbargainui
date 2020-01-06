@@ -435,7 +435,7 @@ h5{
       top: 50%;
       transform: translateY(-50%);}
   }
-
+a{cursor: pointer;}
   .product-rating-bar{
     padding: 0px 20px 10px 20px;
     font-size: 15px;
@@ -522,7 +522,7 @@ h5{
 }
 
 .pseudolink, a.pseudolink, a.pseudolink:hover { 
-   color:blue; 
+   color:#e96446; 
    text-decoration:underline; 
    cursor:pointer; 
    }

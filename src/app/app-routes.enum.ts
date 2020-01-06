@@ -20,12 +20,12 @@ export class AppRoutes{
     static readonly Coupons = 'coupons';
     static readonly Unsubscribe ='unsubscribe';
     static readonly Aboutus = 'aboutus';
-    static readonly MarketReview = 'marketreview';
+    static readonly MarketReview = 'customer-reviews';
     static readonly TermsOfUse = 'termsofuse';
     static readonly PrivacyPolicy = 'privacypolicy';
     static readonly SiteMap = 'sitemap';
     static readonly ShippingPolicy = 'shippingpolicy';
-    static readonly Compensation = 'compensation';
+    static readonly Blog = 'blog';
     static readonly MyAccount = 'myaccount';
     static readonly ReturnPolicy = 'returnpolicy';
     static readonly PaymentMethods = 'paymentmethods';

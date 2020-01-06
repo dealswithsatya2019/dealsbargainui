@@ -19,7 +19,9 @@
 			</div>
 			<div class="swiper-container gallery-top">
 				<div class="swiper-wrapper">
+
 					<div class="swiper-slide text-center p-0" *ngFor="let item of items; index as i">
+						<small>click on image to zoom out</small>
 						<img [lightbox]="i" [src]="item.data.thumb" style="height:100%; max-width: 100%;">
 					</div>
 				</div>
@@ -39,7 +41,7 @@
 				
 			</h5>
 			<ng-container *ngIf="productRating==0">
-				Be a first reviewer. <a class="pseudolink" (click)="openDialog()">Rate this product</a>
+			<a class="pseudolink" (click)="openDialog()"><i>Be a first reviewer</i></a>
 			</ng-container>
 			<ng-container *ngIf="productRating>0">
 			<p style="clear: both;align-items: center;">
@@ -202,17 +204,14 @@
 			</mat-grid>
 		</mat-expansion-panel>
 
-		<mat-expansion-panel>
+		<!-- <mat-expansion-panel>
 			<mat-expansion-panel-header>
 				<p class="text-center">DISCLAIMER</p>
 			</mat-expansion-panel-header>
 			<mat-grid>
-				<!-- <p class="mb-2">VARANGA:</p>
-
-			Varanga is about handpicking the most unconventional yet extremely exciting designs from artisans and craftsmen from all over India and to deliver them at exceptional value to customers. Our motive is to make you stand out, deviate from the mundane style of dressing and embrace cutting-edge fashion while not burning a hole in your pockets. Adding authentic Indian artwork and fusing it with contemporary design, we are an exclusive destination for ‘The Indian Modern’. The brand focusses on quality material, design, fit and sizing.
-			-->
+		
 			</mat-grid>
-		</mat-expansion-panel>
+		</mat-expansion-panel> -->
 	</mat-accordion>
 
 

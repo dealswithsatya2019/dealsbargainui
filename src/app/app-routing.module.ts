@@ -16,7 +16,7 @@ import { TermsofuseComponent } from './components/footer/termsofuse.component';
 import { PrivacypolicyComponent } from './components/footer/privacypolicy.component';
 import { SitemapComponent } from './components/footer/sitemap.component';
 import { ShippingpolicyComponent } from './components/footer/shippingpolicy.component';
-import { CompensationComponent } from './components/footer/compensation.component';
+import { BlogComponent } from './components/footer/blog.component';
 import { ReturnpolicyComponent } from './components/footer/returnpolicy.component';
 import { ContactusComponent } from './components/footer/contactus.component';
 import { PaymentmethodsComponent } from './components/footer/paymentmethods.component';
@@ -167,8 +167,8 @@ const routes: Routes = [
     component: ShippingpolicyComponent,
     
   },{
-    path: AppRoutes.Compensation,
-    component: CompensationComponent,
+    path: AppRoutes.Blog,
+    component: BlogComponent,
     
   },{
     path: AppRoutes.MyAccount,

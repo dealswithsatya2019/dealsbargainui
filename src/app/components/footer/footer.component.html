@@ -5,45 +5,39 @@
             <div class="col-sm-6 col-md-3 p-3">
                 <h6 class="foo-title">Contact Us</h6>
                 <ul class="get-in-touch pl-0">
-                    <li class="location"><b>Address  </b>
+                    <li class="location">
                         dealsbargain.com<br>605 Ridgewoods Manor Dr,<br>Ellisville,<br>MO 63038
                     </li>
-                    <li class="mail"><b>Email  </b> info@dealsbargain.com</li>
-                    <li>
-                        <a target="_blank" href="https://www.facebook.com/dealsbargainofficial/"><img src="../../../assets/img/facebook.png"></a>
-                        <a><img src="../../../assets/img/instagram.png"></a>
-                    </li>
+                    <li class="mail">info@dealsbargain.com</li>
                 </ul>
             </div>
 
             <div class="col-sm-6 col-md-3 p-3">
-                <h6 class="foo-title">About Market</h6>
+                <h6 class="foo-title">Information</h6>
                 <ul class="p-0 foo-list">
                     <li><a target="_blank" href="../../../assets/pages/AboutUs.html">About Us</a></li>
-                    <li><a [routerLink]="['marketreview']">Market Reviews</a></li>
+                    <li><a [routerLink]="['customer-reviews']">Customer Reviews</a></li>
+                    <li><a [routerLink]="['blog']">Blog</a></li>
                     <li><a target="_blank" href="../../../assets/pages/TermsofUse.html">Terms Of Use</a></li>
                     <li><a target="_blank" href="../../../assets/pages/PrivacyPolicy.html">Privacy Policy</a></li>
-                    <!-- <li><a target="_blank" [routerLink]="['sitemap']">Site Map</a></li> -->
+                    <li><a target="_blank" href="../../../assets/pages/ShippingPolicy.html">Shipping Policy</a></li>
+                    <li><a target="_blank" href="../../../assets/pages/CancellationandReturnPolicy.html">Return Policy</a></li>
+                    <li><a target="_blank" [routerLink]="['contactus']">Contact Us</a></li>
+                    <li><a target="_blank"  href="../../../assets/pages/faqs.html">FAQs</a></li>
                 </ul>
             </div>
-            <div class="col-sm-6 col-md-3 p-3">
-                <h6 class="foo-title">Payment & Shipping</h6>
-                <ul class="p-0 foo-list">
-                    <li><a target="_blank" href="../../../assets/pages/PaymentMethods.html">Payment Methods</a></li>
-                    <!-- <li><a target="_blank" [routerLink]="['contactus']">Contact Us</a></li> -->
-                    <li><a target="_blank" href="../../../assets/pages/LocationWeShipTo.html">Location We Ship To</a></li>
-                    <li><a target="_blank" href="../../../assets/pages/EstimatedDeliveryTime.html">Estimated Delivery Time</a></li>
-                </ul>
-            </div>
+            
             <div class="col-sm-6 col-md-3 p-3">
                 <h6 class="foo-title">Customer Service</h6>
                 <ul class="p-0 foo-list">
-                    <li><a target="_blank" href="../../../assets/pages/ShippingPolicy.html">Shipping Policy</a></li>
-                    <!-- <li><a target="_blank" [routerLink]="['compensation']">Compensation First</a></li> -->
-                    <li><a target="_blank" [routerLink]="['myprofile', { outlets: { 'profileoutlet': ['profileinfo'] } }]">My Account</a></li>
-                    <li><a target="_blank" href="../../../assets/pages/CancellationandReturnPolicy.html">Return Policy</a></li>
-                    <!-- <li><a target="_blank" href="../../../assets/pages/ContactUs.html">Contact Us</a></li> -->
-                    <li><a target="_blank" [routerLink]="['contactus']">Contact Us</a></li>
+                    <li><a target="_blank" [routerLink]="['myprofile', { outlets: { 'profileoutlet': ['profileinfo'] } }]">My Account</a></li>           
+                </ul>
+            </div>
+            <div class="col-sm-6 col-md-3 p-3">
+                <h6 class="foo-title">Connect With Us</h6>
+                <ul class="p-0 foo-list social">
+                    <li> <a target="_blank" href="https://www.facebook.com/dealsbargainofficial/"><img src="../../../assets/img/facebook.png"> Facebook</a></li>
+                    <li><a><img src="../../../assets/img/instagram.png"> Instagram</a></li>
                 </ul>
             </div>
 
