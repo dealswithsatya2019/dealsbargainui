@@ -69,3 +69,12 @@
     padding: 6px 0px;
     strong{color: green;}
   }
+
+  .spinner {
+    position: absolute;
+    width:100%;
+    top:40%;
+    left: 47%;
+    opacity: 1;
+    z-index: 500000;
+  }

@@ -18,6 +18,10 @@ export class WishlistComponent implements OnInit {
   @Input() public actionType: string = 'list';
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
   public shoppingCartItems: Product[] = [];
+  public isLoader : boolean  = true;
+  public color = 'primary';
+  public mode = 'indeterminate';
+  public value = 50;
   
   constructor(public _whishlistService: WhishlistService, 
     private _cartService: CartService,
@@ -30,6 +34,8 @@ export class WishlistComponent implements OnInit {
     if (this.actionType === 'list') {
       this._whishlistService.clearWhislist();
       this.getWhishlist();
+    }else{
+      this.isLoader = false;
     }
   }
 
@@ -46,10 +52,14 @@ export class WishlistComponent implements OnInit {
               this._whishlistService.setItemsInWhishslist(element);
             });
           }
+          this.isLoader = false;
         }),
         (error) => {
           console.log(error);
+          this.isLoader = false;
         };
+    }else{
+      this.isLoader = false;
     }
     
   }

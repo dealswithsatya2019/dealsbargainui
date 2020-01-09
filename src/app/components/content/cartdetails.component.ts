@@ -26,6 +26,11 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();
   send_date = new Date();
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
+  public isLoader : boolean  = true;
+  public color = 'primary';
+  public mode = 'indeterminate';
+  public value = 50;
+
 
   constructor(public http: HttpClient, private _Activatedroute: ActivatedRoute, private cartService: CartService, public _router: Router,
     public userService: UserService) {
@@ -38,8 +43,10 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
     if (this.userService.getAuthToken() != null) {
       this.cartService.clearCart();
       this.getCarts();
+      console.log("ngOnInit ...");
     } else {
       this.shoppingCartItems = this.cartService.getItems();
+      this.isLoader = false;
     }
   }
 
@@ -124,6 +131,10 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
           this.cartService.setItems(element);
           this.shoppingCartItems.push(element);
         });
+        this.isLoader = false;
+        console.log("cart service ...");
+      }else{
+        this.isLoader = false;
       }
     }
     ));

@@ -36,6 +36,15 @@
     }
 }
 
+.spinner {
+    position: absolute;
+    width:100%;
+    top:40%;
+    left: 47%;
+    opacity: 1;
+    z-index: 500000;
+  }
+
 .divider{
     border-bottom: 1px solid #ccc;
 }

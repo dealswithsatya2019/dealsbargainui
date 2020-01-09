@@ -36,6 +36,10 @@ export class AddressesComponent implements OnInit,OnDestroy {
   public address: address;
   subscriptions : Subscription = new Subscription();
   public selectedAddressId: string;
+  public isLoader : boolean  = true;
+  public color = 'primary';
+  public mode = 'indeterminate';
+  public value = 50;
 
   addressform: FormGroup = new FormGroup({
     countrycode: new FormControl('us'),
@@ -160,6 +164,7 @@ export class AddressesComponent implements OnInit,OnDestroy {
         this.exp2 = false;
         this.isUpdateAddress = false;
       }
+      this.isLoader = false;
     }));
   }
 

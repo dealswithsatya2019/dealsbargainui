@@ -1,7 +1,11 @@
 <!--- --- /#ORDERS --------  -->
 
 <h5 class="mb-4">My Orders</h5>
-
+<ng-container *ngIf="isLoader">
+    <mat-progress-spinner class="spinner" [color]="color" [mode]="mode" [value]="value">
+    </mat-progress-spinner>
+</ng-container>
+<ng-container *ngIf="!isLoader">
 <ng-container *ngIf="ordersListInfo && ordersListInfo.length ==0">
     Your orders list is empty.
 </ng-container>
@@ -184,3 +188,4 @@
 
     </div>
 </div>
+</ng-container>

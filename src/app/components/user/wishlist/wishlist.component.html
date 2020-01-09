@@ -1,3 +1,8 @@
+<ng-container *ngIf="isLoader">
+    <mat-progress-spinner class="spinner" [color]="color" [mode]="mode" [value]="value">
+    </mat-progress-spinner>
+</ng-container>
+<ng-container *ngIf="!isLoader">
 <ng-container *ngIf="actionType=='' || actionType=='list'">
     <h5 class="mb-4">My Whishlist</h5>
     <div class="content-container mt-4">
@@ -52,4 +57,5 @@
     <button mat-button class="action-btns" matTooltip="Add To Wishlist" (click)="addToWhishlist()">
         <i class="fa fa-heart"></i>
     </button>
+</ng-container>
 </ng-container>

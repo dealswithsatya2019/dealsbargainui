@@ -1,3 +1,8 @@
+<ng-container *ngIf="isLoader">
+	<mat-progress-spinner class="spinner" [color]="color" [mode]="mode" [value]="value">
+	</mat-progress-spinner>
+</ng-container>
+<ng-container *ngIf="!isLoader">
 <mat-toolbar-row class="breadcrumb-row">
 	<ng-container *ngIf="isProductList">
 		<ul class="breadcrumb">
@@ -136,3 +141,4 @@
 		</div>
 	</mat-sidenav-content>
 </mat-sidenav-container>
+</ng-container>

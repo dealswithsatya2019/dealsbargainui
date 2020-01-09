@@ -6,6 +6,11 @@
     <p class="my-3" style="width: 60%;">Dealsbargain, Hyderabad,500023.</p>
 </div>-->
  <h5 class="mb-4">Saved Addresses</h5>
+ <ng-container *ngIf="isLoader">
+    <mat-progress-spinner class="spinner" [color]="color" [mode]="mode" [value]="value">
+    </mat-progress-spinner>
+</ng-container>
+<ng-container *ngIf="!isLoader">
         <div class="mb-3">
             <ng-container *ngIf="addressInfo">
                 <ng-container *ngFor="let address of addressInfo.responseObjects">
@@ -204,5 +209,6 @@
                     class=" my-2 w-100 login-login-btn">Save</button>
             </form>
         </mat-expansion-panel>
+</ng-container>
 
         

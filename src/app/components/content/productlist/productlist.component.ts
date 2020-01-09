@@ -42,10 +42,15 @@ export class ProductlistComponent implements OnInit, OnDestroy {
   public isProductList: boolean = true;
   public dealtype: string;
   public dealtypeDisplayName :string;
+  public isLoader : boolean  = true;
+  public color = 'primary';
+  public mode = 'indeterminate';
+  public value = 50;
 
 
   ngOnInit() {
     this.sub = this._Activatedroute.paramMap.subscribe(params => {
+      this.isLoader  = true;
       this.scrollableCount = 1;
       this.isProductList = params.get('dealtype') == null ? true : false;
       if (!this.isProductList) {
@@ -59,6 +64,7 @@ export class ProductlistComponent implements OnInit, OnDestroy {
               this.cmiddledisplayname = this.products[0].display_name_middle_subcategory;
               this.scdisplayname = this.products[0].display_name_subcategory;
             }
+            this.isLoader  = false;
           });
       } else {
         this.cname = params.get('cname');
@@ -72,6 +78,7 @@ export class ProductlistComponent implements OnInit, OnDestroy {
               this.scdisplayname = this.products[0].display_name_subcategory;
             }
             this.getDistinctBrands();
+            this.isLoader  = false;
           }
         );
       }
@@ -134,6 +141,7 @@ export class ProductlistComponent implements OnInit, OnDestroy {
   }
 
   refreshBrands(event: any, brand_name) {
+    this.isLoader  = false;
     if (event.checked) {
       if (!this.selectedBrandsArray.includes(brand_name)) {
         this.selectedBrandsArray.push(brand_name);
@@ -146,13 +154,13 @@ export class ProductlistComponent implements OnInit, OnDestroy {
   }
 
   updateFromPrice(event) {
-    console.log("From Price ",event.value);
+    this.isLoader = false;
     this.fromPrice = event.value;
     this.isProductList = true;
   }
 
   updateToPrice(event) {
-    console.log("To Price ",event.value);
+    this.isLoader = false;
     this.toPrice = event.value;
     this.isProductList = true;
   }

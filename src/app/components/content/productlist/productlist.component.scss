@@ -179,4 +179,13 @@ mat-sidenav{width: 200px;}
     .product{width:100% !important;}
    
   }
+
+  .spinner {
+    position: absolute;
+    width:100%;
+    top:40%;
+    left: 47%;
+    opacity: 1;
+    z-index: 500000;
+  }
  

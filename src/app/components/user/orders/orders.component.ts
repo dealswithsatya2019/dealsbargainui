@@ -20,6 +20,10 @@ export class OrdersComponent implements OnInit, OnDestroy {
   public ordersListInfo: Array<GetOrederReq> = [];
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
   private deliverydate_configurable_days = environment.DeliveryDate_Configurable_days;
+  public isLoader : boolean  = true;
+  public color = 'primary';
+  public mode = 'indeterminate';
+  public value = 50;
   constructor(public _myordersService: MyordersService,
     public _productservice: ProductService,
     public _alertService: AlertService,
@@ -40,9 +44,11 @@ export class OrdersComponent implements OnInit, OnDestroy {
         if (data.responseObjects && data.responseObjects.length > 0) {
           this.ordersListInfo = data.responseObjects;
         }
+        this.isLoader = false;
       },
       (error) => {
         console.log(error);
+        this.isLoader = false;
       }
     ));
   }
