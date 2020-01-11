@@ -1,4 +1,9 @@
-<p>Customer Reviews</p>
+<mat-toolbar-row class="breadcrumb-row">
+    <ul class="breadcrumb">
+        <li><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
+        <li><a >Customer Reviews</a></li>
+    </ul>
+</mat-toolbar-row>
 <div class="review-order py-4" *ngFor="let productReview of reviewsList">
     <p class="my-1">Review Author : {{productReview.review_author}}</p>
     <p class="my-1">Rating : {{productReview.rating}} star </p>

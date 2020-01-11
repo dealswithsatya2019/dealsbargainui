@@ -247,6 +247,9 @@ aside .mat-expansion-panel-header.mat-expanded{
     height: 0px !important;
     display: none;
 }
+.mat-form-field-appearance-legacy.mat-form-field-disabled .mat-form-field-underline{
+    background-image: none;
+}
 .promocode-section .mat-form-field-appearance-legacy .mat-form-field-underline{
     display: none;
 }
@@ -365,7 +368,7 @@ aside .mat-expansion-panel-header.mat-expanded{
     }
 }
 .error{
-    color: red;
+    color: #dc2525;
     font-size: 14px;
 }
 .mat-form-field-appearance-outline .mat-form-field-label{
@@ -454,13 +457,5 @@ ul.breadcrumb{
     }
     .login-title{
         font-size: 16px;
-    }
-    .login-btn{
-        height: 30px;
-        line-height: 30px;
-        font-size: 13px;
-    }
-    .login-logo{
-        width: 18px;
     }
 }

@@ -51,7 +51,7 @@
         <ng-container *ngIf="isSMSOtpSent==true">
             <div class="form-group">
                 <input matInput  [value]='smsOTP' (input)="smsOTP=$event.target.value" placeholder="Enter OTP">
-                <a (click)="verifyAndSaveMobileNumber()">Verify</a>
+                <a (click)="verifyAndSaveMobileNumber()" class="verify-btn">Verify</a>
             </div>
         </ng-container>
             
@@ -74,7 +74,7 @@
         <ng-container *ngIf="isEmailOtpSent==true">
             <div class="form-group">
                 <input matInput  [value]="emailOTP" (input)="emailOTP=$event.target.value"  placeholder="Enter OTP">
-                <a (click)="verifyAndSaveEmail()">Verify</a>
+                <a (click)="verifyAndSaveEmail()" class="verify-btn">Verify</a>
             </div>
         </ng-container>    
 

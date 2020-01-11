@@ -71,7 +71,11 @@ mat-form-field{margin-right: 10px;min-width: 250px;}
 }
 .form-group{
     display: flex;align-items: baseline;
-    a{font-size: 14px;color: #1b3664;margin-left: 15px;}
+    a{font-size: 11px;color: #1b3664;margin-left: 15px;}
 }
+a{cursor: pointer;}
 .save{background-color: green;color: white !important;font-size: 11px;padding: 2px 8px;border-radius: 10px;}
-.cancel{background-color: red;color: white !important;font-size: 11px;padding: 2px 8px;border-radius: 10px;}
+.cancel{background-color: #dc2525;color: white !important;font-size: 11px;padding: 2px 8px;border-radius: 10px;}
+.verify-btn{
+    font-size: 11px;padding: 2px 8px;border-radius: 10px;background-color: #1e4fa3 !important;color: white !important;
+}
