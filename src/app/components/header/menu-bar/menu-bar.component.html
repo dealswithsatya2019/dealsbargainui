@@ -2,7 +2,7 @@
 <ng-container *ngFor="let mainMenuCategory of menuCategories">
     <ng-container *ngIf="mainMenuCategory.category==='Coupons'">
             <!-- <a mat-button  [routerLink]="['coupons']">Coupons</a>-->
-            <a mat-button [routerLink]="['/dealslist/f']">Today deals</a>
+            <a mat-button [routerLink]="['/dealslist/t']">Today deals</a>
         </ng-container>
     <ng-container *ngIf="mainMenuCategory.category!=='Coupons'">
         <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{mainMenuCategory.category_display_name}}</a>

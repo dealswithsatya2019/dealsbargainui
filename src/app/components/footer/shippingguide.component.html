@@ -1,31 +1,32 @@
 <mat-card>
     <h4 class="mb-4 text-center">Submit a request</h4>
-    <form action="">
+    <form [formGroup]="saveContact" (ngSubmit)="funSave()">
         <h6>Email/Mobile Number</h6>
         <mat-form-field appearance="outline">
-            <input matInput placeholder="Email or Mobile Number">
+            <input matInput placeholder="Email or Mobile Number" formControlName="contact">
         </mat-form-field>
         <h6>Subject</h6>
         <mat-form-field appearance="outline">
-            <input matInput placeholder="subject">
+            <input matInput placeholder="subject" formControlName="subject">
         </mat-form-field>
         <h6>Order Number</h6>
         <mat-form-field appearance="outline">
-            <input matInput placeholder="order number">
+            <input matInput placeholder="order number" formControlName="ordernumber">
         </mat-form-field>
         <h6>Tracking Number</h6>
         <mat-form-field appearance="outline">
-            <input matInput placeholder="tracking number">
+            <input matInput placeholder="tracking number" formControlName="trackingnumber">
         </mat-form-field>
         <h6>Description</h6>
         <mat-form-field appearance="outline">
-            <textarea matInput placeholder="description"></textarea>
+            <textarea matInput placeholder="description" formControlName="description"></textarea>
         </mat-form-field>
         <h6>Quantity</h6>
         <mat-form-field appearance="outline">
-            <input matInput placeholder="quantity">
+            <input matInput placeholder="quantity" formControlName="quantity">
         </mat-form-field>
-        
-        <button mat-raised-button class="login-login-btn">Submit</button>
+        <input type="file" placeholder="Select a file" formControlName="filename" (change)="fileSelect($event)"/>
+        <br/>
+        <button mat-raised-button class="login-login-btn" type="submit">Submit</button>
     </form>
 </mat-card>
