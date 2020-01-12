@@ -13,17 +13,9 @@
         <mat-form-field appearance="outline">
             <input matInput placeholder="order number" formControlName="ordernumber">
         </mat-form-field>
-        <h6>Tracking Number</h6>
-        <mat-form-field appearance="outline">
-            <input matInput placeholder="tracking number" formControlName="trackingnumber">
-        </mat-form-field>
         <h6>Description</h6>
         <mat-form-field appearance="outline">
             <textarea matInput placeholder="description" formControlName="description"></textarea>
-        </mat-form-field>
-        <h6>Quantity</h6>
-        <mat-form-field appearance="outline">
-            <input matInput placeholder="quantity" formControlName="quantity">
         </mat-form-field>
         <input type="file" placeholder="Select a file" formControlName="filename" (change)="fileSelect($event)"/>
         <br/>

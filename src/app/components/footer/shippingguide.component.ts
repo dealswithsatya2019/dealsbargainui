@@ -27,9 +27,7 @@ export class ShippingguideComponent implements OnInit {
     contact: new FormControl(""),
     subject: new FormControl(""),
     ordernumber: new FormControl(""),
-    trackingnumber: new FormControl(""),
     description: new FormControl(""),
-    quantity: new FormControl(""),
     filecontent: new FormControl(""),
   });
 
