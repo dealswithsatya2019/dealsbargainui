@@ -68,7 +68,7 @@
 					 <i class="fa fa-thumbs-up"></i> 8 Recommendations
 					</small> -->
 				
-					<span class="float-right">
+					<span class="ml-3">
 							<app-wishlist [actionType]="whishlist_action_type" [productInfo]="productDetails"></app-wishlist>
 							<button mat-button class="action-btns share">
 							<i class="fa fa-share-alt"></i>
@@ -132,8 +132,8 @@
 				
 			<div class="py-3 mt-4 lh">
 				<ng-container *ngIf="isProductAvailable; else outofstock">
-					<a mat-button class="quick-buy" (click)="quickBuy(productDetails)" >Quick Buy</a>
-					<a mat-button class="add-bag" (click)="addToCart(productDetails)">ADD TO BAG</a>
+					<a mat-button class="quick-buy" (click)="quickBuy(productDetails)" >QUICK BUY</a>
+					<a mat-button class="add-bag" (click)="addToCart(productDetails)">ADD TO CART</a>
 				</ng-container>
 				<ng-template #outofstock>
 					<a mat-button class="add-bag">OUT OF STOCK</a>
