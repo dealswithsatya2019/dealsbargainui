@@ -20,6 +20,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { WhishlistService } from 'src/app/services/whishlist.service';
 import { ProductService } from 'src/app/services/product.service';
 import { MyprofileService } from 'src/app/services/myprofile.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 
 @Component({
@@ -48,7 +49,8 @@ export class HeaderComponent implements OnInit {
   constructor(public dialog: MatDialog, public userservice: UserService, public _socioAuthServ: AuthService,
     public _router: Router, private http: HttpClient, private renderer: Renderer2, public cartService: CartService,
     public _whishlistService: WhishlistService, public _productservice: ProductService,
-    public _profileInfoService: MyprofileService) { }
+    public _profileInfoService: MyprofileService,
+    public _alertService: AlertService) { }
 
   url = this.APIEndpoint + '/products/search';
 
@@ -198,6 +200,7 @@ export class HeaderComponent implements OnInit {
   openCheckoutPage(){
     if(!this.userservice.getAuthToken()){
       this.userservice.setCheckoutNavigateFlag(true);
+      this._alertService.raiseAlert("Please login to continue shopping...")
       this._router.navigateByUrl('/login');  
     }else{
       this._router.navigateByUrl('/mycart');  
