@@ -82,9 +82,12 @@ export class LoginComponent implements OnInit {
         this._profileInfoService.funSetUserProfile();
         this.whishlistService.updateWhishlist();
         this.getCarts();
-        if(this._userSerive.getProductPurchageNavigateFlag){
+        if(this._userSerive.getQuickByNavigateFlag()){
           this.router.navigateByUrl('/productpurchase');
-          this._userSerive.setProductPurchageNavigateFlag(false);
+          this._userSerive.setQuickByNavigateFlag(false);
+        }else if(this._userSerive.getCheckoutNavigateFlag()){
+          this.router.navigateByUrl('/mycart');
+          this._userSerive.setCheckoutNavigateFlag(false);
         }else{
           this.router.navigateByUrl('/home');  
         }
@@ -131,9 +134,12 @@ export class LoginComponent implements OnInit {
           this.getCarts();
           this._profileInfoService.funSetUserProfile();
           this.whishlistService.updateWhishlist();
-          if(this._userSerive.getProductPurchageNavigateFlag){
+          if(this._userSerive.getQuickByNavigateFlag()){
             this.router.navigateByUrl('/productpurchase');
-            this._userSerive.setProductPurchageNavigateFlag(false);
+            this._userSerive.setQuickByNavigateFlag(false);
+          }else if(this._userSerive.getCheckoutNavigateFlag()){
+            this.router.navigateByUrl('/mycart');
+            this._userSerive.setCheckoutNavigateFlag(false);
           }else{
             this.router.navigateByUrl('/home');  
           }

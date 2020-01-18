@@ -197,7 +197,7 @@ export class HeaderComponent implements OnInit {
 
   openCheckoutPage(){
     if(!this.userservice.getAuthToken()){
-      this.userservice.setProductPurchageNavigateFlag(true);
+      this.userservice.setCheckoutNavigateFlag(true);
       this._router.navigateByUrl('/login');  
     }else{
       this._router.navigateByUrl('/mycart');  

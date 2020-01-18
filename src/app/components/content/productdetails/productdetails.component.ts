@@ -305,7 +305,7 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
     // this.product = this.getProductFromDetails(produt);
     this.cartService.addToCart(this.product);
     if(!this.userservice.getAuthToken()){
-      this.userservice.setProductPurchageNavigateFlag(true);
+      this.userservice.setQuickByNavigateFlag(true);
       this._router.navigateByUrl('/login');
     }else{
       this._router.navigateByUrl('/productpurchase');

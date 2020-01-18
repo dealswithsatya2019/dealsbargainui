@@ -50,7 +50,6 @@ export class MyprofileComponent implements OnInit, OnDestroy {
   private MIN_AGE_RULE = environment.MIN_AGE_RULE;
 
   ngOnInit() {
-    console.log(this._userService.getProfileInfo());
     this.setProfileFormValues(this._userService.getProfileInfo());
     this.profileform.controls["dob"].valueChanges.subscribe(selectedValue => {
      this.doboldvalue=this.profileform.value['dob'];

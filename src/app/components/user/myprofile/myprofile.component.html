@@ -22,7 +22,7 @@
         </mat-form-field>
     -->
         <mat-form-field appearance="outline" class="dob">
-                <input matInput readonly [matDatepicker]="picker" placeholder="Date of Birth" formControlName="dob"
+                <input matInput [matDatepicker]="picker" placeholder="dd/mm/yyyy" formControlName="dob"
                 
                 (dateChange)="date($event)">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
