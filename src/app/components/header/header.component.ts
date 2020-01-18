@@ -194,4 +194,13 @@ export class HeaderComponent implements OnInit {
   toggleMenu() {
     this.menuFlag = !this.menuFlag;
   }
+
+  openCheckoutPage(){
+    if(!this.userservice.getAuthToken()){
+      this.userservice.setProductPurchageNavigateFlag(true);
+      this._router.navigateByUrl('/login');  
+    }else{
+      this._router.navigateByUrl('/mycart');  
+    }
+  }
 }

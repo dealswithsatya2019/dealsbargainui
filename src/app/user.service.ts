@@ -11,7 +11,7 @@ export class UserService {
   private authToken: string;
   private uid: string;
   private profileInfo: ProfileInfo = new ProfileInfo();
-
+  private isQuickbyOrAddCart=false; //this is for if user not loggin and user navigate to Quickby page.
   constructor() {
     let accessToken = sessionStorage.getItem("sn");
     if(accessToken !== null){
@@ -132,6 +132,14 @@ export class UserService {
 
   public setProfileInfo(profileInfo: ProfileInfo) {
     return this.profileInfo.setValues(profileInfo);
+  }
+
+  public setProductPurchageNavigateFlag(flag){
+    this.isQuickbyOrAddCart = flag;
+  }
+
+  public getProductPurchageNavigateFlag(){
+    return this.isQuickbyOrAddCart;
   }
 
 }

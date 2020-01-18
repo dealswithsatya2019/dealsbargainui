@@ -82,7 +82,12 @@ export class LoginComponent implements OnInit {
         this._profileInfoService.funSetUserProfile();
         this.whishlistService.updateWhishlist();
         this.getCarts();
-        this.router.navigateByUrl('/home');
+        if(this._userSerive.getProductPurchageNavigateFlag){
+          this.router.navigateByUrl('/productpurchase');
+          this._userSerive.setProductPurchageNavigateFlag(false);
+        }else{
+          this.router.navigateByUrl('/home');  
+        }
       } else {
         this.loginErrorMsg = authResponse.statusDesc;
         console.log('Failed' + JSON.stringify(authResponse));
@@ -126,7 +131,13 @@ export class LoginComponent implements OnInit {
           this.getCarts();
           this._profileInfoService.funSetUserProfile();
           this.whishlistService.updateWhishlist();
-          this.router.navigateByUrl('/home');
+          if(this._userSerive.getProductPurchageNavigateFlag){
+            this.router.navigateByUrl('/productpurchase');
+            this._userSerive.setProductPurchageNavigateFlag(false);
+          }else{
+            this.router.navigateByUrl('/home');  
+          }
+  
         } else {
           this.loginErrorMsg = authResponse.statusDesc? authResponse.statusDesc: 'Invalid credentials.';
           console.log('Failed' + JSON.stringify(authResponse));
