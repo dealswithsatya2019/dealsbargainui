@@ -97,18 +97,18 @@
                     <h6>Ordered</h6>
                     <p><b>{{orderInfo.user_payment_request_date | date}}</b></p>
             </div>
-            <ng-container *ngIf="itemdetails.user_cancell_request_status">
+            <ng-container *ngIf="itemdetails.user_cancel_request_status">
                 <div class="step active">
                     <div class="dot"></div>
                     <h6>User Cancelled</h6>
-                    <p><b>{{itemdetails.user_cancell_request_date | date}}</b></p>
+                    <p><b>{{itemdetails.user_cancel_request_date | date}}</b></p>
                 </div>
             </ng-container>
-            <ng-container *ngIf="itemdetails.supplier_cancell_request_status">
+            <ng-container *ngIf="itemdetails.supplier_cancel_request_status">
                 <div class="step active">
                     <div class="dot"></div>
                     <h6>Supplier Cancelled</h6>
-                    <p><b>{{itemdetails.Supplier_cancell_request_date | date}}</b></p>
+                    <p><b>{{itemdetails.Supplier_cancel_request_date | date}}</b></p>
                 </div>
             </ng-container>
             <ng-container *ngIf="itemdetails.user_return_request_status">
@@ -125,18 +125,18 @@
                     <p>Supplier Returned Date : <b>{{itemdetails.supplier_return_request_date | date}}</b></p>
                 </div>
             </ng-container>
-            <ng-container *ngIf="!itemdetails.user_cancell_request_status && !itemdetails.supplier_cancell_request_status && !itemdetails.user_return_request_status && !itemdetails.supplier_return_request_status">
-                <div class="step {{itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='INPROGRESS'?'active':''}}">
+            <ng-container *ngIf="!itemdetails.user_cancel_request_status && !itemdetails.supplier_cancel_request_status && !itemdetails.user_return_request_status && !itemdetails.supplier_return_request_status">
+                <!--<div class="step {{itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='INPROGRESS'?'active':''}}">
                     <div class="dot"></div>
                     <h6>Packed</h6>
                     <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='INPROGRESS'">
                         <p><b>{{itemdetails.supplier_shipping_request_date | date}}</b></p>
                     </ng-container>
-                </div>
-                <div class="step {{itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='COMPLETED'?'active':''}}">
+                </div>-->
+                <div class="step {{itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='success'?'active':''}}">
                     <div class="dot"></div>
                     <h6>Shipped</h6>
-                    <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='COMPLETED'">
+                    <ng-container *ngIf="itemdetails.supplier_shipping_request_status && itemdetails.supplier_shipping_request_status=='success'">
                         <p><b>{{itemdetails.supplier_shipping_request_date | date}}</b></p>
                     </ng-container>
                 </div>
