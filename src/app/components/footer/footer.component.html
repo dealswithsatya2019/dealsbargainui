@@ -29,7 +29,7 @@
             <div class="col-sm-6 col-md-3 p-3">
                 <h6 class="foo-title">Customer Service</h6>
                 <ul class="p-0 foo-list">
-                    <li><a target="_blank" [routerLink]="['myprofile', { outlets: { 'profileoutlet': ['profileinfo'] } }]">My Account</a></li>           
+                    <li><a (click)="navigatetoMyProfile()">My Account</a></li>           
                     <li><a target="_blank" [routerLink]="['contactus']">Contact Us</a></li>
                 </ul>
             </div>
