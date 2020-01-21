@@ -84,10 +84,10 @@ export class LoginComponent implements OnInit {
         this.getCarts();
         if(this._userSerive.getQuickByNavigateFlag()){
           this.router.navigateByUrl('/productpurchase');
-          this._userSerive.setQuickByNavigateFlag(false);
+          // this._userSerive.setQuickByNavigateFlag(false);
         }else if(this._userSerive.getCheckoutNavigateFlag()){
           this.router.navigateByUrl('/mycart');
-          this._userSerive.setCheckoutNavigateFlag(false);
+          // this._userSerive.setCheckoutNavigateFlag(false);
         }else{
           this.router.navigateByUrl('/home');  
         }

@@ -1,21 +1,16 @@
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
-import * as CryptoJS from 'crypto-js';
 import { Observable, Subscription } from 'rxjs';
 import { address } from 'src/app/models/address';
 import { addressResponse } from 'src/app/models/addressResponse';
 import { AuthResopnse2 } from 'src/app/models/ApiResponse2';
-import { AuthResopnse } from 'src/app/models/AuthResponse';
 import { cartInfo } from 'src/app/models/cartInfo';
 import { CreateOrederReq } from 'src/app/models/CreateOrederReq';
 import { Product } from 'src/app/models/product';
 import { OrderItenInfo } from 'src/app/modules/OrderItemInfo';
-import { AuthService as UserAuth } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
-import { EncryptionService } from 'src/app/services/encryption.service';
 import { LoginformService } from 'src/app/services/forms/loginform.service';
 import { HttCommonService } from 'src/app/services/httpcommon.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -95,9 +90,6 @@ export class ProductpurchaseComponent implements OnInit {
 
   constructor(public loginformService: LoginformService,
     public userservice: UserService,
-    public _socioAuthServ: AuthService,
-    public userAuth: UserAuth,
-    public encryptionService: EncryptionService,
     private _Activatedroute: ActivatedRoute,
     public _productservice: ProductService,
     public _router: Router,
@@ -112,13 +104,12 @@ export class ProductpurchaseComponent implements OnInit {
 
 
   ngOnInit() {
-    this.loginformService.resetForm();
-    if (this.userservice.getAuthToken() != null) {
-      this.isLogIn = true;
-    }
+    this.userservice.setQuickByNavigateFlag(false);
+    this.userservice.setCheckoutNavigateFlag(false);
     this.shoppingCartItems = this.cartService.getItems();
     this.initializeValues();
     this.calculatePrices();
+    this.getAddresses();
 
     paypal
       .Buttons({
@@ -159,101 +150,7 @@ export class ProductpurchaseComponent implements OnInit {
       .render(this.paypalElement.nativeElement);
   }
 
-  loginFacebook() {
-    this._socioAuthServ.signIn(FacebookLoginProvider.PROVIDER_ID).then(
-      (response) => {
-        this.setSocialInfo(response);
-        this.exp1 = false;
-        this.exp2 = true;
-      }
-    );
-  }
-
-  loginGmail() {
-    this._socioAuthServ.signIn(GoogleLoginProvider.PROVIDER_ID).then(
-      (response) => {
-        this.setSocialInfo(response);
-        this.exp1 = false;
-        this.exp2 = true;
-      }
-    );
-  }
-
-  setSocialInfo(response) {
-    let json = {
-      "id": response.id,
-      "name": response.name,
-      "email": response.email,
-      "image_url": response.photoUrl,
-      "firstName": response.firstName,
-      "lastName": response.lastName,
-      "provider": response.provider,
-      "mobile": ""
-    };
-    this.userAuth.authenticateSocialUser(json).subscribe(authResponse => {
-      if (authResponse.statusCode === 200) {
-        this.userservice.setAuthToken(authResponse.responseObjects.sn);
-        sessionStorage.setItem("access_token", this.userservice.getAuthToken());
-        this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
-        this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
-        this._profileInfoService.funSetUserProfile();
-        this.whishlistService.updateWhishlist();
-        this.addCart();
-      } else {
-        this.loginErrorMsg = authResponse.statusDesc;
-        console.log('Failed' + JSON.stringify(authResponse));
-      }
-    });
-  }
-
-  funLogin() {
-    let userInfo = JSON.parse(JSON.stringify(this.loginformService.form.value));
-    var key1 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
-    var key2 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
-    var key3 = CryptoJS.enc.Hex.stringify(CryptoJS.lib.WordArray.random(128 / 8));
-
-    var ciphertext = this.encryptionService.encrypt(key2, key3, key1, userInfo.password);
-    try {
-      this.subscriptions.add(this.userAuth.authenticateUser(userInfo.name, userInfo.password, 'us', key1, key2, key3).subscribe(
-        (authResponse: AuthResopnse) => {
-          if (authResponse.statusCode === 200) {
-            this.isLogIn = true;
-            this.userservice.form.controls['name'].setValue(userInfo.name);
-            this.userservice.setAuthToken(authResponse.responseObjects.sn);
-            this.userservice.response = JSON.parse(JSON.stringify(this.userservice.form.value));
-            this.loginformService.response = JSON.parse(JSON.stringify(this.loginformService.form.value));
-            sessionStorage.setItem("sn", authResponse.responseObjects.sn);
-            this.userservice.resetForm();
-            this._profileInfoService.funSetUserProfile();
-            this.whishlistService.updateWhishlist();
-            this.addCart();
-          } else {
-            this.loginErrorMsg = authResponse.statusDesc;
-          }
-        },
-        (error: HttpErrorResponse) => {
-          this.loginErrorMsg = error.error.statusDesc;
-        }
-      )
-      );
-    } catch (error) {
-      this.loginErrorMsg = 'Got issue check in console';
-      console.log(error);
-    }
-    this._router.navigateByUrl("/productpurchase");
-  }
-
-  signOut(): void {
-    this._socioAuthServ.signOut();
-    this.loginformService.response = null;
-    this.userservice.setAuthToken(null);
-    this.cartInfo = null;
-    this.addressInfo = null;
-    this.cartService.setItems(null);
-    this.shoppingCartItems = null;
-    sessionStorage.removeItem("sn");
-    this._router.navigateByUrl("/");
-  }
+  
 
   funSave() {
     let mobilenumber = this.addressform.controls.mobile_number.value;
@@ -587,11 +484,11 @@ export class ProductpurchaseComponent implements OnInit {
   public selectedIndex: number = 0;
   public selectionChange(event) {
     if (event.selectedIndex == 0) {
-    } else if (event.selectedIndex == 1) {
+    } else if (event.selectedIndex == 0) {
       this.getAddresses();
-    } else if (event.selectedIndex == 2) {
+    } else if (event.selectedIndex == 1) {
       this.getCarts();
-    } else if (event.selectedIndex == 3) {
+    } else if (event.selectedIndex == 2) {
 
     }
     return false;
