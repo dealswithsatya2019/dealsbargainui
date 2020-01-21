@@ -39,7 +39,7 @@
                 </mat-menu>
                 <a mat-button [routerLink]="['myprofile', { outlets: { 'profileoutlet': ['wishlist'] } }]"><i class="fa fa-heart"></i><span class="hide-xs">My Wishlist {{_whishlistService.getItems().length > 0 ? "("+_whishlistService.getItems().length+")" : ''}}</span></a>
             </ng-container>
-            <a mat-button [routerLink]="['mycart']"><i class='fa fa-check-square-o'></i><span class="hide-xs">Checkout {{cartService.getItems().length > 0 ? "("+cartService.getItems().length+")" : ''}}</span></a>
+            <a mat-button [routerLink]="['mycart']"><i class='fa fa-check-square-o'></i><span class="hide-xs">My Cart {{cartService.getItems().length > 0 ? "("+cartService.getItems().length+")" : ''}}</span></a>
         </div>
         <!-- /#login & profile options -->
 

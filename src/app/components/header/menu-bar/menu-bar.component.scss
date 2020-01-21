@@ -11,21 +11,25 @@
     height: 100%;
 }
 button.mat-menu-item{
-    height: 28px;
-    line-height: 30px;
+    height: auto;
+    line-height: auto;
     .mat-button{
         font-size: 13px;font-weight: 400;
         color: #575555;
         padding: 0px;
         text-align: left;
+        padding: 0px;
+        line-height: auto;
+        height: auto;
     }
 }
 .menu-title{
     text-transform: uppercase;
     font-size: 14px;
     opacity: 0.8;
+    padding: 0px;
 }
-.mat-menu-item:hover{color: #ff9600;background: #fff;}
+// .mat-menu-item:hover{color: #1b3664;background: #fff;}
 .plp-5{padding-left: 7% !important;}
 mat-toolbar-row{
     justify-content: center;

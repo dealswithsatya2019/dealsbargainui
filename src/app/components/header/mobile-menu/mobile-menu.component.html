@@ -1,29 +1,34 @@
 <div id="menuhide">
     <ng-container *ngFor="let mainMenuCategory of menuCategories" >
-        <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{mainMenuCategory.category_display_name}}</a>
-        <mat-menu #menu="matMenu" panelClass="magaMenu" backdropClass="megaMenu">
-            <div class="menu-container" fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+        <ng-container *ngIf="mainMenuCategory.category==='Coupons'">
+            <!-- <a mat-button  [routerLink]="['coupons']">Coupons</a>-->
+            <a mat-button [routerLink]="['/dealslist/t']">TODAY DEALS</a>
+        </ng-container>
+        <ng-container *ngIf="mainMenuCategory.category!=='Coupons'">
+            <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{mainMenuCategory.category_display_name}}</a>
+            <mat-menu #menu="matMenu" panelClass="magaMenu" backdropClass="megaMenu">
+                <div class="menu-container" fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
 
-                <ng-container *ngFor="let subcategoryMenu of mainMenuCategory.subcategories | keyvalue" class="mainMenu">
-                    <div class="p-2 sub-category">
-                        <a mat-menu-item class="menu-title">
-                            <b>{{subcategoryMenu.key}}</b>
-                        </a>
+                    <ng-container *ngFor="let subcategoryMenu of mainMenuCategory.subcategories | keyvalue" class="mainMenu">
+                        <div class="p-2 sub-category">
+                            <a mat-menu-item class="menu-title">
+                                <b>{{subcategoryMenu.key}}</b>
+                            </a>
+                            
+                            <ng-container *ngFor="let subMenu of subcategoryMenu.value">
+                                <button mat-menu-item>
                         
-                        <ng-container *ngFor="let subMenu of subcategoryMenu.value">
-                            <button mat-menu-item>
-                    
-                                <a mat-button  (click)="routeToProductListPage({cname:mainMenuCategory.category, scname:subMenu.subcategory})">{{subMenu.display_name}} </a>
-                               
-                            </button>
-                        </ng-container>
-                    </div>
-                </ng-container>
-            </div>
-        </mat-menu>
-    
+                                    <a mat-button  (click)="routeToProductListPage({cname:mainMenuCategory.category, scname:subMenu.subcategory})">{{subMenu.display_name}} </a>
+                                
+                                </button>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+            </mat-menu>
+        </ng-container>
     </ng-container>
-    <a mat-button  [routerLink]="['coupons']">Coupons</a>
+   
 </div>
   
     

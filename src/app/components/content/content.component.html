@@ -59,7 +59,7 @@
 </mat-toolbar-row>
 <div *ngIf="flashDeals && flashDeals.length >0 ">
 <h5 class="subtitle position-relative">FLASH DEALS
-		<a [routerLink]="['/dealslist/f']" class="pl-3 float-right">VIEW ALL</a>
+		<a [routerLink]="['/dealslist/f']" class="pl-5">VIEW MORE</a>
 	</h5>
 
 	<div class="product" fxLayout="row">
@@ -72,7 +72,7 @@
 <!-- hotdeals -->
 <div *ngIf="hotDeals && hotDeals.length >0 ">
 	<h5 class="subtitle position-relative">HOT DEALS
-		<a [routerLink]="['/dealslist/h']" class="pl-3 float-right">VIEW ALL</a>
+		<a [routerLink]="['/dealslist/h']" class="pl-5">VIEW MORE</a>
 	</h5>
 	<div class="product" fxLayout="row">
 		<mat-card class="item-card" *ngFor="let product of hotDeals; let i = index">
@@ -88,7 +88,7 @@
 <!-- Today deals -->
 <div *ngIf="todayDeals && todayDeals.length >0">
 	<h5 class="subtitle position-relative">TODAY's DEALS
-		<a [routerLink]="['/dealslist/t']" class="pl-3 float-right">VIEW ALL</a>
+		<a [routerLink]="['/dealslist/t']" class="pl-5">VIEW MORE</a>
 	</h5>
 	<div class="product" fxLayout="row">
 		<mat-card class="item-card" *ngFor="let product of todayDeals; let i = index">
@@ -101,7 +101,7 @@
 <!-- Best Sellers -->
 <div *ngIf="bestSellers && bestSellers.length >0">
 	<h5 class="subtitle position-relative">BEST SELLER's
-		<a [routerLink]="['/dealslist/b']" class="pl-3">VIEW ALL</a>
+		<a [routerLink]="['/dealslist/b']" class="pl-5">VIEW More</a>
 	</h5>
 	<div class="product" fxLayout="row">
 		<mat-card class="item-card" *ngFor="let product of bestSellers; let i = index">

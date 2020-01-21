@@ -41,7 +41,29 @@
 				
 			</h5>
 			<ng-container *ngIf="productRating==0">
-			<a class="pseudolink" (click)="openDialog()"><i>Be a first reviewer</i></a>
+				<p>
+					<a class="pseudolink" (click)="openDialog()"><i>Be a first reviewer</i></a>
+					<span class="ml-4">
+						<app-wishlist [actionType]="whishlist_action_type" [productInfo]="productDetails"></app-wishlist>
+						<button mat-button class="action-btns share">
+							<i class="fa fa-share-alt"></i>
+							<div class="social-share">
+								<a href="http://www.facebook.com/sharer.php?u=https://www.dealsbargain.com/productdetails/{{productDetails.category}}/{{productDetails.subcategory}}/{{productDetails.item_id}}" target="_blank">
+									<i class="fa fa-facebook-official"></i>
+								</a>
+								<a href="http://twitter.com/share?text=dealsbargain&url=https://www.dealsbargain.com/productdetails/{{productDetails.category}}/{{productDetails.subcategory}}/{{productDetails.item_id}}" target="_blank">
+									<i class="fa fa-twitter-square"></i>
+								</a>
+								<a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.dealsbargain.com/{{productDetails.category}}/{{productDetails.subcategory}}/{{productDetails.item_id}}&title=hashtags&source=deals bargain" target="_blank">
+									<i class="fa fa-linkedin-square"></i>
+								</a>
+								<a href="https://plus.google.com/share?url=https://www.dealsbargain.com/productdetails/{{productDetails.category}}/{{productDetails.subcategory}}/{{productDetails.item_id}}" target="_blank">
+									<i class="fa fa-google-plus-square"></i>
+								</a>
+							</div>
+						</button>
+					</span>
+				</p>
 			</ng-container>
 			<ng-container *ngIf="productRating>0">
 			<p style="clear: both;align-items: center;">
@@ -68,9 +90,9 @@
 					 <i class="fa fa-thumbs-up"></i> 8 Recommendations
 					</small> -->
 				
-					<span class="float-right">
-							<app-wishlist [actionType]="whishlist_action_type" [productInfo]="productDetails"></app-wishlist>
-							<button mat-button class="action-btns share">
+					<span class="ml-2">
+						<app-wishlist [actionType]="whishlist_action_type" [productInfo]="productDetails"></app-wishlist>
+						<button mat-button class="action-btns share">
 							<i class="fa fa-share-alt"></i>
 							<div class="social-share">
 								<a href="http://www.facebook.com/sharer.php?u=https://www.dealsbargain.com/productdetails/{{productDetails.category}}/{{productDetails.subcategory}}/{{productDetails.item_id}}" target="_blank">
