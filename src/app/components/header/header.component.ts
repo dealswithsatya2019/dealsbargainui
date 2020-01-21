@@ -184,6 +184,7 @@ export class HeaderComponent implements OnInit {
   // }
   signOut(): void {
     this.userservice.resetDetails();
+    this.userservice.setAuthToken(null);
     this.cartService.clearCart();
     sessionStorage.removeItem("sn");
     this._whishlistService.clearWhislist();

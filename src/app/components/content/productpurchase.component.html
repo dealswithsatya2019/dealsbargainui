@@ -295,6 +295,12 @@
                         <div>Estimated tax to be collected:</div>
                         <span>{{PRICE_PREFIX}}0</span>
                     </div>
+                    <ng-container *ngIf="couponDiscountCost > 0">
+                        <div class="" style="display: flex;justify-content: space-between;">
+                            <div>Coupon Discount:</div>
+                            <span>{{couponDiscountCost}}</span>
+                        </div>
+                    </ng-container>
                     <div class="total">
                         <b>Order Total:</b>
                         <b>{{PRICE_PREFIX}}{{totalPaybaleCost}}</b>

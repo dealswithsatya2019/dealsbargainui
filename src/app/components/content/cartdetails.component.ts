@@ -70,10 +70,9 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.shoppingCartItems = [];
-    // if (this.userService.getAuthToken() != null) {
-    this.userService.setQuickByNavigateFlag(false);
-    this.userService.setCheckoutNavigateFlag(false);
     if (this.userService.getCheckoutNavigateFlag()) {
+      this.userService.setQuickByNavigateFlag(false);
+      this.userService.setCheckoutNavigateFlag(false);
       if (this.cartService.getItems() != null && this.cartService.getItems().length > 0) {
         this.addCart();
       } else {
@@ -158,6 +157,7 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
   }
 
   public getCarts() {
+    this.cartService.clearCart();
     this.subscriptions.add(this.getCartlist().subscribe(data => {
       this.cartInfo = data;
       this.shoppingCartItems = [];

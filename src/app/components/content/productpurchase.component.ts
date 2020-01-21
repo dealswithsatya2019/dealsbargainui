@@ -526,7 +526,11 @@ export class ProductpurchaseComponent implements OnInit {
           }
         } else {
           this.initializeValues();
-          this.couponDiscountCost = this.promoResponseModel.value;
+          if(discountType.toLowerCase() == "p"){
+            this.couponDiscountCost = ((this.promoResponseModel.value / 100) * this.totalPaybaleCost);
+          }else{
+            this.couponDiscountCost = this.promoResponseModel.value;
+          }
         }
         this.calculatePrices();
       } else {
