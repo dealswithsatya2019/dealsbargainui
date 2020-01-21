@@ -28,15 +28,16 @@ export class ShippingguideComponent implements OnInit {
     subject: new FormControl(""),
     ordernumber: new FormControl(""),
     description: new FormControl(""),
-    filecontent: new FormControl(""),
+    content: new FormControl(""),
+    countryCode : new FormControl("us")
   });
 
-  fileContent: any;
+  content: any;
   fileSelect(event) {
-    this.fileContent = event.target.files[0];
+    this.content = event.target.files[0];
     this.fileToBase64(event, (result: any, headers: any) => {
-      this.fileContent = result;
-      console.log("file ",this.fileContent);
+      this.content = result;
+      console.log("file ",this.content);
     });
   }
 
@@ -66,14 +67,14 @@ export class ShippingguideComponent implements OnInit {
   }
 
   funSave() {
-    this.saveContact.controls.filecontent.setValue(this.fileContent);
+    this.saveContact.controls.content.setValue(this.content);
     let contactReqInfo = JSON.parse(JSON.stringify(this.saveContact.value));
     console.log("form dataa ",contactReqInfo);
     this.saveContactusReq(contactReqInfo);
   }
 
   public saveContactusReq(contactReqInfo: string) {
-    this.subscriptions.add(this.http.post(this.APIEndpoint + "/user/contactus", contactReqInfo,
+    this.subscriptions.add(this.http.post(this.APIEndpoint + "/contactus", contactReqInfo,
       { headers: { 'Content-Type': 'application/json'} }).subscribe(data => {
         let jsonobj = JSON.parse(JSON.stringify(data));
         if (jsonobj.statusCode == 200) {
