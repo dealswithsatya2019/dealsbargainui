@@ -125,8 +125,10 @@
 													</a>
 												</div>
 											</button>
-
-											<app-wishlist [actionType]="'add'" [productInfo]="product"></app-wishlist>
+											<button mat-button class="action-btns" matTooltip="Add To Wishlist" (click)="addToWhishlist(product)">
+												<i class="fa fa-heart"></i>
+											</button>
+											<!-- <app-wishlist [actionType]="'add'" [productInfo]="product"></app-wishlist>-->
 
 										</mat-card-actions>
 									</mat-card>

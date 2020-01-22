@@ -9,6 +9,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { environment } from 'src/environments/environment';
 import { SocialshareComponent } from '../socialshare/socialshare.component';
+import { WhishlistService } from 'src/app/services/whishlist.service';
 
 @Component({
   selector: 'app-productlist',
@@ -22,7 +23,7 @@ export class ProductlistComponent implements OnInit, OnDestroy {
       public _productDetailsRouteInfo:ProductDetailsRouteInfoService
     ) { }*/
   constructor(private _snackBar: MatSnackBar, private _Activatedroute: ActivatedRoute, public _productservice: ProductService, public _router: Router, public dialog: MatDialog, private cartService: CartService,
-  ) { }
+    public _whishlistService: WhishlistService) { }
   subscription: Subscription;
   cname: string = '';
   cdisplayname: string = '';
@@ -183,5 +184,9 @@ export class ProductlistComponent implements OnInit, OnDestroy {
 
   routeToProductListPage(params) {
     this._productservice.routeProductList(params);
+  }
+
+  addToWhishlist(productInfo) {
+    this._whishlistService.addToWhishlist(productInfo);
   }
 }

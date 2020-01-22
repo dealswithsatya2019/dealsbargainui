@@ -120,7 +120,6 @@ export class MenuBarComponent implements OnInit {
           let couponMenuCategory= new MenuCategories();
           couponMenuCategory.category='Coupons';
           this.menuCategories.push(couponMenuCategory);
-          console.log(this.menuCategories);
         }
      //,
       //error =>{
