@@ -17,17 +17,17 @@
         </mat-radio-group>
         -->
         <h6>DOB</h6>
-    <!--  <mat-form-field appearance="outline">
-            <input matInput type="date" formControlName="dob"  placeholder="DOB">
-        </mat-form-field>
-    -->
         <mat-form-field appearance="outline" class="dob">
-                <input matInput readonly [matDatepicker]="picker" placeholder="Date of Birth" formControlName="dob"
+            <input matInput formControlName="dob"  placeholder="dd/mm">
+        </mat-form-field>
+    
+    <!--  <mat-form-field appearance="outline" class="dob">
+                <input matInput [matDatepicker]="picker" placeholder="dd/mm/yyyy" formControlName="dob"
                 
                 (dateChange)="date($event)">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+        </mat-form-field>-->
         <h6>Mobile Number
             <ng-container *ngIf="isSMSEdit==false">
                 <i class="fa fa-edit" (click)="enableSmsOtp()"></i>

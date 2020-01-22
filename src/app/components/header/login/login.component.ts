@@ -82,7 +82,15 @@ export class LoginComponent implements OnInit {
         this._profileInfoService.funSetUserProfile();
         this.whishlistService.updateWhishlist();
         this.getCarts();
-        this.router.navigateByUrl('/home');
+        if(this._userSerive.getQuickByNavigateFlag()){
+          this.router.navigateByUrl('/productpurchase');
+          // this._userSerive.setQuickByNavigateFlag(false);
+        }else if(this._userSerive.getCheckoutNavigateFlag()){
+          this.router.navigateByUrl('/mycart');
+          // this._userSerive.setCheckoutNavigateFlag(false);
+        }else{
+          this.router.navigateByUrl('/home');  
+        }
       } else {
         this.loginErrorMsg = authResponse.statusDesc;
         console.log('Failed' + JSON.stringify(authResponse));
@@ -126,7 +134,16 @@ export class LoginComponent implements OnInit {
           this.getCarts();
           this._profileInfoService.funSetUserProfile();
           this.whishlistService.updateWhishlist();
-          this.router.navigateByUrl('/home');
+          if(this._userSerive.getQuickByNavigateFlag()){
+            this.router.navigateByUrl('/productpurchase');
+            this._userSerive.setQuickByNavigateFlag(false);
+          }else if(this._userSerive.getCheckoutNavigateFlag()){
+            this.router.navigateByUrl('/mycart');
+            this._userSerive.setCheckoutNavigateFlag(false);
+          }else{
+            this.router.navigateByUrl('/home');  
+          }
+  
         } else {
           this.loginErrorMsg = authResponse.statusDesc? authResponse.statusDesc: 'Invalid credentials.';
           console.log('Failed' + JSON.stringify(authResponse));

@@ -11,7 +11,8 @@ export class UserService {
   private authToken: string;
   private uid: string;
   private profileInfo: ProfileInfo = new ProfileInfo();
-
+  private isQuickbyNoLogin=false; //this is for if user not loggin and user navigate to Quickby page.
+  private isCheckoutNoLogin=false; //this is for if user not loggin and user navigate to Quickby page.
   constructor() {
     let accessToken = sessionStorage.getItem("sn");
     if(accessToken !== null){
@@ -132,6 +133,22 @@ export class UserService {
 
   public setProfileInfo(profileInfo: ProfileInfo) {
     return this.profileInfo.setValues(profileInfo);
+  }
+
+  public setQuickByNavigateFlag(flag){
+    this.isQuickbyNoLogin = flag;
+  }
+
+  public getQuickByNavigateFlag(){
+    return this.isQuickbyNoLogin;
+  }
+
+  public setCheckoutNavigateFlag(flag){
+    this.isCheckoutNoLogin = flag;
+  }
+
+  public getCheckoutNavigateFlag(){
+    return this.isCheckoutNoLogin;
   }
 
 }

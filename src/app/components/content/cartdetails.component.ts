@@ -7,6 +7,7 @@ import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 import { environment } from 'src/environments/environment';
 import { UserService } from 'src/app/user.service';
+import { AddProductReq } from './addproductreq';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();
   send_date = new Date();
   public PRICE_PREFIX: string = environment.PRICE_PREFIX;
-  public isLoader : boolean  = true;
+  public isLoader: boolean = true;
   public color = 'primary';
   public mode = 'indeterminate';
   public value = 50;
@@ -37,50 +38,87 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
     this.send_date.setHours(this.send_date.getHours() + (this.deliverydate_configurable_days * 24));
   }
 
-  ngOnInit() {
-    this.shoppingCartItems = [];
-    // console.log("Cart details ",this.userService.getAuthToken());
-    if (this.userService.getAuthToken() != null) {
-      this.cartService.clearCart();
-      this.getCarts();
-      console.log("ngOnInit ...");
-    } else {
-      this.shoppingCartItems = this.cartService.getItems();
-      this.isLoader = false;
-    }
-  }
-
   public addCartData: any;
+  public addProductsArray: AddProductReq[] = [];
+  public productReq: AddProductReq;
 
-  public addCart(product: Product) {
-    this.subscriptions.add(this.addProduToCart(product).subscribe(data => this.addCartData = data));
+  public addCart() {
+    this.subscriptions.add(this.addProduToCart().subscribe(data => {
+      this.addCartData = data;
+      this.getCarts();
+    }));
   }
 
-  public addProduToCart(product: Product): Observable<any> {
-    let body = [
-      {
-        "countryCode": "us",
-        "category": product.category,
-        "subcategory": product.subcategory,
-        "item_id": product.item_id,
-        "master_supplier": product.master_suplier,
-        "quantity": "1"
-      },
-    ]
+  public addProduToCart(): Observable<any> {
+    this.cartService.getItems().forEach(element => {
+      this.productReq = new AddProductReq();
+      this.productReq.category = element.category;
+      this.productReq.countryCode = "us";
+      this.productReq.quantity = element.quantity + "";
+      this.productReq.item_id = element.item_id;
+      this.productReq.master_supplier = element.master_suplier;
+      this.productReq.subcategory = element.subcategory;
+      this.addProductsArray.push(this.productReq);
+    });
+    let body = JSON.stringify(this.addProductsArray);
+    console.log("BODY", body);
     let autherization = "Bearer " + this.userService.getAuthToken();
     return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
       body, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
   }
 
-  public addToCart(product: Product) {
-    this.cartService.addToCart(product);
-    this.shoppingCartItems = this.cartService.getItems();
-    let autherization = "Bearer " + this.userService.getAuthToken();
-    if (autherization != null) {
-      this.addCart(product);
+
+  ngOnInit() {
+    this.shoppingCartItems = [];
+    if (this.userService.getCheckoutNavigateFlag()) {
+      this.userService.setQuickByNavigateFlag(false);
+      this.userService.setCheckoutNavigateFlag(false);
+      if (this.cartService.getItems() != null && this.cartService.getItems().length > 0) {
+        this.addCart();
+      } else {
+        this.cartService.clearCart();
+        this.getCarts();
+      }
+    } else {
+      this.cartService.clearCart();
+      this.getCarts();
     }
-    this._router.navigateByUrl('/mycart');
+    // } 
+    // else {
+    //   this.shoppingCartItems = this.cartService.getItems();
+    //   this.isLoader = false;
+    // }
   }
+
+  // public addCart(product: Product) {
+  //   this.subscriptions.add(this.addProduToCart(product).subscribe(data => this.addCartData = data));
+  // }
+
+  // public addProduToCart(product: Product): Observable<any> {
+  //   let body = [
+  //     {
+  //       "countryCode": "us",
+  //       "category": product.category,
+  //       "subcategory": product.subcategory,
+  //       "item_id": product.item_id,
+  //       "master_supplier": product.master_suplier,
+  //       "quantity": "1"
+  //     },
+  //   ]
+  //   let autherization = "Bearer " + this.userService.getAuthToken();
+  //   return this.http.post<any>(this.APIEndpoint + "/user/cart/operation/addItemToCart",
+  //     body, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
+  // }
+
+  // public addToCart(product: Product) {
+  //   this.cartService.addToCart(product);
+  //   this.shoppingCartItems = this.cartService.getItems();
+  //   let autherization = "Bearer " + this.userService.getAuthToken();
+  //   if (autherization != null) {
+  //     this.addCart(product);
+  //   }
+  //   this._router.navigateByUrl('/mycart');
+  // }
 
   public updateItemCountFromCartComp(item: Product, isAdd: boolean) {
     this.cartService.itemsInCartTemp = [];
@@ -93,7 +131,7 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
             this.cartService.raiseAlert("The item count has been updated to cart.");
             if (this.userService.getAuthToken() != null) {
               this.subscriptions.add(this.cartService.updateCartHttp(element).subscribe(data => {
-                this.addCartData = data;
+                // this.addCartData = data;
               }));
             }
           } else {
@@ -119,6 +157,7 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
   }
 
   public getCarts() {
+    this.cartService.clearCart();
     this.subscriptions.add(this.getCartlist().subscribe(data => {
       this.cartInfo = data;
       this.shoppingCartItems = [];
@@ -133,7 +172,7 @@ export class CartdetailsComponent implements OnInit, OnDestroy {
         });
         this.isLoader = false;
         console.log("cart service ...");
-      }else{
+      } else {
         this.isLoader = false;
       }
     }

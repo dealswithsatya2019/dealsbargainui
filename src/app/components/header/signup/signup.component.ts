@@ -84,7 +84,15 @@ export class SignupComponent implements OnInit {
         this.userservice.form.controls['name'].setValue(response.name);
         this._profileInfoService.funSetUserProfile();
         this.whishlistService.updateWhishlist();
-        this.router.navigateByUrl('/home');
+        if(this._userSerive.getQuickByNavigateFlag()){
+          this.router.navigateByUrl('/productpurchase');
+          this._userSerive.setQuickByNavigateFlag(false);
+        }else if(this._userSerive.getCheckoutNavigateFlag()){
+          this.router.navigateByUrl('/mycart');
+          this._userSerive.setCheckoutNavigateFlag(false);
+        }else{
+          this.router.navigateByUrl('/home');  
+        }
       } else {
         console.log('Failed' + JSON.stringify(authResponse));
       }
@@ -229,7 +237,15 @@ export class SignupComponent implements OnInit {
             this.whishlistService.updateWhishlist();
             this.issentotp=false;
             this.userservice.form.get('smsotp').clearValidators();
-            this.router.navigateByUrl('/home');
+            if(this._userSerive.getQuickByNavigateFlag()){
+              this.router.navigateByUrl('/productpurchase');
+              this._userSerive.setQuickByNavigateFlag(false);
+            }else if(this._userSerive.getCheckoutNavigateFlag()){
+              this.router.navigateByUrl('/mycart');
+              this._userSerive.setCheckoutNavigateFlag(false);
+            }else{
+              this.router.navigateByUrl('/home');  
+            }
           } else {
             this.userservice.form.controls['password'].setValue(userInfo.password);
             this.raiseAlert(authResponse.statusDesc);

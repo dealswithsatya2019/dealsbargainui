@@ -50,7 +50,6 @@ export class MyprofileComponent implements OnInit, OnDestroy {
   private MIN_AGE_RULE = environment.MIN_AGE_RULE;
 
   ngOnInit() {
-    console.log(this._userService.getProfileInfo());
     this.setProfileFormValues(this._userService.getProfileInfo());
     this.profileform.controls["dob"].valueChanges.subscribe(selectedValue => {
      this.doboldvalue=this.profileform.value['dob'];
@@ -84,13 +83,13 @@ export class MyprofileComponent implements OnInit, OnDestroy {
     this.profileform.get('firstname').setValidators([Validators.required, Validators.maxLength(25)]);
     this.profileform.controls.lastname.setValue(profileInfo.last_name);
     this.profileform.get('lastname').setValidators([Validators.required, Validators.maxLength(25)]);
-    console.log(profileInfo.created_on);
-    if(profileInfo.dob){
+/*    if(profileInfo.dob){
       //var convertDate = new Date(profileInfo.dob).toISOString().substring(0, 10);
       var convertDate = this.datepipe.transform(profileInfo.dob, 'yyyy-MM-dd');
       //console.log(this.datepipe.transform(date, 'dd/MM/yyyy'));
       this.profileform.controls.dob.setValue(convertDate, {onlyself : true});
-    }
+    }*/
+    this.profileform.controls.dob.setValue(profileInfo.dob);
     this.profileform.controls.mobile.setValue(profileInfo.mobile);
     this.profileform.get('mobile').setValidators([Validators.required, Validators.pattern('[0-9]{10}')]);
     this.profileform.controls.email.setValue(profileInfo.email);

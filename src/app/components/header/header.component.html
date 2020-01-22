@@ -2,7 +2,7 @@
     <mat-toolbar-row class="top-toolbar">
         <!-- logo -->
         <div class="logo">
-            <img class="img-fluid img-cursor" mat-card-image src="../../../assets/img/db-new-logo.png"
+            <img class="img-fluid img-cursor" mat-card-image src="../../../assets/img/DB-Logo-2020-f1.jpg"
                 alt="photo" (click)="gotoHomePage()">
         </div>
         <!-- /#logo -->
@@ -39,7 +39,14 @@
                 </mat-menu>
                 <a mat-button [routerLink]="['myprofile', { outlets: { 'profileoutlet': ['wishlist'] } }]"><i class="fa fa-heart"></i><span class="hide-xs">My Wishlist {{_whishlistService.getItems().length > 0 ? "("+_whishlistService.getItems().length+")" : ''}}</span></a>
             </ng-container>
+<<<<<<< HEAD
             <a mat-button [routerLink]="['mycart']"><i class='fa fa-check-square-o'></i><span class="hide-xs">My Cart {{cartService.getItems().length > 0 ? "("+cartService.getItems().length+")" : ''}}</span></a>
+=======
+            <!-- <a mat-button [routerLink]="['mycart']">-->
+            <a mat-button (click)="openCheckoutPage()">
+                <i class='fa fa-check-square-o'></i><span class="hide-xs">Checkout {{cartService.getItems().length > 0 ? "("+cartService.getItems().length+")" : ''}}</span>
+            </a>
+>>>>>>> fc38d700cae3148ebd68e934ba78d5c37996ae7e
         </div>
         <!-- /#login & profile options -->
 

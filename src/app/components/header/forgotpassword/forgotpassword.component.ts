@@ -151,7 +151,16 @@ export class ForgotpasswordComponent implements OnInit {
           this.isEmailOtpSent = false;
           this._alertService.raiseAlert("Password resets successfully.");
           this.funClose();
-          this._router.navigateByUrl('/login');
+          if(this._userService.getQuickByNavigateFlag()){
+            this._router.navigateByUrl('/productpurchase');
+            this._userService.setQuickByNavigateFlag(false);
+          }else if(this._userService.getCheckoutNavigateFlag()){
+            this._router.navigateByUrl('/mycart');
+            this._userService.setCheckoutNavigateFlag(false);
+          }else{
+            this._router.navigateByUrl('/home');  
+          }
+  
         } else {
           console.log(data);
           this._alertService.raiseAlert("Failed to update new password.");

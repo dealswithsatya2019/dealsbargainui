@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthResopnse } from 'src/app/models/AuthResponse';
 import { AuthResopnse2 } from 'src/app/models/ApiResponse2';
+import { AlertService } from 'src/app/services/alert.service';
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Thumbs]);
 
 
@@ -61,7 +62,8 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
 
   constructor(private _Activatedroute: ActivatedRoute, public _productservice: ProductService,
     public _router: Router, public dialog: MatDialog, public gallery: Gallery,
-    public userservice: UserService, private cartService: CartService) {
+    public userservice: UserService, private cartService: CartService,
+    public _alertService: AlertService) {
   }
 
   ngOnInit() {
@@ -304,7 +306,13 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
   public quickBuy(produt: ProductDetails) {
     // this.product = this.getProductFromDetails(produt);
     this.cartService.addToCart(this.product);
-    this._router.navigateByUrl('/productpurchase');
+    this._alertService.raiseAlert("Please login to continue quick buy")
+    if(!this.userservice.getAuthToken()){
+      this.userservice.setQuickByNavigateFlag(true);
+      this._router.navigateByUrl('/login');
+    }else{
+      this._router.navigateByUrl('/productpurchase');
+    }
   }
 
   public isRecommendThisProduct(isRecommend) {

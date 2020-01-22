@@ -90,9 +90,15 @@
 					 <i class="fa fa-thumbs-up"></i> 8 Recommendations
 					</small> -->
 				
+<<<<<<< HEAD
 					<span class="ml-2">
 						<app-wishlist [actionType]="whishlist_action_type" [productInfo]="productDetails"></app-wishlist>
 						<button mat-button class="action-btns share">
+=======
+					<span class="ml-3">
+							<app-wishlist [actionType]="whishlist_action_type" [productInfo]="productDetails"></app-wishlist>
+							<button mat-button class="action-btns share">
+>>>>>>> fc38d700cae3148ebd68e934ba78d5c37996ae7e
 							<i class="fa fa-share-alt"></i>
 							<div class="social-share">
 								<a href="http://www.facebook.com/sharer.php?u=https://www.dealsbargain.com/productdetails/{{productDetails.category}}/{{productDetails.subcategory}}/{{productDetails.item_id}}" target="_blank">
@@ -154,8 +160,8 @@
 				
 			<div class="py-3 mt-4 lh">
 				<ng-container *ngIf="isProductAvailable; else outofstock">
-					<a mat-button class="quick-buy" (click)="quickBuy(productDetails)" >Quick Buy</a>
-					<a mat-button class="add-bag" (click)="addToCart(productDetails)">ADD TO BAG</a>
+					<a mat-button class="quick-buy" (click)="quickBuy(productDetails)" >QUICK BUY</a>
+					<a mat-button class="add-bag" (click)="addToCart(productDetails)">ADD TO CART</a>
 				</ng-container>
 				<ng-template #outofstock>
 					<a mat-button class="add-bag">OUT OF STOCK</a>

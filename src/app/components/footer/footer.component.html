@@ -29,14 +29,18 @@
             <div class="col-sm-6 col-md-3 p-3">
                 <h6 class="foo-title">Customer Service</h6>
                 <ul class="p-0 foo-list">
-                    <li><a target="_blank" [routerLink]="['myprofile', { outlets: { 'profileoutlet': ['profileinfo'] } }]">My Account</a></li>           
+                    <li><a (click)="navigatetoMyProfile()">My Account</a></li>           
                     <li><a target="_blank" [routerLink]="['contactus']">Contact Us</a></li>
                 </ul>
             </div>
             <div class="col-sm-6 col-md-3 p-3">
                 <h6 class="foo-title">Connect With Us</h6>
                 <ul class="p-0 foo-list social">
+<<<<<<< HEAD
                     <li> <a target="_blank" href=""><img src="../../../assets/img/mail.png"> Email Signup</a></li>
+=======
+                    <li> <a target="_blank" href="mailto:info@dealsbargain.com"><img src="../../../assets/img/mail.png"> Email Signup</a></li>
+>>>>>>> fc38d700cae3148ebd68e934ba78d5c37996ae7e
                     <li> <a target="_blank" href="https://www.facebook.com/dealsbargainofficial/"><img src="../../../assets/img/facebook.png"> Facebook</a></li>
                     <li><a><img src="../../../assets/img/instagram.png"> Instagram</a></li>
                     <li><a  target="_blank" href="https://www.twitter.com/DealsbargainO/"><img src="../../../assets/img/twitter-sign.png"> Twitter</a></li>
