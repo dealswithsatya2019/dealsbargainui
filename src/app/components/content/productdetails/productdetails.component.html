@@ -48,18 +48,23 @@
 				<span class="mr-1 rate-product">
 					<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating>
 					<div class="product-rating">
-						<div class="stars">
+						<!--<div class="stars">-->
 							<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating>
 						<!-- <b>4.1 out of 5</b> -->
-						</div>
+						<!-- </div>-->
 					
 					<div class="product-rating-bar">
 						<p class="mb-2">{{totalRating}} customers ratings</p>
-						<p class="progress-line">5 star <mat-progress-bar mode="determinate" value="{FiveStar}}"></mat-progress-bar> <span>{{FiveStarPercent}}%</span></p>
-						<p class="progress-line">4 star <mat-progress-bar mode="determinate" value="{{FourStar}}"></mat-progress-bar> <span>{{FourStarPercent}}%</span></p>
-						<p class="progress-line">3 star <mat-progress-bar mode="determinate" value="{{ThreeStar}}"></mat-progress-bar> <span>{{ThreeStarPercent}}%</span></p>
-						<p class="progress-line">2 star <mat-progress-bar mode="determinate" value="{{TwoStar}}"></mat-progress-bar> <span>{{TwoStarPercent}}%</span></p>
-						<p class="progress-line">1 star <mat-progress-bar mode="determinate" value="{{OneStar}}"></mat-progress-bar> <span>{{OneStarPercent}}%</span></p>
+						<p class="progress-line">5 star <mat-progress-bar mode="determinate" value="{FiveStarPercent}}"></mat-progress-bar> 
+							<!-- <span>{{FiveStarPercent}}%</span>--></p>
+						<p class="progress-line">4 star <mat-progress-bar mode="determinate" value="{{FourStarPercent}}"></mat-progress-bar> 
+							<!-- <span>{{FourStarPercent}}%</span>--></p>
+						<p class="progress-line">3 star <mat-progress-bar mode="determinate" value="{{ThreeStarPercent}}"></mat-progress-bar>
+							 <!--<span>{{ThreeStarPercent}}%</span>--></p>
+						<p class="progress-line">2 star <mat-progress-bar mode="determinate" value="{{TwoStarPercent}}"></mat-progress-bar> 
+							<!-- <span>{{TwoStarPercent}}%</span>--></p>
+						<p class="progress-line">1 star <mat-progress-bar mode="determinate" value="{{OneStarPercent}}"></mat-progress-bar> 
+							<!-- <span>{{OneStarPercent}}%</span>--></p>
 						<a class="py-3 text-center" mat-button (click)="funViewReviewRatings()">View all Ratings</a>
 					</div>
 					</div>

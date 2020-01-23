@@ -12,7 +12,7 @@ import { AppLandingComponent } from './components/app-landing.component';
 import { LoginComponent } from './components/header/login/login.component';
 import { MenuBarComponent } from './components/header/menu-bar/menu-bar.component';
 import {SocialLoginModule,AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider} from 'angularx-social-login';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { WishlistComponent } from './components/user/wishlist/wishlist.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -62,6 +62,7 @@ import { MobileMenuComponent } from './components/header/mobile-menu/mobile-menu
 import { OrderItemDetailsComponent } from './components/content/order-item-details/order-item-details.component';
 import { DatePipe } from '@angular/common';
 import { ProductRatingsListComponent } from './components/content/product-ratings-list/product-ratings-list.component';
+import { HttpErrorInterceptor } from 'src/app/interceptors/HttpErrorInterceptor';
 
 
 const facebook_oauth_client_id: string = '1091355284387654';
@@ -158,7 +159,9 @@ export function ProvideConfig() {
     InfiniteScrollModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA , NO_ERRORS_SCHEMA],
-  providers: [HttCommonService, ProductService, UserService,DatePipe, { provide: AuthServiceConfig, useFactory: ProvideConfig}],
+  providers: [HttCommonService, ProductService, UserService,DatePipe, 
+    { provide: AuthServiceConfig, useFactory: ProvideConfig},
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 //providers: [HttCommonService, ProductService, UserService,ProductListRouteInfoService, { provide: AuthServiceConfig, useFactory: ProvideConfig}],
