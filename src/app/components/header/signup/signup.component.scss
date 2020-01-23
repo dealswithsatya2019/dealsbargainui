@@ -1,6 +1,5 @@
 .mat-error{
   font-size: 12px;
-  margin-bottom: 10px;
 }
 .cont{
     background: url('../../../../assets/img/71.jpg') no-repeat;
@@ -43,5 +42,12 @@ mat-checkbox{
   line-height: 25px;
 }
 .mobile{
-  width: 85% !important;display: inline-block;
+  width: 85% !important;display: inline-block;margin-bottom: 15px;
+  position: relative;
+  small{
+    position: absolute;left: -8px;width: 100%;bottom: -16px;
+  }
+  .mat-error{
+    margin-top: 16px;
+  }
 }

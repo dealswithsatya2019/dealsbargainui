@@ -41,7 +41,7 @@
             </ng-container>
             <!-- <a mat-button [routerLink]="['mycart']">-->
             <a mat-button (click)="openCheckoutPage()">
-                <i class='fa fa-check-square-o'></i><span class="hide-xs">Checkout {{cartService.getItems().length > 0 ? "("+cartService.getItems().length+")" : ''}}</span>
+                <i class='fa fa-check-square-o'></i><span class="hide-xs">My Cart {{cartService.getItems().length > 0 ? "("+cartService.getItems().length+")" : ''}}</span>
             </a>
         </div>
         <!-- /#login & profile options -->

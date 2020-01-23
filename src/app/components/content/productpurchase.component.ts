@@ -150,7 +150,7 @@ export class ProductpurchaseComponent implements OnInit {
       .render(this.paypalElement.nativeElement);
   }
 
-  
+
 
   funSave() {
     let mobilenumber = this.addressform.controls.mobile_number.value;
@@ -252,9 +252,9 @@ export class ProductpurchaseComponent implements OnInit {
         this.cartInfo.responseObject.forEach(element => {
           element.quantity = element.quantity == 0 ? 1 : element.quantity;
           this.cartService.setItems(element);
-          if(element.errorCode != 200 && isValidAddress){
+          if (element.errorCode != 200 && isValidAddress) {
             isValidAddress = false;
-            errorMsg = (element.errorMsg == null || element.errorMsg.length  ==  0) ? "Please select valid shipping address" : element.errorMsg ;
+            errorMsg = (element.errorMsg == null || element.errorMsg.length == 0) ? "Please select valid shipping address" : element.errorMsg;
           }
         });
         this.shoppingCartItems = [];
@@ -262,7 +262,7 @@ export class ProductpurchaseComponent implements OnInit {
         console.log("shoppingCartItems ", this.shoppingCartItems);
         this.initializeValues();
         this.calculatePrices();
-        if(!isValidAddress){
+        if (!isValidAddress) {
           this.cartService.raiseAlert(errorMsg);
           this.isCart = false;
         }
@@ -401,15 +401,12 @@ export class ProductpurchaseComponent implements OnInit {
 
   public totalCost: number = 0;
   public transactionCostFromDBAPI: number = 0;
-  public couponDiscountCost: number = 0;
+  public couponDiscountCost: any = 0;
   public totalPaybaleCost: number = 1;
   public totalCartSize: number = 0;
 
   public calculatePrices() {
-    console.log("calculatePrices", this.shoppingCartItems.length);
-    console.log("totalCost",this.totalCost);
     this.shoppingCartItems.forEach(element => {
-      console.log("quantity :", element.quantity);
       if (element.dealtype != '') {
         let productcost = element.quantity > 0 ? (element.quantity * element.deals_bargain_deal_price) : element.deals_bargain_deal_price
         this.totalCost = this.totalCost + productcost;
@@ -465,7 +462,7 @@ export class ProductpurchaseComponent implements OnInit {
                 }));
                 isLoopReq = false;
               }
-            }else{
+            } else {
               this.cartService.raiseAlert("The Product quantity should be greater than one.")
             }
           }
@@ -525,10 +522,14 @@ export class ProductpurchaseComponent implements OnInit {
             }
           }
         } else {
+          let totalCostTmp = this.totalPaybaleCost;
           this.initializeValues();
-          if(discountType.toLowerCase() == "p"){
-            this.couponDiscountCost = ((this.promoResponseModel.value / 100) * this.totalPaybaleCost);
-          }else{
+          if (discountType.toLowerCase() == "p") {
+            if (this.promoResponseModel.value > 0 && totalCostTmp > 0 && this.promoResponseModel.value < totalCostTmp) {
+              this.couponDiscountCost = (this.promoResponseModel.value / 100) * totalCostTmp;
+              this.couponDiscountCost = this.couponDiscountCost.toFixed(2);
+            }
+          } else {
             this.couponDiscountCost = this.promoResponseModel.value;
           }
         }

@@ -1,38 +1,38 @@
 <mat-toolbar-row>
-<ng-container *ngFor="let mainMenuCategory of menuCategories">
-    <ng-container *ngIf="mainMenuCategory.category==='Coupons'">
+    <ng-container *ngFor="let mainMenuCategory of menuCategories">
+        <ng-container *ngIf="mainMenuCategory.category==='Coupons'">
             <!-- <a mat-button  [routerLink]="['coupons']">Coupons</a>-->
             <a mat-button [routerLink]="['/dealslist/f']">TODAY DEALS</a>
         </ng-container>
-    <ng-container *ngIf="mainMenuCategory.category!=='Coupons'">
-        <a mat-button [matMenuTriggerFor]="menu" #clickHoverMenuTrigger="matMenuTrigger">{{mainMenuCategory.category_display_name}}</a>
-        <mat-menu #menu="matMenu" panelClass="magaMenu" backdropClass="megaMenu">
-            <div class="menu-container pl-3" fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
-           <!-- <div class="p-2" fxflex="25" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 25%; max-width: 25%;">
-                <div class="rel-img">
-                    <img src="../../../../assets/img/banner5.jpg" class="img-fluid">
-                </div>
-            </div>
-        -->
-            <ng-container *ngFor="let subcategoryMenu of mainMenuCategory.subcategories | keyvalue" class="mainMenu">
-                <div class="p-2 sub-category">
-                    <a mat-menu-item class="menu-title">
-                        <b>{{subcategoryMenu.key}}</b>
-                    </a>
-                    <!-- <div class="divider"></div> -->
-                    <ng-container *ngFor="let subMenu of subcategoryMenu.value">
-                        <button mat-menu-item>
-                            <!-- <a mat-button [routerLink]="['productlist',mainMenuCategory.category.toLowerCase(),subMenu]" routerLinkActive="active">{{subMenu}} </a> -->
-                            <a mat-button  (click)="routeToProductListPage({cname:mainMenuCategory.category, scname:subMenu.subcategory})">{{subMenu.display_name}} </a>
-                           
-                        </button>
+        <ng-container *ngIf="mainMenuCategory.category!=='Coupons'">
+            <a mat-button [matMenuTriggerFor]="menu"
+                #clickHoverMenuTrigger="matMenuTrigger">{{mainMenuCategory.category_display_name}}</a>
+            <mat-menu #menu="matMenu" panelClass="magaMenu" backdropClass="megaMenu">
+                <div class="menu-container pl-3" fxlayout="row wrap"
+                    style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+                
+                    <ng-container *ngFor="let subcategoryMenu of mainMenuCategory.subcategories | keyvalue"
+                        class="mainMenu">
+                        <div class="p-2 sub-category">
+                            <a mat-menu-item class="menu-title">
+                                <b>{{subcategoryMenu.key}}</b>
+                            </a>
+                            <!-- <div class="divider"></div> -->
+                            <ng-container *ngFor="let subMenu of subcategoryMenu.value">
+                                <button mat-menu-item>
+                                    <!-- <a mat-button [routerLink]="['productlist',mainMenuCategory.category.toLowerCase(),subMenu]" routerLinkActive="active">{{subMenu}} </a> -->
+                                    <a mat-button
+                                        (click)="routeToProductListPage({cname:mainMenuCategory.category, scname:subMenu.subcategory})">{{subMenu.display_name}}
+                                    </a>
+
+                                </button>
+                            </ng-container>
+                        </div>
                     </ng-container>
                 </div>
-            </ng-container>
-            </div>
-        
-    </mat-menu>
 
-</ng-container>
-</ng-container>
+            </mat-menu>
+
+        </ng-container>
+    </ng-container>
 </mat-toolbar-row>

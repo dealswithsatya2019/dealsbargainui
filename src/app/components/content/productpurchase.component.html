@@ -94,6 +94,7 @@
                                     <mat-label>Mobile Number</mat-label>
                                     <input formControlName="mobile_number" matInput placeholder="Placeholder">
                                     <mat-error>mobile number is mandatory and should be numberic</mat-error>
+                                    <small>Message and Data charges may apply</small>
                                 </mat-form-field> 
 
                                 <button mat-raised-button type="submit" [disabled]="updateaddressform.invalid"
@@ -164,6 +165,7 @@
                                 <mat-label>Mobile Number</mat-label>
                                 <input formControlName="mobile_number" matInput>
                                 <mat-error>mobile number is mandatory and should be numberic</mat-error>
+                                <small>Message and Data charges may apply</small>
                             </mat-form-field>
                             
                             <button mat-raised-button type="submit" [disabled]="addressform.invalid"
@@ -242,7 +244,7 @@
 
                                 <div #paypal></div>
                                 <div *ngIf="paypalFor">
-                                    <p>Your transaction is success</p>
+                                    <p>Your transaction is success. Thank you. Visit Again.</p>
                                 </div>
                             </mat-toolbar-row>
                         </mat-radio-group>
