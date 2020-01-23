@@ -59,7 +59,7 @@
 			<div *ngIf="products" class="product-list" style="flex: 1 1 0%">
 				<div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="150"
 					(scrolled)="onScroll()">
-					<div class="productlistcontainer pl-3" fxLayout="row wrap">
+					<div class="productlistcontainer" fxLayout="row wrap">
 						<ng-container *ngFor="let product of products; let i = index">
 							<ng-container
 								*ngIf="fromPrice > 0 ?  (product.price >= fromPrice ? true : false): true">

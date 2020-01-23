@@ -1,6 +1,5 @@
 .mat-error{
   font-size: 12px;
-  margin-bottom: 10px;
 }
 .cont{
     background: url('../../../../assets/img/71.jpg') no-repeat;
@@ -29,11 +28,7 @@ mat-checkbox{
   padding: 0px 5px;
   height: 25px;
   line-height: 25px;
-<<<<<<< HEAD
-  font-size: 13px;
-=======
   font-size: 12px;
->>>>>>> fc38d700cae3148ebd68e934ba78d5c37996ae7e
 }
 
 .prefix{
@@ -47,5 +42,12 @@ mat-checkbox{
   line-height: 25px;
 }
 .mobile{
-  width: 85% !important;display: inline-block;
+  width: 85% !important;display: inline-block;margin-bottom: 15px;
+  position: relative;
+  small{
+    position: absolute;left: -8px;width: 100%;bottom: -16px;
+  }
+  .mat-error{
+    margin-top: 16px;
+  }
 }

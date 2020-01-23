@@ -37,8 +37,9 @@
         <mat-form-field class="prefix">
             <input matInput value="+1" disabled>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="mobileno">
             <input matInput formControlName="mobile" placeholder="Mobile Number">
+            <small>Message and Data charges may apply</small>
         </mat-form-field>
 
         <ng-container *ngIf="isSMSEdit==true">
