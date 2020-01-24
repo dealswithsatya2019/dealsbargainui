@@ -1,5 +1,12 @@
 
-mat-sidenav{width: 200px;}
+mat-sidenav{
+  width: 220px;background: transparent;border:0px;
+  mat-accordion{
+    width: 200px;
+    float: left;
+    margin-right: 20px;
+  }
+}
 .product{
   min-width: 100px;
   text-align: left;
@@ -95,6 +102,7 @@ mat-sidenav{width: 200px;}
     justify-content: left;
     mat-card{
       background-color: #fff;
+      position: relative;
     }
   }
   .fa-shopping-cart{

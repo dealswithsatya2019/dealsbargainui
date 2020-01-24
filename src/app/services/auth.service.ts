@@ -5,6 +5,7 @@ import { MatDialogConfig, MatDialog, _countGroupLabelsBeforeOption } from '@angu
 import { LoginComponent } from 'src/app/components/header/login/login.component';
 import { RegisterUser } from 'src/app/models/RegisterUser';
 import { UserService } from 'src/app/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -99,6 +100,47 @@ export class AuthService {
       "mobile": '1'+mobile
     }
     return this._httpCommonService.postRequest('otp/recoveraccount', body, this._userService.getAuthToken());
+  }
+
+  public fetchAccessToken(): Observable<any> {
+    let body = {
+      "id": this._userService.getUid()
+    }
+    return this._httpCommonService.postReq('fetchapi/us', body);
+  }
+
+  public refreshAccessToken(): any {
+    this.fetchAccessToken().subscribe(
+      (authResponse)=>{
+        if(authResponse && authResponse.status == 200){
+          if(authResponse.responseObjects){
+            sessionStorage.setItem("sn", authResponse.responseObjects.sn);
+            this._userService.setAuthToken(authResponse.responseObjects.sn);
+            return authResponse.responseObjects.sn;
+          }
+        }
+        return '';
+      },
+      (error : HttpErrorResponse)=>{
+        console.log(error);
+        //return Observable.throw(error);
+        return '';
+      }
+    );
+  }
+
+  public getTokenByRreshToke(){
+    //https://itnext.io/angular-tutorial-implement-refresh-token-with-httpinterceptor-bfa27b966f57
+  }
+  
+  logOut(): void {
+    /*this.userservice.resetDetails();
+    this.userservice.setAuthToken(null);
+    this.cartService.clearCart();
+    sessionStorage.removeItem("sn");
+    this._whishlistService.clearWhislist();
+    this._socioAuthServ.signOut();
+    this._router.navigateByUrl("/");*/
   }
 
 }

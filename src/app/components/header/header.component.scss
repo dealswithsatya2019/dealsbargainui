@@ -45,7 +45,7 @@
       input{font-size: 14px;padding: 10px;}
       .search-btn{
         position: absolute;
-        right: 0px;
+        right: -1px;
         top: -1px;
         min-width: 35px;
         background: #1b3664;
@@ -152,7 +152,7 @@
   
   @media screen and (max-width: 575px) {
     .top-toolbar{
-      .logo{max-width: 110px;order: 1;margin-left: 0px;}
+      .logo{max-width: 120px;order: 1;margin-left: 0px;}
       mat-form-field{order: 3;width: 100%;margin-left: 3rem;margin-top: 10px;}
       .profile-options{order: 2;}
       .mat-button{

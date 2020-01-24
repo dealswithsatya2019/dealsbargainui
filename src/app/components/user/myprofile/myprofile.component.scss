@@ -79,3 +79,13 @@ a{cursor: pointer;}
 .verify-btn{
     font-size: 11px;padding: 2px 8px;border-radius: 10px;background-color: #1e4fa3 !important;color: white !important;
 }
+.mobileno{
+    position: relative;
+    small{
+        position: absolute;
+        width: 100%;
+        left: 0px;
+        bottom: -15px;
+        color: blue;
+    }
+}

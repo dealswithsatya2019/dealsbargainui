@@ -29,7 +29,9 @@
             <mat-error *ngFor="let validation of userservice.signup_validation_messages.mobileno">
                 <mat-error class="error-message" *ngIf="userservice.form.get('mobileno').hasError(validation.type) && (userservice.form.get('mobileno').dirty || userservice.form.get('mobileno').touched)">{{validation.message}}</mat-error>
             </mat-error>
+            <small>Message and Data charges may apply</small>
         </mat-form-field>
+        
         <mat-form-field floatLabel="never" class="w-100" appearance="outline">
             <input formControlName="email" matInput placeholder="Email *" >
             <mat-error *ngFor="let validation of userservice.signup_validation_messages.email">

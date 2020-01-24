@@ -70,18 +70,23 @@
 				<span class="mr-1 rate-product">
 					<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating>
 					<div class="product-rating">
-						<div class="stars">
+						<!--<div class="stars">-->
 							<ngx-star-rating [ngModel]="productRating" [id]="'productRating'" [disabled]="true"></ngx-star-rating>
 						<!-- <b>4.1 out of 5</b> -->
-						</div>
+						<!-- </div>-->
 					
 					<div class="product-rating-bar">
 						<p class="mb-2">{{totalRating}} customers ratings</p>
-						<p class="progress-line">5 star <mat-progress-bar mode="determinate" value="{FiveStar}}"></mat-progress-bar> <span>{{FiveStarPercent}}%</span></p>
-						<p class="progress-line">4 star <mat-progress-bar mode="determinate" value="{{FourStar}}"></mat-progress-bar> <span>{{FourStarPercent}}%</span></p>
-						<p class="progress-line">3 star <mat-progress-bar mode="determinate" value="{{ThreeStar}}"></mat-progress-bar> <span>{{ThreeStarPercent}}%</span></p>
-						<p class="progress-line">2 star <mat-progress-bar mode="determinate" value="{{TwoStar}}"></mat-progress-bar> <span>{{TwoStarPercent}}%</span></p>
-						<p class="progress-line">1 star <mat-progress-bar mode="determinate" value="{{OneStar}}"></mat-progress-bar> <span>{{OneStarPercent}}%</span></p>
+						<p class="progress-line">5 star <mat-progress-bar mode="determinate" value="{FiveStarPercent}}"></mat-progress-bar> 
+							<!-- <span>{{FiveStarPercent}}%</span>--></p>
+						<p class="progress-line">4 star <mat-progress-bar mode="determinate" value="{{FourStarPercent}}"></mat-progress-bar> 
+							<!-- <span>{{FourStarPercent}}%</span>--></p>
+						<p class="progress-line">3 star <mat-progress-bar mode="determinate" value="{{ThreeStarPercent}}"></mat-progress-bar>
+							 <!--<span>{{ThreeStarPercent}}%</span>--></p>
+						<p class="progress-line">2 star <mat-progress-bar mode="determinate" value="{{TwoStarPercent}}"></mat-progress-bar> 
+							<!-- <span>{{TwoStarPercent}}%</span>--></p>
+						<p class="progress-line">1 star <mat-progress-bar mode="determinate" value="{{OneStarPercent}}"></mat-progress-bar> 
+							<!-- <span>{{OneStarPercent}}%</span>--></p>
 						<a class="py-3 text-center" mat-button (click)="funViewReviewRatings()">View all Ratings</a>
 					</div>
 					</div>
@@ -90,15 +95,9 @@
 					 <i class="fa fa-thumbs-up"></i> 8 Recommendations
 					</small> -->
 				
-<<<<<<< HEAD
-					<span class="ml-2">
-						<app-wishlist [actionType]="whishlist_action_type" [productInfo]="productDetails"></app-wishlist>
-						<button mat-button class="action-btns share">
-=======
 					<span class="ml-3">
 							<app-wishlist [actionType]="whishlist_action_type" [productInfo]="productDetails"></app-wishlist>
 							<button mat-button class="action-btns share">
->>>>>>> fc38d700cae3148ebd68e934ba78d5c37996ae7e
 							<i class="fa fa-share-alt"></i>
 							<div class="social-share">
 								<a href="http://www.facebook.com/sharer.php?u=https://www.dealsbargain.com/productdetails/{{productDetails.category}}/{{productDetails.subcategory}}/{{productDetails.item_id}}" target="_blank">

@@ -112,6 +112,7 @@
                         <mat-error *ngFor="let validation of address_validation_messages.mobile_number">
                             <mat-error class="error-message" *ngIf="updateaddressform.get('mobile_number').hasError(validation.type) && (updateaddressform.get('mobile_number').dirty || updateaddressform.get('mobile_number').touched)">{{validation.message}}</mat-error>
                         </mat-error>
+                        <small>Message and Data charges may apply</small>
                     </mat-form-field>
                    <!-- <mat-radio-group formControlName="address_type" aria-label="Select an option">
                         <mat-radio-button value="1" class="mr-2">Home
@@ -199,6 +200,7 @@
                     <mat-error *ngFor="let validation of address_validation_messages.mobile_number">
                         <mat-error class="error-message" *ngIf="addressform.get('mobile_number').hasError(validation.type) && (addressform.get('mobile_number').dirty || addressform.get('mobile_number').touched)">{{validation.message}}</mat-error>
                     </mat-error>
+                    <small>Message and Data charges may apply</small>
                 </mat-form-field>
 
                <!-- <mat-radio-group aria-label="Select an option" formControlName="address_type">
