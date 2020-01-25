@@ -371,8 +371,13 @@ export class ProductpurchaseComponent implements OnInit {
     });
     this.createOrderReq.items_info = this.addOrdersArray;
     this.createOrderReq.address_id = this.selectedAddressId;
-    this.createOrderReq.coupon_applied = "no";
-    this.createOrderReq.coupon_id = "";
+    if (this.couponDiscountCost > 0 && this.couponform.controls.couponcode.value) {
+      this.createOrderReq.coupon_applied = "y";
+      this.createOrderReq.coupon_id = this.couponform.controls.couponcode.value;
+      this.createOrderReq.coupon_calculated_discount_value = this.couponDiscountCost;
+      this.createOrderReq.coupon_mode_of_value = this.promoResponseModel.mode_of_value;
+      this.createOrderReq.coupon_value = this.promoResponseModel.value + "";
+    }
     this.createOrderReq.net_amount = this.totalPaybaleCost;
     this.createOrderReq.order_id_by_payment_channel = OrderId;
     this.createOrderReq.payment_channel = "paypal";
@@ -388,11 +393,11 @@ export class ProductpurchaseComponent implements OnInit {
   public createOrder(orderId: string) {
     this.subscriptions.add(this.createOrderHttp(orderId).subscribe(data => {
       this.createOrderData = data;
-      console.log("Order Status :", this.createOrderData.statusCode);
       if (this.createOrderData != null && this.createOrderData.statusCode == 200) {
         console.log("Order Status myprofile:", this.createOrderData.statusCode);
         this._router.navigate(['myprofile', { outlets: { 'profileoutlet': ['orders'] } }]);
       } else {
+        this.cartService.raiseAlert("Unable to create your order, Please palce your order gain.")
         console.log("Order Status mycart:", this.createOrderData.statusCode);
         this._router.navigateByUrl("/mycart");
       }
@@ -482,8 +487,14 @@ export class ProductpurchaseComponent implements OnInit {
   public selectionChange(event) {
     if (event.selectedIndex == 0) {
     } else if (event.selectedIndex == 0) {
+      this.initializeValues();
+      this.calculatePrices();
+      this.couponform.controls['couponcode'].setValue("");
       this.getAddresses();
     } else if (event.selectedIndex == 1) {
+      this.initializeValues();
+      this.calculatePrices();
+      this.couponform.controls['couponcode'].setValue("");
       this.getCarts();
     } else if (event.selectedIndex == 2) {
 
@@ -495,9 +506,10 @@ export class ProductpurchaseComponent implements OnInit {
   public promoResponseModel: PromoResponseMode;
 
   validateCoupon() {
+    this.initializeValues();
+    this.calculatePrices();
     this.subscriptions.add(this.validateCouponHttp().subscribe(data => {
       this.promoResponse = data;
-      console.log("SC ", this.promoResponse.statusCode);
       if (this.promoResponse.statusCode == 302) {
         this.promoResponseModel = this.promoResponse.responseObjects;
         let discountType = this.promoResponseModel.mode_of_value;
@@ -525,7 +537,7 @@ export class ProductpurchaseComponent implements OnInit {
           let totalCostTmp = this.totalPaybaleCost;
           this.initializeValues();
           if (discountType.toLowerCase() == "p") {
-            if (this.promoResponseModel.value > 0 && totalCostTmp > 0 && this.promoResponseModel.value < totalCostTmp) {
+            if (this.promoResponseModel.value > 0 && totalCostTmp > 0) {
               this.couponDiscountCost = (this.promoResponseModel.value / 100) * totalCostTmp;
               this.couponDiscountCost = this.couponDiscountCost.toFixed(2);
             }
@@ -536,6 +548,8 @@ export class ProductpurchaseComponent implements OnInit {
         this.calculatePrices();
       } else {
         this.cartService.raiseAlert("Please enter a valid Promotional or Voucher Code");
+        this.couponDiscountCost = 0;
+        this.couponform.controls['couponcode'].setValue("");
       }
     }));
   }

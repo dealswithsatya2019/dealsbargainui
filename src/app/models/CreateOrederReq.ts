@@ -7,6 +7,9 @@ export class CreateOrederReq {
     public transaction_fee: number;
     public coupon_applied: string;
     public coupon_id: string;
+    public coupon_value: string;
+    public coupon_mode_of_value: string;
+    public coupon_calculated_discount_value
     public payment_channel: string;
     public order_id_by_payment_channel: string;
     public payment_channel_description : string;
