@@ -7,12 +7,13 @@ import { DatePipe } from '@angular/common';
 
 
 
-import { tap, filter, take } from 'rxjs/operators';
+import { tap, filter, take, finalize } from 'rxjs/operators';
 import { catchError } from 'rxjs/internal/operators/catchError';
-import { throwError, Observable, BehaviorSubject } from 'rxjs';
+import { throwError, Observable, BehaviorSubject, of } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { switchMap } from 'rxjs/internal/operators/switchMap';
 import { UserService } from 'src/app/user.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -23,12 +24,29 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       null
   );
   constructor(public auth: AuthService,
-    public _userSerive: UserService) {}
+    public _userSerive: UserService,
+    public _router: Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request
-    /* ).pipe(
-       tap(data => console.log(data)),
+    /*)
+      .pipe(
+        catchError((error, caught: Observable<HttpEvent<any>>) => {
+          if (error instanceof HttpErrorResponse && error.status == 401) {
+              let json =error.error;
+              if(json.error == 'invalid_token'){
+                sessionStorage.removeItem("sn");
+                this._router.navigateByUrl('/login');
+                return error1;
+              }else{
+                return error;
+              }
+            throw error;
+          }
+        })
+      //}*/
+     ).pipe(
+       //tap(data => console.log(data)),
       catchError((error: any) =>  {       
         if (request.url.includes("fetchapi/us") || request.url.includes("authenticate")) {
           // We do another check to see if refresh token failed
@@ -43,13 +61,30 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         if (error.status !== 401) {
             return Observable.throw(error);
         }
+        if (error instanceof HttpErrorResponse && error.status == 401) {
+          if(error.error && error.error.error == 'invalid_token'){
+            sessionStorage.removeItem("sn");
+            this.auth.logOut();
+            this._router.navigateByUrl('/login');
+            window.location.reload();
+            return throwError(error);
+          }else{
+            return throwError(error);
+          }
+        }else{
+          return Observable.throw(error);
+        }
         if (this.refreshTokenInProgress) {
           // If refreshTokenInProgress is true, we will wait until refreshTokenSubject has a non-null value
           // – which means the new token is ready and we can retry the request again
           return this.refreshTokenSubject.pipe(
               filter(result => result !== null)
               , take(1)
-              , switchMap(() => next.handle(this.addAuthenticationToken(request))));
+              , switchMap(() => next.handle(this.addAuthenticationToken(request)))
+            ,// When the call to refreshToken completes we reset the refreshTokenInProgress to false
+              // for the next time the token needs to be refreshed
+              finalize(() => (this.refreshTokenInProgress = false))
+          );
         } else {
           this.refreshTokenInProgress = true;
           // Set the refreshTokenSubject to null so that subsequent API calls will wait until the new token has been retrieved
@@ -69,8 +104,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                   return Observable.throw(error);
               });
           }  
-      })*/
-    );
+      })
+    )as Observable<HttpEvent<any>>;;
   
   }
 

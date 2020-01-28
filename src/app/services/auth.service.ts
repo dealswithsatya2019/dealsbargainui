@@ -6,13 +6,22 @@ import { LoginComponent } from 'src/app/components/header/login/login.component'
 import { RegisterUser } from 'src/app/models/RegisterUser';
 import { UserService } from 'src/app/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CartService } from 'src/app/services/cart.service';
+import { WhishlistService } from 'src/app/services/whishlist.service';
+import { AuthService as SocilAuthService} from 'angularx-social-login';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private _httpCommonService: HttCommonService, public dialog: MatDialog, public _userService: UserService) { }
+  constructor(private _httpCommonService: HttCommonService, public dialog: MatDialog, 
+    public _userService: UserService, 
+    public cartService: CartService,
+    public _whishlistService: WhishlistService,
+    public _socioAuthServ: SocilAuthService,
+    public _alertService: AlertService) { }
   public isAuthenticated(): boolean {
     const access_token = sessionStorage.getItem('sn');
     return access_token !== null;
@@ -134,13 +143,14 @@ export class AuthService {
   }
   
   logOut(): void {
-    /*this.userservice.resetDetails();
-    this.userservice.setAuthToken(null);
+    
+    this._userService.resetDetails();
+    this._userService.setAuthToken(null);
     this.cartService.clearCart();
     sessionStorage.removeItem("sn");
     this._whishlistService.clearWhislist();
+    this._alertService.raiseAlert("Session time out. Please login to Dealsbargain.");
     this._socioAuthServ.signOut();
-    this._router.navigateByUrl("/");*/
   }
 
 }

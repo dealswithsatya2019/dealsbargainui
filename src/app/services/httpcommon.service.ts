@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { environment } from 'src/environments/environment';
 import { IMaps } from '../models/IMaps';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class HttCommonService {
 
   private APIEndpoint: string = environment.APIEndpoint;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,public router: Router) { }
 
   Origin = window.location.origin;
   apiURL = this.getApiUrl();
@@ -33,6 +34,28 @@ export class HttCommonService {
       return throwError(error);
     }
   }
+
+  private handlePostError(error: Response) {
+    console.log('inside handleerr/or', error);
+    if(error instanceof HttpErrorResponse){
+      let json =error.error;
+      if(json.error == 'invalid_token'){
+        sessionStorage.removeItem("sn");
+        setTimeout(() => {
+          this.routetoLoginpage();  
+       });
+      }else{
+        return throwError(error);
+      }
+    }else{
+      return throwError(error);
+    }
+  }
+
+  private routetoLoginpage(){
+    this.router.navigateByUrl('/login');
+  }
+
 
   getReq(urlAppendParam): Observable<any> {
     let url: string = "";
@@ -55,7 +78,26 @@ export class HttCommonService {
     }
     return this.http.get(
       url,
-      { headers: { 'Content-Type': 'application/json', 'authorization': 'Bearer ' + authToken } }).pipe(map(this.extractData), catchError(this.handleError));
+      { headers: { 'Content-Type': 'application/json', 'authorization': 'Bearer ' + authToken } })
+      .pipe(
+        map(this.extractData), 
+        catchError(error=> 
+          {
+            console.log('inside handleerr/or', error);
+    /*if(error instanceof HttpErrorResponse){
+      let json =error.error;
+      if(json.error == 'invalid_token'){
+        sessionStorage.removeItem("sn");
+        setTimeout(() => {
+          this.routetoLoginpage();  
+       });
+      }else{
+        return throwError(error);
+      }
+    }else{*/
+      return throwError(error);
+    //}
+          }));
   }
 
 

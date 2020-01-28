@@ -19,6 +19,7 @@ import { MyprofileService } from 'src/app/services/myprofile.service';
 import { Subscription } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { cartInfo } from 'src/app/models/cartInfo';
+import { catchError } from 'rxjs/internal/operators/catchError';
 
 
 @Component({
@@ -103,6 +104,9 @@ export class LoginComponent implements OnInit {
       (response) => {
         console.log("Gmail Provider ",response);
         this.setSocialInfo(response);
+      },
+      (error) =>{
+        console.log(error);
       }
     );
   }
