@@ -371,8 +371,13 @@ export class ProductpurchaseComponent implements OnInit {
     });
     this.createOrderReq.items_info = this.addOrdersArray;
     this.createOrderReq.address_id = this.selectedAddressId;
-    this.createOrderReq.coupon_applied = "no";
-    this.createOrderReq.coupon_id = "";
+    if (this.couponDiscountCost > 0 && this.couponform.controls.couponcode.value) {
+      this.createOrderReq.coupon_applied = "y";
+      this.createOrderReq.coupon_id = this.couponform.controls.couponcode.value;
+      this.createOrderReq.coupon_calculated_discount_value = this.couponDiscountCost;
+      this.createOrderReq.coupon_mode_of_value = this.promoResponseModel.mode_of_value;
+      this.createOrderReq.coupon_value = this.promoResponseModel.value + "";
+    }
     this.createOrderReq.net_amount = this.totalPaybaleCost;
     this.createOrderReq.order_id_by_payment_channel = OrderId;
     this.createOrderReq.payment_channel = "paypal";
@@ -385,14 +390,24 @@ export class ProductpurchaseComponent implements OnInit {
       body, { headers: { 'Content-Type': 'application/json', 'authorization': autherization } });
   }
 
+  public isloader = false;
+  public color = 'primary';
+  public mode = 'indeterminate';
+  public value = 50;
+
   public createOrder(orderId: string) {
+    this.isloader = true;
     this.subscriptions.add(this.createOrderHttp(orderId).subscribe(data => {
       this.createOrderData = data;
-      console.log("Order Status :", this.createOrderData.statusCode);
+      this.isloader = false;
       if (this.createOrderData != null && this.createOrderData.statusCode == 200) {
         console.log("Order Status myprofile:", this.createOrderData.statusCode);
+        this.cartService.clearCart();
+        this.shoppingCartItems = [];
         this._router.navigate(['myprofile', { outlets: { 'profileoutlet': ['orders'] } }]);
       } else {
+        this.isloader = false;
+        this.cartService.raiseAlert("Unable to create your order, Please palce your order gain.")
         console.log("Order Status mycart:", this.createOrderData.statusCode);
         this._router.navigateByUrl("/mycart");
       }
@@ -482,8 +497,14 @@ export class ProductpurchaseComponent implements OnInit {
   public selectionChange(event) {
     if (event.selectedIndex == 0) {
     } else if (event.selectedIndex == 0) {
+      this.initializeValues();
+      this.calculatePrices();
+      this.couponform.controls['couponcode'].setValue("");
       this.getAddresses();
     } else if (event.selectedIndex == 1) {
+      this.initializeValues();
+      this.calculatePrices();
+      this.couponform.controls['couponcode'].setValue("");
       this.getCarts();
     } else if (event.selectedIndex == 2) {
 
@@ -495,50 +516,68 @@ export class ProductpurchaseComponent implements OnInit {
   public promoResponseModel: PromoResponseMode;
 
   validateCoupon() {
+    this.initializeValues();
+    this.calculatePrices();
     this.subscriptions.add(this.validateCouponHttp().subscribe(data => {
       this.promoResponse = data;
-      console.log("SC ", this.promoResponse.statusCode);
       if (this.promoResponse.statusCode == 302) {
         this.promoResponseModel = this.promoResponse.responseObjects;
         let discountType = this.promoResponseModel.mode_of_value;
-        if (this.promoResponseModel.criteria.toLowerCase() == "y") {
-          if (this.promoResponseModel.criteria_condition == ">=") {
-            if (this.totalPaybaleCost > this.promoResponseModel.criteria_amount) {
-              this.initializeValues();
-              if (discountType == "D") {
-                this.couponDiscountCost = this.promoResponseModel.value;
-              } else {
-                this.couponDiscountCost = ((this.promoResponseModel.value / 100) * this.totalPaybaleCost);
-              }
-            }
-          } else {
-            if (this.totalPaybaleCost > this.promoResponseModel.criteria_amount) {
-              this.initializeValues();
-              if (discountType == "D") {
-                this.couponDiscountCost = this.promoResponseModel.value;
-              } else {
-                this.couponDiscountCost = ((this.promoResponseModel.value / 100) * this.totalPaybaleCost)
-              }
-            }
-          }
-        } else {
+        // if (this.promoResponseModel.criteria.toLowerCase() == "y") {
+        //   if (this.promoResponseModel.criteria_condition == ">=") {
+        //     if (this.totalPaybaleCost > this.promoResponseModel.criteria_amount) {
+        //       this.initializeValues();
+        //       if (discountType == "D") {
+        //         this.couponDiscountCost = this.promoResponseModel.value;
+        //       } else {
+        //         this.couponDiscountCost = ((this.promoResponseModel.value / 100) * this.totalPaybaleCost);
+        //       }
+        //     }
+        //   } else {
+        //     if (this.totalPaybaleCost > this.promoResponseModel.criteria_amount) {
+        //       this.initializeValues();
+        //       if (discountType == "D") {
+        //         this.couponDiscountCost = this.promoResponseModel.value;
+        //       } else {
+        //         this.couponDiscountCost = ((this.promoResponseModel.value / 100) * this.totalPaybaleCost)
+        //       }
+        //     }
+        //   }
+        // } else {
           let totalCostTmp = this.totalPaybaleCost;
           this.initializeValues();
           if (discountType.toLowerCase() == "p") {
-            if (this.promoResponseModel.value > 0 && totalCostTmp > 0 && this.promoResponseModel.value < totalCostTmp) {
+            if (this.promoResponseModel.value > 0 && totalCostTmp > 0) {
               this.couponDiscountCost = (this.promoResponseModel.value / 100) * totalCostTmp;
               this.couponDiscountCost = this.couponDiscountCost.toFixed(2);
             }
           } else {
             this.couponDiscountCost = this.promoResponseModel.value;
           }
+        // }
+        if(this.couponDiscountCost > totalCostTmp){
+          this.cartService.raiseAlert("Please apply the coupon values less than total cart cost");
+          this.couponDiscountCost = 0;
+          this.initializeValues();
         }
         this.calculatePrices();
       } else {
         this.cartService.raiseAlert("Please enter a valid Promotional or Voucher Code");
+        this.couponDiscountCost = 0;
+        this.initializeValues();
+        this.calculatePrices();
+        this.couponform.controls['couponcode'].setValue("");
       }
     }));
   }
+
+  removeCoupon() {
+    this.couponform.controls['couponcode'].setValue("");
+    this.couponDiscountCost = 0;
+    this.initializeValues();
+    this.calculatePrices();
+  }
+
 
   validateCouponHttp(): Observable<PromoResponse> {
     console.log("Coupon Code ", this.couponform.controls.couponcode.value);

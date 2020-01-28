@@ -6,7 +6,8 @@
             <li><a>Checkout</a></li>
         </ul>
     </mat-toolbar-row>
-    <div class="purchase-container">
+    <div
+     class="purchase-container">
         <div class="left-panel">
             <!-- #horstepper -->
             <mat-horizontal-stepper (selectionChange)="selectionChange($event)" linear>
@@ -90,12 +91,13 @@
                                     <input matInput value="+1" disabled>
                                 </mat-form-field>
 
-                                <mat-form-field appearance="outline" floatLabel="never" style="width: 39%;" class="mobile">
+                                <mat-form-field appearance="outline" floatLabel="never" style="width: 39%;"
+                                    class="mobile">
                                     <mat-label>Mobile Number</mat-label>
                                     <input formControlName="mobile_number" matInput placeholder="Placeholder">
                                     <mat-error>mobile number is mandatory and should be numberic</mat-error>
                                     <small>Message and Data charges may apply</small>
-                                </mat-form-field> 
+                                </mat-form-field>
 
                                 <button mat-raised-button type="submit" [disabled]="updateaddressform.invalid"
                                     class=" my-2 w-100 login-login-btn">Update
@@ -167,7 +169,7 @@
                                 <mat-error>mobile number is mandatory and should be numberic</mat-error>
                                 <small>Message and Data charges may apply</small>
                             </mat-form-field>
-                            
+
                             <button mat-raised-button type="submit" [disabled]="addressform.invalid"
                                 class=" my-2 w-100 login-login-btn">Save
                             </button>
@@ -225,7 +227,8 @@
                             </div>
                         </ng-container>
                         <p class="mt-3">
-                            <button mat-button matStepperNext class="float-right login-login-btn">CONTINUE</button>
+                            <button mat-button class="float-right login-login-btn" [routerLink]="['/']" >Continue shopping</button>
+                            <button mat-button matStepperNext class="float-right login-login-btn">Check out</button>
                         </p>
                     </div>
                     <div class="pt-5 text-center">
@@ -259,8 +262,10 @@
             <div class="checkout-card">
                 <h6 class="px-3 pt-3 text-center">ORDER SUMMARY</h6>
                 <div class="my-3 px-3" style="font-size: 13px;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;By placing your order, you agree to dealsbargain.com's <a target="_blank" href="../../../assets/pages/PrivacyPolicy.html">privacy notice,</a>
-                    <a target="_blank" href="../../../../assets/pages/TermsofUse.html">conditions of use </a>and all of the terms found
+                    &nbsp;&nbsp;&nbsp;&nbsp;By placing your order, you agree to dealsbargain.com's <a target="_blank"
+                        href="../../../assets/pages/PrivacyPolicy.html">privacy notice,</a>
+                    <a target="_blank" href="../../../../assets/pages/TermsofUse.html">conditions of use </a>and all of
+                    the terms found
                     <a target="_blank" href="../../../../assets/pages/TermsofUse.html">here</a>
                 </div>
                 <div class="promocode-section">
@@ -269,11 +274,12 @@
                             <input formControlName="couponcode" matInput placeholder="Enter promo code">
                         </mat-form-field>
                         <button mat-raised-button type="submit" class="applycpn-btn"
-                            [disabled]="couponform.invalid">APPLY</button>
+                            [disabled]="couponform.invalid">Apply</button>
+                        <button mat-raised-button type="button" (click) = "removeCoupon()" class="applycpn-btn">Cancel</button>    
                     </form>
                 </div>
                 <div class="divider"></div>
-                
+
                 <div class="price-details px-3">
                     <div class="" style="display: flex;justify-content: space-between;">
                         <div>Items({{totalCartSize}})</div>
@@ -300,7 +306,7 @@
                     <ng-container *ngIf="couponDiscountCost > 0">
                         <div class="" style="display: flex;justify-content: space-between;">
                             <div>Coupon Discount:</div>
-                            <span>{{couponDiscountCost}}</span>
+                            <span>{{PRICE_PREFIX}}{{couponDiscountCost}}</span>
                         </div>
                     </ng-container>
                     <div class="total">
@@ -313,4 +319,12 @@
 
         </div>
     </div>
-</div>  
+    <div>
+        <ngContainer *ngIf="isloader">
+            <div class="overlay">
+                <mat-progress-spinner class="spinner" [color]="color" [mode]="mode" [value]="value">
+                </mat-progress-spinner>
+            </div>
+        </ngContainer>
+    </div>
+</div>
