@@ -84,19 +84,7 @@ export class HttCommonService {
         catchError(error=> 
           {
             console.log('inside handleerr/or', error);
-    /*if(error instanceof HttpErrorResponse){
-      let json =error.error;
-      if(json.error == 'invalid_token'){
-        sessionStorage.removeItem("sn");
-        setTimeout(() => {
-          this.routetoLoginpage();  
-       });
-      }else{
-        return throwError(error);
-      }
-    }else{*/
-      return throwError(error);
-    //}
+            return throwError(error);
           }));
   }
 

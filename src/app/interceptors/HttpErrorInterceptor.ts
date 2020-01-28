@@ -28,34 +28,17 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     public _router: Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(request
-    /*)
-      .pipe(
-        catchError((error, caught: Observable<HttpEvent<any>>) => {
-          if (error instanceof HttpErrorResponse && error.status == 401) {
-              let json =error.error;
-              if(json.error == 'invalid_token'){
-                sessionStorage.removeItem("sn");
-                this._router.navigateByUrl('/login');
-                return error1;
-              }else{
-                return error;
-              }
-            throw error;
-          }
-        })
-      //}*/
-     ).pipe(
+    return next.handle(request).pipe(
        //tap(data => console.log(data)),
       catchError((error: any) =>  {       
-        if (request.url.includes("fetchapi/us") || request.url.includes("authenticate")) {
+        /*if (request.url.includes("fetchapi/us") || request.url.includes("authenticate")) {
           // We do another check to see if refresh token failed
           // In this case we want to logout user and to redirect it to login page
           if (request.url.includes("refreshtoken")) {
               this.auth.logOut();
           }
           return Observable.throw(error);
-        }
+        }*/
         // If error status is different than 401 we want to skip refresh token
         // So we check that and throw the error if it's the case
         if (error.status !== 401) {
