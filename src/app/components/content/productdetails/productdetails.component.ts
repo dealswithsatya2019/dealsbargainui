@@ -306,11 +306,12 @@ export class ProductdetailsComponent implements OnInit, AfterViewInit {
   public quickBuy(produt: ProductDetails) {
     // this.product = this.getProductFromDetails(produt);
     this.cartService.addToCart(this.product);
-    this._alertService.raiseAlert("Please login to continue quick buy")
     if(!this.userservice.getAuthToken()){
+      this._alertService.raiseAlert("Please login to continue quick buy")
       this.userservice.setQuickByNavigateFlag(true);
       this._router.navigateByUrl('/login');
     }else{
+      this.userservice.setQuickByNavigateFlag(false);
       this._router.navigateByUrl('/productpurchase');
     }
   }
