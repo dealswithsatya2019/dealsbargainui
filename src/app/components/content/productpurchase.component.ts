@@ -134,7 +134,7 @@ export class ProductpurchaseComponent implements OnInit {
                 description: "",
                 amount: {
                   currency_code: "USD",
-                  value: 0.01,
+                  value: this.totalPaybaleCost,
                 }
               }
             ], application_context: {
