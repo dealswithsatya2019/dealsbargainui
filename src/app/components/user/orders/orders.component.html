@@ -10,13 +10,16 @@
     Your orders list is empty.
 </ng-container>
 <div class="order-details py-4" *ngFor="let orderInfo of ordersListInfo">
-    <p class="order-id">Order ID : &#160;<b> {{orderInfo.order_tracking_id}}</b> </p>
-    <p class="order-id"><b>Net amount : &#160;</b>{{PRICE_PREFIX}}{{orderInfo.net_amount}} 
-        <ng-container *ngIf="orderInfo.coupon_id">
-        <b>&#160; Coupon applied : &#160;</b>{{orderInfo.coupon_id}}
-        <b>&#160; Coupon amount : &#160;</b>{{PRICE_PREFIX}}{{orderInfo.coupon_calculated_discount_value}}
-    </ng-container>
+    <p class="order-id">
+        <span><b>Order ID : &#160;</b> {{orderInfo.order_tracking_id}}</span>
+        <span>{{orderInfo.coupon_id}}<b>&#160; : Coupon applied &#160;</b></span>
+    </p>
+    <ng-container *ngIf="orderInfo.coupon_id">
+    <p class="order-id">
+        <span><b>Net amount : &#160;</b>{{PRICE_PREFIX}}{{orderInfo.net_amount}}</span>
+        <span>{{PRICE_PREFIX}}{{orderInfo.coupon_calculated_discount_value}} <b>&#160; : Coupon amount  &#160;</b></span>
      </p>
+    </ng-container>
     <!-- <p>Order Date<br> <b>{{orderInfo.created_on | date}}</b> </p> -->
     <!-- <p>Status <br> <b> </b> </p>
         <p>Tracking <br> <b>#</b> </p> -->

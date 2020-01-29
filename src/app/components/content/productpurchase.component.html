@@ -269,13 +269,15 @@
                     <a target="_blank" href="../../../../assets/pages/TermsofUse.html">here</a>
                 </div>
                 <div class="promocode-section">
-                    <form class="my-3" [formGroup]="couponform" (submit)="validateCoupon()">
-                        <mat-form-field class="cpnid">
-                            <input formControlName="couponcode" matInput placeholder="Enter promo code">
+                    <form class="mt-3" [formGroup]="couponform" (submit)="validateCoupon()">
+                        <mat-form-field class="cpnid" floatLabel="never">
+                            <input formControlName="couponcode" matInput placeholder="Enter Coupon code">
                         </mat-form-field>
                         <button mat-raised-button type="submit" class="applycpn-btn"
                             [disabled]="couponform.invalid">Apply</button>
-                        <button mat-raised-button type="button" (click) = "removeCoupon()" class="applycpn-btn">Cancel</button>    
+                        <p class="text-right my-2 pr-2" style="cursor: pointer;font-size: 13px;color: brown;" (click) = "removeCoupon()">Remove Coupon</p> 
+                            <!-- <span id="cpnstatus" *ngIf="couponform.valid">Coupon applied successfully</span> -->
+                        <!-- <button mat-raised-button type="button"  class=""></button>    -->
                     </form>
                 </div>
                 <div class="divider"></div>
