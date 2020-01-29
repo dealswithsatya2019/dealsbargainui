@@ -56,9 +56,12 @@ table{
 .order-id{
     display: flex;
     margin-bottom: 10px;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #545657;
 }
 .view-btn{
-    background:#f44336;
+    background:#dc4e4e;
     color:#fff;
     line-height: 28px;
     font-size: 12px;
