@@ -11,7 +11,10 @@
 </ng-container>
 <div class="order-details py-4" *ngFor="let orderInfo of ordersListInfo">
     <p class="order-id">Order ID : &#160;<b> {{orderInfo.order_tracking_id}}</b> </p>
-    <p class="order-id"><b>Net amount : &#160;</b>{{PRICE_PREFIX}}{{orderInfo.net_amount}} </p>
+    <p class="order-id"><b>Net amount : &#160;</b>{{PRICE_PREFIX}}{{orderInfo.net_amount}} 
+        <b>&#160; Coupon applied : &#160;</b>{{orderInfo.coupon_id}}
+        <b>&#160; Coupon amount : &#160;</b>{{PRICE_PREFIX}}{{orderInfo.coupon_calculated_discount_value}}
+     </p>
     <!-- <p>Order Date<br> <b>{{orderInfo.created_on | date}}</b> </p> -->
     <!-- <p>Status <br> <b> </b> </p>
         <p>Tracking <br> <b>#</b> </p> -->

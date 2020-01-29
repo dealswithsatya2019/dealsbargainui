@@ -15,7 +15,8 @@ export class GetOrederReq {
     payment_channel_description: string = "";
     user_payment_request_status: string = "";
     user_payment_request_date: string = "";
-    created_on: string = ""
+    created_on: string = "";
+    coupon_calculated_discount_value : string ="";
     items_info: Product[];
 
 }
