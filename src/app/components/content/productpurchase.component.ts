@@ -104,8 +104,19 @@ export class ProductpurchaseComponent implements OnInit {
 
 
   ngOnInit() {
-    this.userservice.setQuickByNavigateFlag(false);
-    this.userservice.setCheckoutNavigateFlag(false);
+    if (this.userservice.getQuickByNavigateFlag()) {
+      this.userservice.setQuickByNavigateFlag(false);
+      this.userservice.setCheckoutNavigateFlag(false);
+      if (this.cartService.getItems() != null && this.cartService.getItems().length > 0) {
+        this.addCart();
+      } else {
+        this.cartService.clearCart();
+        this.getCarts();
+      }
+    } else {
+      this.cartService.clearCart();
+      this.getCarts();
+    }
     this.shoppingCartItems = this.cartService.getItems();
     this.initializeValues();
     this.calculatePrices();
