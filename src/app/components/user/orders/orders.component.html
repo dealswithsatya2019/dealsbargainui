@@ -13,14 +13,14 @@
     <p class="order-id">
         <span><b>Order ID : &#160;</b> {{orderInfo.order_tracking_id}}</span>
         <ng-container *ngIf="orderInfo.coupon_id && orderInfo.coupon_id.length>0">
-            <span>{{orderInfo.coupon_id}}<b>&#160; : Coupon applied &#160;</b></span>
+            <span><b>&#160; Coupon applied : &#160;</b>{{orderInfo.coupon_id}}</span>
         </ng-container>
     </p>
     
     <p class="order-id">
         <span><b>Net amount : &#160;</b>{{PRICE_PREFIX}}{{orderInfo.net_amount}}</span>
         <ng-container *ngIf="orderInfo.coupon_id && orderInfo.coupon_id.length>0">
-            <span>{{PRICE_PREFIX}}{{orderInfo.coupon_calculated_discount_value}} <b>&#160; : Coupon amount  &#160;</b></span>
+            <span><b>&#160; Coupon amount : &#160;</b>{{PRICE_PREFIX}}{{orderInfo.coupon_calculated_discount_value}} </span>
         </ng-container>
      </p>
     <!-- <p>Order Date<br> <b>{{orderInfo.created_on | date}}</b> </p> -->
