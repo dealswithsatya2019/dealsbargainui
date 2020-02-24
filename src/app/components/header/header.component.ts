@@ -150,10 +150,11 @@ export class HeaderComponent implements OnInit {
     let req = {
       "cname": hitObj.category,
       "scname": hitObj.subcategory,
-      "pid": hitObj.item_id
+      "pid": hitObj.item_id,
+      "title" : hitObj.title,
     }
     // this.searchMoviesCtrl = new FormControl();
-    this._productservice.routeProductDetails(req);
+    this._productservice.routeProductList(req);
 
   }
 

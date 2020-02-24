@@ -456,7 +456,7 @@ export class ProductpurchaseComponent implements OnInit {
   public initializeValues() {
     this.totalCost = 0;
     this.transactionCostFromDBAPI = 0;
-    this.couponDiscountCost = 0;
+    // this.couponDiscountCost = 0;
     this.totalPaybaleCost = 0;
     this.totalCartSize = 0;
   }
@@ -508,14 +508,14 @@ export class ProductpurchaseComponent implements OnInit {
   public selectionChange(event) {
     if (event.selectedIndex == 0) {
     } else if (event.selectedIndex == 0) {
-      this.initializeValues();
-      this.calculatePrices();
-      this.couponform.controls['couponcode'].setValue("");
+      // this.initializeValues();
+      // this.calculatePrices();
+      // this.couponform.controls['couponcode'].setValue("");
       this.getAddresses();
     } else if (event.selectedIndex == 1) {
-      this.initializeValues();
-      this.calculatePrices();
-      this.couponform.controls['couponcode'].setValue("");
+      // this.initializeValues();
+      // this.calculatePrices();
+      // this.couponform.controls['couponcode'].setValue("");
       this.getCarts();
     } else if (event.selectedIndex == 2) {
 
@@ -534,27 +534,6 @@ export class ProductpurchaseComponent implements OnInit {
       if (this.promoResponse.statusCode == 302) {
         this.promoResponseModel = this.promoResponse.responseObjects;
         let discountType = this.promoResponseModel.mode_of_value;
-        // if (this.promoResponseModel.criteria.toLowerCase() == "y") {
-        //   if (this.promoResponseModel.criteria_condition == ">=") {
-        //     if (this.totalPaybaleCost > this.promoResponseModel.criteria_amount) {
-        //       this.initializeValues();
-        //       if (discountType == "D") {
-        //         this.couponDiscountCost = this.promoResponseModel.value;
-        //       } else {
-        //         this.couponDiscountCost = ((this.promoResponseModel.value / 100) * this.totalPaybaleCost);
-        //       }
-        //     }
-        //   } else {
-        //     if (this.totalPaybaleCost > this.promoResponseModel.criteria_amount) {
-        //       this.initializeValues();
-        //       if (discountType == "D") {
-        //         this.couponDiscountCost = this.promoResponseModel.value;
-        //       } else {
-        //         this.couponDiscountCost = ((this.promoResponseModel.value / 100) * this.totalPaybaleCost)
-        //       }
-        //     }
-        //   }
-        // } else {
           let totalCostTmp = this.totalPaybaleCost;
           this.initializeValues();
           if (discountType.toLowerCase() == "p") {
@@ -565,7 +544,6 @@ export class ProductpurchaseComponent implements OnInit {
           } else {
             this.couponDiscountCost = this.promoResponseModel.value;
           }
-        // }
         if(this.couponDiscountCost > totalCostTmp){
           this.cartService.raiseAlert("Please apply the coupon values less than total cart cost");
           this.couponDiscountCost = 0;
